@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 // --- Data Definitions ---
 const recentBuilds = [
@@ -103,6 +104,9 @@ function SiteHeader() {
         <a href="#builds" className="hover:text-emerald-300 transition-colors">
           Builds
         </a>
+        <Link to="/portfolio" className="hover:text-emerald-300 transition-colors">
+          Portfolio
+        </Link>
         <a href="#how" className="hover:text-emerald-300 transition-colors">
           How it works
         </a>
