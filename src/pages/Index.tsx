@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { TestimonialsVariant } from "@/components/ui/animated-cards-stack";
 
 // --- Data Definitions ---
 const recentBuilds = [
@@ -72,6 +73,7 @@ const Index = () => {
           <RecentBuilds />
           <HowItWorks />
           <PilotOffer />
+          <TestimonialsVariant />
           <FAQSection />
         </main>
         <SiteFooter />

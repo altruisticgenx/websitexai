@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, Calendar, Code, Target, CheckCircle2, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
+import { MetricsVariant } from "@/components/ui/animated-cards-stack";
 
 // --- Case Study Data ---
 const caseStudies = [
@@ -282,6 +283,9 @@ export default function Portfolio() {
             </motion.article>
           ))}
         </div>
+
+        {/* Metrics Section */}
+        <MetricsVariant />
 
         {/* CTA Section */}
         <motion.div
