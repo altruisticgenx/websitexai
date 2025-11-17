@@ -31,17 +31,17 @@ const recentBuilds = [{
   tag: "Education impact"
 }];
 const faqs = [{
-  question: "What do I actually get each week?",
-  answer: "A clear, concrete deliverable: UI screens, working flows, integrations, or refactors. We agree on a small weekly scope and ship it end-to-end instead of spreading effort across ten half-finished ideas."
+  question: "What do I get each week?",
+  answer: "One end-to-end deliverable: UI, workflow, integration, or refactor—shipped, not left half-finished."
 }, {
-  question: "Do you understand energy, education, or civic work?",
-  answer: "Yes. Most of my work lives across campus energy analytics, education pilots, and local policy/innovation projects. I'm comfortable working with imperfect data, political constraints, and lots of stakeholders."
+  question: "Is AltruisticX familiar with my work?",
+  answer: "Yes. Projects span campus energy, EdTech, policy pilots, B2B and student initiatives, working with complex data and diverse teams."
 }, {
-  question: "How do we collaborate day-to-day?",
-  answer: "Async-first. Looms, Notion, Figma, GitHub. We use one lightweight weekly call if needed, but most progress comes from clear briefs and fast iteration on real artifacts."
+  question: "How do we collaborate?",
+  answer: "Async-first: Loom, Notion, GitHub, Figma. Fast cycles. One quick call if needed—most progress comes from real builds."
 }, {
-  question: "Is there a long-term contract?",
-  answer: "No. This is intentionally week-to-week. The 4-week pilot gives enough time to ship something real without locking you into a long commitment. You can pause when you're caught up."
+  question: "Is there any long-term contract?",
+  answer: "None. Week-to-week, pause as needed. The repo and code are always yours."
 }];
 
 // --- Main Page Component ---
@@ -54,6 +54,7 @@ const Index = () => {
           <RecentBuilds />
           <HowItWorks />
           <PilotOffer />
+          <WhoBenefits />
           <TestimonialsVariant />
           <FAQSection />
         </main>
@@ -121,13 +122,12 @@ function Hero() {
           </div>
 
           <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
-            Senior AI/product execution without the 6-month hiring slog.
+            Build, Learn, Lead—on Your Terms
           </h1>
 
           <p className="mt-4 max-w-xl text-sm text-slate-300 sm:text-base">
-            Work directly with a calm, senior engineer who designs, builds, and
-            ships AI tools for <span className="text-emerald-300 font-medium">energy, education, and civic teams</span>.
-            Week-to-week, no long-term lock-in. First meaningful code in Week 1.
+            Are you a student, teacher, founder, B2B team, or changemaker in energy, education, or governance? 
+            Skip the slow hiring process and unlock <span className="text-emerald-300 font-medium">senior AI/product execution</span>—in focused pilots, shipped week by week.
           </p>
 
           <dl className="mt-6 grid max-w-xl grid-cols-1 gap-4 text-xs text-slate-200 sm:grid-cols-3 sm:text-sm">
@@ -141,10 +141,10 @@ function Hero() {
             delay: 0.4
           }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-emerald-400/30 transition-colors">
               <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
-                Start fast
+                Work hands-on
               </dt>
               <dd className="mt-1 font-medium text-slate-50">
-                First pilot slice shipping in Week 1.
+                With a calm, senior engineer who listens first, then builds alongside you
               </dd>
             </motion.div>
             <motion.div initial={{
@@ -157,10 +157,10 @@ function Hero() {
             delay: 0.5
           }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-emerald-400/30 transition-colors">
               <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
-                Zero long-term risk
+                Launch actionable tools
               </dt>
               <dd className="mt-1 font-medium text-slate-50">
-                Week-to-week. Pause anytime. You keep the repo.
+                For real campuses, classrooms, utilities, boards, and teams
               </dd>
             </motion.div>
             <motion.div initial={{
@@ -173,10 +173,10 @@ function Hero() {
             delay: 0.6
           }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-emerald-400/30 transition-colors">
               <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
-                Built for pilots
+                Start small, deliver early
               </dt>
               <dd className="mt-1 font-medium text-slate-50">
-                Focus on 1–2 real user journeys, not a giant roadmap.
+                And decide with clear evidence—no long-term lock-in
               </dd>
             </motion.div>
           </dl>
@@ -299,17 +299,17 @@ function RecentBuilds() {
 }
 function HowItWorks() {
   const steps = [{
-    label: "01",
-    title: "Share your starting point",
-    body: "You send a Loom, doc, or repo. We map what's realistic in a 4-week window and pick a small surface to prove."
+    label: "Week 1",
+    title: "Pinpoint & Prototype",
+    body: "Share your challenge or goal—class doc, campus brief, stakeholder repo, student idea. Get a working skeleton in days."
   }, {
-    label: "02",
-    title: "Ship weekly slices",
-    body: "Each week we ship a complete slice of value: screens, flows, integrations, or data plumbing—not just tickets and diagrams."
+    label: "Weeks 2–3",
+    title: "Refine & Connect",
+    body: "Iterate with live feedback: data flows, interfaces, reporting. See your concept demo-ready for internal pilots, classes, or team reviews."
   }, {
-    label: "03",
-    title: "Decide with clarity",
-    body: "At the end, you have a working pilot, a walkthrough, and a decision: invest more, iterate, or pause."
+    label: "Week 4",
+    title: "Decide with Clarity",
+    body: "Wrap with a real repo, guided walkthrough, and a clear decision: scale, pivot, or pause. Your code, data, and documentation are always yours."
   }];
   return <section id="how" className="border-t border-slate-900/80 py-10 sm:py-14">
       <motion.div initial={{
@@ -324,12 +324,11 @@ function HowItWorks() {
       duration: 0.5
     }} className="max-w-4xl">
         <h2 className="text-xl font-semibold sm:text-2xl">
-          How it works: The Build Fast Kit
+          How Our Experimental Pilot Works
         </h2>
         <p className="mt-2 text-sm text-slate-300">
-          The Build Fast Kit is intentionally simple. No massive discovery
-          phase, no 40-page decks. Just a tight loop around one meaningful
-          pilot.
+          <span className="text-emerald-300 font-medium">The Build Fast Kit: 4 weeks. 3 steps.</span> Intentionally simple. 
+          No massive discovery phase, no 40-page decks. Just a tight loop around one meaningful pilot.
         </p>
       </motion.div>
 
@@ -372,32 +371,39 @@ function PilotOffer() {
         duration: 0.6
       }}>
           <h2 className="text-xl font-semibold sm:text-2xl">
-            Offer: 4-week pilot at <span className="text-emerald-300">$1,150 / week</span>
+            Offer: Try a 4-Week Sprint
           </h2>
           <p className="mt-2 text-sm text-slate-300">
-            One senior product-minded engineer embedded on your roadmap for 4
-            weeks. No hiring process, no equity, no long-term contract—just
-            consistent weekly shipping.
+            Pilot-ready features every week, demoable anywhere. Async collaboration using Loom, Notion, GitHub, Figma—whatever 
+            works for your team, classroom, or org. Zero lock-in: All repos, infra, and docs belong to you.
           </p>
 
           <ul className="mt-4 space-y-2 text-sm text-slate-200">
             <li className="flex items-start gap-2">
               <span className="text-emerald-400 mt-0.5">✓</span>
-              Consistent weekly deliverables you can demo internally.
+              Pilot-ready features every week, demoable anywhere
             </li>
             <li className="flex items-start gap-2">
               <span className="text-emerald-400 mt-0.5">✓</span>
-              Async-first collaboration (Loom, Notion, GitHub, your tools).
+              Async collaboration: Use Loom, Notion, GitHub, Figma—whatever works for your team, classroom, or org
             </li>
             <li className="flex items-start gap-2">
               <span className="text-emerald-400 mt-0.5">✓</span>
-              You keep the repo, infra, and docs—no lock-in.
+              Zero lock-in: All repos, infra, and docs belong to you
             </li>
             <li className="flex items-start gap-2">
               <span className="text-emerald-400 mt-0.5">✓</span>
-              Ideal while you're validating or fundraising.
+              Perfect for fast validation, fundraising, leadership proof, classroom projects
             </li>
           </ul>
+          
+          <div className="mt-6 rounded-2xl border border-emerald-400/30 bg-emerald-400/5 p-4">
+            <h3 className="text-sm font-semibold text-emerald-300">Why experiment?</h3>
+            <p className="mt-2 text-sm text-slate-300">
+              Recruiting takes months, costs six figures, and adds complexity. Pilots deliver results now, 
+              helping you move forward—whatever your goals.
+            </p>
+          </div>
 
           <div className="mt-6 flex flex-col gap-3 text-sm sm:flex-row sm:items-baseline">
             <div>
@@ -488,6 +494,91 @@ function PilotOffer() {
       </div>
     </section>;
 }
+function WhoBenefits() {
+  const audiences = [
+    "Students bringing new ideas to life",
+    "Teachers or nonprofits piloting campus or impact projects",
+    "Board and governance teams seeking data clarity",
+    "Solo founders wanting operational peace of mind",
+    "B2B units innovating under fast timelines"
+  ];
+
+  return <section className="border-t border-slate-900/80 py-10 sm:py-14">
+      <motion.div initial={{
+      opacity: 0,
+      y: 20
+    }} whileInView={{
+      opacity: 1,
+      y: 0
+    }} viewport={{
+      once: true
+    }} transition={{
+      duration: 0.5
+    }} className="max-w-4xl">
+        <h2 className="text-xl font-semibold sm:text-2xl">
+          Who Benefits?
+        </h2>
+        <p className="mt-2 text-sm text-slate-300">
+          This approach works for anyone who needs tangible progress without the overhead of traditional hiring.
+        </p>
+      </motion.div>
+
+      <div className="mt-6 grid gap-6 md:grid-cols-2">
+        <motion.div initial={{
+        opacity: 0,
+        x: -20
+      }} whileInView={{
+        opacity: 1,
+        x: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5,
+        delay: 0.1
+      }} className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-5">
+          <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-300">
+            Perfect For
+          </h3>
+          <ul className="mt-3 space-y-2 text-sm text-slate-200">
+            {audiences.map((audience, i) => <li key={i} className="flex items-start gap-2">
+                <span className="text-emerald-400 mt-0.5">✓</span>
+                {audience}
+              </li>)}
+          </ul>
+        </motion.div>
+
+        <motion.div initial={{
+        opacity: 0,
+        x: 20
+      }} whileInView={{
+        opacity: 1,
+        x: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5,
+        delay: 0.2
+      }} className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-5">
+          <div className="mb-4">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-300">
+              Ideal Fit
+            </h3>
+            <p className="mt-2 text-sm text-slate-200">
+              Real feedback weekly, ready to experiment, need clear results
+            </p>
+          </div>
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">
+              Not a Fit
+            </h3>
+            <p className="mt-2 text-sm text-slate-400">
+              Big static sites, slow-moving teams, no feedback or iteration
+            </p>
+          </div>
+        </motion.div>
+      </div>
+    </section>;
+}
 function FAQSection() {
   return <section id="faq" className="border-t border-slate-900/80 py-10 sm:py-14">
       <motion.div initial={{
@@ -536,7 +627,7 @@ function SiteFooter() {
       <div className="flex flex-col items-start justify-between gap-3 text-xs text-slate-500 sm:flex-row sm:items-center">
         <div>© {new Date().getFullYear()} AltruisticX · AI + Product Engineer</div>
         <div className="flex flex-wrap gap-3">
-          <span>Async-first · privacy-aware · pilot-focused</span>
+          <span>Async-first · privacy-aware · built for pilots, classrooms, and fast-moving teams</span>
         </div>
       </div>
     </footer>;

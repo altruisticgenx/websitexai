@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Calendar, Code, Target, CheckCircle2, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MetricsVariant } from "@/components/ui/animated-cards-stack";
+import { UniqueIntegrations } from "@/components/UniqueIntegrations";
 
 // --- Case Study Data ---
 const caseStudies = [
@@ -283,6 +284,9 @@ export default function Portfolio() {
             </motion.article>
           ))}
         </div>
+
+        {/* Unique AI Integrations Section */}
+        <UniqueIntegrations />
 
         {/* Metrics Section */}
         <MetricsVariant />
