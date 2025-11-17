@@ -120,13 +120,10 @@ function Hero() {
             Ship pilot-ready AI tech in weekly sprints
           </div>
 
-          <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
-            Senior AI/product execution without the 6-month hiring slog.
-          </h1>
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">​Scope &amp; Commitment
+        </h1>
 
-          <p className="mt-4 max-w-xl text-sm text-slate-300 sm:text-base">
-            Work directly with a calm, senior engineer who designs, builds, and
-            ships AI tools for <span className="text-emerald-300 font-medium">energy, education, and civic teams</span>.
+          <p className="mt-4 max-w-xl text-sm text-slate-300 sm:text-base">​AltruisticX AI proposes a 4-week embedded pilot engineered to rapidly validate core ideas, reduce risk, and produce measurable progress on your roadmap. This offer is intentionally lightweight: no traditional hiring process, equity negotiations, or multi-year contracts.<span className="text-emerald-300 font-medium">energy, education, and civic teams</span>.
             Week-to-week, no long-term lock-in. First meaningful code in Week 1.
           </p>
 
@@ -211,8 +208,7 @@ function Hero() {
             Build Fast Kit / 4-week pilot
           </div>
           <p className="mt-2 text-sm text-slate-200">
-            One senior engineer. One small backlog. 4 weeks to prove whether
-            this pilot is worth scaling.
+            One senior engineer. One small backlog. 4 weeks to prove whether  pilot is worth scaling.
           </p>
           <div className="mt-4 grid gap-3 text-xs text-slate-200">
             <VisualRow label="Week 1" title="Clarify & ship the first slice" body="Turn the idea into 1–2 concrete flows. Ship a working skeleton instead of a deck." />
@@ -256,9 +252,7 @@ function RecentBuilds() {
       duration: 0.5
     }} className="flex items-end justify-between gap-4">
         <div>
-          <h2 className="text-xl font-semibold sm:text-2xl">
-            Proof: Recent builds & pilots
-          </h2>
+          <h2 className="text-xl font-semibold sm:text-2xl">Recent Builds   </h2>
           <p className="mt-2 max-w-xl text-sm text-slate-300">
             Real examples from energy, education, and founder-backed work. The
             details change, but the pattern is the same: pick a small surface
