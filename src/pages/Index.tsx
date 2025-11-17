@@ -289,9 +289,7 @@ function RecentBuilds() {
               <span className="rounded-full border border-slate-700/80 px-2 py-1 text-[11px]">
                 {build.tag}
               </span>
-              <span className="text-[11px] text-slate-500 group-hover:text-emerald-300 transition-colors">
-                Built in weekly slices →
-              </span>
+              
             </div>
           </motion.article>)}
       </div>
@@ -430,9 +428,7 @@ function PilotOffer() {
           </div>
 
           <div className="mt-6 flex flex-col gap-3 text-sm sm:flex-row sm:items-center">
-            <a href="mailto:hello@altruisticxai.com?subject=4-week%20pilot%20-%20AltruisticX%20AI" className="inline-flex items-center justify-center rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-medium text-slate-950 shadow-lg shadow-emerald-500/30 hover:bg-emerald-300 transition-all hover:shadow-emerald-500/50">
-              Book a 30-min intro
-            </a>
+            
             <p className="text-xs text-slate-400 sm:text-[13px]">
               Send a quick Loom or doc about your project. If it's a fit, we
               can start shipping next week.
@@ -495,14 +491,7 @@ function PilotOffer() {
     </section>;
 }
 function WhoBenefits() {
-  const audiences = [
-    "Students bringing new ideas to life",
-    "Teachers or nonprofits piloting campus or impact projects",
-    "Board and governance teams seeking data clarity",
-    "Solo founders wanting operational peace of mind",
-    "B2B units innovating under fast timelines"
-  ];
-
+  const audiences = ["Students bringing new ideas to life", "Teachers or nonprofits piloting campus or impact projects", "Board and governance teams seeking data clarity", "Solo founders wanting operational peace of mind", "B2B units innovating under fast timelines"];
   return <section className="border-t border-slate-900/80 py-10 sm:py-14">
       <motion.div initial={{
       opacity: 0,
