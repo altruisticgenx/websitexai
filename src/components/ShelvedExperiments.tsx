@@ -25,7 +25,7 @@ const experiments = [
 
 export function ShelvedExperiments() {
   return (
-    <section className="border-t border-slate-900/80 py-10 sm:py-14">
+    <section id="shelved" className="border-t border-slate-900/80 py-10 sm:py-14">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
