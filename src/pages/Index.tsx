@@ -199,9 +199,7 @@ function Hero() {
                 Connect on LinkedIn
               </a>
             </div>
-            <p className="text-xs text-slate-400 sm:text-[13px]">
-              Week-to-week · pause anytime · async-first, founder-friendly
-            </p>
+            
           </div>
         </motion.div>
 
