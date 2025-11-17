@@ -3,9 +3,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { TestimonialsVariant } from "@/components/ui/animated-cards-stack";
 import { Linkedin } from "lucide-react";
-import { ShelvedExperiments } from "@/components/ShelvedExperiments";
-import { WhereIWork } from "@/components/WhereIWork";
-import { OrganizationTypes } from "@/components/OrganizationTypes";
 
 // --- Data Definitions ---
 const recentBuilds = [{
@@ -58,9 +55,6 @@ const Index = () => {
           <HowItWorks />
           <PilotOffer />
           <WhoBenefits />
-          <ShelvedExperiments />
-          <WhereIWork />
-          <OrganizationTypes />
           <TestimonialsVariant />
           <FAQSection />
         </main>
@@ -83,7 +77,7 @@ function SiteHeader() {
     duration: 0.5
   }} className="flex items-center justify-between py-5">
       <a href="#" className="flex flex-col">
-        <span className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+        <span className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-300">
           AltruisticX AI
         </span>
         <span className="text-xs text-slate-400">
@@ -91,19 +85,19 @@ function SiteHeader() {
         </span>
       </a>
       <nav className="hidden items-center gap-6 text-sm text-slate-300 sm:flex">
-        <a href="#builds" className="hover:text-primary transition-colors">
+        <a href="#builds" className="hover:text-emerald-300 transition-colors">
           Builds
         </a>
-        <Link to="/portfolio" className="hover:text-primary transition-colors">
+        <Link to="/portfolio" className="hover:text-emerald-300 transition-colors">
           Portfolio
         </Link>
-        <a href="#how" className="hover:text-primary transition-colors">
+        <a href="#how" className="hover:text-emerald-300 transition-colors">
           How it works
         </a>
-        <a href="#pilot" className="hover:text-primary transition-colors">
+        <a href="#pilot" className="hover:text-emerald-300 transition-colors">
           4-week pilot
         </a>
-        <a href="mailto:hello@altruisticxai.com" className="rounded-full border border-primary/60 bg-primary/10 px-3 py-1.5 text-xs font-medium text-foreground hover:bg-primary/20 transition-colors">
+        <a href="mailto:hello@altruisticxai.com" className="rounded-full border border-emerald-400/60 bg-emerald-400/10 px-3 py-1.5 text-xs font-medium text-emerald-100 hover:bg-emerald-400/20 transition-colors">
           Book a 30-min intro
         </a>
       </nav>
@@ -122,8 +116,8 @@ function Hero() {
         duration: 0.6,
         delay: 0.2
       }}>
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-[11px] font-medium text-foreground">
-            <span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/5 px-3 py-1 text-[11px] font-medium text-emerald-100">
+            <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-300 animate-pulse" />
             Ship pilot-ready AI tech in weekly sprints
           </div>
 
@@ -133,7 +127,7 @@ function Hero() {
 
           <p className="mt-4 max-w-xl text-sm text-slate-300 sm:text-base">
             Are you a student, teacher, founder, B2B team, or changemaker in energy, education, or governance? 
-            Skip the slow hiring process and unlock <span className="text-primary font-medium">senior AI/product execution</span>—in focused pilots, shipped week by week.
+            Skip the slow hiring process and unlock <span className="text-emerald-300 font-medium">senior AI/product execution</span>—in focused pilots, shipped week by week.
           </p>
 
           <dl className="mt-6 grid max-w-xl grid-cols-1 gap-4 text-xs text-slate-200 sm:grid-cols-3 sm:text-sm">
@@ -145,7 +139,7 @@ function Hero() {
             y: 0
           }} transition={{
             delay: 0.4
-          }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors">
+          }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-emerald-400/30 transition-colors">
               <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
                 Work hands-on
               </dt>
@@ -161,7 +155,7 @@ function Hero() {
             y: 0
           }} transition={{
             delay: 0.5
-          }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors">
+          }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-emerald-400/30 transition-colors">
               <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
                 Launch actionable tools
               </dt>
@@ -177,7 +171,7 @@ function Hero() {
             y: 0
           }} transition={{
             delay: 0.6
-          }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors">
+          }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-emerald-400/30 transition-colors">
               <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
                 Start small, deliver early
               </dt>
@@ -190,7 +184,7 @@ function Hero() {
           <div className="mt-6 flex flex-col gap-3 text-sm">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               
-              <a href="https://www.linkedin.com/in/ik11" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/60 bg-primary/10 px-5 py-2.5 text-sm font-medium text-foreground hover:bg-primary/20 transition-colors">
+              <a href="https://www.linkedin.com/in/ik11" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-400/60 bg-emerald-400/10 px-5 py-2.5 text-sm font-medium text-emerald-100 hover:bg-emerald-400/20 transition-colors">
                 <Linkedin size={16} />
                 Connect on LinkedIn
               </a>
@@ -236,8 +230,8 @@ function VisualRow({
   title: string;
   body: string;
 }) {
-  return <div className="flex gap-3 rounded-2xl border border-slate-800/80 bg-slate-950/40 p-3 hover:border-primary/20 transition-colors">
-      <div className="mt-0.5 w-14 flex-shrink-0 text-[11px] font-mono uppercase tracking-[0.16em] text-primary">
+  return <div className="flex gap-3 rounded-2xl border border-slate-800/80 bg-slate-950/40 p-3 hover:border-emerald-400/20 transition-colors">
+      <div className="mt-0.5 w-14 flex-shrink-0 text-[11px] font-mono uppercase tracking-[0.16em] text-emerald-300">
         {label}
       </div>
       <div>
@@ -283,8 +277,8 @@ function RecentBuilds() {
       }} transition={{
         duration: 0.5,
         delay: index * 0.1
-      }} className="group relative flex h-full flex-col rounded-2xl border border-slate-800/70 bg-slate-900/70 p-4 text-sm shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:border-primary/30">
-            <div className="text-[11px] font-medium text-primary">
+      }} className="group relative flex h-full flex-col rounded-2xl border border-slate-800/70 bg-slate-900/70 p-4 text-sm shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:border-emerald-400/30">
+            <div className="text-[11px] font-medium text-emerald-300">
               {build.sector}
             </div>
             <h3 className="mt-2 text-sm font-semibold text-slate-50">
@@ -303,25 +297,17 @@ function RecentBuilds() {
 }
 function HowItWorks() {
   const steps = [{
-    label: "01",
-    title: "Describe Your Idea",
-    body: "Use plain language, sketches, or docs—no coding required. The AI parses your concept and starts building."
+    label: "Week 1",
+    title: "Pinpoint & Prototype",
+    body: "Share your challenge or goal—class doc, campus brief, stakeholder repo, student idea. Get a working skeleton in days."
   }, {
-    label: "02",
-    title: "Live Collaboration",
-    body: "Real-time editing with your team or class. Share for feedback and iterate instantly."
+    label: "Weeks 2–3",
+    title: "Refine & Connect",
+    body: "Iterate with live feedback: data flows, interfaces, reporting. See your concept demo-ready for internal pilots, classes, or team reviews."
   }, {
-    label: "03",
-    title: "Instantly Ship Features",
-    body: "Each week, ship a new demo or product slice—no waiting for sprints. All apps are mobile-optimized and ready for stakeholders."
-  }, {
-    label: "04",
-    title: "Integrate & Scale",
-    body: "Connect to data sources, APIs, and business tools. Deploy to custom domains with secure SSL, ready for production."
-  }, {
-    label: "05",
-    title: "Ownership & Security",
-    body: "You always own your code, infrastructure, and docs. Built-in security scans and version history for peace of mind."
+    label: "Week 4",
+    title: "Decide with Clarity",
+    body: "Wrap with a real repo, guided walkthrough, and a clear decision: scale, pivot, or pause. Your code, data, and documentation are always yours."
   }];
   return <section id="how" className="border-t border-slate-900/80 py-10 sm:py-14">
       <motion.div initial={{
@@ -339,12 +325,12 @@ function HowItWorks() {
           How Our Experimental Pilot Works
         </h2>
         <p className="mt-2 text-sm text-slate-300">
-          Visual, simple, and responsive—built for founders, teachers, energy teams, and civic innovators. 
-          Get started, collaborate, and ship real AI-powered products every week.
+          <span className="text-emerald-300 font-medium">The Build Fast Kit: 4 weeks. 3 steps.</span> Intentionally simple. 
+          No massive discovery phase, no 40-page decks. Just a tight loop around one meaningful pilot.
         </p>
       </motion.div>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mt-6 grid gap-4 sm:grid-cols-3">
         {steps.map((step, index) => <motion.div key={step.label} initial={{
         opacity: 0,
         y: 20
@@ -356,8 +342,8 @@ function HowItWorks() {
       }} transition={{
         duration: 0.5,
         delay: index * 0.1
-      }} className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-4 text-sm hover:border-primary/30 transition-colors">
-            <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-primary">
+      }} className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-4 text-sm hover:border-emerald-400/30 transition-colors">
+            <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-emerald-300">
               {step.label}
             </div>
             <h3 className="mt-2 text-sm font-semibold text-slate-50">
@@ -392,25 +378,25 @@ function PilotOffer() {
 
           <ul className="mt-4 space-y-2 text-sm text-slate-200">
             <li className="flex items-start gap-2">
-              <span className="text-primary mt-0.5">✓</span>
+              <span className="text-emerald-400 mt-0.5">✓</span>
               Pilot-ready features every week, demoable anywhere
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-primary mt-0.5">✓</span>
+              <span className="text-emerald-400 mt-0.5">✓</span>
               Async collaboration: Use Loom, Notion, GitHub, Figma—whatever works for your team, classroom, or org
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-primary mt-0.5">✓</span>
+              <span className="text-emerald-400 mt-0.5">✓</span>
               Zero lock-in: All repos, infra, and docs belong to you
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-primary mt-0.5">✓</span>
+              <span className="text-emerald-400 mt-0.5">✓</span>
               Perfect for fast validation, fundraising, leadership proof, classroom projects
             </li>
           </ul>
-
-          <div className="mt-6 rounded-2xl border border-primary/30 bg-primary/5 p-4">
-            <h3 className="text-sm font-semibold text-primary">Why experiment?</h3>
+          
+          <div className="mt-6 rounded-2xl border border-emerald-400/30 bg-emerald-400/5 p-4">
+            <h3 className="text-sm font-semibold text-emerald-300">Why experiment?</h3>
             <p className="mt-2 text-sm text-slate-300">
               Recruiting takes months, costs six figures, and adds complexity. Pilots deliver results now, 
               helping you move forward—whatever your goals.
@@ -419,15 +405,9 @@ function PilotOffer() {
 
           <div className="mt-6 flex flex-col gap-3 text-sm sm:flex-row sm:items-baseline">
             <div>
-              <div className="text-xs uppercase tracking-[0.18em] text-slate-400">
-                Pilot pricing
-              </div>
-              <div className="mt-1 text-2xl font-semibold text-primary">
-                $1,150 / week
-              </div>
-              <div className="text-xs text-slate-400">
-                Billed weekly · pause anytime after Week 2
-              </div>
+              
+              
+              
             </div>
             <div className="sm:ml-6">
               <div className="text-xs uppercase tracking-[0.18em] text-slate-400">
@@ -466,19 +446,19 @@ function PilotOffer() {
           </div>
           <ul className="mt-2 space-y-1">
             <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
+              <span className="text-emerald-400">✓</span>
               Early-stage product with unclear edges.
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
+              <span className="text-emerald-400">✓</span>
               Energy, education, civic, or compliance work.
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
+              <span className="text-emerald-400">✓</span>
               Need to show progress to leadership or funders.
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
+              <span className="text-emerald-400">✓</span>
               Comfortable with async, fast iteration.
             </li>
           </ul>
@@ -539,12 +519,12 @@ function WhoBenefits() {
         duration: 0.5,
         delay: 0.1
       }} className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-5">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
-            Target Audiences
+          <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-300">
+            Perfect For
           </h3>
           <ul className="mt-3 space-y-2 text-sm text-slate-200">
-            {audiences.map(audience => <li key={audience} className="flex items-start gap-2">
-                <span className="text-primary mt-0.5">✓</span>
+            {audiences.map((audience, i) => <li key={i} className="flex items-start gap-2">
+                <span className="text-emerald-400 mt-0.5">✓</span>
                 {audience}
               </li>)}
           </ul>
@@ -563,7 +543,7 @@ function WhoBenefits() {
         delay: 0.2
       }} className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-5">
           <div className="mb-4">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-300">
               Ideal Fit
             </h3>
             <p className="mt-2 text-sm text-slate-200">
@@ -616,7 +596,7 @@ function FAQSection() {
       }} transition={{
         duration: 0.5,
         delay: index * 0.05
-      }} className="rounded-2xl border border-slate-800/80 bg-slate-950/60 p-4 hover:border-primary/30 transition-colors">
+      }} className="rounded-2xl border border-slate-800/80 bg-slate-950/60 p-4 hover:border-emerald-400/30 transition-colors">
             <dt className="text-sm font-medium text-slate-50">
               {item.question}
             </dt>
