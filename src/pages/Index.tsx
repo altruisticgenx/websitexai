@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { TestimonialsVariant } from "@/components/ui/animated-cards-stack";
+import { TestimonialsVariant, CaseStudiesStack } from "@/components/ui/animated-cards-stack";
 import { Linkedin } from "lucide-react";
 import { ShelvedExperiments } from "@/components/ShelvedExperiments";
 import { WhereIWork } from "@/components/WhereIWork";
@@ -273,34 +273,15 @@ function RecentBuilds() {
         </div>
       </motion.div>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {recentBuilds.map((build, index) => <motion.article key={build.id} initial={{
-        opacity: 0,
-        y: 20
-      }} whileInView={{
-        opacity: 1,
-        y: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.5,
-        delay: index * 0.1
-      }} className="group relative flex h-full flex-col rounded-2xl border border-slate-800/70 bg-slate-900/70 p-4 text-sm shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:border-primary/30">
-            <div className="text-[11px] font-medium text-primary">
-              {build.sector}
-            </div>
-            <h3 className="mt-2 text-sm font-semibold text-slate-50">
-              {build.title}
-            </h3>
-            <p className="mt-2 text-[13px] text-slate-300">{build.summary}</p>
-            <div className="mt-3 flex flex-1 items-end justify-between text-[11px] text-slate-400">
-              <span className="rounded-full border border-slate-700/80 px-2 py-1 text-[11px]">
-                {build.tag}
-              </span>
-              
-            </div>
-          </motion.article>)}
-      </div>
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="mt-10"
+      >
+        <CaseStudiesStack caseStudies={recentBuilds} />
+      </motion.div>
     </section>;
 }
 function HowItWorks() {

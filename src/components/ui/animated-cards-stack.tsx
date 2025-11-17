@@ -346,3 +346,86 @@ export const MetricsVariant = () => {
     </section>
   );
 };
+
+// Case Studies Variant (6-second rotation)
+export const CaseStudiesStack = ({
+  caseStudies,
+}: {
+  caseStudies: Array<{
+    id: string;
+    title: string;
+    sector: string;
+    summary: string;
+    tag: string;
+  }>;
+}) => {
+  const [activeCards, setActiveCards] = useState(caseStudies);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveCards((prev) => {
+        const newArray = [...prev];
+        newArray.unshift(newArray.pop()!);
+        return newArray;
+      });
+    }, 6000); // 6-second rotation for case studies
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const cards = activeCards.map((study) => ({
+    id: study.id,
+    content: (
+      <div className="flex h-full flex-col justify-between p-1">
+        <div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-400/10 px-3 py-1 text-xs font-medium text-blue-300">
+            {study.sector}
+          </div>
+          <h3 className="mt-4 text-lg font-semibold text-slate-50 md:text-xl">
+            {study.title}
+          </h3>
+          <p className="mt-3 text-sm leading-relaxed text-slate-300">
+            {study.summary}
+          </p>
+        </div>
+        <div className="mt-4 flex items-center justify-between border-t border-slate-800/60 pt-3">
+          <span className="rounded-full bg-slate-800/60 px-3 py-1 text-xs text-slate-300">
+            {study.tag}
+          </span>
+          <span className="text-xs text-slate-500">
+            View case study →
+          </span>
+        </div>
+      </div>
+    ),
+  }));
+
+  return (
+    <div className="relative h-[320px] w-full md:h-[360px]">
+      {cards.map((card, index) => {
+        return (
+          <motion.div
+            key={card.id}
+            className="absolute inset-0 mx-auto flex w-full max-w-lg flex-col justify-between rounded-3xl border border-blue-400/20 bg-gradient-to-br from-slate-900/90 to-slate-950/90 p-5 shadow-xl backdrop-blur-sm md:p-6"
+            style={{
+              transformOrigin: "top center",
+            }}
+            animate={{
+              top: index * -12,
+              scale: 1 - index * 0.05,
+              zIndex: cards.length - index,
+              opacity: index === 0 ? 1 : index === 1 ? 0.7 : index === 2 ? 0.35 : 0,
+            }}
+            transition={{
+              duration: 0.7,
+              ease: [0.32, 0.72, 0, 1],
+              opacity: { duration: 0.8 },
+            }}
+          >
+            {card.content}
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+};
