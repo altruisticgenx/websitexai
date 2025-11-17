@@ -106,7 +106,7 @@ function SiteHeader() {
         <a href="#pilot" className="hover:text-primary transition-colors">
           4-week pilot
         </a>
-        <a href="mailto:hello@altruisticxai.com" className="rounded-full border border-primary/60 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/20 transition-colors">
+        <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" className="rounded-full border border-primary/60 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/20 transition-colors">
           Book a 30-min intro
         </a>
       </nav>

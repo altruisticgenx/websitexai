@@ -95,7 +95,9 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
 
                 <div className="mt-6 pt-6 border-t border-slate-800">
                   <a
-                    href="mailto:hello@altruisticxai.com"
+                    href="https://scheduler.zoom.us/altruistic-xai"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={closeMenu}
                     className="block rounded-full border border-primary/60 bg-primary/10 px-4 py-2.5 text-center text-sm font-medium text-primary hover:bg-primary/20 transition-colors"
                   >
