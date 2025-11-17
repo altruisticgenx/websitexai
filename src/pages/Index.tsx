@@ -130,7 +130,7 @@ function Hero() {
             Skip the slow hiring process and unlock <span className="text-emerald-300 font-medium">senior AI/product execution</span>—in focused pilots, shipped week by week.
           </p>
 
-          <dl className="mt-6 grid max-w-xl grid-cols-1 gap-4 text-xs text-slate-200 sm:grid-cols-3 sm:text-sm">
+          <dl className="<div className=\"mt-2 grid grid-cols-1 gap-3 text-xs sm:grid-cols-2\">\n  <div className=\"rounded-lg shadow-xl border border-cyan-400 bg-gradient-to-br from-cyan-200 via-white to-sky-400 p-3 flex flex-col items-center justify-center\">\n    <span className=\"text-xl mb-1\">\u26A1</span>\n    <span className=\"font-semibold text-cyan-700\">Energy Pilot</span>\n    <span className=\"text-gray-600\">Real-time dashboards</span>\n  </div>\n  <div className=\"rounded-lg shadow-xl border border-fuchsia-400 bg-gradient-to-br from-fuchsia-200 via-white to-pink-400 p-3 flex flex-col items-center justify-center\">\n    <span className=\"text-xl mb-1\">\uD83C\uDF93</span>\n    <span className=\"font-semibold text-fuchsia-700\">EdTech Tools</span>\n    <span className=\"text-gray-600\">Track outcomes</span>\n  </div>\n</div>\n">
             <motion.div initial={{
             opacity: 0,
             y: 20
@@ -143,9 +143,7 @@ function Hero() {
               <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
                 Work hands-on
               </dt>
-              <dd className="mt-1 font-medium text-slate-50">
-                With a calm, senior engineer who listens first, then builds alongside you
-              </dd>
+              
             </motion.div>
             <motion.div initial={{
             opacity: 0,
@@ -159,9 +157,7 @@ function Hero() {
               <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
                 Launch actionable tools
               </dt>
-              <dd className="mt-1 font-medium text-slate-50">
-                For real campuses, classrooms, utilities, boards, and teams
-              </dd>
+              
             </motion.div>
             <motion.div initial={{
             opacity: 0,
@@ -175,9 +171,7 @@ function Hero() {
               <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
                 Start small, deliver early
               </dt>
-              <dd className="mt-1 font-medium text-slate-50">
-                And decide with clear evidence—no long-term lock-in
-              </dd>
+              
             </motion.div>
           </dl>
 
