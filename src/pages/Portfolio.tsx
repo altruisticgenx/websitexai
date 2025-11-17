@@ -4,6 +4,7 @@ import { ArrowLeft, Calendar, Code, Target, CheckCircle2, ExternalLink } from "l
 import { Link } from "react-router-dom";
 import { MetricsVariant } from "@/components/ui/animated-cards-stack";
 import { UniqueIntegrations } from "@/components/UniqueIntegrations";
+import { ProjectTimeline } from "@/components/ProjectTimeline";
 
 // --- Case Study Data ---
 const caseStudies = [
@@ -259,28 +260,8 @@ export default function Portfolio() {
                 </div>
               </div>
 
-              {/* Timeline */}
-              <div className="mt-6">
-                <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">
-                  <Target className="h-4 w-4" />
-                  Timeline & Phases
-                </h3>
-                <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-                  {study.phases.map((phase, i) => (
-                    <div
-                      key={i}
-                      className="rounded-xl border border-slate-800/70 bg-slate-950/40 p-3"
-                    >
-                      <div className="text-xs font-mono text-emerald-300">
-                        {phase.week}
-                      </div>
-                      <div className="mt-1 text-xs text-slate-300">
-                        {phase.milestone}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              {/* Interactive Timeline */}
+              <ProjectTimeline phases={study.phases} duration={study.duration} />
             </motion.article>
           ))}
         </div>
