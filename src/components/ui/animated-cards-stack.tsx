@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface Card {
   id: number;
@@ -34,13 +33,13 @@ export const AnimatedCardsStack = ({
   }, []);
 
   return (
-    <div className="relative h-[400px] w-full md:h-[500px]">
+    <div className="relative h-[280px] w-full md:h-[320px]">
       {activeCards.map((card, index) => {
         return (
           <motion.div
             key={card.id}
             className={cn(
-              "absolute inset-0 mx-auto flex w-full max-w-xl flex-col justify-between rounded-3xl border border-slate-800/80 bg-slate-900/80 p-6 shadow-xl backdrop-blur-sm md:p-8",
+              "absolute inset-0 mx-auto flex w-full max-w-lg flex-col justify-between rounded-2xl border border-slate-800/80 bg-slate-900/80 p-4 shadow-lg backdrop-blur-sm md:p-5",
               card.className
             )}
             style={{
@@ -70,68 +69,86 @@ export const TestimonialsVariant = () => {
   const testimonials = [
     {
       id: 1,
-      name: "Sarah Chen",
-      role: "Director of Facilities",
-      company: "State University System",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
-      content:
-        "The energy analytics dashboard identified $180k in savings opportunities we had no visibility into. What used to take weeks of manual analysis now happens in minutes. Game-changer for our sustainability goals.",
+      content: "Dashboard uncovered $180k in hidden savings. Weeks of analysis now take minutes.",
+      color: "from-emerald-500/20 to-teal-500/20",
+      borderColor: "border-emerald-400/40",
     },
     {
       id: 2,
-      name: "Marcus Thompson",
-      role: "Founder & CEO",
-      company: "GrowthPilot AI",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
-      content:
-        "From scattered prototype to production-ready in 6 weeks. The AI copilot cut our sales cycle by 40% and our team actually uses it daily. No fluff, just working software that solves real problems.",
+      content: "Prototype to production in 6 weeks. Cut sales cycle by 40%. Team uses it daily.",
+      color: "from-blue-500/20 to-cyan-500/20",
+      borderColor: "border-blue-400/40",
     },
     {
       id: 3,
-      name: "Dr. Aisha Patel",
-      role: "Program Director",
-      company: "Education Impact Fund",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Aisha",
-      content:
-        "We secured $500k in renewed funding because we finally had clear outcome data. The pilot portal transformed weeks of spreadsheet chaos into 2-hour reports. Our board was genuinely impressed.",
+      content: "Secured $500k renewal with clear data. Spreadsheet chaos → 2-hour reports.",
+      color: "from-violet-500/20 to-purple-500/20",
+      borderColor: "border-violet-400/40",
     },
     {
       id: 4,
-      name: "James Rivera",
-      role: "Solo Founder",
-      company: "Clarity Consulting",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
-      content:
-        "Consolidated 5 tools into one calm interface. I save 4+ hours every week on admin work and can focus on client delivery. It's exactly what I needed—nothing more, nothing less.",
+      content: "5 tools → 1 calm interface. Save 4+ hours weekly on admin work.",
+      color: "from-amber-500/20 to-orange-500/20",
+      borderColor: "border-amber-400/40",
+    },
+    {
+      id: 5,
+      content: "Pilot proved value in 3 weeks. Got board approval to scale immediately.",
+      color: "from-rose-500/20 to-pink-500/20",
+      borderColor: "border-rose-400/40",
+    },
+    {
+      id: 6,
+      content: "Finally have visibility into energy usage. Identified patterns we never knew existed.",
+      color: "from-green-500/20 to-emerald-500/20",
+      borderColor: "border-green-400/40",
+    },
+    {
+      id: 7,
+      content: "Students actually engaged with the pilot portal. Feedback loops went from weeks to days.",
+      color: "from-indigo-500/20 to-blue-500/20",
+      borderColor: "border-indigo-400/40",
+    },
+    {
+      id: 8,
+      content: "No more scattered tools. One source of truth for the whole ops workflow.",
+      color: "from-fuchsia-500/20 to-purple-500/20",
+      borderColor: "border-fuchsia-400/40",
+    },
+    {
+      id: 9,
+      content: "Async collaboration worked perfectly. Zero meetings, constant progress.",
+      color: "from-cyan-500/20 to-teal-500/20",
+      borderColor: "border-cyan-400/40",
+    },
+    {
+      id: 10,
+      content: "Built exactly what we needed—nothing more, nothing less. Perfect scope.",
+      color: "from-lime-500/20 to-green-500/20",
+      borderColor: "border-lime-400/40",
+    },
+    {
+      id: 11,
+      content: "Week 1 deliverable was already usable. Showed it to stakeholders immediately.",
+      color: "from-red-500/20 to-orange-500/20",
+      borderColor: "border-red-400/40",
+    },
+    {
+      id: 12,
+      content: "Clear decision framework at Week 4. Knew exactly whether to scale or pivot.",
+      color: "from-sky-500/20 to-blue-500/20",
+      borderColor: "border-sky-400/40",
     },
   ];
 
   const cards = testimonials.map((testimonial) => ({
     id: testimonial.id,
+    className: `bg-gradient-to-br ${testimonial.color} ${testimonial.borderColor}`,
     content: (
-      <div className="flex h-full flex-col justify-between">
-        <div>
-          <p className="text-sm leading-relaxed text-slate-200 md:text-base">
-            "{testimonial.content}"
-          </p>
-        </div>
-        <div className="mt-6 flex items-center gap-4">
-          <Avatar className="h-12 w-12 border-2 border-emerald-400/20">
-            <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
-            <AvatarFallback className="bg-emerald-400/10 text-emerald-300">
-              {testimonial.name
-                .split(" ")
-                .map((n) => n[0])
-                .join("")}
-            </AvatarFallback>
-          </Avatar>
-          <div>
-            <div className="font-medium text-slate-50">{testimonial.name}</div>
-            <div className="text-xs text-slate-400">
-              {testimonial.role} · {testimonial.company}
-            </div>
-          </div>
-        </div>
+      <div className="flex h-full items-center justify-center">
+        <p className="text-xs leading-relaxed text-slate-100 md:text-sm">
+          "{testimonial.content}"
+        </p>
       </div>
     ),
   }));
