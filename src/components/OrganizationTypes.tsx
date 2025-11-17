@@ -27,7 +27,7 @@ const orgTypes = [
 
 export function OrganizationTypes() {
   return (
-    <section className="py-10 sm:py-14">
+    <section id="org-types" className="py-10 sm:py-14">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
