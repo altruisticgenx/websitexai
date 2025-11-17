@@ -10,13 +10,13 @@ export const caseStudiesData = [
     id: "sales-copilot",
     title: "AI Sales Copilot Dashboard",
     sector: "Founder-Backed Startup",
-    tagline: "From rough prototype to full launch in 6 weeks",
+    tagline: "A personalized growth engine that learns from founder behavior",
     summary:
-      "Reduced manual follow-ups and surfaced high-intent leads automatically using AI-powered analysis and workflow automation.",
+      "Not just another CRM add-on—this system studies founders' actual outreach patterns, auto-classifies high-intent conversations, and surfaces 'don't-drop-these' deals with smart follow-ups trained on real founder behavior.",
     challenge:
-      "The sales team was drowning in manual follow-ups and couldn't identify high-intent leads quickly enough. They needed a system that could automatically prioritize leads, suggest follow-up actions, and surface buying signals from email interactions and meeting notes.",
+      "The sales team was drowning in manual follow-ups and couldn't identify high-intent leads quickly enough. Generic CRM templates felt robotic and didn't match the founder's unique voice. They needed a system that could learn their actual communication style, automatically prioritize leads based on subtle buying signals, and suggest follow-up actions that felt authentically human.",
     solution:
-      "Built an AI-powered dashboard that analyzes email threads, call transcripts, and CRM data to score leads, suggest next actions, and automate follow-up workflows. The system uses natural language processing to detect buying signals and sentiment shifts.",
+      "Built an AI-powered dashboard that studies the founder's email patterns, call transcripts, and successful deal histories to create a personalized engagement model. The system uses natural language processing to detect buying signals, sentiment shifts, and conversation momentum—then generates follow-ups that match the founder's voice and timing preferences. It evolves continuously, becoming smarter with every interaction.",
     outcomes: [
       "65% reduction in manual follow-up time",
       "2.3x increase in high-intent lead conversion",
@@ -46,13 +46,13 @@ export const caseStudiesData = [
     id: "founder-os",
     title: "Founder OS Dashboard",
     sector: "Solo Founder",
-    tagline: "A calm founder cockpit for operational clarity",
+    tagline: "Engineered for founder attention protection",
     summary:
-      "Unified scheduling, lightweight CRM, and invoicing into a single interface. Built to feel like a calm founder cockpit.",
+      "A stripped-down, elegant cockpit that merges calendar, CRM, tasks, and invoicing into one serene flow. Context-aware sections hide anything irrelevant, dramatically lowering cognitive load for solo founders.",
     challenge:
-      "Solo founder juggling Calendly, Notion, Stripe, and a spreadsheet CRM. Needed a unified view of client relationships, upcoming sessions, and revenue—without the bloat of enterprise tools.",
+      "Solo founder juggling Calendly, Notion, Stripe, and a spreadsheet CRM—constantly context-switching between tools and drowning in SaaS fragmentation. Each tool added mental overhead, breaking focus and making it impossible to see the full picture of client relationships, revenue, and upcoming commitments. They needed a unified view without enterprise bloat.",
     solution:
-      "Created a lightweight, opinionated dashboard that combines scheduling (with buffer time rules), contact management, session notes, and invoice tracking. Simple by design—no unnecessary features, just what a solo consultant actually needs daily.",
+      "Created an intentionally minimalist dashboard that combines scheduling (with intelligent buffer time rules), contact management, session notes, and invoice tracking. The interface adapts to context—hiding irrelevant sections and surfacing only what matters for the current task. Built with 'calm mode' principles: soft gradients, zero unnecessary notifications, and a focus on reducing decision fatigue rather than adding features.",
     outcomes: [
       "Consolidated 5 tools into 1 interface",
       "Saved 4+ hours per week on admin",
@@ -82,13 +82,13 @@ export const caseStudiesData = [
     id: "energy-analytics",
     title: "Energy Analytics Pilot",
     sector: "Climate & Energy",
-    tagline: "Turned messy meter data into actionable savings",
+    tagline: "From static reporting to scenario-driven decision-making",
     summary:
-      "Turned messy meter exports into a live dashboard. Surfaced savings opportunities across 200+ sites.",
+      "Converts chaotic meter and operations data into a clean, real-time analytics environment. AI spots invisible inefficiencies, forecasts savings, and lets teams simulate operational changes before they're expensive.",
     challenge:
-      "Campus operations team had 200+ buildings with meter data scattered across Excel files, PDFs, and old energy management software. No way to spot patterns, compare buildings, or identify savings opportunities without weeks of manual analysis.",
+      "Campus operations team had 200+ buildings with meter data scattered across Excel files, PDFs, and legacy energy management software. No way to spot patterns, compare buildings, or identify savings opportunities without weeks of manual analysis. Worse, they couldn't test 'what-if' scenarios—every operational change was a leap of faith with no way to predict outcomes or ROI.",
     solution:
-      "Built a real-time analytics dashboard that ingests meter data from multiple sources, normalizes it, and visualizes consumption patterns. Includes anomaly detection, peer comparisons, and savings opportunity prioritization based on building type and usage patterns.",
+      "Built a real-time analytics platform that ingests meter data from multiple sources, normalizes it, and transforms it into interactive visualizations. Added AI-powered anomaly detection that spots inefficiencies invisible to human analysis, peer building comparisons to identify underperformers, and a scenario simulation engine that lets teams test operational changes virtually. Teams can now model the impact of equipment upgrades, schedule shifts, or behavior changes before committing capital.",
     outcomes: [
       "Identified $180k+ in savings opportunities in first month",
       "Reduced energy analysis time from weeks to hours",
@@ -117,13 +117,13 @@ export const caseStudiesData = [
     id: "edtech-portal",
     title: "EdTech Pilot Portal",
     sector: "Education Nonprofit",
-    tagline: "From spreadsheet chaos to clear impact tracking",
+    tagline: "Bridging classroom reality with funder-ready narratives",
     summary:
-      "Built a portal to track pilots, students, and outcomes. Helped the team defend funding with real evidence.",
+      "Tracks pilots, student paths, and impact metrics—then auto-translates that activity into polished, grant-winning insights. Its 'evidence engine' converts day-to-day engagement into the structured outcomes funders demand.",
     challenge:
-      "Education nonprofit running 15+ pilots across schools with all tracking in Google Sheets. No way to quickly report outcomes to funders or identify which programs were working. Leadership needed evidence for a $500k renewal decision.",
+      "Education nonprofit running 15+ pilots across schools with all tracking in Google Sheets. Coordinators spent weeks manually compiling data for grant reports, and there was no way to quickly surface which programs were actually working. The gap between messy classroom reality and the polished narratives funders expect was costing them time, credibility, and funding. Leadership faced a $500k renewal decision with weak evidence.",
     solution:
-      "Created a pilot management portal where coordinators log student engagement, outcomes, and qualitative feedback. Auto-generates board-ready reports with trend analysis and comparison across programs. Designed for non-technical staff to use daily.",
+      "Created a pilot management portal with an 'evidence engine' at its core. Coordinators log student engagement, outcomes, and qualitative feedback in simple forms—then the system automatically weaves that data into compelling, funder-ready narratives. It generates board-ready reports with trend analysis, program comparisons, and impact stories backed by real numbers. Designed for non-technical education staff, with guided workflows that tighten feedback loops and improve grant storytelling.",
     outcomes: [
       "Secured $500k funding renewal with data-backed reporting",
       "Reduced report prep time from 2 weeks to 2 hours",

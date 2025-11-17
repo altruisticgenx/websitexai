@@ -6,6 +6,7 @@ import { Linkedin } from "lucide-react";
 import { ShelvedExperiments } from "@/components/ShelvedExperiments";
 import { WhereIWork } from "@/components/WhereIWork";
 import { OrganizationTypes } from "@/components/OrganizationTypes";
+import { EngagementModels } from "@/components/EngagementModels";
 import { MobileMenu } from "@/components/MobileMenu";
 
 // --- Data Definitions ---
@@ -13,26 +14,26 @@ const recentBuilds = [{
   id: "sales-copilot",
   title: "AI Sales Copilot Dashboard",
   sector: "Founder-Backed Startup",
-  summary: "From rough prototype to full launch in 6 weeks. Reduced manual follow-ups and surfaced high-intent leads automatically.",
-  tag: "Pilot to production"
+  summary: "Not just another CRM add-on—this system studies founders' actual outreach patterns, auto-classifies high-intent conversations, and surfaces 'don't-drop-these' deals with smart follow-ups trained on real founder behavior.",
+  tag: "Personalized growth engine"
 }, {
   id: "founder-os",
   title: "Founder OS Dashboard",
   sector: "Solo Founder",
-  summary: "Unified scheduling, lightweight CRM, and invoicing into a single interface. Built to feel like a calm founder cockpit.",
-  tag: "Operational clarity"
+  summary: "A stripped-down, elegant cockpit that merges calendar, CRM, tasks, and invoicing into one serene flow. Context-aware sections hide anything irrelevant, dramatically lowering cognitive load.",
+  tag: "Attention protection"
 }, {
   id: "energy-analytics",
   title: "Energy Analytics Pilot",
   sector: "Climate & Energy",
-  summary: "Turned messy meter exports into a live dashboard. Surfaced savings opportunities across 200+ sites.",
-  tag: "Energy & climate"
+  summary: "Converts chaotic meter and operations data into clean, real-time analytics. AI spots invisible inefficiencies, forecasts savings, and lets teams simulate operational changes before they're expensive.",
+  tag: "Scenario-driven decisions"
 }, {
   id: "edtech-portal",
   title: "EdTech Pilot Portal",
   sector: "Education Nonprofit",
-  summary: "Built a portal to track pilots, students, and outcomes. Helped the team defend funding with real evidence.",
-  tag: "Education impact"
+  summary: "Tracks pilots, student paths, and impact metrics—then auto-translates that activity into polished, grant-winning insights. Its 'evidence engine' converts engagement into funder-ready narratives.",
+  tag: "Grant storytelling"
 }];
 const faqs = [{
   question: "What do I get each week?",
@@ -56,6 +57,7 @@ const Index = () => {
         <main className="flex-1">
           <Hero />
           <RecentBuilds />
+          <EngagementModels />
           <HowItWorks />
           <PilotOffer />
           <WhoBenefits />
