@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { TestimonialsVariant } from "@/components/ui/animated-cards-stack";
+import { Linkedin } from "lucide-react";
 
 // --- Data Definitions ---
 const recentBuilds = [
@@ -192,13 +193,24 @@ function Hero() {
             </motion.div>
           </dl>
 
-          <div className="mt-6 flex flex-col gap-3 text-sm sm:flex-row sm:items-center">
-            <a
-              href="mailto:hello@altruisticxai.com?subject=AltruisticX%20AI%20Pilot%20Intro"
-              className="inline-flex items-center justify-center rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-medium text-slate-950 shadow-lg shadow-emerald-500/30 hover:bg-emerald-300 transition-all hover:shadow-emerald-500/50"
-            >
-              Book a 30-min intro
-            </a>
+          <div className="mt-6 flex flex-col gap-3 text-sm">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+              <a
+                href="mailto:hello@altruisticxai.com?subject=AltruisticX%20AI%20Pilot%20Intro"
+                className="inline-flex items-center justify-center rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-medium text-slate-950 shadow-lg shadow-emerald-500/30 hover:bg-emerald-300 transition-all hover:shadow-emerald-500/50"
+              >
+                Book a 30-min intro
+              </a>
+              <a
+                href="https://www.linkedin.com/in/ik11"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-400/60 bg-emerald-400/10 px-5 py-2.5 text-sm font-medium text-emerald-100 hover:bg-emerald-400/20 transition-colors"
+              >
+                <Linkedin size={16} />
+                Connect on LinkedIn
+              </a>
+            </div>
             <p className="text-xs text-slate-400 sm:text-[13px]">
               Week-to-week · pause anytime · async-first, founder-friendly
             </p>
