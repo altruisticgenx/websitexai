@@ -27,7 +27,7 @@ export const AnimatedCardsStack = ({
         newArray.unshift(newArray.pop()!);
         return newArray;
       });
-    }, 5000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, []);
@@ -45,16 +45,17 @@ export const AnimatedCardsStack = ({
             style={{
               transformOrigin: "top center",
             }}
-            animate={{
-              top: index * -offset,
-              scale: 1 - index * scaleFactor,
-              zIndex: cards.length - index,
-              opacity: index < 3 ? 1 : 0,
-            }}
-            transition={{
-              duration: 0.5,
-              ease: "easeInOut",
-            }}
+        animate={{
+          top: index * -offset,
+          scale: 1 - index * scaleFactor,
+          zIndex: cards.length - index,
+          opacity: index === 0 ? 1 : index === 1 ? 0.8 : index === 2 ? 0.4 : 0,
+        }}
+        transition={{
+          duration: 0.5,
+          ease: [0.4, 0, 0.2, 1],
+          opacity: { duration: 0.6 },
+        }}
           >
             {card.content}
           </motion.div>
