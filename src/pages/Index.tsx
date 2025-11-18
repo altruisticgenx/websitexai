@@ -90,7 +90,7 @@ const Index = () => {
                     className="text-base shadow-xl shadow-emerald-500/30 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/50"
                     asChild
                   >
-                    <a href="mailto:hello@altruisticxai.com?subject=Book%20a%20Pilot%20Call">
+                    <a href="mailto:altruisticxai@gmail.com?subject=Book%20a%20Pilot%20Call">
                       Book a Pilot Call
                     </a>
                   </Button>
@@ -546,7 +546,7 @@ const Index = () => {
                   <Github className="h-5 w-5 text-slate-400 transition-colors duration-300 group-hover:text-emerald-400" />
                 </a>
                 <a
-                  href="mailto:hello@altruisticxai.com"
+                  href="mailto:altruisticxai@gmail.com"
                   className="group flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-900/70 backdrop-blur transition-all duration-300 hover:scale-110 hover:border-emerald-500/50 hover:bg-slate-800 hover:shadow-lg hover:shadow-emerald-500/20"
                   aria-label="Email"
                 >
