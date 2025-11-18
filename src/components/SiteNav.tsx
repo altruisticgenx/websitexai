@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -15,7 +14,7 @@ const navLinkClass =
 
 export function SiteNav() {
   return (
-    <nav className="relative mx-auto w-full max-w-4xl pt-4 text-foreground">
+    <div className="relative mx-auto w-full max-w-4xl pt-4 text-foreground">
       {/* Top bar */}
       <NavigationMenu className="w-full justify-center">
         <NavigationMenuList className="grid w-full grid-cols-4 items-center gap-2">
