@@ -49,6 +49,7 @@ export function ContactForm() {
     setIsSubmitting(true);
     
     try {
+      // Save to database
       const { error } = await supabase
         .from("contact_submissions")
         .insert({
@@ -60,9 +61,23 @@ export function ContactForm() {
 
       if (error) throw error;
 
+      // Send confirmation email
+      try {
+        await supabase.functions.invoke("send-contact-confirmation", {
+          body: {
+            name: data.name,
+            email: data.email,
+            projectType: data.projectType,
+          },
+        });
+      } catch (emailError) {
+        console.error("Email sending failed (non-critical):", emailError);
+        // Don't fail the form submission if email fails
+      }
+
       toast({
         title: "Message sent!",
-        description: "Thanks for reaching out. I'll get back to you within 24 hours.",
+        description: "Thanks for reaching out. Check your email for confirmation.",
       });
       
       form.reset();
