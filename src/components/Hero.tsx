@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Linkedin } from "lucide-react";
+import { Hero3DBackground } from "./Hero3D";
+import { FloatingCard3D } from "./FloatingCard3D";
 
 function VisualRow({
   label,
@@ -46,6 +48,9 @@ export function Hero() {
 
   return (
     <section ref={ref} id="home" className="relative py-10 md:py-16 overflow-hidden">
+      {/* 3D Animated Background */}
+      <Hero3DBackground />
+      
       {/* Parallax Background Layer 1 - Slowest */}
       <motion.div 
         className="absolute inset-0 opacity-20"
@@ -241,34 +246,35 @@ export function Hero() {
           initial={{ opacity: 0, x: 30 }} 
           animate={{ opacity: 1, x: 0 }} 
           transition={{ duration: 0.6, delay: 0.4 }}
-          whileHover={{ scale: 1.02 }}
           className="flex-1"
         >
-          <div className="rounded-3xl border border-slate-800/80 bg-gradient-to-br from-slate-900/80 to-slate-900/40 p-4 sm:p-5 backdrop-blur-sm shadow-xl hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 hover:border-primary/30">
-            <div className="text-xs font-mono uppercase tracking-[0.16em] text-primary/80">
-              Build Fast Kit / 4-week pilot
+          <FloatingCard3D>
+            <div className="rounded-3xl border border-slate-800/80 bg-gradient-to-br from-slate-900/80 to-slate-900/40 p-4 sm:p-5 backdrop-blur-sm shadow-xl">
+              <div className="text-xs font-mono uppercase tracking-[0.16em] text-primary/80">
+                Build Fast Kit / 4-week pilot
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                One senior engineer. One small backlog. 4 weeks to prove whether this pilot is worth scaling.
+              </p>
+              <div className="mt-4 grid gap-3">
+                <VisualRow 
+                  label="Week 1" 
+                  title="Clarify & ship the first slice" 
+                  body="Turn the idea into 1–2 concrete flows. Ship a working skeleton instead of a deck." 
+                />
+                <VisualRow 
+                  label="Week 2–3" 
+                  title="Tighten the flows" 
+                  body="Integrate data, refine UX, and make it demo-able to internal stakeholders." 
+                />
+                <VisualRow 
+                  label="Week 4" 
+                  title="Decide with evidence" 
+                  body="You walk away with a working repo, a clear walkthrough, and a decision: scale, pivot, or park." 
+                />
+              </div>
             </div>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              One senior engineer. One small backlog. 4 weeks to prove whether this pilot is worth scaling.
-            </p>
-            <div className="mt-4 grid gap-3">
-              <VisualRow 
-                label="Week 1" 
-                title="Clarify & ship the first slice" 
-                body="Turn the idea into 1–2 concrete flows. Ship a working skeleton instead of a deck." 
-              />
-              <VisualRow 
-                label="Week 2–3" 
-                title="Tighten the flows" 
-                body="Integrate data, refine UX, and make it demo-able to internal stakeholders." 
-              />
-              <VisualRow 
-                label="Week 4" 
-                title="Decide with evidence" 
-                body="You walk away with a working repo, a clear walkthrough, and a decision: scale, pivot, or park." 
-              />
-            </div>
-          </div>
+          </FloatingCard3D>
         </motion.div>
       </motion.div>
     </section>

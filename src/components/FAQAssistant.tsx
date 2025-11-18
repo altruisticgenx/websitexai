@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { Loader2, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function FAQAssistant() {
   const [question, setQuestion] = useState("");
@@ -76,51 +77,73 @@ export function FAQAssistant() {
   };
 
   return (
-    <Card className="border-emerald-400/20 bg-slate-950/60 p-4 sm:p-6">
-      <div className="mb-4 flex items-center gap-2">
-        <Sparkles className="h-5 w-5 text-emerald-400" />
-        <h3 className="text-base sm:text-lg font-semibold text-slate-50">
-          Ask AI Assistant
-        </h3>
-      </div>
-      
-      <p className="mb-4 text-xs sm:text-sm text-slate-300">
-        Have questions about our services or submission process? Ask our AI assistant!
-      </p>
-
-      <div className="flex flex-col gap-3 sm:flex-row">
-        <Input
-          type="text"
-          placeholder="e.g., How many projects have been submitted?"
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-          onKeyPress={handleKeyPress}
-          disabled={isLoading}
-          className="flex-1 bg-slate-900/50 border-slate-700 text-sm"
-        />
-        <Button
-          onClick={handleAsk}
-          disabled={isLoading}
-          className="bg-emerald-400 text-slate-950 hover:bg-emerald-300 whitespace-nowrap"
-        >
-          {isLoading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Thinking...
-            </>
-          ) : (
-            "Ask"
-          )}
-        </Button>
-      </div>
-
-      {answer && (
-        <div className="mt-4 rounded-lg border border-emerald-400/30 bg-emerald-400/5 p-4">
-          <p className="text-xs sm:text-sm text-slate-200 leading-relaxed whitespace-pre-wrap">
-            {answer}
-          </p>
+      <Card className="border-primary/30 bg-gradient-to-br from-slate-950/80 to-slate-900/60 p-4 sm:p-6 backdrop-blur-sm shadow-2xl">
+        <div className="mb-4 flex items-center gap-3">
+          <motion.div
+            animate={{
+              rotate: [0, 360],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            <Sparkles className="h-6 w-6 text-primary" />
+          </motion.div>
+          <h3 className="text-base sm:text-lg font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            AI-Powered Assistant
+          </h3>
         </div>
-      )}
-    </Card>
+        
+        <p className="mb-4 text-xs sm:text-sm text-slate-300">
+          Ask anything about our services, projects, pricing, or workflow. Powered by advanced AI with real-time platform insights.
+        </p>
+
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Input
+            type="text"
+            placeholder="e.g., What's your typical project timeline?"
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            onKeyPress={handleKeyPress}
+            disabled={isLoading}
+            className="flex-1 bg-slate-900/50 border-primary/30 text-sm focus:border-primary"
+          />
+          <Button
+            onClick={handleAsk}
+            disabled={isLoading}
+            className="bg-gradient-to-r from-primary to-accent text-primary-foreground hover:opacity-90 whitespace-nowrap"
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Analyzing...
+              </>
+            ) : (
+              <>
+                <Sparkles className="mr-2 h-4 w-4" />
+                Ask AI
+              </>
+            )}
+          </Button>
+        </div>
+
+        {answer && (
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-4 rounded-lg border border-primary/30 bg-gradient-to-br from-primary/10 to-accent/10 p-4 backdrop-blur-sm"
+          >
+            <div className="flex items-start gap-2 mb-2">
+              <Sparkles className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
+              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed whitespace-pre-wrap">
+                {answer}
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </Card>
   );
 }
