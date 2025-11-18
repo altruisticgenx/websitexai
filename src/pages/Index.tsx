@@ -8,6 +8,8 @@ import { WhereIWork } from "@/components/WhereIWork";
 import { OrganizationTypes } from "@/components/OrganizationTypes";
 import { EngagementModels } from "@/components/EngagementModels";
 import { MobileMenu } from "@/components/MobileMenu";
+import { ContactForm } from "@/components/ContactForm";
+import { Toaster } from "@/components/ui/toaster";
 
 // --- Data Definitions ---
 const recentBuilds = [{
@@ -68,9 +70,11 @@ const Index = () => {
             <TestimonialsVariant />
           </div>
           <FAQSection />
+          <ContactSection />
         </main>
         <SiteFooter />
       </div>
+      <Toaster />
     </div>;
 };
 export default Index;
@@ -596,6 +600,23 @@ function FAQSection() {
       </dl>
     </section>;
 }
+
+function ContactSection() {
+  return (
+    <section id="contact" className="border-t border-slate-900/80 py-10 sm:py-14">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="max-w-2xl mx-auto"
+      >
+        <ContactForm />
+      </motion.div>
+    </section>
+  );
+}
+
 function SiteFooter() {
   return <footer className="border-t border-slate-900/80 py-6">
       <div className="flex flex-col items-start justify-between gap-3 text-xs text-slate-500 sm:flex-row sm:items-center">
