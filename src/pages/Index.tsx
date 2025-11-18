@@ -398,26 +398,18 @@ function PilotOffer() {
             </p>
           </div>
 
-          <div className="mt-6 flex flex-col gap-3 text-sm sm:flex-row sm:items-baseline">
-            <div>
-              
-              
-              
+          <div className="mt-6">
+            <div className="text-xs uppercase tracking-[0.18em] text-slate-400">
+              For comparison
             </div>
-            <div className="sm:ml-6">
-              <div className="text-xs uppercase tracking-[0.18em] text-slate-400">
-                For comparison
-              </div>
-              <p className="mt-1 max-w-xs text-xs text-slate-400">
-                Hiring in-house can take 3–6 months, $100k–$150k salary, plus
-                30–40% in overhead—with no guarantee they can move quickly on a
-                messy pilot.
-              </p>
-            </div>
+            <p className="mt-1 max-w-xs text-xs text-slate-400">
+              Hiring in-house can take 3–6 months, $100k–$150k salary, plus
+              30–40% in overhead—with no guarantee they can move quickly on a
+              messy pilot.
+            </p>
           </div>
 
-          <div className="mt-6 flex flex-col gap-3 text-sm sm:flex-row sm:items-center">
-            
+          <div className="mt-6">
             <p className="text-xs text-slate-400 sm:text-[13px]">
               Send a quick Loom or doc about your project. If it's a fit, we
               can start shipping next week.
@@ -602,19 +594,21 @@ function FAQSection() {
 }
 
 function ContactSection() {
-  return (
-    <section id="contact" className="border-t border-slate-900/80 py-10 sm:py-14">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="max-w-2xl mx-auto"
-      >
+  return <section id="contact" className="border-t border-slate-900/80 py-10 sm:py-14">
+      <motion.div initial={{
+      opacity: 0,
+      y: 20
+    }} whileInView={{
+      opacity: 1,
+      y: 0
+    }} viewport={{
+      once: true
+    }} transition={{
+      duration: 0.5
+    }} className="max-w-2xl mx-auto">
         <ContactForm />
       </motion.div>
-    </section>
-  );
+    </section>;
 }
 
 function SiteFooter() {
