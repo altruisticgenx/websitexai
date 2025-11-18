@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -20,6 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100),
@@ -31,6 +33,8 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export function ContactForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,15 +45,37 @@ export function ContactForm() {
     },
   });
 
-  const onSubmit = (data: FormValues) => {
-    console.log("Form submitted:", data);
+  const onSubmit = async (data: FormValues) => {
+    setIsSubmitting(true);
     
-    toast({
-      title: "Message sent!",
-      description: "Thanks for reaching out. I'll get back to you within 24 hours.",
-    });
-    
-    form.reset();
+    try {
+      const { error } = await supabase
+        .from("contact_submissions")
+        .insert({
+          name: data.name,
+          email: data.email,
+          project_type: data.projectType,
+          message: data.message,
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: "Message sent!",
+        description: "Thanks for reaching out. I'll get back to you within 24 hours.",
+      });
+      
+      form.reset();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -134,8 +160,8 @@ export function ContactForm() {
             )}
           />
 
-          <Button type="submit" className="w-full" size="lg">
-            Send Message
+          <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+            {isSubmitting ? "Sending..." : "Send Message"}
           </Button>
         </form>
       </Form>
