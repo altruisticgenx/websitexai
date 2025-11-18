@@ -16,17 +16,24 @@ function VisualRow({
 }) {
   return (
     <motion.div 
-      className="group flex gap-3 rounded-2xl border border-slate-800/80 bg-slate-950/40 p-3 transition-all duration-300 cursor-default"
+      className="card-3d card-3d-border group flex gap-3 rounded-2xl p-4 transition-all duration-500 cursor-default perspective-1000"
       whileHover={{ 
-        x: 4,
-        borderColor: "hsl(var(--primary) / 0.4)",
-        backgroundColor: "hsl(var(--slate-900) / 0.6)"
+        scale: 1.02,
+        rotateY: 2,
+        rotateX: -2,
+        transition: { duration: 0.3 }
+      }}
+      initial={{ opacity: 0, y: 20, rotateX: -10 }}
+      animate={{ opacity: 1, y: 0, rotateX: 0 }}
+      transition={{ duration: 0.6 }}
+      style={{
+        transformStyle: 'preserve-3d',
       }}
     >
       <div className="mt-0.5 w-14 flex-shrink-0 text-xs font-mono uppercase tracking-[0.16em] text-primary group-hover:text-accent transition-colors">
         {label}
       </div>
-      <div>
+      <div style={{ transform: 'translateZ(10px)' }}>
         <div className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{title}</div>
         <div className="mt-1 text-xs text-muted-foreground">{body}</div>
       </div>
@@ -158,56 +165,65 @@ export function Hero() {
 
           <dl className="mt-6 grid max-w-xl grid-cols-1 gap-4 sm:grid-cols-3">
             <motion.div 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 0.4 }}
+              initial={{ opacity: 0, y: 20, rotateX: -10 }} 
+              animate={{ opacity: 1, y: 0, rotateX: 0 }} 
+              transition={{ delay: 0.4, duration: 0.6 }}
               whileHover={{ 
-                y: -4, 
-                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.2)",
-                borderColor: "hsl(var(--primary) / 0.5)"
+                y: -6,
+                rotateX: 3,
+                rotateY: -3,
+                scale: 1.03,
+                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.3)",
               }}
-              className="rounded-2xl border border-slate-800/70 bg-gradient-to-br from-slate-900/70 to-slate-900/40 p-3 transition-all duration-300 cursor-default"
+              className="card-3d card-3d-border rounded-2xl p-4 transition-all duration-500 cursor-default"
+              style={{ transformStyle: 'preserve-3d' }}
             >
               <dt className="text-xs uppercase tracking-[0.16em] text-slate-400">
                 Work hands-on
               </dt>
-              <dd className="mt-1 text-sm font-medium text-foreground">
+              <dd className="mt-1 text-sm font-medium text-foreground" style={{ transform: 'translateZ(10px)' }}>
                 Build with real tools and ship working prototypes.
               </dd>
             </motion.div>
             <motion.div 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 0.5 }}
+              initial={{ opacity: 0, y: 20, rotateX: -10 }} 
+              animate={{ opacity: 1, y: 0, rotateX: 0 }} 
+              transition={{ delay: 0.5, duration: 0.6 }}
               whileHover={{ 
-                y: -4, 
-                boxShadow: "0 20px 25px -5px hsl(var(--accent) / 0.2)",
-                borderColor: "hsl(var(--accent) / 0.5)"
+                y: -6,
+                rotateX: 3,
+                rotateY: -3,
+                scale: 1.03,
+                boxShadow: "0 20px 25px -5px hsl(var(--accent) / 0.3)",
               }}
-              className="rounded-2xl border border-slate-800/70 bg-gradient-to-br from-slate-900/70 to-slate-900/40 p-3 transition-all duration-300 cursor-default"
+              className="card-3d card-3d-border rounded-2xl p-4 transition-all duration-500 cursor-default"
+              style={{ transformStyle: 'preserve-3d' }}
             >
               <dt className="text-xs uppercase tracking-[0.16em] text-slate-400">
                 Launch actionable tools
               </dt>
-              <dd className="mt-1 text-sm font-medium text-foreground">
+              <dd className="mt-1 text-sm font-medium text-foreground" style={{ transform: 'translateZ(10px)' }}>
                 Deploy features users can actually test and use.
               </dd>
             </motion.div>
             <motion.div 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 0.6 }}
+              initial={{ opacity: 0, y: 20, rotateX: -10 }} 
+              animate={{ opacity: 1, y: 0, rotateX: 0 }} 
+              transition={{ delay: 0.6, duration: 0.6 }}
               whileHover={{ 
-                y: -4, 
-                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.2)",
-                borderColor: "hsl(var(--primary) / 0.5)"
+                y: -6,
+                rotateX: 3,
+                rotateY: -3,
+                scale: 1.03,
+                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.3)",
               }}
-              className="rounded-2xl border border-slate-800/70 bg-gradient-to-br from-slate-900/70 to-slate-900/40 p-3 transition-all duration-300 cursor-default"
+              className="card-3d card-3d-border rounded-2xl p-4 transition-all duration-500 cursor-default"
+              style={{ transformStyle: 'preserve-3d' }}
             >
               <dt className="text-xs uppercase tracking-[0.16em] text-slate-400">
                 Start small, deliver early
               </dt>
-              <dd className="mt-1 text-sm font-medium text-foreground">
+              <dd className="mt-1 text-sm font-medium text-foreground" style={{ transform: 'translateZ(10px)' }}>
                 First meaningful code in Week 1, ready to demo.
               </dd>
             </motion.div>
@@ -253,14 +269,14 @@ export function Hero() {
           className="flex-1"
         >
           <FloatingCard3D>
-            <div className="rounded-3xl border border-slate-800/80 bg-gradient-to-br from-slate-900/80 to-slate-900/40 p-4 sm:p-5 backdrop-blur-sm shadow-xl">
-              <div className="text-xs font-mono uppercase tracking-[0.16em] text-primary/80">
+            <div className="card-3d card-3d-border rounded-3xl p-5 sm:p-6 backdrop-blur-sm shadow-elevated transition-all duration-500" style={{ transformStyle: 'preserve-3d' }}>
+              <div className="text-xs font-mono uppercase tracking-[0.16em] text-primary/80" style={{ transform: 'translateZ(20px)' }}>
                 Build Fast Kit / 4-week pilot
               </div>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground" style={{ transform: 'translateZ(15px)' }}>
                 One senior engineer. One small backlog. 4 weeks to prove whether this pilot is worth scaling.
               </p>
-              <div className="mt-4 grid gap-3">
+              <div className="mt-4 grid gap-3" style={{ transform: 'translateZ(10px)' }}>
                 <VisualRow 
                   label="Week 1" 
                   title="Clarify & ship the first slice" 

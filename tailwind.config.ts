@@ -98,6 +98,12 @@ export default {
         'elevated': '0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3)',
         'glow': '0 0 20px rgba(56, 189, 248, 0.15)',
         'glow-accent': '0 0 30px rgba(56, 189, 248, 0.1)',
+        '3d': '0 20px 50px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.15)',
+      },
+      perspective: {
+        '500': '500px',
+        '1000': '1000px',
+        '1500': '1500px',
       },
       letterSpacing: {
         tighter: '-0.02em',
@@ -133,6 +139,7 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "scanline": "scanline 8s linear infinite",
+        "float-3d": "float-3d 6s ease-in-out infinite",
       },
     },
   },
