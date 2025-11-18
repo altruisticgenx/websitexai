@@ -13,8 +13,10 @@ serve(async (req) => {
 
   try {
     const { question } = await req.json();
+    console.log("📝 Received question:", question);
 
     if (!question || typeof question !== "string") {
+      console.error("❌ Invalid question format");
       return new Response(
         JSON.stringify({ error: "Question is required" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -27,27 +29,32 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
-    // Get aggregated stats about submissions and projects
+    // Get aggregated stats about submissions and projects (optimized)
+    console.log("🔍 Fetching database context...");
     const [submissions, projects, faqs] = await Promise.all([
       supabase
         .from("contact_submissions")
-        .select("project_type, created_at, email_sent, message")
+        .select("project_type, created_at, email_sent")
         .order("created_at", { ascending: false })
-        .limit(50),
+        .limit(20), // Reduced from 50 for efficiency
       supabase
         .from("projects")
-        .select("title, sector, summary, status, technologies")
-        .eq("featured", true),
+        .select("title, sector, summary, technologies")
+        .eq("featured", true)
+        .limit(10), // Added limit
       supabase
         .from("faqs")
         .select("question, answer, category")
         .eq("active", true)
+        .limit(15) // Added limit
     ]);
 
     if (submissions.error || projects.error || faqs.error) {
-      console.error("Database errors:", { submissions: submissions.error, projects: projects.error, faqs: faqs.error });
+      console.error("❌ Database errors:", { submissions: submissions.error, projects: projects.error, faqs: faqs.error });
       throw new Error("Failed to fetch data");
     }
+
+    console.log("✅ Database context fetched successfully");
 
     // Analyze submission patterns
     const submissionData = submissions.data || [];
@@ -61,16 +68,6 @@ serve(async (req) => {
     }, {});
 
     const emailsSent = submissionData.filter(s => s.email_sent).length;
-    const avgResponseTime = "24-48 hours"; // Could calculate from actual data
-    
-    // Extract insights from messages
-    const commonTopics = submissionData
-      .map(s => s.message)
-      .join(" ")
-      .toLowerCase()
-      .split(/\s+/)
-      .filter(word => word.length > 5)
-      .slice(0, 20);
 
     // Project insights
     const sectorBreakdown = projectData.reduce((acc: Record<string, number>, proj) => {
@@ -85,54 +82,35 @@ serve(async (req) => {
         return acc;
       }, {});
 
-    const context = `
-You are an advanced AI assistant for AltruisticX AI - a senior AI/product engineering service specializing in energy, education, and civic innovation pilots.
+    const context = `You are an AI assistant for AltruisticX AI - a senior AI/product engineering service specializing in energy, education, and civic innovation pilots.
 
-Your expertise includes:
-- Understanding project requirements and timelines
-- Explaining the 4-week pilot process in detail
-- Providing insights on submission data and project trends
-- Recommending best practices for successful pilots
-- Answering questions about pricing, workflow, and collaboration
-
-Current Platform Intelligence:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📊 Submission Analytics:
+📊 Current Stats:
 - Total inquiries: ${totalSubmissions}
-- Project type distribution: ${JSON.stringify(projectTypes, null, 2)}
-- Confirmation rate: ${emailsSent}/${totalSubmissions} (${totalSubmissions > 0 ? Math.round((emailsSent/totalSubmissions)*100) : 0}%)
-- Average response time: ${avgResponseTime}
-- Common topics: ${commonTopics.slice(0, 10).join(", ")}
-
-🎯 Portfolio Insights:
+- Project types: ${JSON.stringify(projectTypes)}
+- Confirmation rate: ${totalSubmissions > 0 ? Math.round((emailsSent/totalSubmissions)*100) : 0}%
 - Active projects: ${projectData.length}
-- Sector focus: ${JSON.stringify(sectorBreakdown, null, 2)}
-- Popular technologies: ${JSON.stringify(Object.entries(popularTechs).slice(0, 8), null, 2)}
-- Success rate: High completion rate for 4-week pilots
+- Sectors: ${JSON.stringify(sectorBreakdown)}
+- Popular tech: ${Object.entries(popularTechs).slice(0, 5).map(([k, v]) => k).join(", ")}
 
-📚 Knowledge Base:
+📚 FAQs:
 ${faqData.map(faq => `Q: ${faq.question}\nA: ${faq.answer}`).join("\n\n")}
 
-Instructions:
-1. Analyze the user's question deeply - consider intent, context, and urgency
-2. Provide detailed, actionable answers with specific examples when relevant
-3. Use data and statistics to support your responses
-4. If asking about pricing: Mention the 4-week pilot at $1,150/week
-5. If asking about process: Break down the weekly structure clearly
-6. If asking about fit: Reference actual project types and sectors
-7. Be conversational but professional - like a senior consultant
-8. Always encourage booking a 30-min intro call for complex inquiries
-9. If the question is off-topic, politely redirect while being helpful
+Key Points:
+- 4-week pilot at $1,150/week
+- Week-to-week, no long-term lock-in
+- Focus on energy, education, civic sectors
+- Async-first collaboration
 
-Respond with confidence, clarity, and actionable insights.
-`;
+Be conversational, professional, and encourage booking a 30-min intro call for complex inquiries.`;
 
-    // Call Lovable AI Gateway with enhanced model
+    // Call Lovable AI Gateway
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
+      console.error("❌ LOVABLE_API_KEY not configured");
       throw new Error("LOVABLE_API_KEY not configured");
     }
 
+    console.log("🤖 Calling Lovable AI Gateway...");
     const aiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -140,23 +118,26 @@ Respond with confidence, clarity, and actionable insights.
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-pro", // Using the more powerful model for better reasoning
+        model: "google/gemini-2.5-flash", // Fast and cost-efficient
         messages: [
           { role: "system", content: context },
           { role: "user", content: question }
         ],
-        temperature: 0.7,
-        max_tokens: 1000,
+        max_completion_tokens: 800, // Optimized token limit
       }),
     });
 
     if (!aiResponse.ok) {
       const errorText = await aiResponse.text();
-      console.error("AI Gateway error:", aiResponse.status, errorText);
+      console.error("❌ AI Gateway error:", {
+        status: aiResponse.status,
+        statusText: aiResponse.statusText,
+        body: errorText
+      });
       
       if (aiResponse.status === 429) {
         return new Response(
-          JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
+          JSON.stringify({ error: "Rate limit exceeded. Please try again in a moment." }),
           { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
@@ -168,22 +149,34 @@ Respond with confidence, clarity, and actionable insights.
         );
       }
 
-      throw new Error("AI Gateway request failed");
+      throw new Error(`AI Gateway request failed: ${aiResponse.status} ${errorText}`);
     }
 
     const aiData = await aiResponse.json();
+    console.log("✅ AI response structure:", { 
+      hasChoices: !!aiData.choices, 
+      choicesLength: aiData.choices?.length,
+      hasContent: !!aiData.choices?.[0]?.message?.content 
+    });
+
     const answer = aiData.choices?.[0]?.message?.content;
 
     if (!answer) {
+      console.error("❌ No answer in AI response:", JSON.stringify(aiData));
       throw new Error("No response from AI");
     }
 
+    console.log("✅ Successfully generated answer");
     return new Response(
       JSON.stringify({ answer }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error: any) {
-    console.error("Error in faq-assistant function:", error);
+    console.error("❌ Error in faq-assistant function:", {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
     return new Response(
       JSON.stringify({ error: error.message || "Internal server error" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
