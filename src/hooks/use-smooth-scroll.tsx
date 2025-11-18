@@ -26,7 +26,7 @@ export function useSmoothScroll() {
         targetElement.style.transformStyle = 'preserve-3d';
         
         // Smooth scroll with offset for fixed header
-        const offsetTop = targetElement.offsetTop - 80;
+        const offsetTop = targetElement.offsetTop - 64;
         window.scrollTo({
           top: offsetTop,
           behavior: 'smooth'
