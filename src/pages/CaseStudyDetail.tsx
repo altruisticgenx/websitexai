@@ -1,26 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { getCaseStudyById, getAllCaseStudies } from "@/data/caseStudies";
+import { getCaseStudyBySlug, getAllCaseStudies, CaseStudy } from "@/data/caseStudies";
 import { CaseStudyHeader } from "@/components/case-studies/CaseStudyHeader";
 import { CaseStudyContent } from "@/components/case-studies/CaseStudyContent";
 import { CaseStudyCard } from "@/components/case-studies/CaseStudyCard";
 
 function CaseStudyDetail() {
   const { id } = useParams<{ id: string }>();
-  
-  // Get the case study by ID
-  const caseStudy = getCaseStudyById(id || "");
-  
-  // If case study not found, redirect to portfolio
-  if (!caseStudy) {
-    return <Navigate to="/portfolio" replace />;
+  const [caseStudy, setCaseStudy] = useState<CaseStudy | null>(null);
+  const [otherCaseStudies, setOtherCaseStudies] = useState<CaseStudy[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!id) {
+        setNotFound(true);
+        setLoading(false);
+        return;
+      }
+
+      const study = await getCaseStudyBySlug(id);
+      if (!study) {
+        setNotFound(true);
+        setLoading(false);
+        return;
+      }
+
+      setCaseStudy(study);
+
+      const allStudies = await getAllCaseStudies();
+      const others = allStudies.filter((s) => s.id !== study.id);
+      setOtherCaseStudies(others);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-950 text-slate-50 flex items-center justify-center">
+        <p className="text-slate-400">Loading case study...</p>
+      </div>
+    );
   }
 
-  // Get other case studies for "More Case Studies" section
-  const allCaseStudies = getAllCaseStudies();
-  const otherCaseStudies = allCaseStudies.filter((study) => study.id !== caseStudy.id);
+  if (notFound || !caseStudy) {
+    return <Navigate to="/portfolio" replace />;
+  }
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
