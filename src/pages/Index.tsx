@@ -17,7 +17,6 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { SiteNav } from "@/components/SiteNav";
 import { SectionNav } from "@/components/SectionNav";
-import { FloatingContactButton } from "@/components/FloatingContactButton";
 
 const Index = () => {
   return (
@@ -561,7 +560,6 @@ const Index = () => {
 
       <ScrollToTop />
       <SectionNav />
-      <FloatingContactButton />
     </div>
   );
 };
