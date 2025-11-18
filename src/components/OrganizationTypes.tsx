@@ -55,12 +55,22 @@ export function OrganizationTypes() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ 
                 y: -8,
+                scale: 1.05,
+                rotate: 2,
                 boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.25)",
                 borderColor: "hsl(var(--primary) / 0.5)"
               }}
               className="group rounded-2xl border border-slate-800/70 bg-gradient-to-br from-slate-900/60 to-slate-900/30 p-5 text-center transition-all duration-300 cursor-default"
             >
-              <Icon className={`h-8 w-8 mx-auto mb-3 ${org.color} group-hover:scale-110 transition-transform duration-300`} />
+              <motion.div
+                whileHover={{ 
+                  scale: 1.2,
+                  rotate: -5,
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 15 }}
+              >
+                <Icon className={`h-8 w-8 mx-auto mb-3 ${org.color} transition-colors duration-300`} />
+              </motion.div>
               <h3 className="text-sm font-medium text-slate-50 group-hover:text-primary transition-colors">{org.name}</h3>
             </motion.div>
           );
