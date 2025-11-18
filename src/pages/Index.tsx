@@ -13,6 +13,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
+import { FlipCard3D } from "@/components/FlipCard3D";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { cn } from "@/lib/utils";
@@ -474,15 +475,11 @@ function RecentBuilds() {
           <p className="text-sm text-slate-400">No projects available yet. Check back soon!</p>
         </motion.div>
       ) : (
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-10"
-        >
-          <CaseStudiesStack caseStudies={projects} />
-        </motion.div>
+        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project, index) => (
+            <FlipCard3D key={project.id} project={project} index={index} />
+          ))}
+        </div>
       )}
     </section>
   );
