@@ -10,6 +10,17 @@ All colors MUST be HSL.
   html {
     scroll-behavior: smooth;
   }
+  
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 
   :root {
     --background: 175 100% 11%;
@@ -105,9 +116,21 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    /* Improve mobile performance */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
-
-  html {
-    scroll-behavior: smooth;
+  
+  /* Prevent rubber band scrolling on iOS */
+  body, html {
+    overscroll-behavior-y: contain;
+  }
+  
+  /* Fix iOS input zoom */
+  input, select, textarea {
+    font-size: 16px;
   }
 }
+

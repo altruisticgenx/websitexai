@@ -7,7 +7,7 @@ export function KeyboardShortcutsHelp() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1, duration: 0.5 }}
-      className="fixed bottom-6 left-6 z-40 hidden lg:block"
+      className="fixed bottom-6 left-6 z-30 hidden lg:block"
     >
       <div className="group relative">
         <div className="rounded-full border border-slate-800/60 bg-slate-900/40 backdrop-blur-sm p-2 text-slate-400 hover:text-primary hover:border-primary/30 transition-all duration-200 cursor-help">
