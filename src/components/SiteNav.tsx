@@ -8,11 +8,31 @@ import {
   NavigationMenuIndicator,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
+import { useActiveSection } from "@/hooks/use-active-section";
 
 const navLinkClass =
-  "block w-full text-center text-[2.2rem] leading-tight lowercase tracking-[0.05em] transition-colors duration-300";
+  "block w-full text-center text-[2.2rem] leading-tight lowercase tracking-[0.05em] transition-all duration-300 font-itim";
 
 export function SiteNav() {
+  const activeSection = useActiveSection(["", "pilot", "builds", "how", "where"]);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const href = e.currentTarget.getAttribute("href");
+    if (!href) return;
+
+    if (href === "#" || href === "") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    const sectionId = href.replace("#", "");
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <div className="relative mx-auto w-full max-w-4xl pt-4 text-foreground">
       {/* Top bar */}
@@ -23,11 +43,13 @@ export function SiteNav() {
             <NavigationMenuLink asChild>
               <a
                 href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className={cn(navLinkClass, "text-primary hover:text-primary/80")}
+                onClick={handleNavClick}
+                className={cn(
+                  navLinkClass,
+                  activeSection === ""
+                    ? "text-primary scale-110"
+                    : "text-foreground hover:text-primary hover:scale-105"
+                )}
               >
                 home
               </a>
@@ -51,7 +73,10 @@ export function SiteNav() {
             <NavigationMenuTrigger
               className={cn(
                 navLinkClass,
-                "bg-transparent p-0 hover:bg-transparent focus:bg-transparent hover:text-primary data-[state=open]:text-primary"
+                "bg-transparent p-0 hover:bg-transparent focus:bg-transparent data-[state=open]:text-primary",
+                ["pilot", "builds", "how"].includes(activeSection)
+                  ? "text-primary scale-110"
+                  : "text-foreground hover:text-primary hover:scale-105"
               )}
             >
               work
@@ -62,6 +87,7 @@ export function SiteNav() {
                   <NavigationMenuLink asChild>
                     <a
                       href="#pilot"
+                      onClick={handleNavClick}
                       className="block rounded-md px-2 py-1 hover:bg-accent hover:text-accent-foreground transition-colors"
                     >
                       4-week pilots
@@ -72,6 +98,7 @@ export function SiteNav() {
                   <NavigationMenuLink asChild>
                     <a
                       href="#builds"
+                      onClick={handleNavClick}
                       className="block rounded-md px-2 py-1 hover:bg-accent hover:text-accent-foreground transition-colors"
                     >
                       pilot proposals
@@ -82,6 +109,7 @@ export function SiteNav() {
                   <NavigationMenuLink asChild>
                     <a
                       href="#how"
+                      onClick={handleNavClick}
                       className="block rounded-md px-2 py-1 hover:bg-accent hover:text-accent-foreground transition-colors"
                     >
                       recurring / saas
@@ -96,8 +124,14 @@ export function SiteNav() {
           <NavigationMenuItem>
             <NavigationMenuLink asChild>
               <a 
-                href="#where" 
-                className={cn(navLinkClass, "hover:text-primary")}
+                href="#where"
+                onClick={handleNavClick}
+                className={cn(
+                  navLinkClass,
+                  activeSection === "where"
+                    ? "text-primary scale-110"
+                    : "text-foreground hover:text-primary hover:scale-105"
+                )}
               >
                 about
               </a>
