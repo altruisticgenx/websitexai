@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { TestimonialsVariant, CaseStudiesStack } from "@/components/ui/animated-cards-stack";
-import { GraduationCap, Zap, Building2, AlertCircle } from "lucide-react";
+import { GraduationCap, Zap, Building2, AlertCircle, ChevronDown } from "lucide-react";
 import { MobileHeader } from "@/components/MobileHeader";
 import { ContactForm } from "@/components/ContactForm";
 import { FAQAssistant } from "@/components/FAQAssistant";
 import { Toaster } from "@/components/ui/toaster";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
+import { WhereIWork } from "@/components/WhereIWork";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { cn } from "@/lib/utils";
@@ -19,6 +20,13 @@ import {
   StepsSkeleton, 
   FAQSkeleton 
 } from "@/components/skeletons/SectionSkeleton";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
 
 const lanes = [
   {
@@ -72,8 +80,9 @@ const Index = () => {
     { key: "1", sectionId: "who", name: "Who I Build For" },
     { key: "2", sectionId: "timeline", name: "4-Week Timeline" },
     { key: "3", sectionId: "lab", name: "Live Pilot Lab" },
-    { key: "4", sectionId: "proof", name: "Proof & Trust" },
-    { key: "5", sectionId: "faq", name: "FAQ" },
+    { key: "4", sectionId: "where", name: "Where I Work" },
+    { key: "5", sectionId: "proof", name: "Proof & Trust" },
+    { key: "6", sectionId: "faq", name: "FAQ" },
   ]);
 
   return (
@@ -86,7 +95,7 @@ const Index = () => {
             <div className="animate-pulse"><HeroSkeleton /><CardsSkeleton /><StepsSkeleton /><CardsSkeleton count={3} /><FAQSkeleton /></div>
           ) : (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-              <Hero /><WhoIBuildFor /><PilotTimeline /><LivePilotLab /><ProofAndTrust /><FAQAndCTA />
+              <Hero /><WhoIBuildFor /><PilotTimeline /><LivePilotLab /><WhereIWork /><ProofAndTrust /><FAQAndCTA />
             </motion.div>
           )}
         </main>
@@ -99,7 +108,7 @@ const Index = () => {
 export default Index;
 
 function SiteHeader() {
-  const activeSection = useActiveSection(["who", "timeline", "lab", "proof"]);
+  const activeSection = useActiveSection(["who", "timeline", "lab", "where", "proof"]);
   return (
     <motion.header initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="hidden md:flex items-center justify-between py-5">
       <a href="#" className="flex flex-col" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
@@ -107,10 +116,32 @@ function SiteHeader() {
         <span className="text-xs text-slate-400">AI + Product Engineering · Weekly Sprints</span>
       </a>
       <nav className="flex items-center gap-6 text-sm text-slate-300">
-        <a href="#who" className={cn("relative hover:text-primary transition-colors", activeSection === "who" && "text-primary after:absolute after:w-full after:h-0.5 after:bg-primary after:bottom-[-8px] after:left-0")}>Who I Build For</a>
+        <DropdownMenu>
+          <DropdownMenuTrigger className="flex items-center gap-1 hover:text-primary transition-colors">
+            Sections <ChevronDown className="h-4 w-4" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="bg-slate-900 border-slate-800 z-50">
+            <DropdownMenuItem asChild>
+              <a href="#who" className={cn("cursor-pointer", activeSection === "who" && "text-primary")}>Who I Build For</a>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <a href="#timeline" className={cn("cursor-pointer", activeSection === "timeline" && "text-primary")}>How it works</a>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <a href="#lab" className={cn("cursor-pointer", activeSection === "lab" && "text-primary")}>Pilot Lab</a>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <a href="#where" className={cn("cursor-pointer", activeSection === "where" && "text-primary")}>Where I Work</a>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <a href="#proof" className={cn("cursor-pointer", activeSection === "proof" && "text-primary")}>Proof & Trust</a>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <a href="#faq" className="cursor-pointer">FAQ</a>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <Link to="/portfolio" className="hover:text-primary transition-colors">Portfolio</Link>
-        <a href="#timeline" className={cn("relative hover:text-primary transition-colors", activeSection === "timeline" && "text-primary after:absolute after:w-full after:h-0.5 after:bg-primary after:bottom-[-8px] after:left-0")}>How it works</a>
-        <a href="#lab" className={cn("relative hover:text-primary transition-colors", activeSection === "lab" && "text-primary after:absolute after:w-full after:h-0.5 after:bg-primary after:bottom-[-8px] after:left-0")}>Pilot Lab</a>
         <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" className="rounded-full border border-primary/60 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/20 transition-colors">Book a Pilot Call</a>
       </nav>
     </motion.header>
@@ -215,6 +246,8 @@ function LivePilotLab() {
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedSector, setSelectedSector] = useState<string | null>(null);
+  const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -231,14 +264,59 @@ function LivePilotLab() {
     fetchProjects();
   }, []);
 
+  const filteredProjects = projects.filter(project => {
+    if (selectedSector && project.sector !== selectedSector) return false;
+    if (selectedStatus && project.status !== selectedStatus) return false;
+    return true;
+  });
+
+  const sectors = ['Energy', 'Education', 'Civic & Policy'];
+  const statuses = ['Now Shipping', 'Recently Shipped', 'Shelved'];
+
   return (
     <section id="lab" className="border-t border-slate-900/80 py-10 sm:py-14">
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="max-w-4xl">
         <p className="text-xs font-semibold uppercase tracking-wide text-primary">Live AI Pilot Lab</p>
-        <h2 className="mt-2 text-xl font-semibold sm:text-2xl">Not a portfolio. A lab notebook.</h2>
-        <p className="mt-2 text-sm text-slate-400">Real experiments in energy, education, and civic tech—including the ones that didn't ship.</p>
+        <h2 className="mt-2 text-xl font-semibold sm:text-2xl">Recent Pilots & Experiments</h2>
       </motion.div>
-      {loading ? <div className="mt-8"><CardsSkeleton count={4} /></div> : error ? <div className="mt-8 rounded-2xl border border-red-500/30 bg-red-500/5 p-6 text-center"><AlertCircle className="mx-auto h-8 w-8 text-red-400" /><p className="mt-2 text-sm text-red-300">{error}</p></div> : <div className="mt-8"><CaseStudiesStack caseStudies={projects} /></div>}
+
+      <div className="mt-6 flex flex-wrap items-center gap-3">
+        <span className="text-sm text-slate-400">Filter by:</span>
+        <div className="flex flex-wrap gap-2">
+          {sectors.map((sector) => (
+            <Badge
+              key={sector}
+              variant={selectedSector === sector ? "default" : "outline"}
+              className="cursor-pointer"
+              onClick={() => setSelectedSector(selectedSector === sector ? null : sector)}
+            >
+              {sector}
+            </Badge>
+          ))}
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {statuses.map((status) => (
+            <Badge
+              key={status}
+              variant={selectedStatus === status ? "default" : "outline"}
+              className="cursor-pointer"
+              onClick={() => setSelectedStatus(selectedStatus === status ? null : status)}
+            >
+              {status}
+            </Badge>
+          ))}
+        </div>
+        {(selectedSector || selectedStatus) && (
+          <button
+            onClick={() => { setSelectedSector(null); setSelectedStatus(null); }}
+            className="text-xs text-slate-400 hover:text-primary transition-colors"
+          >
+            Clear filters
+          </button>
+        )}
+      </div>
+
+      {loading ? <div className="mt-8"><CardsSkeleton count={4} /></div> : error ? <div className="mt-8 rounded-2xl border border-red-500/30 bg-red-500/5 p-6 text-center"><AlertCircle className="mx-auto h-8 w-8 text-red-400" /><p className="mt-2 text-sm text-red-300">{error}</p></div> : filteredProjects.length === 0 ? <div className="mt-8 rounded-2xl border border-slate-800/70 bg-slate-900/60 p-6 text-center"><p className="text-sm text-slate-400">No projects match the selected filters.</p></div> : <div className="mt-8"><CaseStudiesStack caseStudies={filteredProjects} /></div>}
     </section>
   );
 }
