@@ -149,7 +149,7 @@ const Hero = memo(function Hero() {
       isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
     )}
   >
-      <div className="grid gap-10 md:grid-cols-[minmax(0,1.4fr),minmax(0,1fr)] md:items-center">
+      <div className="grid gap-10 md:grid-cols-[minmax(0,1.4fr),minmax(0,1fr)] md:items-start md:gap-8">
         <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-[11px] font-medium text-foreground">
             <span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
@@ -192,7 +192,7 @@ const Hero = memo(function Hero() {
             </div>
           </dl>
 
-          <div className="mt-6 flex items-center gap-3">
+          <div className="mt-8 flex items-center gap-4">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -200,10 +200,10 @@ const Hero = memo(function Hero() {
                     href="https://www.linkedin.com/in/ik11" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-primary/60 bg-primary/10 text-primary transition-colors hover:bg-primary/20"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/60 bg-primary/10 text-primary transition-all hover:bg-primary/20 hover:scale-110"
                     aria-label="Connect on LinkedIn"
                   >
-                    <Linkedin size={18} />
+                    <Linkedin size={20} />
                   </a>
                 </TooltipTrigger>
                 <TooltipContent>
@@ -211,22 +211,25 @@ const Hero = memo(function Hero() {
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
+            <p className="text-xs text-slate-400">
+              Let's connect and explore how we can work together
+            </p>
           </div>
         </div>
 
         <motion.div 
           ref={parallaxRef}
           style={{ y: parallaxY, position: "relative" }}
-          className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-4 sm:p-5 shadow-2xl shadow-primary/5 animate-fade-in"
+          className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-5 sm:p-6 shadow-2xl shadow-primary/5 animate-fade-in"
         >
-          <div className="text-xs font-mono text-slate-400">
+          <div className="text-xs font-mono text-slate-400 uppercase tracking-wider">
             Build Fast Kit / 4-week pilot
           </div>
-          <p className="mt-2 text-sm text-slate-200">
+          <p className="mt-3 text-sm text-slate-200 leading-relaxed">
             One senior engineer. One small backlog. 4 weeks to prove whether
             this pilot is worth scaling.
           </p>
-          <div className="mt-4 grid gap-3 text-xs text-slate-200">
+          <div className="mt-5 grid gap-3 text-xs text-slate-200">
             <VisualRow label="Week 1" title="Clarify & ship the first slice" body="Turn the idea into 1–2 concrete flows. Ship a working skeleton instead of a deck." />
             <VisualRow label="Week 2–3" title="Tighten the flows" body="Integrate data, refine UX, and make it demo-able to internal stakeholders." />
             <VisualRow label="Week 4" title="Decide with evidence" body="You walk away with a working repo, a clear walkthrough, and a decision: scale, pivot, or park." />
@@ -251,14 +254,14 @@ const VisualRow = memo(function VisualRow({
   return <motion.div 
     ref={parallaxRef}
     style={{ y: parallaxY, position: "relative" }}
-    className="flex gap-3 rounded-2xl border border-slate-800/80 bg-slate-950/40 p-3 hover:border-primary/20 hover:bg-slate-950/60 transition-all duration-300"
+    className="flex gap-4 rounded-2xl border border-slate-800/80 bg-slate-950/40 p-4 hover:border-primary/20 hover:bg-slate-950/60 transition-all duration-300"
   >
-      <div className="mt-0.5 w-14 flex-shrink-0 text-[11px] font-mono uppercase tracking-[0.16em] text-primary">
+      <div className="mt-0.5 w-16 flex-shrink-0 text-[11px] font-mono uppercase tracking-wider text-primary font-medium">
         {label}
       </div>
-      <div>
-        <div className="text-[13px] font-medium text-slate-50">{title}</div>
-        <div className="mt-1 text-[12px] text-slate-300">{body}</div>
+      <div className="flex-1">
+        <div className="text-sm font-semibold text-slate-50 leading-snug">{title}</div>
+        <div className="mt-1.5 text-xs text-slate-300 leading-relaxed">{body}</div>
       </div>
     </motion.div>;
 });
