@@ -1,18 +1,29 @@
-import React from "react";
+import { memo } from "react";
 import { motion } from "framer-motion";
-import { Zap, FileText, Layers, RefreshCw } from "lucide-react";
+import { Zap, FileText, Layers, RefreshCw, LucideIcon } from "lucide-react";
 import { FloatingCard3D } from "./FloatingCard3D";
 
-const engagementModels = [
+interface EngagementModel {
+  name: string;
+  icon: LucideIcon;
+  description: string;
+  pros: string;
+  bestFor: string;
+  color: string;
+  borderColor: string;
+  iconColor: string;
+}
+
+const engagementModels: EngagementModel[] = [
   {
     name: "Pilot",
     icon: Zap,
     description: "4-week sprint—real builds, not decks.",
     pros: "Momentum, learning, low risk",
     bestFor: "Validation, rapid iteration",
-    color: "from-emerald-500/20 to-teal-500/20",
-    borderColor: "border-emerald-400/40",
-    iconColor: "text-emerald-300",
+    color: "from-primary/20 to-accent/20",
+    borderColor: "border-primary/40",
+    iconColor: "text-primary",
   },
   {
     name: "Proposal",
@@ -20,9 +31,9 @@ const engagementModels = [
     description: "Scoped plan: objectives, timeline, budget.",
     pros: "Clarity, stakeholder buy-in",
     bestFor: "Grants, compliance work",
-    color: "from-blue-500/20 to-cyan-500/20",
-    borderColor: "border-blue-400/40",
-    iconColor: "text-blue-300",
+    color: "from-secondary/20 to-accent/20",
+    borderColor: "border-secondary/40",
+    iconColor: "text-accent",
   },
   {
     name: "Full Project",
@@ -30,9 +41,9 @@ const engagementModels = [
     description: "Multi-month end-to-end execution.",
     pros: "Stability, full solution",
     bestFor: "Long-term scaling",
-    color: "from-violet-500/20 to-purple-500/20",
-    borderColor: "border-violet-400/40",
-    iconColor: "text-violet-300",
+    color: "from-primary/15 to-secondary/15",
+    borderColor: "border-primary/40",
+    iconColor: "text-primary",
   },
   {
     name: "Retainer",
@@ -40,13 +51,13 @@ const engagementModels = [
     description: "Ongoing flexible support.",
     pros: "Continuous expertise",
     bestFor: "Evolving roadmaps",
-    color: "from-amber-500/20 to-orange-500/20",
-    borderColor: "border-amber-400/40",
-    iconColor: "text-amber-300",
+    color: "from-accent/20 to-primary/20",
+    borderColor: "border-accent/40",
+    iconColor: "text-accent",
   },
-];
+] as const;
 
-export function EngagementModels() {
+export const EngagementModels = memo(() => {
   return (
     <section className="py-8 sm:py-10">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -176,4 +187,6 @@ export function EngagementModels() {
       </div>
     </section>
   );
-}
+});
+
+EngagementModels.displayName = 'EngagementModels';
