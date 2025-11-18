@@ -8,6 +8,9 @@ interface EmailInputProps {
   onBlur: () => void;
   disabled?: boolean;
   placeholder?: string;
+  className?: string;
+  "aria-invalid"?: boolean | "true" | "false";
+  "aria-describedby"?: string;
 }
 
 const COMMON_DOMAINS = [
@@ -19,7 +22,7 @@ const COMMON_DOMAINS = [
   "protonmail.com",
 ];
 
-export function EmailInput({ value, onChange, onBlur, disabled, placeholder }: EmailInputProps) {
+export function EmailInput({ value, onChange, onBlur, disabled, placeholder, className, ...ariaProps }: EmailInputProps) {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -104,6 +107,8 @@ export function EmailInput({ value, onChange, onBlur, disabled, placeholder }: E
         onKeyDown={handleKeyDown}
         disabled={disabled}
         autoComplete="off"
+        className={className}
+        {...ariaProps}
       />
       
       {showSuggestions && suggestions.length > 0 && (
