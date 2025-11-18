@@ -157,16 +157,17 @@ export default Index;
 function SiteHeader() {
   const activeSection = useActiveSection(["builds", "how", "pilot", "contact"]);
   
-  return <motion.header initial={{
-    opacity: 0,
-    y: -20
-  }} animate={{
-    opacity: 1,
-    y: 0
-  }} transition={{
-    duration: 0.5
-  }} className="flex items-center justify-between py-5 sticky top-0 z-40 bg-slate-950/98 backdrop-blur-md border-b border-slate-900/50">
-      <a href="#" className="flex flex-col">
+  return (
+    <motion.header 
+      initial={{ opacity: 0, y: -20 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      transition={{ duration: 0.5 }} 
+      className="hidden md:flex items-center justify-between py-5"
+    >
+      <a href="#" className="flex flex-col" onClick={(e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }}>
         <span className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
           AltruisticX AI
         </span>
@@ -174,7 +175,7 @@ function SiteHeader() {
           AI + Product Engineering · Weekly Sprints
         </span>
       </a>
-      <nav className="hidden items-center gap-6 text-sm text-slate-300 md:flex">
+      <nav className="flex items-center gap-6 text-sm text-slate-300">
         <a 
           href="#builds" 
           className={cn(
@@ -205,13 +206,19 @@ function SiteHeader() {
         >
           4-week pilot
         </a>
-        <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" className="rounded-full border border-primary/60 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/20 transition-colors">
+        <a 
+          href="https://scheduler.zoom.us/altruistic-xai" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="rounded-full border border-primary/60 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/20 transition-colors"
+        >
           Book a 30-min intro
         </a>
       </nav>
-      <MobileMenu className="md:hidden" />
-    </motion.header>;
+    </motion.header>
+  );
 }
+
 function Hero() {
   return <section className="py-10 sm:py-14">
       <div className="grid gap-10 md:grid-cols-[minmax(0,1.4fr),minmax(0,1fr)] md:items-center">

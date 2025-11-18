@@ -10,6 +10,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -22,18 +23,28 @@ import {
 } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { Loader2, CheckCircle2 } from "lucide-react";
 
 const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters").max(100),
-  email: z.string().email("Invalid email address").max(255),
+  name: z.string()
+    .min(2, "Name must be at least 2 characters")
+    .max(100, "Name must be less than 100 characters")
+    .regex(/^[a-zA-Z\s'-]+$/, "Name can only contain letters, spaces, hyphens, and apostrophes"),
+  email: z.string()
+    .email("Please enter a valid email address")
+    .max(255, "Email must be less than 255 characters")
+    .toLowerCase(),
   projectType: z.string().min(1, "Please select a project type"),
-  message: z.string().min(10, "Message must be at least 10 characters").max(1000),
+  message: z.string()
+    .min(10, "Message must be at least 10 characters")
+    .max(1000, "Message must be less than 1000 characters"),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -43,13 +54,17 @@ export function ContactForm() {
       projectType: "",
       message: "",
     },
+    mode: "onChange",
   });
+
+  const nameLength = form.watch("name")?.length || 0;
+  const messageLength = form.watch("message")?.length || 0;
 
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
+    setIsSuccess(false);
     
     try {
-      // Save to database and get the submission ID
       const { data: submission, error } = await supabase
         .from("contact_submissions")
         .insert({
@@ -63,26 +78,24 @@ export function ContactForm() {
 
       if (error) throw error;
 
-      // Send confirmation email with submission ID for verification
       if (submission) {
         try {
           await supabase.functions.invoke("send-contact-confirmation", {
-            body: {
-              submissionId: submission.id,
-            },
+            body: { submissionId: submission.id },
           });
         } catch (emailError) {
           console.error("Email sending failed (non-critical):", emailError);
-          // Don't fail the form submission if email fails
         }
       }
 
+      setIsSuccess(true);
       toast({
         title: "Message sent!",
         description: "Thanks for reaching out. Check your email for confirmation.",
       });
       
       form.reset();
+      setTimeout(() => setIsSuccess(false), 3000);
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
@@ -113,9 +126,18 @@ export function ContactForm() {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Your name" {...field} />
+                  <Input 
+                    placeholder="Your name" 
+                    {...field}
+                    disabled={isSubmitting}
+                  />
                 </FormControl>
-                <FormMessage />
+                <div className="flex justify-between items-center">
+                  <FormMessage />
+                  <span className={`text-xs ${nameLength > 100 ? 'text-destructive' : 'text-slate-400'}`}>
+                    {nameLength}/100
+                  </span>
+                </div>
               </FormItem>
             )}
           />
@@ -127,7 +149,12 @@ export function ContactForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="you@example.com" {...field} />
+                  <Input 
+                    type="email" 
+                    placeholder="you@example.com" 
+                    {...field}
+                    disabled={isSubmitting}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -140,18 +167,22 @@ export function ContactForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Project Type</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select 
+                  onValueChange={field.onChange} 
+                  defaultValue={field.value}
+                  disabled={isSubmitting}
+                >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select project type" />
+                      <SelectValue placeholder="Select a project type" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="pilot">4-week Pilot</SelectItem>
-                    <SelectItem value="proposal">Proposal / Planning</SelectItem>
+                    <SelectItem value="quick-question">Quick Question</SelectItem>
+                    <SelectItem value="consulting">Consulting / Advisory</SelectItem>
+                    <SelectItem value="pilot-project">4-Week Pilot Project</SelectItem>
                     <SelectItem value="full-project">Full Project</SelectItem>
-                    <SelectItem value="retainer">Retainer / Ongoing</SelectItem>
-                    <SelectItem value="other">Other / Not sure</SelectItem>
+                    <SelectItem value="ongoing-support">Ongoing Support</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -167,18 +198,43 @@ export function ContactForm() {
                 <FormLabel>Message</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder="Tell me about your project, timeline, and what you're hoping to achieve..."
-                    className="min-h-[120px]"
+                    placeholder="Tell me about your project..."
+                    className="min-h-[120px] resize-none"
                     {...field}
+                    disabled={isSubmitting}
                   />
                 </FormControl>
-                <FormMessage />
+                <div className="flex justify-between items-center">
+                  <FormMessage />
+                  <span className={`text-xs ${messageLength > 1000 ? 'text-destructive' : 'text-slate-400'}`}>
+                    {messageLength}/1000
+                  </span>
+                </div>
+                <FormDescription className="text-xs">
+                  Minimum 10 characters required
+                </FormDescription>
               </FormItem>
             )}
           />
 
-          <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
-            {isSubmitting ? "Sending..." : "Send Message"}
+          <Button
+            type="submit"
+            disabled={isSubmitting || isSuccess}
+            className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Sending...
+              </>
+            ) : isSuccess ? (
+              <>
+                <CheckCircle2 className="mr-2 h-4 w-4" />
+                Sent!
+              </>
+            ) : (
+              "Send Message"
+            )}
           </Button>
         </form>
       </Form>
