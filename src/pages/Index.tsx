@@ -7,8 +7,6 @@ import { ShelvedExperiments } from "@/components/ShelvedExperiments";
 import { WhereIWork } from "@/components/WhereIWork";
 import { OrganizationTypes } from "@/components/OrganizationTypes";
 import { EngagementModels } from "@/components/EngagementModels";
-import { MobileMenu } from "@/components/MobileMenu";
-import { MobileHeader } from "@/components/MobileHeader";
 import { ContactForm } from "@/components/ContactForm";
 import { FAQAssistant } from "@/components/FAQAssistant";
 import { Toaster } from "@/components/ui/toaster";
@@ -79,12 +77,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
-      {/* Sticky Mobile Header */}
-      <MobileHeader />
+      {/* Sticky Navigation */}
+      <SiteNav />
       
-      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 sm:px-6 lg:px-8 pt-[60px] md:pt-0">
-        <SiteHeader />
-        <main className="flex-1">
+      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 sm:px-6 lg:px-8">
+        <main className="flex-1 pt-8">
           {isLoading ? (
             <div className="animate-pulse">
               <HeroSkeleton />
@@ -130,42 +127,6 @@ const Index = () => {
 export default Index;
 
 // --- Sub-Components ---
-
-function SiteHeader() {
-  return (
-    <motion.header 
-      initial={{ opacity: 0, y: -20 }} 
-      animate={{ opacity: 1, y: 0 }} 
-      transition={{ duration: 0.5 }} 
-      className="hidden md:flex items-center justify-between py-5"
-    >
-      <a href="#" className="flex flex-col" onClick={(e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }}>
-        <span className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
-          AltruisticX AI
-        </span>
-        <span className="text-xs text-slate-400">
-          AI + Product Engineering · Weekly Sprints
-        </span>
-      </a>
-      
-      <div className="flex items-center gap-6">
-        <SiteNav />
-        
-        <a 
-          href="https://scheduler.zoom.us/altruistic-xai" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="rounded-full border border-primary/60 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/20 transition-colors"
-        >
-          Book a 30-min intro
-        </a>
-      </div>
-    </motion.header>
-  );
-}
 
 function Hero() {
   return <section className="py-10 sm:py-14">

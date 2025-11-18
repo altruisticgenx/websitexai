@@ -9,7 +9,7 @@ All colors MUST be HSL.
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 70px; /* Account for sticky mobile header */
+    scroll-padding-top: 80px; /* Account for sticky nav */
   }
   
   @media (prefers-reduced-motion: reduce) {
