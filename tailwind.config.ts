@@ -14,7 +14,15 @@ export default {
     },
     extend: {
       fontFamily: {
-        'itim': ['Itim', 'cursive'],
+        sans: [
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          '"Segoe UI"',
+          "Roboto",
+          "sans-serif",
+        ],
+        itim: ['Itim', 'cursive'], // Keep for accent use only
       },
       colors: {
         border: "hsl(var(--border))",
