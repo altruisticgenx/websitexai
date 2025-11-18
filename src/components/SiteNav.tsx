@@ -164,7 +164,9 @@ export function SiteNav() {
 
             {/* CTA Button */}
             <a
-              href="mailto:hello@altruisticxai.com"
+              href="https://scheduler.zoom.us/altruistic-xai"
+              target="_blank"
+              rel="noopener noreferrer"
               className="ml-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:scale-105 shadow-lg shadow-primary/20"
             >
               Book Intro
@@ -281,7 +283,9 @@ export function SiteNav() {
               </a>
 
               <a
-                href="mailto:hello@altruisticxai.com"
+                href="https://scheduler.zoom.us/altruistic-xai"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-4 block rounded-full bg-primary px-4 py-2 text-center text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
               >
                 Book 30-min Intro

@@ -312,7 +312,9 @@ const CaseStudyDetail = () => {
             Book a 30-min intro to discuss your pilot project and get a clear weekly plan.
           </p>
           <a
-            href="mailto:hello@altruisticxai.com?subject=Case%20Study%20Inquiry"
+            href="https://scheduler.zoom.us/altruistic-xai"
+            target="_blank"
+            rel="noopener noreferrer"
             className="mt-4 inline-flex items-center justify-center rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-slate-950 shadow-lg shadow-primary/30 hover:bg-primary/90 transition-colors"
           >
             Book a call
