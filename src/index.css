@@ -76,6 +76,20 @@ All colors MUST be HSL.
     --line-height-4xl: clamp(2.5rem, 2.2rem + 1.5vw, 3.5rem);
     --line-height-5xl: clamp(3.5rem, 3rem + 2.5vw, 4.5rem);
 
+    /* Fluid Spacing Scale for responsive layouts */
+    --space-1: clamp(0.25rem, 0.23rem + 0.1vw, 0.3rem);
+    --space-2: clamp(0.5rem, 0.46rem + 0.2vw, 0.625rem);
+    --space-3: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+    --space-4: clamp(1rem, 0.93rem + 0.35vw, 1.25rem);
+    --space-5: clamp(1.25rem, 1.16rem + 0.45vw, 1.5rem);
+    --space-6: clamp(1.5rem, 1.39rem + 0.55vw, 1.875rem);
+    --space-8: clamp(2rem, 1.86rem + 0.7vw, 2.5rem);
+    --space-10: clamp(2.5rem, 2.32rem + 0.9vw, 3.125rem);
+    --space-12: clamp(3rem, 2.79rem + 1.05vw, 3.75rem);
+    --space-16: clamp(4rem, 3.71rem + 1.45vw, 5rem);
+    --space-20: clamp(5rem, 4.64rem + 1.8vw, 6.25rem);
+    --space-24: clamp(6rem, 5.57rem + 2.15vw, 7.5rem);
+
     --sidebar-background: 0 0% 98%;
 
     --sidebar-foreground: 175 100% 11%;
