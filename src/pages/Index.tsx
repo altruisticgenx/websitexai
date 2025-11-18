@@ -112,9 +112,6 @@ const Index = () => {
               <OrganizationTypes />
               <WhereIWork />
               <ShelvedExperiments />
-              <div id="testimonials">
-                <TestimonialsVariant />
-              </div>
               <FAQSection />
             </motion.div>
           )}
@@ -606,11 +603,11 @@ function FAQSection() {
 }
 
 function SiteFooter() {
-  return <footer className="border-t border-lime/20 shadow-lime-glow py-6">
-      <div className="flex flex-col items-start justify-between gap-3 text-xs text-slate-500 sm:flex-row sm:items-center">
-        <div>© {new Date().getFullYear()} AltruisticX · AI + Product Engineer</div>
-        <div className="flex flex-wrap gap-3">
-          <span>Async-first · privacy-aware · built for pilots, classrooms, and fast-moving teams</span>
+  return <footer className="border-t border-lime/20 shadow-lime-glow py-4">
+      <div className="flex flex-col items-start justify-between gap-2 text-[10px] text-slate-500 sm:flex-row sm:items-center">
+        <div className="text-[10px]">© {new Date().getFullYear()} AltruisticX · AI + Product Engineer</div>
+        <div className="flex flex-wrap gap-2">
+          <span className="text-[10px]">Async-first · privacy-aware · built for pilots, classrooms, and fast-moving teams</span>
         </div>
       </div>
     </footer>;
