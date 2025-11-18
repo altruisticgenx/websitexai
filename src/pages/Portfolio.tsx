@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import { getAllCaseStudies } from "@/data/caseStudies";
+import { getAllCaseStudies, CaseStudy } from "@/data/caseStudies";
 import { CaseStudyCard } from "@/components/case-studies/CaseStudyCard";
 
 function Portfolio() {
-  const caseStudies = getAllCaseStudies();
+  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCaseStudies = async () => {
+      const studies = await getAllCaseStudies();
+      setCaseStudies(studies);
+      setLoading(false);
+    };
+    fetchCaseStudies();
+  }, []);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
@@ -39,9 +49,15 @@ function Portfolio() {
 
         {/* Case Studies Grid */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
-          {caseStudies.map((study, index) => (
-            <CaseStudyCard key={study.id} caseStudy={study} index={index} />
-          ))}
+          {loading ? (
+            <p className="text-slate-400 col-span-2">Loading case studies...</p>
+          ) : caseStudies.length === 0 ? (
+            <p className="text-slate-400 col-span-2">No case studies found.</p>
+          ) : (
+            caseStudies.map((study, index) => (
+              <CaseStudyCard key={study.id} caseStudy={study} index={index} />
+            ))
+          )}
         </div>
 
         {/* Call to Action */}
