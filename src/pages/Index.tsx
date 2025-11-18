@@ -10,6 +10,8 @@ import { EngagementModels } from "@/components/EngagementModels";
 import { MobileMenu } from "@/components/MobileMenu";
 import { ContactForm } from "@/components/ContactForm";
 import { Toaster } from "@/components/ui/toaster";
+import { useActiveSection } from "@/hooks/use-active-section";
+import { cn } from "@/lib/utils";
 
 // --- Data Definitions ---
 const recentBuilds = [{
@@ -82,6 +84,8 @@ export default Index;
 // --- Sub-Components ---
 
 function SiteHeader() {
+  const activeSection = useActiveSection(["builds", "how", "pilot", "contact"]);
+  
   return <motion.header initial={{
     opacity: 0,
     y: -20
@@ -90,7 +94,7 @@ function SiteHeader() {
     y: 0
   }} transition={{
     duration: 0.5
-  }} className="flex items-center justify-between py-5">
+  }} className="flex items-center justify-between py-5 sticky top-0 z-50 bg-slate-950/95 backdrop-blur-sm border-b border-slate-900/50">
       <a href="#" className="flex flex-col">
         <span className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
           AltruisticX AI
@@ -100,16 +104,34 @@ function SiteHeader() {
         </span>
       </a>
       <nav className="hidden items-center gap-6 text-sm text-slate-300 md:flex">
-        <a href="#builds" className="hover:text-primary transition-colors">
+        <a 
+          href="#builds" 
+          className={cn(
+            "relative hover:text-primary transition-colors",
+            activeSection === "builds" && "text-primary after:absolute after:w-full after:h-0.5 after:bg-primary after:bottom-[-8px] after:left-0"
+          )}
+        >
           Builds
         </a>
         <Link to="/portfolio" className="hover:text-primary transition-colors">
           Portfolio
         </Link>
-        <a href="#how" className="hover:text-primary transition-colors">
+        <a 
+          href="#how" 
+          className={cn(
+            "relative hover:text-primary transition-colors",
+            activeSection === "how" && "text-primary after:absolute after:w-full after:h-0.5 after:bg-primary after:bottom-[-8px] after:left-0"
+          )}
+        >
           How it works
         </a>
-        <a href="#pilot" className="hover:text-primary transition-colors">
+        <a 
+          href="#pilot" 
+          className={cn(
+            "relative hover:text-primary transition-colors",
+            activeSection === "pilot" && "text-primary after:absolute after:w-full after:h-0.5 after:bg-primary after:bottom-[-8px] after:left-0"
+          )}
+        >
           4-week pilot
         </a>
         <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" className="rounded-full border border-primary/60 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/20 transition-colors">

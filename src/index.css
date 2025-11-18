@@ -7,6 +7,10 @@ All colors MUST be HSL.
 */
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   :root {
     --background: 175 100% 11%;
     --foreground: 168 100% 97%;

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useActiveSection } from "@/hooks/use-active-section";
+import { cn } from "@/lib/utils";
 
 interface MobileMenuProps {
   className?: string;
@@ -9,21 +11,25 @@ interface MobileMenuProps {
 
 export function MobileMenu({ className = "" }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const activeSection = useActiveSection([
+    "builds", "how", "pilot", "benefits", "org-types", 
+    "where", "shelved", "testimonials", "faq", "contact"
+  ]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
   const menuItems = [
-    { label: "Builds", href: "#builds" },
+    { label: "Builds", href: "#builds", id: "builds" },
     { label: "Portfolio", href: "/portfolio", isRoute: true },
-    { label: "How it Works", href: "#how" },
-    { label: "4-Week Pilot", href: "#pilot" },
-    { label: "Who Benefits", href: "#benefits" },
-    { label: "Organization Types", href: "#org-types" },
-    { label: "Where I Work", href: "#where" },
-    { label: "Shelved Experiments", href: "#shelved" },
-    { label: "Testimonials", href: "#testimonials" },
-    { label: "FAQ", href: "#faq" },
+    { label: "How it Works", href: "#how", id: "how" },
+    { label: "4-Week Pilot", href: "#pilot", id: "pilot" },
+    { label: "Who Benefits", href: "#benefits", id: "benefits" },
+    { label: "Organization Types", href: "#org-types", id: "org-types" },
+    { label: "Where I Work", href: "#where", id: "where" },
+    { label: "Shelved Experiments", href: "#shelved", id: "shelved" },
+    { label: "Testimonials", href: "#testimonials", id: "testimonials" },
+    { label: "FAQ", href: "#faq", id: "faq" },
   ];
 
   return (
@@ -84,7 +90,12 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
                         <a
                           href={item.href}
                           onClick={closeMenu}
-                          className="block rounded-lg px-4 py-3 text-sm text-slate-300 hover:bg-slate-800 hover:text-primary transition-colors"
+                          className={cn(
+                            "block rounded-lg px-4 py-3 text-sm transition-colors",
+                            activeSection === item.id
+                              ? "bg-slate-800 text-primary font-medium"
+                              : "text-slate-300 hover:bg-slate-800 hover:text-primary"
+                          )}
                         >
                           {item.label}
                         </a>
