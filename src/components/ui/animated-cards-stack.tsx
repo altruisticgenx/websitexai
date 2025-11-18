@@ -1,6 +1,6 @@
-"use client";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 interface Card {
@@ -33,7 +33,7 @@ export const AnimatedCardsStack = ({
   }, []);
 
   return (
-    <div className="relative h-[280px] w-full md:h-[320px]">
+    <div className="relative h-[280px] w-full md:h-[320px]" style={{ position: "relative" }}>
       {activeCards.map((card, index) => {
         return (
           <motion.div
@@ -44,18 +44,19 @@ export const AnimatedCardsStack = ({
             )}
             style={{
               transformOrigin: "top center",
+              willChange: "transform, opacity",
             }}
-        animate={{
-          top: index * -offset,
-          scale: 1 - index * scaleFactor,
-          zIndex: cards.length - index,
-          opacity: index === 0 ? 1 : index === 1 ? 0.8 : index === 2 ? 0.4 : 0,
-        }}
-        transition={{
-          duration: 0.5,
-          ease: [0.4, 0, 0.2, 1],
-          opacity: { duration: 0.6 },
-        }}
+            animate={{
+              y: index * -offset,
+              scale: 1 - index * scaleFactor,
+              zIndex: cards.length - index,
+              opacity: index === 0 ? 1 : index === 1 ? 0.8 : index === 2 ? 0.4 : 0,
+            }}
+            transition={{
+              duration: 0.5,
+              ease: [0.4, 0, 0.2, 1],
+              opacity: { duration: 0.6 },
+            }}
           >
             {card.content}
           </motion.div>
@@ -444,6 +445,7 @@ export const CaseStudiesStack = ({
   return (
     <div 
       className="relative h-[260px] w-full sm:h-[300px] md:h-[360px] touch-pan-y"
+      style={{ position: "relative" }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -452,10 +454,9 @@ export const CaseStudiesStack = ({
         const isTop = index === 0;
         
         return (
-          <motion.a
+          <motion.div
             key={study.id}
-            href={`/case-study/${study.id}`}
-            className="absolute inset-0 mx-auto flex w-full max-w-lg cursor-pointer flex-col justify-between rounded-2xl border border-blue-400/20 bg-gradient-to-br from-slate-900/95 to-slate-950/95 p-3.5 shadow-2xl backdrop-blur-md transition-all hover:border-blue-400/40 sm:rounded-3xl sm:p-5 md:p-6"
+            className="absolute inset-0 mx-auto flex w-full max-w-lg"
             style={{
               transformOrigin: "top center",
               perspective: "1000px",
@@ -463,16 +464,16 @@ export const CaseStudiesStack = ({
             }}
             initial={false}
             animate={{
-              top: index * -8,
+              y: index * -8,
               scale: 1 - index * 0.04,
               zIndex: caseStudies.length - index,
               opacity: index === 0 ? 1 : index === 1 ? 0.75 : index === 2 ? 0.4 : 0,
               rotateX: isTop && isHovered ? -1.5 : 0,
               rotateY: isTop && isHovered ? 1.5 : 0,
-              y: isTop && isHovered ? -6 : 0,
             }}
             whileHover={isTop ? {
               scale: 1.02,
+              y: -6,
               boxShadow: "0 25px 50px -12px rgba(59, 130, 246, 0.3)",
             } : {}}
             whileTap={isTop ? { scale: 0.98 } : {}}
@@ -486,6 +487,10 @@ export const CaseStudiesStack = ({
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
+            <Link
+              to={`/case-study/${study.id}`}
+              className="flex w-full cursor-pointer flex-col justify-between rounded-2xl border border-blue-400/20 bg-gradient-to-br from-slate-900/95 to-slate-950/95 p-3.5 shadow-2xl backdrop-blur-md transition-all hover:border-blue-400/40 sm:rounded-3xl sm:p-5 md:p-6"
+            >
             <div className="space-y-2.5 sm:space-y-3">
               <motion.div 
                 className="inline-flex items-center gap-1.5 rounded-full border border-blue-400/30 bg-blue-400/10 px-2.5 py-1 text-[10px] font-medium text-blue-300 sm:gap-2 sm:px-3 sm:py-1.5 sm:text-xs"
@@ -519,7 +524,8 @@ export const CaseStudiesStack = ({
                 View details →
               </motion.span>
             </div>
-          </motion.a>
+          </Link>
+          </motion.div>
         );
       })}
     </div>
