@@ -1,13 +1,28 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { Menu, X } from "lucide-react";
 
+interface NavLink {
+  href: string;
+  label: string;
+  section: string;
+}
+
 export function SiteNav() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const activeSection = useActiveSection(["", "pilot", "builds", "where", "faq"]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isPortfolioPage = location.pathname === "/portfolio";
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const href = e.currentTarget.getAttribute("href");
     if (!href) return;
@@ -32,9 +47,13 @@ export function SiteNav() {
         behavior: "smooth"
       });
     }
-  };
+  }, []);
 
-  const navLinks = [
+  const closeMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(false);
+  }, []);
+
+  const navLinks: NavLink[] = [
     { href: "#", label: "Home", section: "" },
     { href: "#pilot", label: "Pilots", section: "pilot" },
     { href: "#builds", label: "Builds", section: "builds" },
@@ -78,12 +97,18 @@ export function SiteNav() {
               </a>
             ))}
             
-            <a
-              href="/portfolio"
-              className="px-3 py-1.5 text-sm font-medium text-muted-foreground transition-all duration-200 hover:text-foreground hover:bg-accent/50 rounded-md"
+            <Link
+              to="/portfolio"
+              className={cn(
+                "px-3 py-1.5 text-sm font-medium transition-all duration-200 rounded-md",
+                isPortfolioPage
+                  ? "text-primary bg-primary/10"
+                  : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+              )}
+              onClick={closeMobileMenu}
             >
               Lab
-            </a>
+            </Link>
 
             {/* CTA Button */}
             <a
@@ -130,12 +155,18 @@ export function SiteNav() {
                 </a>
               ))}
               
-              <a
-                href="/portfolio"
-                className="block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:bg-accent/50"
+              <Link
+                to="/portfolio"
+                className={cn(
+                  "block rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                  isPortfolioPage
+                    ? "text-primary bg-primary/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                )}
+                onClick={closeMobileMenu}
               >
                 Lab
-              </a>
+              </Link>
 
               <a
                 href="https://scheduler.zoom.us/altruistic-xai"
