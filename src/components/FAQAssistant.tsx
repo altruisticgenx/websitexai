@@ -12,7 +12,7 @@ export function FAQAssistant() {
   const [answer, setAnswer] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleAsk = async () => {
+  const handleAsk = async (retryCount = 0) => {
     if (!question.trim()) {
       toast({
         title: "Please enter a question",
@@ -32,37 +32,62 @@ export function FAQAssistant() {
       if (error) {
         console.error("Function error:", error);
         
-        if (error.message?.includes("429") || error.message?.includes("rate limit")) {
+        // Handle rate limit errors
+        if (error.message?.includes("429") || error.message?.includes("Rate limit")) {
           toast({
-            title: "Rate limit exceeded",
+            title: "Too many requests",
             description: "Please wait a moment before asking another question.",
             variant: "destructive",
           });
           return;
         }
         
-        if (error.message?.includes("402") || error.message?.includes("credits")) {
+        // Handle credit exhaustion
+        if (error.message?.includes("402") || error.message?.includes("credits exhausted")) {
           toast({
             title: "Service temporarily unavailable",
-            description: "AI assistant credits need to be replenished.",
+            description: "AI assistant credits need to be replenished. Please try again later.",
             variant: "destructive",
           });
+          return;
+        }
+
+        // Retry on transient errors (max 2 retries)
+        if (retryCount < 2 && (error.message?.includes("fetch") || error.message?.includes("network"))) {
+          console.log(`Retrying request (attempt ${retryCount + 1})...`);
+          setTimeout(() => handleAsk(retryCount + 1), 1000 * (retryCount + 1));
           return;
         }
 
         throw error;
       }
 
+      if (data?.error) {
+        throw new Error(data.error);
+      }
+
       if (data?.answer) {
         setAnswer(data.answer);
+        toast({
+          title: "Answer received",
+          description: "The AI assistant has responded to your question.",
+        });
       } else {
-        throw new Error("No answer received");
+        throw new Error("No answer received from AI");
       }
     } catch (error: any) {
       console.error("Error asking question:", error);
+      
+      // More specific error messages
+      const errorMessage = error.message?.includes("No answer") 
+        ? "The AI couldn't generate a response. Please try rephrasing your question."
+        : error.message?.includes("LOVABLE_API_KEY")
+        ? "AI service is not configured. Please contact support."
+        : "Failed to get answer. Please try again.";
+
       toast({
         title: "Error",
-        description: "Failed to get answer. Please try again.",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
@@ -71,8 +96,8 @@ export function FAQAssistant() {
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !isLoading) {
-      handleAsk();
+    if (e.key === "Enter" && !isLoading && question.trim()) {
+      handleAsk(0);
     }
   };
 
@@ -112,14 +137,15 @@ export function FAQAssistant() {
             className="flex-1 bg-slate-900/50 border-primary/30 text-sm focus:border-primary"
           />
           <Button
-            onClick={handleAsk}
-            disabled={isLoading}
-            className="bg-gradient-to-r from-primary to-accent text-primary-foreground hover:opacity-90 whitespace-nowrap"
+            onClick={() => handleAsk(0)}
+            disabled={isLoading || !question.trim()}
+            className="bg-gradient-to-r from-primary to-accent text-primary-foreground hover:opacity-90 whitespace-nowrap disabled:opacity-50"
           >
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Analyzing...
+                <span className="hidden sm:inline">Analyzing...</span>
+                <span className="inline sm:hidden">...</span>
               </>
             ) : (
               <>
