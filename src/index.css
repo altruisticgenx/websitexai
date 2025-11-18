@@ -135,33 +135,3 @@ All colors MUST be HSL.
   }
 }
 
-@layer utilities {
-  /* Animated gradient background */
-  @keyframes gradient {
-    0%, 100% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-  }
-
-  .animate-gradient {
-    animation: gradient 8s ease infinite;
-  }
-
-  /* 3D Transform utilities */
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-
-  .preserve-3d {
-    transform-style: preserve-3d;
-  }
-
-  .backface-hidden {
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-}
-
