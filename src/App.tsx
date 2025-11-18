@@ -6,6 +6,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { MouseParticles } from "@/components/MouseParticles";
 import { ClickRipples } from "@/components/ClickRipples";
+import { ScrollRestoration } from "@/components/ScrollRestoration";
 import Index from "./pages/Index";
 import Portfolio from "./pages/Portfolio";
 import CaseStudyDetail from "./pages/CaseStudyDetail";
@@ -34,6 +35,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <ScrollRestoration />
       <MouseParticles />
       <ClickRipples />
       <AnimatedRoutes />
