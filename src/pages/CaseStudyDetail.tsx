@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { ArrowLeft, Calendar, CheckCircle2, Code } from "lucide-react";
 import { ProjectTimeline } from "@/components/ProjectTimeline";
+import { PageTransition, SectionTransition } from "@/components/PageTransition";
 
 // --- Case Study Data (shared) ---
 export const caseStudiesData = [
@@ -158,7 +159,8 @@ const CaseStudyDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50">
+    <PageTransition>
+      <div className="min-h-screen bg-slate-950 text-slate-50">
       <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Back Button */}
         <motion.div
@@ -350,6 +352,7 @@ const CaseStudyDetail = () => {
         </motion.div>
       </div>
     </div>
+    </PageTransition>
   );
 };
 

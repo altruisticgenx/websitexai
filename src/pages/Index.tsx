@@ -14,8 +14,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
+import { PageTransition, SectionTransition } from "@/components/PageTransition";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
+import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteNav } from "@/components/SiteNav";
@@ -76,6 +78,9 @@ const Index = () => {
     { key: "9", sectionId: "faq", name: "FAQ" },
   ]);
 
+  // Enable smooth scroll with 3D effects
+  useSmoothScroll();
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
       {/* Scroll Progress Bar */}
@@ -97,25 +102,43 @@ const Index = () => {
               <FAQSkeleton />
             </div>
           ) : (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Hero />
-              <RecentBuilds />
-              <EngagementModels />
-              <HowItWorks />
-              <PilotOffer />
-              <WhoBenefits />
-              <OrganizationTypes />
-              <WhereIWork />
-              <ShelvedExperiments />
-              <div id="testimonials">
-                <TestimonialsVariant />
-              </div>
-              <FAQSection />
-            </motion.div>
+            <PageTransition>
+              <SectionTransition delay={0}>
+                <Hero />
+              </SectionTransition>
+              <SectionTransition delay={0.1}>
+                <RecentBuilds />
+              </SectionTransition>
+              <SectionTransition delay={0.1}>
+                <EngagementModels />
+              </SectionTransition>
+              <SectionTransition delay={0.1}>
+                <HowItWorks />
+              </SectionTransition>
+              <SectionTransition delay={0.1}>
+                <PilotOffer />
+              </SectionTransition>
+              <SectionTransition delay={0.1}>
+                <WhoBenefits />
+              </SectionTransition>
+              <SectionTransition delay={0.1}>
+                <OrganizationTypes />
+              </SectionTransition>
+              <SectionTransition delay={0.1}>
+                <WhereIWork />
+              </SectionTransition>
+              <SectionTransition delay={0.1}>
+                <ShelvedExperiments />
+              </SectionTransition>
+              <SectionTransition delay={0.1}>
+                <div id="testimonials">
+                  <TestimonialsVariant />
+                </div>
+              </SectionTransition>
+              <SectionTransition delay={0.1}>
+                <FAQSection />
+              </SectionTransition>
+            </PageTransition>
           )}
         </main>
         <SiteFooter />
