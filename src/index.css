@@ -136,6 +136,29 @@ All colors MUST be HSL.
     font-weight: 600;
   }
 
+  /* Display headings - glowing effect */
+  .heading-display {
+    @apply font-display;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 50%, #22d3ee 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.5)) drop-shadow(0 0 40px rgba(56, 189, 248, 0.3));
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% {
+      filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.5)) drop-shadow(0 0 40px rgba(56, 189, 248, 0.3));
+    }
+    50% {
+      filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.7)) drop-shadow(0 0 60px rgba(56, 189, 248, 0.4));
+    }
+  }
+
   code, pre, kbd, samp {
     @apply font-mono;
     font-size: 0.9em;

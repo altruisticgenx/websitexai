@@ -143,7 +143,7 @@ export function Hero() {
           </motion.div>
 
           <motion.h1 
-            className="mt-4 font-itim text-4xl font-semibold tracking-tight md:text-5xl bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent"
+            className="mt-4 heading-display text-3xl md:text-4xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
@@ -213,25 +213,25 @@ export function Hero() {
             </motion.div>
           </dl>
 
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:items-center">
             <motion.a 
               href="https://scheduler.zoom.us/altruistic-xai" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-primary to-accent px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/30 transition-all duration-300"
+              className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-primary to-accent px-3 py-1.5 text-xs font-medium text-primary-foreground shadow-glow transition-all duration-300"
               whileHover={{ 
                 scale: 1.05,
                 boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.4)"
               }}
               whileTap={{ scale: 0.95 }}
             >
-              Book a 30-min intro
+              Book 30-min intro
             </motion.a>
             <motion.a
               href="https://www.linkedin.com/in/ik11"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-5 py-2.5 text-sm font-medium text-primary transition-all duration-300"
+              className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary/30 bg-primary/5 px-3 py-1.5 text-xs font-medium text-primary transition-all duration-300"
               whileHover={{ 
                 scale: 1.05,
                 backgroundColor: "hsl(var(--primary) / 0.15)",
@@ -239,8 +239,8 @@ export function Hero() {
               }}
               whileTap={{ scale: 0.95 }}
             >
-              <Linkedin size={16} />
-              Connect on LinkedIn
+              <Linkedin size={14} />
+              LinkedIn
             </motion.a>
           </div>
         </motion.div>
