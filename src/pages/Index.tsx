@@ -229,7 +229,7 @@ function RecentBuilds() {
           viewport={{ once: true }} 
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+          <h2 className="heading-display text-xl md:text-2xl">
             Proof: Recent builds & pilots
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -304,7 +304,7 @@ function HowItWorks() {
           viewport={{ once: true }} 
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+          <h2 className="heading-display text-xl md:text-2xl">
             How Our Experimental Pilot Works
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -354,7 +354,7 @@ function PilotOffer() {
             viewport={{ once: true }} 
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+            <h2 className="heading-display text-xl md:text-2xl">
               Offer: Try a 4-Week Sprint
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -476,7 +476,7 @@ function WhoBenefits() {
           viewport={{ once: true }} 
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+          <h2 className="heading-display text-xl md:text-2xl">
             Who Benefits?
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -545,7 +545,7 @@ function FAQSection() {
         transition={{ duration: 0.5 }} 
         className="max-w-4xl mb-6"
       >
-        <h2 className="text-lg sm:text-xl font-semibold">
+        <h2 className="heading-display text-base sm:text-lg">
           FAQs & AI Assistant
         </h2>
         <p className="mt-2 text-xs sm:text-sm text-slate-300">

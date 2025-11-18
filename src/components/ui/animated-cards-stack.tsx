@@ -164,9 +164,9 @@ export const TestimonialsVariant = () => {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center"
         >
-          <h2 className="text-2xl font-semibold sm:text-3xl">
-            What clients say
-          </h2>
+        <h2 className="heading-display text-base sm:text-lg">
+          What clients say
+        </h2>
           <p className="mt-3 text-sm text-slate-300 sm:text-base">
             Real feedback from energy, education, and founder-backed projects.
           </p>
@@ -244,9 +244,9 @@ export const AwardsVariant = () => {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center"
         >
-          <h2 className="text-2xl font-semibold sm:text-3xl">
-            Recognition & Awards
-          </h2>
+        <h2 className="heading-display text-base sm:text-lg">
+          Recognition & Awards
+        </h2>
           <p className="mt-3 text-sm text-slate-300 sm:text-base">
             Acknowledged for impact-driven work in energy, education, and climate tech.
           </p>
@@ -326,9 +326,9 @@ export const MetricsVariant = () => {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center"
         >
-          <h2 className="text-2xl font-semibold sm:text-3xl">
-            Track record
-          </h2>
+        <h2 className="heading-display text-base sm:text-lg">
+          Track record
+        </h2>
           <p className="mt-3 text-sm text-slate-300 sm:text-base">
             Numbers that matter from real pilot projects.
           </p>
