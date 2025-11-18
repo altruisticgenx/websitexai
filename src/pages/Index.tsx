@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { SiteNav } from "@/components/SiteNav";
+import { SectionNav } from "@/components/SectionNav";
 
 const Index = () => {
   return (
@@ -431,6 +432,7 @@ const Index = () => {
       </main>
       
       <ScrollToTop />
+      <SectionNav />
     </div>
   );
 };
