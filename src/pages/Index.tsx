@@ -6,7 +6,6 @@ import { Linkedin } from "lucide-react";
 import { ShelvedExperiments } from "@/components/ShelvedExperiments";
 import { WhereIWork } from "@/components/WhereIWork";
 import { OrganizationTypes } from "@/components/OrganizationTypes";
-import { EngagementModels } from "@/components/EngagementModels";
 import { Hero } from "@/components/Hero";
 
 import { FAQAssistant } from "@/components/FAQAssistant";
@@ -108,9 +107,6 @@ const Index = () => {
               </SectionTransition>
               <SectionTransition delay={0.1}>
                 <RecentBuilds />
-              </SectionTransition>
-              <SectionTransition delay={0.1}>
-                <EngagementModels />
               </SectionTransition>
               <SectionTransition delay={0.1}>
                 <HowItWorks />
