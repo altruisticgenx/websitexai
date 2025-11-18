@@ -7,7 +7,7 @@ import { ShelvedExperiments } from "@/components/ShelvedExperiments";
 import { WhereIWork } from "@/components/WhereIWork";
 import { OrganizationTypes } from "@/components/OrganizationTypes";
 import { EngagementModels } from "@/components/EngagementModels";
-import { ContactForm } from "@/components/ContactForm";
+
 import { FAQAssistant } from "@/components/FAQAssistant";
 import { Toaster } from "@/components/ui/toaster";
 import { ScrollToTop } from "@/components/ScrollToTop";
@@ -22,8 +22,7 @@ import {
   CardsSkeleton, 
   StepsSkeleton, 
   TwoColumnSkeleton, 
-  FAQSkeleton,
-  ContactSkeleton 
+  FAQSkeleton
 } from "@/components/skeletons/SectionSkeleton";
 
 // --- Data Definitions ---
@@ -81,7 +80,7 @@ const Index = () => {
       <SiteNav />
       
       <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 sm:px-6 lg:px-8">
-        <main className="flex-1 pt-8">
+        <main className="flex-1 pt-4 sm:pt-8">
           {isLoading ? (
             <div className="animate-pulse">
               <HeroSkeleton />
@@ -91,7 +90,6 @@ const Index = () => {
               <StepsSkeleton count={2} />
               <CardsSkeleton count={3} />
               <FAQSkeleton />
-              <ContactSkeleton />
             </div>
           ) : (
             <motion.div
@@ -725,21 +723,53 @@ function FAQSection() {
 }
 
 function ContactSection() {
-  return <section id="contact" className="border-t border-slate-900/80 py-10 sm:py-14">
-      <motion.div initial={{
-      opacity: 0,
-      y: 20
-    }} whileInView={{
-      opacity: 1,
-      y: 0
-    }} viewport={{
-      once: true
-    }} transition={{
-      duration: 0.5
-    }} className="max-w-2xl mx-auto">
-        <ContactForm />
+  return (
+    <section id="contact" className="border-t border-slate-900/80 py-16 sm:py-20">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }} 
+        whileInView={{ opacity: 1, y: 0 }} 
+        viewport={{ once: true }} 
+        transition={{ duration: 0.5 }} 
+        className="max-w-4xl mx-auto text-center"
+      >
+        <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-[11px] font-medium text-foreground mb-6">
+          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
+          Ready to start?
+        </div>
+        
+        <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-4">
+          Let's build something together
+        </h2>
+        
+        <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto mb-8">
+          Week-to-week sprints. No long-term lock-in. Start shipping meaningful code from Week 1.
+        </p>
+        
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a 
+            href="mailto:hello@altruisticxai.com?subject=Let's%20Build%20Together%20-%204-Week%20Pilot"
+            className="inline-flex items-center justify-center rounded-full bg-primary px-8 py-3.5 text-base font-medium text-primary-foreground shadow-lg shadow-primary/30 hover:bg-primary/90 transition-all hover:scale-105"
+          >
+            Start a Conversation
+          </a>
+          
+          <a 
+            href="https://www.linkedin.com/in/ik11" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/60 bg-primary/10 px-8 py-3.5 text-base font-medium text-primary hover:bg-primary/20 transition-all hover:scale-105"
+          >
+            <Linkedin size={18} />
+            Connect on LinkedIn
+          </a>
+        </div>
+        
+        <p className="mt-6 text-sm text-slate-400">
+          hello@altruisticxai.com · Async-first · Pilot-focused
+        </p>
       </motion.div>
-    </section>;
+    </section>
+  );
 }
 
 function SiteFooter() {
