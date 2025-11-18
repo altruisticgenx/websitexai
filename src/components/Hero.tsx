@@ -4,6 +4,7 @@ import { Linkedin } from "lucide-react";
 import { Hero3DBackground } from "./Hero3D";
 import { ControlRoomOverlay } from "./ui/control-room-overlay";
 import { FloatingCard3D } from "./FloatingCard3D";
+import { InteractiveParticles } from "./InteractiveParticles";
 
 function VisualRow({
   label,
@@ -61,6 +62,9 @@ export function Hero() {
       
       {/* 3D Animated Background */}
       <Hero3DBackground />
+      
+      {/* Interactive Lime Particles */}
+      <InteractiveParticles />
       
       {/* Parallax Background Layer 1 - Slowest */}
       <motion.div 
