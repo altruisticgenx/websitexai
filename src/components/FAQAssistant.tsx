@@ -42,9 +42,9 @@ export function FAQAssistant() {
         .from("faq_conversations")
         .select("*")
         .eq("session_id", storedSessionId)
-        .single();
+        .maybeSingle();
 
-      if (error && error.code !== "PGRST116") { // PGRST116 = no rows returned
+      if (error) {
         console.error("Error loading conversation:", error);
         return;
       }

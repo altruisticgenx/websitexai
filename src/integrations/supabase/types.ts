@@ -184,67 +184,88 @@ export type Database = {
       }
       projects: {
         Row: {
+          challenge: string | null
           completed_at: string | null
           context_note: string | null
           created_at: string
           demo_url: string | null
           description: string | null
           display_order: number | null
+          duration: string | null
           featured: boolean | null
           github_url: string | null
           hypothesis: string | null
           id: string
           image_url: string | null
+          outcomes: string[] | null
+          phases: Json | null
           sector: string
           slug: string
+          solution: string | null
           status: string | null
           summary: string
           tag: string | null
+          tagline: string | null
           technologies: string[] | null
+          timeline: string | null
           title: string
           updated_at: string
           week_number: number | null
         }
         Insert: {
+          challenge?: string | null
           completed_at?: string | null
           context_note?: string | null
           created_at?: string
           demo_url?: string | null
           description?: string | null
           display_order?: number | null
+          duration?: string | null
           featured?: boolean | null
           github_url?: string | null
           hypothesis?: string | null
           id?: string
           image_url?: string | null
+          outcomes?: string[] | null
+          phases?: Json | null
           sector: string
           slug: string
+          solution?: string | null
           status?: string | null
           summary: string
           tag?: string | null
+          tagline?: string | null
           technologies?: string[] | null
+          timeline?: string | null
           title: string
           updated_at?: string
           week_number?: number | null
         }
         Update: {
+          challenge?: string | null
           completed_at?: string | null
           context_note?: string | null
           created_at?: string
           demo_url?: string | null
           description?: string | null
           display_order?: number | null
+          duration?: string | null
           featured?: boolean | null
           github_url?: string | null
           hypothesis?: string | null
           id?: string
           image_url?: string | null
+          outcomes?: string[] | null
+          phases?: Json | null
           sector?: string
           slug?: string
+          solution?: string | null
           status?: string | null
           summary?: string
           tag?: string | null
+          tagline?: string | null
           technologies?: string[] | null
+          timeline?: string | null
           title?: string
           updated_at?: string
           week_number?: number | null

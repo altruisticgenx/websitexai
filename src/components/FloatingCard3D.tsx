@@ -25,8 +25,11 @@ export const FloatingCard3D = memo(({ children, className = "", intensity = 10 }
     const rotateXValue = ((y - centerY) / centerY) * -intensity;
     const rotateYValue = ((x - centerX) / centerX) * intensity;
     
-    setRotateX(rotateXValue);
-    setRotateY(rotateYValue);
+    // Use requestAnimationFrame for smoother updates
+    requestAnimationFrame(() => {
+      setRotateX(rotateXValue);
+      setRotateY(rotateYValue);
+    });
   }, [intensity]);
 
   const handleMouseLeave = useCallback(() => {
@@ -50,8 +53,9 @@ export const FloatingCard3D = memo(({ children, className = "", intensity = 10 }
       }}
       transition={{
         type: 'spring',
-        stiffness: 300,
-        damping: 30,
+        stiffness: 400,
+        damping: 35,
+        mass: 0.5,
       }}
     >
       <div style={{ transform: 'translateZ(20px)' }}>

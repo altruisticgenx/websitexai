@@ -10,7 +10,6 @@ import { EngagementModels } from "@/components/EngagementModels";
 import { Hero } from "@/components/Hero";
 
 import { FAQAssistant } from "@/components/FAQAssistant";
-import { Toaster } from "@/components/ui/toaster";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
@@ -120,9 +119,9 @@ const Index = () => {
         </main>
         <SiteFooter />
       </div>
-      <Toaster />
       <ScrollToTop />
       <KeyboardShortcutsHelp />
+      <FAQAssistant />
     </div>
   );
 };

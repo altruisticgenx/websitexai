@@ -90,12 +90,12 @@ export function Hero() {
         transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
       />
 
-      {/* Parallax Floating Particles */}
+      {/* Parallax Floating Particles - Reduced for performance */}
       <motion.div 
         className="absolute inset-0 pointer-events-none"
         style={{ y: yForeground, opacity }}
       >
-        {[...Array(12)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-2 h-2 bg-primary/40 rounded-full"
