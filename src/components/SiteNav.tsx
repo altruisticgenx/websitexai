@@ -53,7 +53,7 @@ export function SiteNav() {
               href="#"
               onClick={handleNavClick}
               className={cn(
-                "px-4 py-2 text-sm font-medium font-itim lowercase tracking-wide transition-all duration-200 rounded-md",
+                "px-4 py-2 text-sm font-medium lowercase tracking-wide transition-all duration-200 rounded-md",
                 activeSection === ""
                   ? "text-primary bg-primary/10 scale-105"
                   : "text-foreground hover:text-primary hover:bg-accent/50"
@@ -64,7 +64,7 @@ export function SiteNav() {
 
             <a
               href="/portfolio"
-              className="px-4 py-2 text-sm font-medium font-itim lowercase tracking-wide text-foreground transition-all duration-200 hover:text-primary hover:bg-accent/50 rounded-md"
+              className="px-4 py-2 text-sm font-medium lowercase tracking-wide text-foreground transition-all duration-200 hover:text-primary hover:bg-accent/50 rounded-md"
             >
               lab
             </a>
@@ -75,7 +75,7 @@ export function SiteNav() {
                 onClick={() => setIsWorkOpen(!isWorkOpen)}
                 onMouseEnter={() => setIsWorkOpen(true)}
                 className={cn(
-                  "flex items-center gap-1 px-4 py-2 text-sm font-medium font-itim lowercase tracking-wide transition-all duration-200 rounded-md",
+                  "flex items-center gap-1 px-4 py-2 text-sm font-medium lowercase tracking-wide transition-all duration-200 rounded-md",
                   isWorkActive
                     ? "text-primary bg-primary/10 scale-105"
                     : "text-foreground hover:text-primary hover:bg-accent/50"
@@ -153,7 +153,7 @@ export function SiteNav() {
               href="#where"
               onClick={handleNavClick}
               className={cn(
-                "px-4 py-2 text-sm font-medium font-itim lowercase tracking-wide transition-all duration-200 rounded-md",
+                "px-4 py-2 text-sm font-medium lowercase tracking-wide transition-all duration-200 rounded-md",
                 activeSection === "where"
                   ? "text-primary bg-primary/10 scale-105"
                   : "text-foreground hover:text-primary hover:bg-accent/50"
@@ -209,7 +209,7 @@ export function SiteNav() {
                 href="#"
                 onClick={handleNavClick}
                 className={cn(
-                  "block rounded-md px-3 py-2 text-base font-medium font-itim lowercase transition-colors",
+                  "block rounded-md px-3 py-2 text-base font-medium lowercase transition-colors",
                   activeSection === ""
                     ? "text-primary bg-primary/10"
                     : "text-foreground hover:text-primary hover:bg-accent/50"
@@ -220,7 +220,7 @@ export function SiteNav() {
 
               <a
                 href="/portfolio"
-                className="block rounded-md px-3 py-2 text-base font-medium font-itim lowercase text-foreground transition-colors hover:text-primary hover:bg-accent/50"
+                className="block rounded-md px-3 py-2 text-base font-medium lowercase text-foreground transition-colors hover:text-primary hover:bg-accent/50"
               >
                 lab
               </a>
@@ -271,7 +271,7 @@ export function SiteNav() {
                 href="#where"
                 onClick={handleNavClick}
                 className={cn(
-                  "block rounded-md px-3 py-2 text-base font-medium font-itim lowercase transition-colors",
+                  "block rounded-md px-3 py-2 text-base font-medium lowercase transition-colors",
                   activeSection === "where"
                     ? "text-primary bg-primary/10"
                     : "text-foreground hover:text-primary hover:bg-accent/50"
