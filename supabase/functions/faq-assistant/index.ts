@@ -12,9 +12,8 @@ serve(async (req) => {
   }
 
   try {
-    const { question, conversationHistory = [] } = await req.json();
+    const { question } = await req.json();
     console.log("📝 Received question:", question);
-    console.log("💬 Conversation history length:", conversationHistory.length);
 
     if (!question || typeof question !== "string") {
       console.error("❌ Invalid question format");
@@ -85,39 +84,24 @@ serve(async (req) => {
 
     const context = `You are an AI assistant for AltruisticX AI - a senior AI/product engineering service specializing in energy, education, and civic innovation pilots.
 
-📊 Real-Time Stats:
+📊 Current Stats:
 - Total inquiries: ${totalSubmissions}
 - Project types: ${JSON.stringify(projectTypes)}
+- Confirmation rate: ${totalSubmissions > 0 ? Math.round((emailsSent/totalSubmissions)*100) : 0}%
 - Active projects: ${projectData.length}
 - Sectors: ${JSON.stringify(sectorBreakdown)}
-- Tech stack: ${Object.entries(popularTechs).slice(0, 5).map(([k, v]) => k).join(", ")}
+- Popular tech: ${Object.entries(popularTechs).slice(0, 5).map(([k, v]) => k).join(", ")}
 
 📚 FAQs:
 ${faqData.map(faq => `Q: ${faq.question}\nA: ${faq.answer}`).join("\n\n")}
 
-🎯 Key Offering:
+Key Points:
 - 4-week pilot at $1,150/week
-- Week-to-week, no lock-in, you keep the code
-- Energy, education, civic sectors
-- Async-first: Loom, Notion, GitHub, Figma
+- Week-to-week, no long-term lock-in
+- Focus on energy, education, civic sectors
+- Async-first collaboration
 
-📅 Booking Instructions:
-When users want to book a call or express interest in scheduling, respond with:
-"I'd be happy to help you schedule a call! You can book a 30-minute intro call at: https://scheduler.zoom.us/altruistic-xai
-
-This link will take you directly to the scheduling page where you can pick a time that works for you."
-
-IMPORTANT BOOKING KEYWORDS: If the user says "book", "schedule", "call", "meeting", "zoom", "talk", "discuss", or similar, ALWAYS include the booking link in your response.
-
-💭 Conversation Context:
-You have access to the conversation history. Use it to:
-- Reference previous questions and answers
-- Build on earlier topics naturally
-- Provide personalized follow-ups
-- Remember user interests and concerns
-- Avoid repeating information already shared
-
-Be conversational, professional, concise (2-3 sentences max), and context-aware. Reference previous conversation and real-time stats when relevant.`;
+Be conversational, professional, and encourage booking a 30-min intro call for complex inquiries.`;
 
     // Call Lovable AI Gateway
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
@@ -127,28 +111,6 @@ Be conversational, professional, concise (2-3 sentences max), and context-aware.
     }
 
     console.log("🤖 Calling Lovable AI Gateway...");
-    
-    // Build messages array with conversation history for context
-    const messages = [
-      { role: "system", content: context }
-    ];
-    
-    // Add recent conversation history (excluding the last message which is the current question)
-    if (conversationHistory.length > 1) {
-      const recentHistory = conversationHistory.slice(0, -1); // Exclude current question
-      for (const msg of recentHistory) {
-        messages.push({
-          role: msg.role,
-          content: msg.content
-        });
-      }
-    }
-    
-    // Add current question
-    messages.push({ role: "user", content: question });
-    
-    console.log("📊 Total messages in context:", messages.length);
-    
     const aiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -157,9 +119,11 @@ Be conversational, professional, concise (2-3 sentences max), and context-aware.
       },
       body: JSON.stringify({
         model: "google/gemini-2.5-flash", // Fast and cost-efficient
-        messages: messages,
-        max_completion_tokens: 600, // More concise responses
-        temperature: 0.7, // Balanced creativity and accuracy
+        messages: [
+          { role: "system", content: context },
+          { role: "user", content: question }
+        ],
+        max_completion_tokens: 800, // Optimized token limit
       }),
     });
 

@@ -19,6 +19,7 @@ export default {
           "-apple-system",
           "BlinkMacSystemFont",
           '"Segoe UI"',
+          "Roboto",
           "sans-serif",
         ],
         itim: ['Itim', 'cursive'], // Keep for accent use only

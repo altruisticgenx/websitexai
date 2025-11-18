@@ -38,13 +38,16 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
   };
 
   const menuItems = [
-    { label: "Home", href: "#", id: "" },
     { label: "Builds", href: "#builds", id: "builds" },
     { label: "Portfolio", href: "/portfolio", isRoute: true },
     { label: "How it Works", href: "#how", id: "how" },
     { label: "4-Week Pilot", href: "#pilot", id: "pilot" },
+    { label: "Who Benefits", href: "#benefits", id: "benefits" },
+    { label: "Organization Types", href: "#org-types", id: "org-types" },
     { label: "Where I Work", href: "#where", id: "where" },
-    { label: "FAQ & AI Chat", href: "#faq", id: "faq" },
+    { label: "Shelved Experiments", href: "#shelved", id: "shelved" },
+    { label: "Testimonials", href: "#testimonials", id: "testimonials" },
+    { label: "FAQ", href: "#faq", id: "faq" },
   ];
 
   return (
