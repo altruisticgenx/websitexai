@@ -12,6 +12,7 @@ import { Hero } from "@/components/Hero";
 import { FAQAssistant } from "@/components/FAQAssistant";
 import { Toaster } from "@/components/ui/toaster";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { ScrollProgress } from "@/components/ScrollProgress";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
@@ -77,6 +78,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
+      {/* Scroll Progress Bar */}
+      <ScrollProgress />
+      
       {/* Sticky Navigation */}
       <SiteNav />
       
