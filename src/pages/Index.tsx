@@ -16,7 +16,7 @@ const Index = () => {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative overflow-hidden py-16 sm:py-24 lg:py-32">
+        <section id="hero" className="relative overflow-hidden py-16 sm:py-24 lg:py-32">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
               {/* Left Column - Text Content */}
@@ -102,7 +102,7 @@ const Index = () => {
         </section>
 
         {/* Who This Is For */}
-        <section className="py-16 sm:py-20 bg-muted/30">
+        <section id="who" className="py-16 sm:py-20 bg-muted/30">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -156,7 +156,7 @@ const Index = () => {
         </section>
 
         {/* What You Get in 4 Weeks */}
-        <section className="py-16 sm:py-20">
+        <section id="what" className="py-16 sm:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
               {/* Left - Intro */}
@@ -222,7 +222,7 @@ const Index = () => {
         </section>
 
         {/* Sample Pilots */}
-        <section className="py-16 sm:py-20 bg-muted/30">
+        <section id="pilots" className="py-16 sm:py-20 bg-muted/30">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -293,7 +293,7 @@ const Index = () => {
         </section>
 
         {/* How a Pilot Works */}
-        <section className="py-16 sm:py-20">
+        <section id="how" className="py-16 sm:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -371,7 +371,7 @@ const Index = () => {
         </section>
 
         {/* Why This Model */}
-        <section className="py-16 sm:py-20 bg-muted/30">
+        <section id="why" className="py-16 sm:py-20 bg-muted/30">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
