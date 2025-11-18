@@ -11,7 +11,9 @@ import { MobileMenu } from "@/components/MobileMenu";
 import { ContactForm } from "@/components/ContactForm";
 import { Toaster } from "@/components/ui/toaster";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { useActiveSection } from "@/hooks/use-active-section";
+import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { cn } from "@/lib/utils";
 
 // --- Data Definitions ---
@@ -56,6 +58,19 @@ const faqs = [{
 
 // --- Main Page Component ---
 const Index = () => {
+  // Setup keyboard navigation
+  useKeyboardNavigation([
+    { key: "1", sectionId: "builds", name: "Builds" },
+    { key: "2", sectionId: "how", name: "How it Works" },
+    { key: "3", sectionId: "pilot", name: "4-Week Pilot" },
+    { key: "4", sectionId: "benefits", name: "Who Benefits" },
+    { key: "5", sectionId: "org-types", name: "Organization Types" },
+    { key: "6", sectionId: "where", name: "Where I Work" },
+    { key: "7", sectionId: "shelved", name: "Shelved Experiments" },
+    { key: "8", sectionId: "testimonials", name: "Testimonials" },
+    { key: "9", sectionId: "faq", name: "FAQ" },
+  ]);
+
   return <div className="min-h-screen bg-slate-950 text-slate-50">
       <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 sm:px-6 lg:px-8">
         <SiteHeader />
@@ -79,6 +94,7 @@ const Index = () => {
       </div>
       <Toaster />
       <ScrollToTop />
+      <KeyboardShortcutsHelp />
     </div>;
 };
 export default Index;
