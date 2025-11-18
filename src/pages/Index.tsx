@@ -361,7 +361,7 @@ const Index = () => {
             >
               <Button size="lg" className="text-base gap-2" asChild>
                 <a 
-                  href="https://www.linkedin.com/in/yourprofile" 
+                  href="https://www.linkedin.com/in/inga-kaltak-11i41141/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                 >
