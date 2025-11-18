@@ -25,7 +25,6 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    // Prevent body scroll when menu is open
     if (!isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -55,7 +54,7 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
     <div className={className}>
       <button
         onClick={toggleMenu}
-        className="rounded-full border border-primary/60 bg-primary/10 p-2 text-primary hover:bg-primary/20 transition-colors touch-manipulation"
+        className="rounded-full border border-primary/60 bg-primary/10 p-2 text-primary hover:bg-primary/20 transition-colors touch-manipulation active:scale-95"
         aria-label="Toggle menu"
         aria-expanded={isOpen}
       >
@@ -70,7 +69,7 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[100] touch-none"
+              className="fixed inset-0 bg-slate-950/95 backdrop-blur-sm z-[100] touch-none"
               onClick={closeMenu}
               aria-hidden="true"
             />
@@ -80,33 +79,33 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed right-0 top-0 h-full w-72 bg-slate-900/98 backdrop-blur-md border-l border-slate-800 shadow-2xl z-[101] overflow-y-auto overscroll-contain"
+              className="fixed right-0 top-0 h-full w-[85vw] max-w-[320px] bg-slate-900/98 backdrop-blur-md border-l border-slate-800 shadow-2xl z-[101] overflow-y-auto overscroll-contain"
               role="dialog"
               aria-modal="true"
               aria-label="Mobile navigation menu"
             >
-              <div className="flex items-center justify-between p-5 border-b border-slate-800">
-                <span className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+              <div className="flex items-center justify-between p-4 border-b border-slate-800 sticky top-0 bg-slate-900/95 backdrop-blur-sm z-10">
+                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
                   Menu
                 </span>
                 <button
                   onClick={closeMenu}
-                  className="rounded-full p-1 hover:bg-slate-800 transition-colors"
+                  className="rounded-full p-1.5 hover:bg-slate-800 transition-colors active:scale-95"
                   aria-label="Close menu"
                 >
-                  <X size={20} className="text-slate-400" />
+                  <X size={18} className="text-slate-400" />
                 </button>
               </div>
 
-              <nav className="p-5">
-                <ul className="space-y-1">
+              <nav className="p-3">
+                <ul className="space-y-0.5">
                   {menuItems.map((item) => (
                     <li key={item.label}>
                       {item.isRoute ? (
                         <Link
                           to={item.href}
                           onClick={closeMenu}
-                          className="block rounded-lg px-4 py-3 text-sm text-slate-300 hover:bg-slate-800 hover:text-primary transition-colors"
+                          className="block px-3 py-2.5 text-sm text-slate-200 hover:bg-slate-800/50 hover:text-primary rounded-lg transition-colors active:scale-98"
                         >
                           {item.label}
                         </Link>
@@ -115,10 +114,10 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
                           href={item.href}
                           onClick={closeMenu}
                           className={cn(
-                            "block rounded-lg px-4 py-3 text-sm transition-colors",
+                            "block px-3 py-2.5 text-sm rounded-lg transition-colors active:scale-98",
                             activeSection === item.id
-                              ? "bg-slate-800 text-primary font-medium"
-                              : "text-slate-300 hover:bg-slate-800 hover:text-primary"
+                              ? "bg-primary/10 text-primary font-medium"
+                              : "text-slate-200 hover:bg-slate-800/50 hover:text-primary"
                           )}
                         >
                           {item.label}
@@ -128,13 +127,13 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
                   ))}
                 </ul>
 
-                <div className="mt-6 pt-6 border-t border-slate-800">
+                <div className="mt-6 pt-4 border-t border-slate-800">
                   <a
                     href="https://scheduler.zoom.us/altruistic-xai"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={closeMenu}
-                    className="block rounded-full border border-primary/60 bg-primary/10 px-4 py-2.5 text-center text-sm font-medium text-primary hover:bg-primary/20 transition-colors"
+                    className="block w-full rounded-lg border border-primary/60 bg-primary/10 px-4 py-3 text-center text-sm font-medium text-primary hover:bg-primary/20 transition-colors active:scale-95"
                   >
                     Book a 30-min intro
                   </a>
