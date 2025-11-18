@@ -4,7 +4,7 @@ import { useActiveSection } from "@/hooks/use-active-section";
 import { ChevronDown } from "lucide-react";
 
 export function SiteNav() {
-  const activeSection = useActiveSection(["", "pilot", "builds", "how", "where"]);
+  const activeSection = useActiveSection(["", "pilot", "builds", "how", "where", "faq"]);
   const [isWorkOpen, setIsWorkOpen] = useState(false);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
