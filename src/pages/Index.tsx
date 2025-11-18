@@ -111,7 +111,6 @@ const Index = () => {
                 <TestimonialsVariant />
               </div>
               <FAQSection />
-              <ContactSection />
             </motion.div>
           )}
         </main>
@@ -324,13 +323,13 @@ function HowItWorks() {
         duration: 0.5,
         delay: index * 0.1
       }} className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-4 text-sm hover:border-primary/30 transition-colors">
-            <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-primary">
+            <div className="text-xs font-mono uppercase tracking-[0.18em] text-primary">
               {step.label}
             </div>
             <h3 className="mt-2 text-sm font-semibold text-slate-50">
               {step.title}
             </h3>
-            <p className="mt-2 text-[13px] text-slate-300">{step.body}</p>
+            <p className="mt-2 text-sm text-slate-300">{step.body}</p>
           </motion.div>)}
       </div>
     </section>;
@@ -396,7 +395,7 @@ function PilotOffer() {
           </div>
 
           <div className="mt-6">
-            <p className="text-xs text-slate-400 sm:text-[13px]">
+            <p className="text-xs text-slate-400 sm:text-sm">
               Send a quick Loom or doc about your project. If it's a fit, we
               can start shipping next week.
             </p>
@@ -414,7 +413,7 @@ function PilotOffer() {
       }} transition={{
         duration: 0.6
       }} className="rounded-3xl border border-slate-800/80 bg-slate-950/60 p-4 text-xs text-slate-200 sm:p-5">
-          <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-400">
+          <div className="text-xs font-mono uppercase tracking-[0.18em] text-slate-400">
             Good fit
           </div>
           <ul className="mt-2 space-y-1">
@@ -436,7 +435,7 @@ function PilotOffer() {
             </li>
           </ul>
 
-          <div className="mt-5 text-[11px] font-mono uppercase tracking-[0.18em] text-slate-400">
+          <div className="mt-5 text-xs font-mono uppercase tracking-[0.18em] text-slate-400">
             Not a fit
           </div>
           <ul className="mt-2 space-y-1 text-slate-400">
@@ -584,56 +583,6 @@ function FAQSection() {
           </motion.div>
         ))}
       </dl>
-    </section>
-  );
-}
-
-function ContactSection() {
-  return (
-    <section id="contact" className="border-t border-slate-900/80 py-16 sm:py-20">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }} 
-        whileInView={{ opacity: 1, y: 0 }} 
-        viewport={{ once: true }} 
-        transition={{ duration: 0.5 }} 
-        className="max-w-4xl mx-auto text-center"
-      >
-        <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-[11px] font-medium text-foreground mb-6">
-          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
-          Ready to start?
-        </div>
-        
-        <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-4">
-          Let's build something together
-        </h2>
-        
-        <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto mb-8">
-          Week-to-week sprints. No long-term lock-in. Start shipping meaningful code from Week 1.
-        </p>
-        
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a 
-            href="mailto:hello@altruisticxai.com?subject=Let's%20Build%20Together%20-%204-Week%20Pilot"
-            className="inline-flex items-center justify-center rounded-full bg-primary px-8 py-3.5 text-base font-medium text-primary-foreground shadow-lg shadow-primary/30 hover:bg-primary/90 transition-all hover:scale-105"
-          >
-            Start a Conversation
-          </a>
-          
-          <a 
-            href="https://www.linkedin.com/in/ik11" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/60 bg-primary/10 px-8 py-3.5 text-base font-medium text-primary hover:bg-primary/20 transition-all hover:scale-105"
-          >
-            <Linkedin size={18} />
-            Connect on LinkedIn
-          </a>
-        </div>
-        
-        <p className="mt-6 text-sm text-slate-400">
-          hello@altruisticxai.com · Async-first · Pilot-focused
-        </p>
-      </motion.div>
     </section>
   );
 }
