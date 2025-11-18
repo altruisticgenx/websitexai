@@ -35,10 +35,10 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <MouseParticles />
-      <ClickRipples />
-      <NavigationOrb />
       <BrowserRouter>
+        <MouseParticles />
+        <ClickRipples />
+        <NavigationOrb />
         <AnimatedRoutes />
       </BrowserRouter>
     </TooltipProvider>
