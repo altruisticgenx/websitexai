@@ -448,7 +448,7 @@ const Index = () => {
             >
               <Button size="lg" className="group gap-2 text-base transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/30" asChild>
                 <a
-                  href="https://www.linkedin.com/in/inga-kaltak-11i41141/"
+                  href="https://www.linkedin.com/in/ik11?utm_source=share_via&utm_content=profile&utm_medium=member_android"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
