@@ -53,10 +53,15 @@ export function OrganizationTypes() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="rounded-2xl border border-slate-800/70 bg-slate-900/60 p-5 text-center hover:border-primary/30 hover:-translate-y-1 transition-all"
+              whileHover={{ 
+                y: -8,
+                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.25)",
+                borderColor: "hsl(var(--primary) / 0.5)"
+              }}
+              className="group rounded-2xl border border-slate-800/70 bg-gradient-to-br from-slate-900/60 to-slate-900/30 p-5 text-center transition-all duration-300 cursor-default"
             >
-              <Icon className={`h-8 w-8 mx-auto mb-3 ${org.color}`} />
-              <h3 className="text-sm font-medium text-slate-50">{org.name}</h3>
+              <Icon className={`h-8 w-8 mx-auto mb-3 ${org.color} group-hover:scale-110 transition-transform duration-300`} />
+              <h3 className="text-sm font-medium text-slate-50 group-hover:text-primary transition-colors">{org.name}</h3>
             </motion.div>
           );
         })}

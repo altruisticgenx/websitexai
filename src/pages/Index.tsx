@@ -313,13 +313,18 @@ function HowItWorks() {
               initial={{ opacity: 0, y: 20 }} 
               whileInView={{ opacity: 1, y: 0 }} 
               viewport={{ once: true }} 
-              transition={{ duration: 0.5, delay: index * 0.1 }} 
-              className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-4 text-sm hover:border-primary/30 transition-colors"
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ 
+                y: -6,
+                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.2)",
+                borderColor: "hsl(var(--primary) / 0.4)"
+              }}
+              className="group rounded-2xl border border-slate-800/70 bg-gradient-to-br from-slate-950/50 to-slate-900/30 p-4 text-sm transition-all duration-300 cursor-default"
             >
-              <div className="text-xs font-mono uppercase tracking-[0.18em] text-primary">
+              <div className="text-xs font-mono uppercase tracking-[0.18em] text-primary group-hover:text-accent transition-colors">
                 {step.label}
               </div>
-              <h3 className="mt-2 text-sm font-semibold text-slate-50">
+              <h3 className="mt-2 text-sm font-semibold text-slate-50 group-hover:text-primary transition-colors">
                 {step.title}
               </h3>
               <p className="mt-2 text-sm text-slate-300">{step.body}</p>
@@ -399,10 +404,14 @@ function PilotOffer() {
             initial={{ opacity: 0, x: 30 }} 
             whileInView={{ opacity: 1, x: 0 }} 
             viewport={{ once: true }} 
-            transition={{ duration: 0.6 }} 
-            className="rounded-3xl border border-slate-800/80 bg-slate-950/60 p-4 text-xs text-slate-200 sm:p-5"
+            transition={{ duration: 0.6 }}
+            whileHover={{ 
+              scale: 1.02,
+              boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.15)"
+            }}
+            className="group rounded-3xl border border-slate-800/80 bg-gradient-to-br from-slate-950/60 to-slate-900/40 p-4 text-xs text-slate-200 sm:p-5 transition-all duration-500 hover:border-primary/30 cursor-default"
           >
-            <div className="text-xs font-mono uppercase tracking-[0.18em] text-slate-400">
+            <div className="text-xs font-mono uppercase tracking-[0.18em] text-slate-400 group-hover:text-primary transition-colors">
               Good fit
             </div>
             <ul className="mt-2 space-y-1">
@@ -424,20 +433,20 @@ function PilotOffer() {
               </li>
             </ul>
 
-            <div className="mt-5 text-xs font-mono uppercase tracking-[0.18em] text-slate-400">
+            <div className="mt-5 text-xs font-mono uppercase tracking-[0.18em] text-slate-400 group-hover:text-accent transition-colors">
               Not a fit
             </div>
             <ul className="mt-2 space-y-1 text-slate-400">
               <li className="flex items-start gap-2">
-                <span>✕</span>
+                <span className="opacity-50">✕</span>
                 You want a big team and a huge scope from day one.
               </li>
               <li className="flex items-start gap-2">
-                <span>✕</span>
+                <span className="opacity-50">✕</span>
                 You aren't ready to give real feedback weekly.
               </li>
               <li className="flex items-start gap-2">
-                <span>✕</span>
+                <span className="opacity-50">✕</span>
                 You just need a static marketing site or brochure.
               </li>
             </ul>
