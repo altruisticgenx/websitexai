@@ -17,6 +17,7 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { SiteNav } from "@/components/SiteNav";
 import { SectionNav } from "@/components/SectionNav";
+import { HeroFuturistic } from "@/components/ui/hero-futuristic";
 
 const Index = () => {
   return (
@@ -33,136 +34,7 @@ const Index = () => {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section
-          id="hero"
-          className="relative overflow-hidden py-16 sm:py-24 lg:py-32"
-        >
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-              {/* Left Column - Text Content */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-medium text-emerald-300">
-                  <span className="inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-                  AltruisticX AI · Live AI Pilot Lab
-                </div>
-
-                <h1 className="mb-6 text-4xl font-semibold tracking-tight text-slate-50 sm:text-5xl lg:text-6xl">
-                  AI pilots for campuses, cities, and scrappy teams
-                </h1>
-
-                <p className="mb-8 max-w-xl text-lg leading-relaxed text-slate-300">
-                  Test real AI tools in 4-week pilots. I design, build, and ship
-                  working software — not slide decks — so you can see what
-                  actually helps your people before you commit.
-                </p>
-
-                <ul className="mb-8 space-y-4">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-emerald-400" />
-                    <span className="text-sm text-slate-300">
-                      Real builds, not demos – dashboards, workflows, and small
-                      tools your team can actually click on.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-emerald-400" />
-                    <span className="text-sm text-slate-300">
-                      4-week sprints – enough to learn, short enough to walk
-                      away with no drama.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-emerald-400" />
-                    <span className="text-sm text-slate-300">
-                      No long contracts – pause anytime, keep the code and the
-                      lessons.
-                    </span>
-                  </li>
-                </ul>
-
-                <div className="mb-4 flex flex-col gap-4 sm:flex-row">
-                  <Button
-                    size="lg"
-                    className="text-base shadow-xl shadow-emerald-500/30 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/50"
-                    asChild
-                  >
-                    <a href="mailto:altruisticxai@gmail.com?subject=Book%20a%20Pilot%20Call">
-                      Book a Pilot Call
-                    </a>
-                  </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="text-base border-slate-700/80 bg-slate-900/60 backdrop-blur transition-all duration-300 hover:scale-105 hover:border-emerald-500/50 hover:bg-slate-800/80"
-                    asChild
-                  >
-                    <Link to="/portfolio">View active pilots</Link>
-                  </Button>
-                </div>
-                <p className="text-sm text-slate-400">
-                  Week-to-week · pause anytime · async-friendly
-                </p>
-              </motion.div>
-
-              {/* Right Column - Visual */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 10 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.15 }}
-                className="hidden lg:block"
-              >
-                <Card className="group relative overflow-hidden border border-slate-700/70 bg-slate-900/70 p-6 shadow-[0_18px_45px_rgba(0,0,0,0.65)] backdrop-blur transition-all duration-500 hover:border-emerald-500/30 hover:shadow-[0_20px_50px_rgba(16,185,129,0.15)]">
-                  <div className="absolute inset-x-0 top-0 h-10 bg-gradient-to-r from-emerald-500/20 via-violet-500/20 to-cyan-500/20 opacity-70 blur-xl" />
-                  <div className="relative space-y-4">
-                    <div className="flex items-center justify-between border-b border-slate-700 pb-4">
-                      <div>
-                        <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
-                          Live Experiment Board
-                        </p>
-                        <p className="text-xs text-slate-500">
-                          Not a portfolio. A lab notebook.
-                        </p>
-                      </div>
-                      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-300">
-                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                        2 active pilots
-                      </span>
-                    </div>
-
-                    <div className="space-y-3 text-xs">
-                      <LabCard
-                        title="Campus Energy Storyboard"
-                        tag="Higher Ed · Energy"
-                        status="Week 2 of 4"
-                        updated="Updated 2 days ago"
-                      />
-                      <LabCard
-                        title="Capstone Partner Matchmaker"
-                        tag="Education · Community"
-                        status="Week 1 of 6"
-                        updated="Updated 3 days ago"
-                      />
-                    </div>
-
-                    <div className="mt-4 rounded-xl border border-dashed border-slate-700/80 bg-slate-950/60 px-4 py-3 text-xs text-slate-300">
-                      <p className="font-medium text-slate-100">
-                        Next pilot slot
-                      </p>
-                      <p className="text-[11px] text-slate-400">
-                        4-week window for one focused build: one workflow, one
-                        dataset, one clear question.
-                      </p>
-                    </div>
-                  </div>
-                </Card>
-              </motion.div>
-            </div>
-          </div>
-        </section>
+        <HeroFuturistic />
 
         {/* Who This Is For */}
         <section id="who" className="bg-slate-950/60 py-16 sm:py-20">
