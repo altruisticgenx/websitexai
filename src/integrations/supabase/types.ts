@@ -18,6 +18,8 @@ export type Database = {
         Row: {
           created_at: string
           email: string
+          email_sent: boolean | null
+          email_sent_at: string | null
           id: string
           message: string
           name: string
@@ -26,6 +28,8 @@ export type Database = {
         Insert: {
           created_at?: string
           email: string
+          email_sent?: boolean | null
+          email_sent_at?: string | null
           id?: string
           message: string
           name: string
@@ -34,10 +38,39 @@ export type Database = {
         Update: {
           created_at?: string
           email?: string
+          email_sent?: boolean | null
+          email_sent_at?: string | null
           id?: string
           message?: string
           name?: string
           project_type?: string
+        }
+        Relationships: []
+      }
+      email_rate_limits: {
+        Row: {
+          created_at: string | null
+          endpoint: string
+          id: string
+          ip_address: string
+          request_count: number | null
+          window_start: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          endpoint: string
+          id?: string
+          ip_address: string
+          request_count?: number | null
+          window_start?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          endpoint?: string
+          id?: string
+          ip_address?: string
+          request_count?: number | null
+          window_start?: string | null
         }
         Relationships: []
       }
