@@ -112,7 +112,7 @@ function SiteHeader() {
     y: 0
   }} transition={{
     duration: 0.5
-  }} className="flex items-center justify-between py-5 sticky top-0 z-50 bg-slate-950/95 backdrop-blur-sm border-b border-slate-900/50">
+  }} className="flex items-center justify-between py-5 sticky top-0 z-40 bg-slate-950/98 backdrop-blur-md border-b border-slate-900/50">
       <a href="#" className="flex flex-col">
         <span className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
           AltruisticX AI

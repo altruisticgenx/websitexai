@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -16,8 +16,27 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
     "where", "shelved", "testimonials", "faq", "contact"
   ]);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-  const closeMenu = () => setIsOpen(false);
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+    // Prevent body scroll when menu is open
+    if (!isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  };
+  
+  const closeMenu = () => {
+    setIsOpen(false);
+    document.body.style.overflow = 'unset';
+  };
 
   const menuItems = [
     { label: "Builds", href: "#builds", id: "builds" },
@@ -36,13 +55,14 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
     <div className={className}>
       <button
         onClick={toggleMenu}
-        className="rounded-full border border-primary/60 bg-primary/10 p-2 text-primary hover:bg-primary/20 transition-colors"
+        className="rounded-full border border-primary/60 bg-primary/10 p-2 text-primary hover:bg-primary/20 transition-colors touch-manipulation"
         aria-label="Toggle menu"
+        aria-expanded={isOpen}
       >
         {isOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
 
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isOpen && (
           <>
             <motion.div
@@ -50,16 +70,20 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-[100] touch-none"
               onClick={closeMenu}
+              aria-hidden="true"
             />
 
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed right-0 top-0 h-full w-72 bg-slate-900 border-l border-slate-800 shadow-2xl z-50 overflow-y-auto"
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              className="fixed right-0 top-0 h-full w-72 bg-slate-900/98 backdrop-blur-md border-l border-slate-800 shadow-2xl z-[101] overflow-y-auto overscroll-contain"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile navigation menu"
             >
               <div className="flex items-center justify-between p-5 border-b border-slate-800">
                 <span className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
