@@ -18,6 +18,7 @@ import { useActiveSection } from "@/hooks/use-active-section";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
+import { SiteNav } from "@/components/SiteNav";
 import { 
   HeroSkeleton, 
   CardsSkeleton, 
@@ -131,8 +132,6 @@ export default Index;
 // --- Sub-Components ---
 
 function SiteHeader() {
-  const activeSection = useActiveSection(["builds", "how", "pilot", "contact"]);
-  
   return (
     <motion.header 
       initial={{ opacity: 0, y: -20 }} 
@@ -151,37 +150,10 @@ function SiteHeader() {
           AI + Product Engineering · Weekly Sprints
         </span>
       </a>
-      <nav className="flex items-center gap-6 text-sm text-slate-300">
-        <a 
-          href="#builds" 
-          className={cn(
-            "relative hover:text-primary transition-colors",
-            activeSection === "builds" && "text-primary after:absolute after:w-full after:h-0.5 after:bg-primary after:bottom-[-8px] after:left-0"
-          )}
-        >
-          Builds
-        </a>
-        <Link to="/portfolio" className="hover:text-primary transition-colors">
-          Portfolio
-        </Link>
-        <a 
-          href="#how" 
-          className={cn(
-            "relative hover:text-primary transition-colors",
-            activeSection === "how" && "text-primary after:absolute after:w-full after:h-0.5 after:bg-primary after:bottom-[-8px] after:left-0"
-          )}
-        >
-          How it works
-        </a>
-        <a 
-          href="#pilot" 
-          className={cn(
-            "relative hover:text-primary transition-colors",
-            activeSection === "pilot" && "text-primary after:absolute after:w-full after:h-0.5 after:bg-primary after:bottom-[-8px] after:left-0"
-          )}
-        >
-          4-week pilot
-        </a>
+      
+      <div className="flex items-center gap-6">
+        <SiteNav />
+        
         <a 
           href="https://scheduler.zoom.us/altruistic-xai" 
           target="_blank" 
@@ -190,7 +162,7 @@ function SiteHeader() {
         >
           Book a 30-min intro
         </a>
-      </nav>
+      </div>
     </motion.header>
   );
 }
