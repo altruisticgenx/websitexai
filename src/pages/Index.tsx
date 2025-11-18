@@ -10,6 +10,7 @@ import { EngagementModels } from "@/components/EngagementModels";
 import { MobileMenu } from "@/components/MobileMenu";
 import { ContactForm } from "@/components/ContactForm";
 import { Toaster } from "@/components/ui/toaster";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { cn } from "@/lib/utils";
 
@@ -77,6 +78,7 @@ const Index = () => {
         <SiteFooter />
       </div>
       <Toaster />
+      <ScrollToTop />
     </div>;
 };
 export default Index;
