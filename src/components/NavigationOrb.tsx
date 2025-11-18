@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Home, Briefcase, Mail, Sparkles, BookOpen } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useInRouterContext } from 'react-router-dom';
 
 interface NavItem {
   icon: any;
@@ -10,7 +10,7 @@ interface NavItem {
   color: string;
 }
 
-export function NavigationOrb() {
+function NavigationOrbInner() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const orbRef = useRef<HTMLDivElement>(null);
@@ -235,4 +235,10 @@ export function NavigationOrb() {
       </motion.div>
     </div>
   );
+}
+
+export function NavigationOrb() {
+  const inRouter = useInRouterContext();
+  if (!inRouter) return null;
+  return <NavigationOrbInner />;
 }
