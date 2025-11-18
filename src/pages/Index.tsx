@@ -18,8 +18,6 @@ import { useActiveSection } from "@/hooks/use-active-section";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
-import { ControlRoomOverlay } from "@/components/ui/control-room-overlay";
-import { AnimatedGridOverlay } from "@/components/ui/animated-grid-overlay";
 import { SiteNav } from "@/components/SiteNav";
 import { 
   HeroSkeleton, 
@@ -113,6 +111,9 @@ const Index = () => {
               <OrganizationTypes />
               <WhereIWork />
               <ShelvedExperiments />
+              <div id="testimonials">
+                <TestimonialsVariant />
+              </div>
               <FAQSection />
             </motion.div>
           )}
@@ -218,16 +219,15 @@ function RecentBuilds() {
   }, []);
 
   return (
-    <section id="builds" className="py-10 md:py-16 relative border-t border-lime/20 shadow-lime-glow">
-      <AnimatedGridOverlay intensity="subtle" showMatrix={true} />
-      <div className="mx-auto w-full max-w-5xl px-4 md:px-6 relative z-10">
+    <section id="builds" className="py-10 md:py-16">
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
           whileInView={{ opacity: 1, y: 0 }} 
           viewport={{ once: true }} 
           transition={{ duration: 0.5 }}
         >
-          <h2 className="heading-display text-xl md:text-2xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
             Proof: Recent builds & pilots
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -293,16 +293,15 @@ function HowItWorks() {
     body: "Wrap with a real repo, guided walkthrough, and a clear decision: scale, pivot, or pause. Your code, data, and documentation are always yours."
   }];
   return (
-    <section id="how" className="border-t border-lime/20 shadow-lime-glow py-10 md:py-16 relative">
-      <AnimatedGridOverlay intensity="subtle" showMatrix={false} />
-      <div className="mx-auto w-full max-w-5xl px-4 md:px-6 relative z-10">
+    <section id="how" className="border-t border-slate-900/80 py-10 md:py-16">
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
           whileInView={{ opacity: 1, y: 0 }} 
           viewport={{ once: true }} 
           transition={{ duration: 0.5 }}
         >
-          <h2 className="heading-display text-xl md:text-2xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
             How Our Experimental Pilot Works
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -315,27 +314,24 @@ function HowItWorks() {
           {steps.map((step, index) => (
             <motion.div 
               key={step.label} 
-              initial={{ opacity: 0, y: 20, rotateX: -10 }} 
-              whileInView={{ opacity: 1, y: 0, rotateX: 0 }} 
+              initial={{ opacity: 0, y: 20 }} 
+              whileInView={{ opacity: 1, y: 0 }} 
               viewport={{ once: true }} 
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ 
-                y: -8,
-                rotateX: 5,
-                rotateY: index === 1 ? 0 : index === 0 ? -5 : 5,
-                scale: 1.03,
-                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.3)",
+                y: -6,
+                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.2)",
+                borderColor: "hsl(var(--primary) / 0.4)"
               }}
-              className="card-3d card-3d-border group rounded-2xl p-5 text-sm transition-all duration-500 cursor-default"
-              style={{ transformStyle: 'preserve-3d' }}
+              className="group rounded-2xl border border-slate-800/70 bg-gradient-to-br from-slate-950/50 to-slate-900/30 p-4 text-sm transition-all duration-300 cursor-default"
             >
-              <div className="text-xs font-mono uppercase tracking-[0.18em] text-primary group-hover:text-accent transition-colors" style={{ transform: 'translateZ(15px)' }}>
+              <div className="text-xs font-mono uppercase tracking-[0.18em] text-primary group-hover:text-accent transition-colors">
                 {step.label}
               </div>
-              <h3 className="mt-2 text-sm font-semibold text-slate-50 group-hover:text-primary transition-colors" style={{ transform: 'translateZ(20px)' }}>
+              <h3 className="mt-2 text-sm font-semibold text-slate-50 group-hover:text-primary transition-colors">
                 {step.title}
               </h3>
-              <p className="mt-2 text-sm text-slate-300" style={{ transform: 'translateZ(10px)' }}>{step.body}</p>
+              <p className="mt-2 text-sm text-slate-300">{step.body}</p>
             </motion.div>
           ))}
         </div>
@@ -345,9 +341,8 @@ function HowItWorks() {
 }
 function PilotOffer() {
   return (
-    <section id="pilot" className="border-t border-lime/20 shadow-lime-glow py-10 md:py-16 relative">
-      <AnimatedGridOverlay intensity="medium" showMatrix={true} />
-      <div className="mx-auto w-full max-w-5xl px-4 md:px-6 relative z-10">
+    <section id="pilot" className="border-t border-slate-900/80 py-10 md:py-16">
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
         <div className="grid gap-8 md:grid-cols-[minmax(0,1.3fr),minmax(0,1fr)] md:items-start">
           <motion.div 
             initial={{ opacity: 0, x: -30 }} 
@@ -355,7 +350,7 @@ function PilotOffer() {
             viewport={{ once: true }} 
             transition={{ duration: 0.6 }}
           >
-            <h2 className="heading-display text-xl md:text-2xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
               Offer: Try a 4-Week Sprint
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -408,6 +403,58 @@ function PilotOffer() {
               </p>
             </div>
           </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }} 
+            whileInView={{ opacity: 1, x: 0 }} 
+            viewport={{ once: true }} 
+            transition={{ duration: 0.6 }}
+            whileHover={{ 
+              scale: 1.02,
+              boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.15)"
+            }}
+            className="group rounded-3xl border border-slate-800/80 bg-gradient-to-br from-slate-950/60 to-slate-900/40 p-4 text-xs text-slate-200 sm:p-5 transition-all duration-500 hover:border-primary/30 cursor-default"
+          >
+            <div className="text-xs font-mono uppercase tracking-[0.18em] text-slate-400 group-hover:text-primary transition-colors">
+              Good fit
+            </div>
+            <ul className="mt-2 space-y-1">
+              <li className="flex items-start gap-2">
+                <span className="text-primary">✓</span>
+                Early-stage product with unclear edges.
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary">✓</span>
+                Energy, education, civic, or compliance work.
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary">✓</span>
+                Need to show progress to leadership or funders.
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary">✓</span>
+                Comfortable with async, fast iteration.
+              </li>
+            </ul>
+
+            <div className="mt-5 text-xs font-mono uppercase tracking-[0.18em] text-slate-400 group-hover:text-accent transition-colors">
+              Not a fit
+            </div>
+            <ul className="mt-2 space-y-1 text-slate-400">
+              <li className="flex items-start gap-2">
+                <span className="opacity-50">✕</span>
+                You want a big team and a huge scope from day one.
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="opacity-50">✕</span>
+                You aren't ready to give real feedback weekly.
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="opacity-50">✕</span>
+                You just need a static marketing site or brochure.
+              </li>
+            </ul>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -416,16 +463,15 @@ function PilotOffer() {
 function WhoBenefits() {
   const audiences = ["Students bringing new ideas to life", "Teachers or nonprofits piloting campus or impact projects", "Board and governance teams seeking data clarity", "Solo founders wanting operational peace of mind", "B2B units innovating under fast timelines"];
   return (
-    <section id="benefits" className="border-t border-lime/20 shadow-lime-glow py-10 md:py-16 relative">
-      <AnimatedGridOverlay intensity="subtle" showMatrix={false} />
-      <div className="mx-auto w-full max-w-5xl px-4 md:px-6 relative z-10">
+    <section id="benefits" className="border-t border-slate-900/80 py-10 md:py-16">
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
           whileInView={{ opacity: 1, y: 0 }} 
           viewport={{ once: true }} 
           transition={{ duration: 0.5 }}
         >
-          <h2 className="heading-display text-xl md:text-2xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
             Who Benefits?
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -435,23 +481,16 @@ function WhoBenefits() {
 
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           <motion.div 
-            initial={{ opacity: 0, x: -20, rotateY: -10 }} 
-            whileInView={{ opacity: 1, x: 0, rotateY: 0 }} 
+            initial={{ opacity: 0, x: -20 }} 
+            whileInView={{ opacity: 1, x: 0 }} 
             viewport={{ once: true }} 
-            transition={{ duration: 0.6, delay: 0.1 }}
-            whileHover={{
-              rotateY: 3,
-              rotateX: -3,
-              scale: 1.02,
-              boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.3)",
-            }}
-            className="card-3d card-3d-border rounded-2xl p-6 transition-all duration-500"
-            style={{ transformStyle: 'preserve-3d' }}
+            transition={{ duration: 0.5, delay: 0.1 }} 
+            className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-5"
           >
-            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-primary" style={{ transform: 'translateZ(15px)' }}>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
               Perfect For
             </h3>
-            <ul className="mt-3 space-y-2 text-sm text-slate-200" style={{ transform: 'translateZ(10px)' }}>
+            <ul className="mt-3 space-y-2 text-sm text-slate-200">
               {audiences.map((audience, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <span className="text-primary mt-0.5">✓</span>
@@ -460,6 +499,31 @@ function WhoBenefits() {
               ))}
             </ul>
           </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }} 
+            whileInView={{ opacity: 1, x: 0 }} 
+            viewport={{ once: true }} 
+            transition={{ duration: 0.5, delay: 0.2 }} 
+            className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-5"
+          >
+            <div className="mb-4">
+              <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
+                Ideal Fit
+              </h3>
+              <p className="mt-2 text-sm text-slate-200">
+                Real feedback weekly, ready to experiment, need clear results
+              </p>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">
+                Not a Fit
+              </h3>
+              <p className="mt-2 text-sm text-slate-400">
+                Big static sites, slow-moving teams, no feedback or iteration
+              </p>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -467,19 +531,18 @@ function WhoBenefits() {
 }
 function FAQSection() {
   return (
-    <section id="faq" className="border-t border-lime/20 shadow-lime-glow py-4 sm:py-6 relative">
-      <AnimatedGridOverlay intensity="subtle" showMatrix={true} />
-      <motion.div
+    <section id="faq" className="border-t border-slate-900/80 py-8 sm:py-12">
+      <motion.div 
         initial={{ opacity: 0, y: 20 }} 
         whileInView={{ opacity: 1, y: 0 }} 
         viewport={{ once: true }} 
         transition={{ duration: 0.5 }} 
-        className="max-w-4xl mb-3"
+        className="max-w-4xl mb-6"
       >
-        <h2 className="heading-display text-[11px] sm:text-xs">
+        <h2 className="text-lg sm:text-xl font-semibold">
           FAQs & AI Assistant
         </h2>
-        <p className="mt-1 text-[9px] sm:text-[10px] text-slate-300">
+        <p className="mt-2 text-xs sm:text-sm text-slate-300">
           Get quick answers to common questions or ask our AI assistant about submissions and services.
         </p>
       </motion.div>
@@ -490,13 +553,13 @@ function FAQSection() {
         whileInView={{ opacity: 1, y: 0 }} 
         viewport={{ once: true }} 
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="mb-3"
+        className="mb-6"
       >
         <FAQAssistant />
       </motion.div>
 
       {/* FAQ Items - Compact Grid Layout */}
-      <dl className="grid gap-2 sm:gap-2.5 sm:grid-cols-2">
+      <dl className="grid gap-3 sm:gap-4 sm:grid-cols-2">
         {faqs.map((item, index) => (
           <motion.div 
             key={item.question} 
@@ -504,12 +567,12 @@ function FAQSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.05 }}
-            className="rounded-lg border border-slate-800/60 bg-slate-950/60 p-2 sm:p-2.5 hover:border-primary/30 transition-colors"
+            className="rounded-xl border border-slate-800/80 bg-slate-950/60 p-3 sm:p-4 hover:border-primary/30 transition-colors"
           >
-            <dt className="text-[9px] sm:text-[10px] font-medium text-slate-50 leading-tight">
+            <dt className="text-xs sm:text-sm font-medium text-slate-50 leading-tight">
               {item.question}
             </dt>
-            <dd className="mt-1 text-[8px] sm:text-[9px] text-slate-300 leading-snug">
+            <dd className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
               {item.answer}
             </dd>
           </motion.div>
@@ -520,11 +583,11 @@ function FAQSection() {
 }
 
 function SiteFooter() {
-  return <footer className="border-t border-lime/20 shadow-lime-glow py-4">
-      <div className="flex flex-col items-start justify-between gap-2 text-[10px] text-slate-500 sm:flex-row sm:items-center">
-        <div className="text-[10px]">© {new Date().getFullYear()} AltruisticX · AI + Product Engineer</div>
-        <div className="flex flex-wrap gap-2">
-          <span className="text-[10px]">Async-first · privacy-aware · built for pilots, classrooms, and fast-moving teams</span>
+  return <footer className="border-t border-slate-900/80 py-6">
+      <div className="flex flex-col items-start justify-between gap-3 text-xs text-slate-500 sm:flex-row sm:items-center">
+        <div>© {new Date().getFullYear()} AltruisticX · AI + Product Engineer</div>
+        <div className="flex flex-wrap gap-3">
+          <span>Async-first · privacy-aware · built for pilots, classrooms, and fast-moving teams</span>
         </div>
       </div>
     </footer>;

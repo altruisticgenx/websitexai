@@ -6,7 +6,6 @@ import { getCaseStudyBySlug, getAllCaseStudies, CaseStudy } from "@/data/caseStu
 import { CaseStudyHeader } from "@/components/case-studies/CaseStudyHeader";
 import { CaseStudyContent } from "@/components/case-studies/CaseStudyContent";
 import { CaseStudyCard } from "@/components/case-studies/CaseStudyCard";
-import { ControlRoomOverlay } from "@/components/ui/control-room-overlay";
 
 function CaseStudyDetail() {
   const { id } = useParams<{ id: string }>();
@@ -54,9 +53,8 @@ function CaseStudyDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50 relative">
-      <ControlRoomOverlay intensity="subtle" showScanline={false} />
-      <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8 relative z-10">
+    <div className="min-h-screen bg-slate-950 text-slate-50">
+      <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
         {/* Back Button */}
         <Link
           to="/portfolio"
@@ -79,7 +77,7 @@ function CaseStudyDetail() {
           transition={{ duration: 0.6, delay: 0.7 }}
           className="mt-12 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 to-accent/10 p-8 text-center backdrop-blur-sm"
         >
-          <h2 className="mb-3 heading-display text-lg">
+          <h2 className="mb-3 text-2xl font-bold text-slate-50">
             Ready to start your own pilot?
           </h2>
           <p className="mb-6 text-sm text-slate-300">
@@ -101,7 +99,7 @@ function CaseStudyDetail() {
             transition={{ duration: 0.6, delay: 0.8 }}
             className="mt-16"
           >
-            <h2 className="mb-8 heading-display text-xl">
+            <h2 className="mb-8 text-2xl font-bold text-slate-50">
               More Case Studies
             </h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

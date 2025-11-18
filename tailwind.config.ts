@@ -14,10 +14,14 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        heading: ['Space Grotesk', 'system-ui', 'sans-serif'],
-        display: ['Orbitron', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Consolas', 'Monaco', 'monospace'],
+        sans: [
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          '"Segoe UI"',
+          "sans-serif",
+        ],
+        itim: ['Itim', 'cursive'], // Keep for accent use only
       },
       colors: {
         border: "hsl(var(--border))",
@@ -45,10 +49,6 @@ export default {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
-        lime: {
-          DEFAULT: "hsl(var(--lime))",
-          foreground: "hsl(var(--lime-foreground))",
-        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
@@ -67,51 +67,24 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // AI control room palette - calm blues and cyans
-        slate: {
-          950: "hsl(222 47% 11%)",
-          900: "hsl(217 33% 17%)",
-          800: "hsl(217 19% 27%)",
-          700: "hsl(215 20% 35%)",
-          600: "hsl(215 20% 45%)",
-          500: "hsl(215 20% 65%)",
-          400: "hsl(215 20% 75%)",
-          300: "hsl(215 20% 85%)",
-          200: "hsl(210 40% 95%)",
-          100: "hsl(210 40% 98%)",
-        },
-        cyan: {
-          950: "hsl(199 89% 28%)",
-          900: "hsl(199 89% 38%)",
-          800: "hsl(199 89% 48%)",
-          700: "hsl(199 89% 58%)",
-          600: "hsl(199 89% 68%)",
-          500: "hsl(199 89% 78%)",
-          400: "hsl(199 89% 88%)",
+        aquamarine: {
+          50: "hsl(168, 100%, 97%)",
+          100: "hsl(168, 100%, 88%)",
+          200: "hsl(168, 100%, 77%)",
+          300: "hsl(168, 100%, 64%)",
+          400: "hsl(168, 89%, 53%)",
+          500: "hsl(168, 100%, 42%)",
+          600: "hsl(168, 100%, 34%)",
+          700: "hsl(168, 100%, 27%)",
+          800: "hsl(173, 95%, 21%)",
+          900: "hsl(173, 84%, 19%)",
+          950: "hsl(175, 100%, 11%)",
         },
       },
       borderRadius: {
-        lg: "0.75rem",
-        xl: "1rem",
-        "2xl": "1.25rem",
-        md: "0.5rem",
-        sm: "0.375rem",
-      },
-      boxShadow: {
-        'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)',
-        'elevated': '0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3)',
-        'glow': '0 0 20px rgba(56, 189, 248, 0.15)',
-        'glow-accent': '0 0 30px rgba(56, 189, 248, 0.1)',
-        '3d': '0 20px 50px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.15)',
-      },
-      perspective: {
-        '500': '500px',
-        '1000': '1000px',
-        '1500': '1500px',
-      },
-      letterSpacing: {
-        tighter: '-0.02em',
-        tight: '-0.011em',
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
         "accordion-down": {
@@ -130,20 +103,10 @@ export default {
             height: "0",
           },
         },
-        "scanline": {
-          "0%": {
-            transform: "translateY(-100%)",
-          },
-          "100%": {
-            transform: "translateY(100vh)",
-          },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "scanline": "scanline 8s linear infinite",
-        "float-3d": "float-3d 6s ease-in-out infinite",
       },
     },
   },

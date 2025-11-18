@@ -37,20 +37,9 @@ export function SiteNav() {
           <a
             href="#"
             onClick={handleNavClick}
-            className="flex items-center gap-2 font-itim transition-colors hover:text-primary"
+            className="flex flex-col font-itim transition-colors hover:text-primary"
           >
-            <svg 
-              className="w-3 h-3 text-lime drop-shadow-[0_0_8px_hsl(var(--lime))]" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-            >
-              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-            </svg>
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-primary">
+            <span className="text-lg font-semibold uppercase tracking-wider text-primary">
               AltruisticX AI
             </span>
           </a>

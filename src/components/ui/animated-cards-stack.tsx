@@ -33,13 +33,13 @@ export const AnimatedCardsStack = ({
   }, []);
 
   return (
-    <div className="relative h-[180px] w-full md:h-[220px]">
+    <div className="relative h-[280px] w-full md:h-[320px]">
       {activeCards.map((card, index) => {
         return (
           <motion.div
             key={card.id}
             className={cn(
-              "absolute inset-0 mx-auto flex w-full max-w-md flex-col justify-between rounded-xl border border-slate-800/80 bg-slate-900/80 p-3 shadow-lg backdrop-blur-sm md:p-4",
+              "absolute inset-0 mx-auto flex w-full max-w-lg flex-col justify-between rounded-2xl border border-slate-800/80 bg-slate-900/80 p-4 shadow-lg backdrop-blur-sm md:p-5",
               card.className
             )}
             style={{
@@ -146,8 +146,8 @@ export const TestimonialsVariant = () => {
     id: testimonial.id,
     className: `bg-gradient-to-br ${testimonial.color} ${testimonial.borderColor}`,
     content: (
-      <div className="flex h-full items-center justify-center px-2">
-        <p className="text-[11px] leading-relaxed text-slate-100 md:text-xs">
+      <div className="flex h-full items-center justify-center">
+        <p className="text-xs leading-relaxed text-slate-100 md:text-sm">
           "{testimonial.content}"
         </p>
       </div>
@@ -155,19 +155,19 @@ export const TestimonialsVariant = () => {
   }));
 
   return (
-    <section className="py-10 sm:py-14">
+    <section className="py-16 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-8 text-center"
+          className="mb-12 text-center"
         >
-        <h2 className="heading-display text-sm sm:text-base">
-          What clients say
-        </h2>
-          <p className="mt-2 text-xs text-slate-300 sm:text-sm">
+          <h2 className="text-2xl font-semibold sm:text-3xl">
+            What clients say
+          </h2>
+          <p className="mt-3 text-sm text-slate-300 sm:text-base">
             Real feedback from energy, education, and founder-backed projects.
           </p>
         </motion.div>
@@ -244,9 +244,9 @@ export const AwardsVariant = () => {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center"
         >
-        <h2 className="heading-display text-base sm:text-lg">
-          Recognition & Awards
-        </h2>
+          <h2 className="text-2xl font-semibold sm:text-3xl">
+            Recognition & Awards
+          </h2>
           <p className="mt-3 text-sm text-slate-300 sm:text-base">
             Acknowledged for impact-driven work in energy, education, and climate tech.
           </p>
@@ -326,9 +326,9 @@ export const MetricsVariant = () => {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center"
         >
-        <h2 className="heading-display text-base sm:text-lg">
-          Track record
-        </h2>
+          <h2 className="text-2xl font-semibold sm:text-3xl">
+            Track record
+          </h2>
           <p className="mt-3 text-sm text-slate-300 sm:text-base">
             Numbers that matter from real pilot projects.
           </p>

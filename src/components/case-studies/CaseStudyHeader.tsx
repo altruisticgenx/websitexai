@@ -27,7 +27,7 @@ export function CaseStudyHeader({ caseStudy }: CaseStudyHeaderProps) {
       </div>
 
       {/* Title */}
-      <h1 className="mb-4 heading-display text-2xl sm:text-3xl lg:text-4xl">
+      <h1 className="mb-4 text-3xl font-bold text-slate-50 sm:text-4xl lg:text-5xl">
         {caseStudy.title}
       </h1>
 

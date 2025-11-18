@@ -17,7 +17,7 @@ export function Section({ id, eyebrow, title, intro, children }: SectionProps) {
             {eyebrow}
           </p>
         )}
-        <h2 className="mt-2 heading-display text-xl md:text-2xl">
+        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
           {title}
         </h2>
         {intro && (
