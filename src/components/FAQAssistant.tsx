@@ -236,13 +236,13 @@ export function FAQAssistant() {
   };
 
   return (
-    <Card className="border-primary/30 bg-gradient-to-br from-slate-950/80 to-slate-900/60 p-4 sm:p-6 backdrop-blur-sm shadow-2xl">
-      <div className="mb-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+    <Card className="border-primary/30 bg-gradient-to-br from-slate-950/95 to-slate-900/80 p-3 sm:p-4 backdrop-blur-sm shadow-xl">
+      <div className="mb-2 flex items-center justify-between">
+        <div className="flex items-center gap-2">
           <motion.div
             animate={{
               rotate: [0, 360],
-              scale: [1, 1.2, 1],
+              scale: [1, 1.1, 1],
             }}
             transition={{
               duration: 3,
@@ -250,10 +250,10 @@ export function FAQAssistant() {
               ease: "easeInOut"
             }}
           >
-            <Sparkles className="h-6 w-6 text-primary" />
+            <Sparkles className="h-4 w-4 text-primary" />
           </motion.div>
-          <h3 className="text-base sm:text-lg font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            AI-Powered Assistant
+          <h3 className="text-sm font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            AI Assistant
           </h3>
         </div>
         
@@ -262,15 +262,15 @@ export function FAQAssistant() {
             variant="ghost"
             size="sm"
             onClick={clearHistory}
-            className="text-muted-foreground hover:text-destructive"
+            className="h-6 px-2 text-muted-foreground hover:text-destructive"
           >
-            <Trash2 className="h-4 w-4" />
+            <Trash2 className="h-3 w-3" />
           </Button>
         )}
       </div>
       
-      <p className="mb-4 text-xs sm:text-sm text-slate-300">
-        Ask anything about our services, projects, pricing, or workflow. Powered by advanced AI with real-time platform insights.
+      <p className="mb-3 text-[11px] text-slate-400">
+        Ask about services, pricing, workflow, or book a call instantly.
       </p>
 
       {/* Conversation History */}
