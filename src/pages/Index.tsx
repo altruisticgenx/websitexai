@@ -408,58 +408,6 @@ function PilotOffer() {
               </p>
             </div>
           </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, x: 30 }} 
-            whileInView={{ opacity: 1, x: 0 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.6 }}
-            whileHover={{ 
-              scale: 1.02,
-              boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.15)"
-            }}
-            className="group rounded-3xl border border-slate-800/80 bg-gradient-to-br from-slate-950/60 to-slate-900/40 p-4 text-xs text-slate-200 sm:p-5 transition-all duration-500 hover:border-primary/30 cursor-default"
-          >
-            <div className="text-xs font-mono uppercase tracking-[0.18em] text-slate-400 group-hover:text-primary transition-colors">
-              Good fit
-            </div>
-            <ul className="mt-2 space-y-1">
-              <li className="flex items-start gap-2">
-                <span className="text-primary">✓</span>
-                Early-stage product with unclear edges.
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">✓</span>
-                Energy, education, civic, or compliance work.
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">✓</span>
-                Need to show progress to leadership or funders.
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">✓</span>
-                Comfortable with async, fast iteration.
-              </li>
-            </ul>
-
-            <div className="mt-5 text-xs font-mono uppercase tracking-[0.18em] text-slate-400 group-hover:text-accent transition-colors">
-              Not a fit
-            </div>
-            <ul className="mt-2 space-y-1 text-slate-400">
-              <li className="flex items-start gap-2">
-                <span className="opacity-50">✕</span>
-                You want a big team and a huge scope from day one.
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="opacity-50">✕</span>
-                You aren't ready to give real feedback weekly.
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="opacity-50">✕</span>
-                You just need a static marketing site or brochure.
-              </li>
-            </ul>
-          </motion.div>
         </div>
       </div>
     </section>
@@ -511,38 +459,6 @@ function WhoBenefits() {
                 </li>
               ))}
             </ul>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, x: 20, rotateY: 10 }} 
-            whileInView={{ opacity: 1, x: 0, rotateY: 0 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.6, delay: 0.2 }}
-            whileHover={{
-              rotateY: -3,
-              rotateX: -3,
-              scale: 1.02,
-              boxShadow: "0 20px 25px -5px hsl(var(--accent) / 0.3)",
-            }}
-            className="card-3d card-3d-border rounded-2xl p-6 transition-all duration-500"
-            style={{ transformStyle: 'preserve-3d' }}
-          >
-            <div className="mb-4" style={{ transform: 'translateZ(15px)' }}>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
-                Ideal Fit
-              </h3>
-              <p className="mt-2 text-sm text-slate-200">
-                Real feedback weekly, ready to experiment, need clear results
-              </p>
-            </div>
-            <div style={{ transform: 'translateZ(10px)' }}>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">
-                Not a Fit
-              </h3>
-              <p className="mt-2 text-sm text-slate-400">
-                Big static sites, slow-moving teams, no feedback or iteration
-              </p>
-            </div>
           </motion.div>
         </div>
       </div>
