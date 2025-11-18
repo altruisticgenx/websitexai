@@ -12,8 +12,9 @@ serve(async (req) => {
   }
 
   try {
-    const { question } = await req.json();
+    const { question, conversationHistory = [] } = await req.json();
     console.log("📝 Received question:", question);
+    console.log("💬 Conversation history length:", conversationHistory.length);
 
     if (!question || typeof question !== "string") {
       console.error("❌ Invalid question format");
@@ -108,7 +109,15 @@ This link will take you directly to the scheduling page where you can pick a tim
 
 IMPORTANT BOOKING KEYWORDS: If the user says "book", "schedule", "call", "meeting", "zoom", "talk", "discuss", or similar, ALWAYS include the booking link in your response.
 
-Be conversational, professional, concise (2-3 sentences max), and context-aware. Reference the real-time stats when relevant.`;
+💭 Conversation Context:
+You have access to the conversation history. Use it to:
+- Reference previous questions and answers
+- Build on earlier topics naturally
+- Provide personalized follow-ups
+- Remember user interests and concerns
+- Avoid repeating information already shared
+
+Be conversational, professional, concise (2-3 sentences max), and context-aware. Reference previous conversation and real-time stats when relevant.`;
 
     // Call Lovable AI Gateway
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
@@ -118,6 +127,28 @@ Be conversational, professional, concise (2-3 sentences max), and context-aware.
     }
 
     console.log("🤖 Calling Lovable AI Gateway...");
+    
+    // Build messages array with conversation history for context
+    const messages = [
+      { role: "system", content: context }
+    ];
+    
+    // Add recent conversation history (excluding the last message which is the current question)
+    if (conversationHistory.length > 1) {
+      const recentHistory = conversationHistory.slice(0, -1); // Exclude current question
+      for (const msg of recentHistory) {
+        messages.push({
+          role: msg.role,
+          content: msg.content
+        });
+      }
+    }
+    
+    // Add current question
+    messages.push({ role: "user", content: question });
+    
+    console.log("📊 Total messages in context:", messages.length);
+    
     const aiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -126,10 +157,7 @@ Be conversational, professional, concise (2-3 sentences max), and context-aware.
       },
       body: JSON.stringify({
         model: "google/gemini-2.5-flash", // Fast and cost-efficient
-        messages: [
-          { role: "system", content: context },
-          { role: "user", content: question }
-        ],
+        messages: messages,
         max_completion_tokens: 600, // More concise responses
         temperature: 0.7, // Balanced creativity and accuracy
       }),
