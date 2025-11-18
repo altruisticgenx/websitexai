@@ -49,30 +49,32 @@ export function ContactForm() {
     setIsSubmitting(true);
     
     try {
-      // Save to database
-      const { error } = await supabase
+      // Save to database and get the submission ID
+      const { data: submission, error } = await supabase
         .from("contact_submissions")
         .insert({
           name: data.name,
           email: data.email,
           project_type: data.projectType,
           message: data.message,
-        });
+        })
+        .select()
+        .single();
 
       if (error) throw error;
 
-      // Send confirmation email
-      try {
-        await supabase.functions.invoke("send-contact-confirmation", {
-          body: {
-            name: data.name,
-            email: data.email,
-            projectType: data.projectType,
-          },
-        });
-      } catch (emailError) {
-        console.error("Email sending failed (non-critical):", emailError);
-        // Don't fail the form submission if email fails
+      // Send confirmation email with submission ID for verification
+      if (submission) {
+        try {
+          await supabase.functions.invoke("send-contact-confirmation", {
+            body: {
+              submissionId: submission.id,
+            },
+          });
+        } catch (emailError) {
+          console.error("Email sending failed (non-critical):", emailError);
+          // Don't fail the form submission if email fails
+        }
       }
 
       toast({
