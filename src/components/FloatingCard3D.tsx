@@ -54,17 +54,19 @@ export const FloatingCard3D = memo(({ children, className = "", intensity = 10 }
         damping: 30,
       }}
     >
-      <div className="translate-z-[20px]">
+      <div style={{ transform: 'translateZ(20px)' }}>
         {children}
       </div>
       
-      {/* 3D depth layers - optimized with CSS variables */}
+      {/* 3D depth layers */}
       <div 
-        className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 to-accent/5 -z-10 translate-z-[-10px]"
+        className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 to-accent/5 -z-10"
+        style={{ transform: 'translateZ(-10px)' }}
         aria-hidden="true"
       />
       <div 
-        className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/3 to-accent/3 -z-20 translate-z-[-20px]"
+        className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/3 to-accent/3 -z-20"
+        style={{ transform: 'translateZ(-20px)' }}
         aria-hidden="true"
       />
     </motion.div>
