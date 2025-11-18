@@ -85,7 +85,7 @@ const Index = () => {
                 <div className="mb-4 flex flex-col gap-4 sm:flex-row">
                   <Button
                     size="lg"
-                    className="text-base shadow-xl shadow-emerald-500/30"
+                    className="text-base shadow-xl shadow-emerald-500/30 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/50"
                     asChild
                   >
                     <a href="mailto:hello@altruisticxai.com?subject=Book%20a%20Pilot%20Call">
@@ -95,7 +95,7 @@ const Index = () => {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="text-base border-slate-700/80 bg-slate-900/60 backdrop-blur"
+                    className="text-base border-slate-700/80 bg-slate-900/60 backdrop-blur transition-all duration-300 hover:scale-105 hover:border-emerald-500/50 hover:bg-slate-800/80"
                     asChild
                   >
                     <Link to="/portfolio">View active pilots</Link>
@@ -113,7 +113,7 @@ const Index = () => {
                 transition={{ duration: 0.6, delay: 0.15 }}
                 className="hidden lg:block"
               >
-                <Card className="relative overflow-hidden border border-slate-700/70 bg-slate-900/70 p-6 shadow-[0_18px_45px_rgba(0,0,0,0.65)] backdrop-blur">
+                <Card className="group relative overflow-hidden border border-slate-700/70 bg-slate-900/70 p-6 shadow-[0_18px_45px_rgba(0,0,0,0.65)] backdrop-blur transition-all duration-500 hover:border-emerald-500/30 hover:shadow-[0_20px_50px_rgba(16,185,129,0.15)]">
                   <div className="absolute inset-x-0 top-0 h-10 bg-gradient-to-r from-emerald-500/20 via-violet-500/20 to-cyan-500/20 opacity-70 blur-xl" />
                   <div className="relative space-y-4">
                     <div className="flex items-center justify-between border-b border-slate-700 pb-4">
@@ -205,9 +205,9 @@ const Index = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <Card className="h-full border border-slate-800 bg-slate-900/70 p-6 shadow-lg shadow-black/40 backdrop-blur">
-                    <card.icon className="mb-4 h-8 w-8 text-emerald-400" />
-                    <h3 className="mb-3 text-xl font-semibold text-slate-50">
+                  <Card className="group h-full border border-slate-800 bg-slate-900/70 p-6 shadow-lg shadow-black/40 backdrop-blur transition-all duration-300 hover:scale-[1.02] hover:border-emerald-500/50 hover:shadow-2xl hover:shadow-emerald-500/20 cursor-pointer">
+                    <card.icon className="mb-4 h-8 w-8 text-emerald-400 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3" />
+                    <h3 className="mb-3 text-xl font-semibold text-slate-50 transition-colors group-hover:text-emerald-300">
                       {card.title}
                     </h3>
                     <p className="text-sm text-slate-300">{card.body}</p>
@@ -275,14 +275,14 @@ const Index = () => {
                 ].map((item) => (
                   <Card
                     key={item.number}
-                    className="border-l-4 border-l-emerald-400/80 bg-slate-950/70 p-6 shadow-lg shadow-black/40 backdrop-blur"
+                    className="group border-l-4 border-l-emerald-400/80 bg-slate-950/70 p-6 shadow-lg shadow-black/40 backdrop-blur transition-all duration-300 hover:scale-[1.02] hover:border-l-emerald-400 hover:shadow-xl hover:shadow-emerald-500/20 cursor-pointer"
                   >
                     <div className="flex gap-4">
-                      <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-slate-950">
+                      <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-slate-950 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-emerald-500/50">
                         {item.number}
                       </div>
                       <div>
-                        <h3 className="mb-1 text-sm font-semibold text-slate-50">
+                        <h3 className="mb-1 text-sm font-semibold text-slate-50 transition-colors group-hover:text-emerald-300">
                           {item.title}
                         </h3>
                         <p className="text-xs text-slate-300">{item.body}</p>
@@ -348,11 +348,11 @@ const Index = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <Card className="h-full border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 shadow-lg shadow-black/50 backdrop-blur">
-                    <div className="mb-4 inline-flex rounded-full bg-emerald-500/10 px-3 py-1 text-[11px] font-medium text-emerald-300">
+                  <Card className="group h-full border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 shadow-lg shadow-black/50 backdrop-blur transition-all duration-300 hover:scale-[1.02] hover:border-emerald-500/50 hover:shadow-2xl hover:shadow-emerald-500/30 cursor-pointer">
+                    <div className="mb-4 inline-flex rounded-full bg-emerald-500/10 px-3 py-1 text-[11px] font-medium text-emerald-300 transition-all duration-300 group-hover:bg-emerald-500/20 group-hover:scale-105">
                       {pilot.label}
                     </div>
-                    <h3 className="mb-3 text-xl font-semibold text-slate-50">
+                    <h3 className="mb-3 text-xl font-semibold text-slate-50 transition-colors group-hover:text-emerald-300">
                       {pilot.title}
                     </h3>
                     <div className="space-y-3 text-sm">
@@ -421,17 +421,17 @@ const Index = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <Card className="relative h-full border border-slate-800 bg-slate-950/70 p-6 shadow-lg shadow-black/40 backdrop-blur">
-                    <div className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-emerald-400">
+                  <Card className="group relative h-full border border-slate-800 bg-slate-950/70 p-6 shadow-lg shadow-black/40 backdrop-blur transition-all duration-300 hover:scale-[1.02] hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/20 cursor-pointer">
+                    <div className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-emerald-400 transition-all duration-300 group-hover:text-emerald-300 group-hover:scale-105">
                       {item.step}
                     </div>
-                    <h3 className="mb-3 text-lg font-semibold text-slate-50">
+                    <h3 className="mb-3 text-lg font-semibold text-slate-50 transition-colors group-hover:text-emerald-300">
                       {item.title}
                     </h3>
                     <p className="text-sm text-slate-300">{item.body}</p>
                     {index < 3 && (
-                      <div className="pointer-events-none absolute -right-3 top-1/2 hidden -translate-y-1/2 lg:block">
-                        <ArrowRight className="h-6 w-6 text-emerald-500/40" />
+                      <div className="pointer-events-none absolute -right-3 top-1/2 hidden -translate-y-1/2 transition-all duration-300 group-hover:translate-x-1 lg:block">
+                        <ArrowRight className="h-6 w-6 text-emerald-500/40 transition-colors group-hover:text-emerald-400" />
                       </div>
                     )}
                   </Card>
@@ -446,13 +446,13 @@ const Index = () => {
               transition={{ duration: 0.6 }}
               className="text-center"
             >
-              <Button size="lg" className="gap-2 text-base" asChild>
+              <Button size="lg" className="group gap-2 text-base transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/30" asChild>
                 <a
                   href="https://www.linkedin.com/in/inga-kaltak-11i41141/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Linkedin className="h-5 w-5" />
+                  <Linkedin className="h-5 w-5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6" />
                   Connect on LinkedIn
                 </a>
               </Button>
@@ -497,8 +497,8 @@ const Index = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <Card className="h-full border border-slate-800 bg-slate-950/70 p-6 text-center shadow-lg shadow-black/40 backdrop-blur">
-                    <h3 className="mb-3 text-xl font-semibold text-slate-50">
+                  <Card className="group h-full border border-slate-800 bg-slate-950/70 p-6 text-center shadow-lg shadow-black/40 backdrop-blur transition-all duration-300 hover:scale-[1.02] hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/20 cursor-pointer">
+                    <h3 className="mb-3 text-xl font-semibold text-slate-50 transition-colors group-hover:text-emerald-300">
                       {card.title}
                     </h3>
                     <p className="text-sm text-slate-300">{card.body}</p>
@@ -543,12 +543,12 @@ function LabCard({
   updated: string;
 }) {
   return (
-    <div className="rounded-xl border border-slate-700 bg-slate-950/70 p-3">
+    <div className="group rounded-xl border border-slate-700 bg-slate-950/70 p-3 transition-all duration-300 hover:scale-[1.02] hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/20 cursor-pointer">
       <div className="mb-1 flex items-center justify-between gap-2">
-        <span className="text-[11px] font-medium text-slate-300">{tag}</span>
-        <span className="text-[11px] text-emerald-300">{status}</span>
+        <span className="text-[11px] font-medium text-slate-300 transition-colors group-hover:text-emerald-300">{tag}</span>
+        <span className="text-[11px] text-emerald-300 transition-all duration-300 group-hover:scale-110">{status}</span>
       </div>
-      <p className="text-xs font-semibold text-slate-50">{title}</p>
+      <p className="text-xs font-semibold text-slate-50 transition-colors group-hover:text-emerald-300">{title}</p>
       <p className="mt-1 text-[11px] text-slate-500">{updated}</p>
     </div>
   );
