@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { getAllCaseStudies, CaseStudy } from "@/data/caseStudies";
 import { CaseStudyCard } from "@/components/case-studies/CaseStudyCard";
+import { ControlRoomOverlay } from "@/components/ui/control-room-overlay";
 
 function Portfolio() {
   const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
@@ -19,8 +20,9 @@ function Portfolio() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50">
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-950 text-slate-50 relative">
+      <ControlRoomOverlay intensity="subtle" />
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="mb-12">
           <Link

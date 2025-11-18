@@ -6,6 +6,7 @@ import { getCaseStudyBySlug, getAllCaseStudies, CaseStudy } from "@/data/caseStu
 import { CaseStudyHeader } from "@/components/case-studies/CaseStudyHeader";
 import { CaseStudyContent } from "@/components/case-studies/CaseStudyContent";
 import { CaseStudyCard } from "@/components/case-studies/CaseStudyCard";
+import { ControlRoomOverlay } from "@/components/ui/control-room-overlay";
 
 function CaseStudyDetail() {
   const { id } = useParams<{ id: string }>();
@@ -53,8 +54,9 @@ function CaseStudyDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50">
-      <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-950 text-slate-50 relative">
+      <ControlRoomOverlay intensity="subtle" showScanline={false} />
+      <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8 relative z-10">
         {/* Back Button */}
         <Link
           to="/portfolio"

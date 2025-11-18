@@ -18,6 +18,7 @@ import { useActiveSection } from "@/hooks/use-active-section";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
+import { ControlRoomOverlay } from "@/components/ui/control-room-overlay";
 import { SiteNav } from "@/components/SiteNav";
 import { 
   HeroSkeleton, 
@@ -219,8 +220,9 @@ function RecentBuilds() {
   }, []);
 
   return (
-    <section id="builds" className="py-10 md:py-16">
-      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
+    <section id="builds" className="py-10 md:py-16 relative">
+      <ControlRoomOverlay intensity="subtle" />
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
           whileInView={{ opacity: 1, y: 0 }} 
@@ -293,8 +295,9 @@ function HowItWorks() {
     body: "Wrap with a real repo, guided walkthrough, and a clear decision: scale, pivot, or pause. Your code, data, and documentation are always yours."
   }];
   return (
-    <section id="how" className="border-t border-slate-900/80 py-10 md:py-16">
-      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
+    <section id="how" className="border-t border-slate-900/80 py-10 md:py-16 relative">
+      <ControlRoomOverlay intensity="subtle" showScanline={false} />
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
           whileInView={{ opacity: 1, y: 0 }} 
@@ -341,8 +344,9 @@ function HowItWorks() {
 }
 function PilotOffer() {
   return (
-    <section id="pilot" className="border-t border-slate-900/80 py-10 md:py-16">
-      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
+    <section id="pilot" className="border-t border-slate-900/80 py-10 md:py-16 relative">
+      <ControlRoomOverlay intensity="medium" />
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6 relative z-10">
         <div className="grid gap-8 md:grid-cols-[minmax(0,1.3fr),minmax(0,1fr)] md:items-start">
           <motion.div 
             initial={{ opacity: 0, x: -30 }} 
@@ -463,8 +467,9 @@ function PilotOffer() {
 function WhoBenefits() {
   const audiences = ["Students bringing new ideas to life", "Teachers or nonprofits piloting campus or impact projects", "Board and governance teams seeking data clarity", "Solo founders wanting operational peace of mind", "B2B units innovating under fast timelines"];
   return (
-    <section id="benefits" className="border-t border-slate-900/80 py-10 md:py-16">
-      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
+    <section id="benefits" className="border-t border-slate-900/80 py-10 md:py-16 relative">
+      <ControlRoomOverlay intensity="subtle" showScanline={false} />
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
           whileInView={{ opacity: 1, y: 0 }} 
@@ -531,7 +536,8 @@ function WhoBenefits() {
 }
 function FAQSection() {
   return (
-    <section id="faq" className="border-t border-slate-900/80 py-8 sm:py-12">
+    <section id="faq" className="border-t border-slate-900/80 py-8 sm:py-12 relative">
+      <ControlRoomOverlay intensity="subtle" />
       <motion.div 
         initial={{ opacity: 0, y: 20 }} 
         whileInView={{ opacity: 1, y: 0 }} 
