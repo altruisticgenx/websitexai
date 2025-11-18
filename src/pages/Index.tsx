@@ -17,6 +17,7 @@ import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
 import { 
   HeroSkeleton, 
   CardsSkeleton, 
@@ -27,31 +28,6 @@ import {
 } from "@/components/skeletons/SectionSkeleton";
 
 // --- Data Definitions ---
-const recentBuilds = [{
-  id: "sales-copilot",
-  title: "AI Sales Copilot Dashboard",
-  sector: "Founder-Backed Startup",
-  summary: "Not just another CRM add-on—this system studies founders' actual outreach patterns, auto-classifies high-intent conversations, and surfaces 'don't-drop-these' deals with smart follow-ups trained on real founder behavior.",
-  tag: "Personalized growth engine"
-}, {
-  id: "founder-os",
-  title: "Founder OS Dashboard",
-  sector: "Solo Founder",
-  summary: "A stripped-down, elegant cockpit that merges calendar, CRM, tasks, and invoicing into one serene flow. Context-aware sections hide anything irrelevant, dramatically lowering cognitive load.",
-  tag: "Attention protection"
-}, {
-  id: "energy-analytics",
-  title: "Energy Analytics Pilot",
-  sector: "Climate & Energy",
-  summary: "Converts chaotic meter and operations data into clean, real-time analytics. AI spots invisible inefficiencies, forecasts savings, and lets teams simulate operational changes before they're expensive.",
-  tag: "Scenario-driven decisions"
-}, {
-  id: "edtech-portal",
-  title: "EdTech Pilot Portal",
-  sector: "Education Nonprofit",
-  summary: "Tracks pilots, student paths, and impact metrics—then auto-translates that activity into polished, grant-winning insights. Its 'evidence engine' converts engagement into funder-ready narratives.",
-  tag: "Grant storytelling"
-}];
 const faqs = [{
   question: "What do I get each week?",
   answer: "One end-to-end deliverable: UI, workflow, integration, or refactor—shipped, not left half-finished."
@@ -355,18 +331,59 @@ function VisualRow({
     </div>;
 }
 function RecentBuilds() {
-  return <section id="builds" className="py-10 sm:py-14">
-      <motion.div initial={{
-      opacity: 0,
-      y: 20
-    }} whileInView={{
-      opacity: 1,
-      y: 0
-    }} viewport={{
-      once: true
-    }} transition={{
-      duration: 0.5
-    }} className="flex items-end justify-between gap-4">
+  const [projects, setProjects] = useState<Array<{
+    id: string;
+    title: string;
+    sector: string;
+    summary: string;
+    tag: string;
+  }>>([]);
+  const [isLoadingProjects, setIsLoadingProjects] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setIsLoadingProjects(true);
+        const { data, error: fetchError } = await supabase
+          .from('projects')
+          .select('slug, title, sector, summary, tag')
+          .eq('featured', true)
+          .order('display_order', { ascending: true });
+
+        if (fetchError) throw fetchError;
+
+        // Transform database data to match component expectations
+        const formattedProjects = (data || []).map(project => ({
+          id: project.slug,
+          title: project.title,
+          sector: project.sector,
+          summary: project.summary,
+          tag: project.tag || '',
+        }));
+
+        setProjects(formattedProjects);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching projects:', err);
+        setError('Failed to load projects');
+      } finally {
+        setIsLoadingProjects(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  return (
+    <section id="builds" className="py-10 sm:py-14">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }} 
+        whileInView={{ opacity: 1, y: 0 }} 
+        viewport={{ once: true }} 
+        transition={{ duration: 0.5 }} 
+        className="flex items-end justify-between gap-4"
+      >
         <div>
           <h2 className="text-xl font-semibold sm:text-2xl">
             Proof: Recent builds & pilots
@@ -379,16 +396,45 @@ function RecentBuilds() {
         </div>
       </motion.div>
 
-      <motion.div 
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="mt-10"
-      >
-        <CaseStudiesStack caseStudies={recentBuilds} />
-      </motion.div>
-    </section>;
+      {isLoadingProjects ? (
+        <div className="mt-10">
+          <CardsSkeleton />
+        </div>
+      ) : error ? (
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-10 rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center"
+        >
+          <p className="text-sm text-red-300">{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="mt-3 text-xs text-red-400 hover:text-red-300 underline"
+          >
+            Try again
+          </button>
+        </motion.div>
+      ) : projects.length === 0 ? (
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-10 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center"
+        >
+          <p className="text-sm text-slate-400">No projects available yet. Check back soon!</p>
+        </motion.div>
+      ) : (
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-10"
+        >
+          <CaseStudiesStack caseStudies={projects} />
+        </motion.div>
+      )}
+    </section>
+  );
 }
 function HowItWorks() {
   const steps = [{
