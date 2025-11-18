@@ -12,8 +12,7 @@ interface MobileMenuProps {
 export function MobileMenu({ className = "" }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const activeSection = useActiveSection([
-    "builds", "how", "pilot", "benefits", "org-types", 
-    "where", "shelved", "testimonials", "faq", "contact"
+    "who", "timeline", "lab", "proof", "faq"
   ]);
 
   // Cleanup on unmount
@@ -38,23 +37,19 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
   };
 
   const menuItems = [
-    { label: "Builds", href: "#builds", id: "builds" },
-    { label: "Portfolio", href: "/portfolio", isRoute: true },
-    { label: "How it Works", href: "#how", id: "how" },
-    { label: "4-Week Pilot", href: "#pilot", id: "pilot" },
-    { label: "Who Benefits", href: "#benefits", id: "benefits" },
-    { label: "Organization Types", href: "#org-types", id: "org-types" },
-    { label: "Where I Work", href: "#where", id: "where" },
-    { label: "Shelved Experiments", href: "#shelved", id: "shelved" },
-    { label: "Testimonials", href: "#testimonials", id: "testimonials" },
+    { label: "Who I Build For", href: "#who", id: "who" },
+    { label: "4-Week Timeline", href: "#timeline", id: "timeline" },
+    { label: "Live Pilot Lab", href: "#lab", id: "lab" },
+    { label: "Proof & Trust", href: "#proof", id: "proof" },
     { label: "FAQ", href: "#faq", id: "faq" },
+    { label: "Portfolio", href: "/portfolio", isRoute: true },
   ];
 
   return (
     <div className={className}>
       <button
         onClick={toggleMenu}
-        className="rounded-full border border-primary/60 bg-primary/10 p-2 text-primary hover:bg-primary/20 transition-colors touch-manipulation active:scale-95"
+        className="rounded-xl border border-primary/60 bg-primary/10 p-2.5 text-primary hover:bg-primary/20 transition-all shadow-sm active:scale-95 z-[70]"
         aria-label="Toggle menu"
         aria-expanded={isOpen}
       >
@@ -69,7 +64,7 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-slate-950/95 backdrop-blur-sm z-[100] touch-none"
+              className="fixed inset-0 bg-slate-950/97 backdrop-blur-md z-[100] touch-none"
               onClick={closeMenu}
               aria-hidden="true"
             />
@@ -79,64 +74,83 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed right-0 top-0 h-full w-[85vw] max-w-[320px] bg-slate-900/98 backdrop-blur-md border-l border-slate-800 shadow-2xl z-[101] overflow-y-auto overscroll-contain"
+              className="fixed right-0 top-0 h-full w-[85vw] max-w-[340px] bg-slate-900 backdrop-blur-xl border-l border-slate-800 shadow-2xl z-[101] overflow-y-auto overscroll-contain"
               role="dialog"
               aria-modal="true"
               aria-label="Mobile navigation menu"
             >
-              <div className="flex items-center justify-between p-4 border-b border-slate-800 sticky top-0 bg-slate-900/95 backdrop-blur-sm z-10">
-                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-                  Menu
-                </span>
+              <div className="flex items-center justify-between p-5 border-b border-slate-800 sticky top-0 bg-slate-900 backdrop-blur-xl z-10">
+                <div className="flex flex-col">
+                  <span className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+                    AltruisticX AI
+                  </span>
+                  <span className="text-[10px] text-slate-400 mt-0.5">
+                    Navigation
+                  </span>
+                </div>
                 <button
                   onClick={closeMenu}
-                  className="rounded-full p-1.5 hover:bg-slate-800 transition-colors active:scale-95"
+                  className="rounded-full p-2 hover:bg-slate-800 transition-colors active:scale-95"
                   aria-label="Close menu"
                 >
-                  <X size={18} className="text-slate-400" />
+                  <X size={20} className="text-slate-400" />
                 </button>
               </div>
 
-              <nav className="p-3">
-                <ul className="space-y-0.5">
-                  {menuItems.map((item) => (
+              <nav className="p-4">
+                <ul className="space-y-1">
+                  {menuItems.map((item, index) => (
                     <li key={item.label}>
                       {item.isRoute ? (
                         <Link
                           to={item.href}
                           onClick={closeMenu}
-                          className="block px-3 py-2.5 text-sm text-slate-200 hover:bg-slate-800/50 hover:text-primary rounded-lg transition-colors active:scale-98"
+                          className="block px-4 py-3 text-sm text-slate-200 hover:bg-slate-800 hover:text-primary rounded-xl transition-all active:scale-98 font-medium"
                         >
-                          {item.label}
+                          <div className="flex items-center gap-3">
+                            <span className="text-xs text-slate-500 font-mono">{String(index + 1).padStart(2, '0')}</span>
+                            <span>{item.label}</span>
+                          </div>
                         </Link>
                       ) : (
                         <a
                           href={item.href}
                           onClick={closeMenu}
                           className={cn(
-                            "block px-3 py-2.5 text-sm rounded-lg transition-colors active:scale-98",
+                            "block px-4 py-3 text-sm rounded-xl transition-all active:scale-98",
                             activeSection === item.id
-                              ? "bg-primary/10 text-primary font-medium"
-                              : "text-slate-200 hover:bg-slate-800/50 hover:text-primary"
+                              ? "bg-primary/15 text-primary font-semibold border border-primary/30"
+                              : "text-slate-200 hover:bg-slate-800 hover:text-primary font-medium"
                           )}
                         >
-                          {item.label}
+                          <div className="flex items-center gap-3">
+                            <span className={cn(
+                              "text-xs font-mono",
+                              activeSection === item.id ? "text-primary" : "text-slate-500"
+                            )}>
+                              {String(index + 1).padStart(2, '0')}
+                            </span>
+                            <span>{item.label}</span>
+                          </div>
                         </a>
                       )}
                     </li>
                   ))}
                 </ul>
 
-                <div className="mt-6 pt-4 border-t border-slate-800">
+                <div className="mt-6 pt-5 border-t border-slate-800 space-y-3">
                   <a
                     href="https://scheduler.zoom.us/altruistic-xai"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={closeMenu}
-                    className="block w-full rounded-lg border border-primary/60 bg-primary/10 px-4 py-3 text-center text-sm font-medium text-primary hover:bg-primary/20 transition-colors active:scale-95"
+                    className="block w-full rounded-xl bg-primary px-5 py-3.5 text-center text-sm font-semibold text-slate-950 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 active:scale-95"
                   >
-                    Book a 30-min intro
+                    Book a Pilot Call
                   </a>
+                  <p className="text-center text-xs text-slate-400">
+                    Week-to-week · pause anytime · async-first
+                  </p>
                 </div>
               </nav>
             </motion.div>

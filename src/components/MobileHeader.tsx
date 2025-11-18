@@ -18,10 +18,10 @@ export function MobileHeader() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.3 }}
-      className={`md:hidden fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`md:hidden fixed top-0 left-0 right-0 z-[60] transition-all duration-300 ${
         isScrolled 
-          ? 'bg-slate-950/98 backdrop-blur-lg border-b border-slate-800 shadow-lg' 
-          : 'bg-slate-950/80 backdrop-blur-md border-b border-slate-800/30'
+          ? 'bg-slate-950/98 backdrop-blur-xl border-b border-slate-800 shadow-lg' 
+          : 'bg-slate-950/90 backdrop-blur-md border-b border-slate-800/50'
       }`}
     >
       <div className="flex items-center justify-between px-4 py-3">
