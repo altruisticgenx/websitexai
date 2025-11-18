@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { TestimonialsVariant, CaseStudiesStack } from "@/components/ui/animated-cards-stack";
-import { Linkedin } from "lucide-react";
+import { TestimonialsVariant } from "@/components/ui/animated-cards-stack";
 import { ShelvedExperiments } from "@/components/ShelvedExperiments";
 import { WhereIWork } from "@/components/WhereIWork";
 import { OrganizationTypes } from "@/components/OrganizationTypes";
 import { EngagementModels } from "@/components/EngagementModels";
 import { Hero } from "@/components/Hero";
-
-import { FAQAssistant } from "@/components/FAQAssistant";
+import { RecentBuilds } from "@/components/RecentBuilds";
+import { HowItWorks } from "@/components/HowItWorks";
+import { PilotOffer } from "@/components/PilotOffer";
+import { WhoBenefits } from "@/components/WhoBenefits";
+import { FAQSection } from "@/components/FAQSection";
+import { SiteFooter } from "@/components/SiteFooter";
 import { Toaster } from "@/components/ui/toaster";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
-import { useActiveSection } from "@/hooks/use-active-section";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
-import { cn } from "@/lib/utils";
-import { supabase } from "@/integrations/supabase/client";
 import { SiteNav } from "@/components/SiteNav";
 import { 
   HeroSkeleton, 
@@ -26,21 +25,6 @@ import {
   TwoColumnSkeleton, 
   FAQSkeleton
 } from "@/components/skeletons/SectionSkeleton";
-
-// --- Data Definitions ---
-const faqs = [{
-  question: "What do I get each week?",
-  answer: "One end-to-end deliverable: UI, workflow, integration, or refactor—shipped, not left half-finished."
-}, {
-  question: "Is AltruisticX familiar with my work?",
-  answer: "Yes. Projects span campus energy, EdTech, policy pilots, B2B and student initiatives, working with complex data and diverse teams."
-}, {
-  question: "How do we collaborate?",
-  answer: "Async-first: Loom, Notion, GitHub, Figma. Fast cycles. One quick call if needed—most progress comes from real builds."
-}, {
-  question: "Is there any long-term contract?",
-  answer: "None. Week-to-week, pause as needed. The repo and code are always yours."
-}];
 
 // --- Main Page Component ---
 const Index = () => {
