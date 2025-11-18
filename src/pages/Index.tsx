@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo, useMemo, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { TestimonialsVariant, CaseStudiesStack } from "@/components/ui/animated-cards-stack";
@@ -14,8 +14,6 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
-import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { useParallax } from "@/hooks/use-parallax";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteNav } from "@/components/SiteNav";
@@ -29,7 +27,6 @@ import {
 } from "@/components/skeletons/SectionSkeleton";
 
 // --- Data Definitions ---
-// Memoize static FAQ data outside component to prevent recreations
 const faqs = [{
   question: "What do I get each week?",
   answer: "One end-to-end deliverable: UI, workflow, integration, or refactor—shipped, not left half-finished."
@@ -42,7 +39,7 @@ const faqs = [{
 }, {
   question: "Is there any long-term contract?",
   answer: "None. Week-to-week, pause as needed. The repo and code are always yours."
-}] as const;
+}];
 
 // --- Main Page Component ---
 const Index = () => {
@@ -65,8 +62,8 @@ const Index = () => {
     }
   }, []);
 
-  // Memoize static keyboard navigation config
-  const keyboardNavConfig = useMemo(() => [
+  // Setup keyboard navigation
+  useKeyboardNavigation([
     { key: "1", sectionId: "builds", name: "Builds" },
     { key: "2", sectionId: "how", name: "How it Works" },
     { key: "3", sectionId: "pilot", name: "4-Week Pilot" },
@@ -76,10 +73,7 @@ const Index = () => {
     { key: "7", sectionId: "shelved", name: "Shelved Experiments" },
     { key: "8", sectionId: "testimonials", name: "Testimonials" },
     { key: "9", sectionId: "faq", name: "FAQ" },
-  ], []);
-
-  // Setup keyboard navigation
-  useKeyboardNavigation(keyboardNavConfig);
+  ]);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
@@ -115,9 +109,7 @@ const Index = () => {
               <WhereIWork />
               <ShelvedExperiments />
               <div id="testimonials">
-                <ParallaxWrapper distance={50}>
-                  <TestimonialsVariant />
-                </ParallaxWrapper>
+                <TestimonialsVariant />
               </div>
               <FAQSection />
               <ContactSection />
@@ -136,20 +128,19 @@ export default Index;
 
 // --- Sub-Components ---
 
-// Optimized Hero component with React.memo
-const Hero = memo(function Hero() {
-  const { elementRef, isVisible } = useScrollAnimation();
-  const { ref: parallaxRef, y: parallaxY } = useParallax(100);
-  
-  return <section 
-    ref={elementRef}
-    className={cn(
-      "py-10 sm:py-14 transition-all duration-700 relative",
-      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-    )}
-  >
+function Hero() {
+  return <section className="py-10 sm:py-14">
       <div className="grid gap-10 md:grid-cols-[minmax(0,1.4fr),minmax(0,1fr)] md:items-center">
-        <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        <motion.div initial={{
+        opacity: 0,
+        x: -30
+      }} animate={{
+        opacity: 1,
+        x: 0
+      }} transition={{
+        duration: 0.6,
+        delay: 0.2
+      }}>
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-[11px] font-medium text-foreground">
             <span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
             Ship pilot-ready AI tech in weekly sprints
@@ -165,50 +156,78 @@ const Hero = memo(function Hero() {
           </p>
 
           <dl className="mt-6 grid max-w-xl grid-cols-1 gap-4 text-xs text-slate-200 sm:grid-cols-3 sm:text-sm">
-            <div className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <motion.div initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            delay: 0.4
+          }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors">
               <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
                 Work hands-on
               </dt>
               <dd className="mt-1 font-medium text-slate-50">
                 Build with real tools and ship working prototypes.
               </dd>
-            </div>
-            <div className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors animate-fade-in" style={{ animationDelay: '0.5s' }}>
+            </motion.div>
+            <motion.div initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            delay: 0.5
+          }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors">
               <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
                 Launch actionable tools
               </dt>
               <dd className="mt-1 font-medium text-slate-50">
                 Deploy features users can actually test and use.
               </dd>
-            </div>
-            <div className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors animate-fade-in" style={{ animationDelay: '0.6s' }}>
+            </motion.div>
+            <motion.div initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            delay: 0.6
+          }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors">
               <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
                 Start small, deliver early
               </dt>
               <dd className="mt-1 font-medium text-slate-50">
                 First meaningful code in Week 1, ready to demo.
               </dd>
-            </div>
+            </motion.div>
           </dl>
 
-          <div className="mt-6 flex items-center gap-3">
-            <a 
-              href="https://www.linkedin.com/in/ik11" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-primary/60 bg-primary/10 text-primary transition-colors hover:bg-primary/20"
-              aria-label="Connect on LinkedIn"
-            >
-              <Linkedin size={18} />
-            </a>
+          <div className="mt-6 flex flex-col gap-3 text-sm">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+              
+              <a href="https://www.linkedin.com/in/ik11" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/60 bg-primary/10 px-5 py-2.5 text-sm font-medium text-primary hover:bg-primary/20 transition-colors">
+                <Linkedin size={16} />
+                Connect on LinkedIn
+              </a>
+            </div>
+            
           </div>
-        </div>
+        </motion.div>
 
-        <motion.div 
-          ref={parallaxRef}
-          style={{ y: parallaxY, position: "relative" }}
-          className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-4 sm:p-5 shadow-2xl shadow-primary/5 animate-fade-in"
-        >
+        <motion.div initial={{
+        opacity: 0,
+        x: 30
+      }} animate={{
+        opacity: 1,
+        x: 0
+      }} transition={{
+        duration: 0.6,
+        delay: 0.3
+      }} className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-4 sm:p-5">
           <div className="text-xs font-mono text-slate-400">
             Build Fast Kit / 4-week pilot
           </div>
@@ -224,10 +243,8 @@ const Hero = memo(function Hero() {
         </motion.div>
       </div>
     </section>;
-});
-
-// Optimized VisualRow component with React.memo
-const VisualRow = memo(function VisualRow({
+}
+function VisualRow({
   label,
   title,
   body
@@ -236,13 +253,7 @@ const VisualRow = memo(function VisualRow({
   title: string;
   body: string;
 }) {
-  const { ref: parallaxRef, y: parallaxY } = useParallax(30);
-  
-  return <motion.div 
-    ref={parallaxRef}
-    style={{ y: parallaxY, position: "relative" }}
-    className="flex gap-3 rounded-2xl border border-slate-800/80 bg-slate-950/40 p-3 hover:border-primary/20 hover:bg-slate-950/60 transition-all duration-300"
-  >
+  return <div className="flex gap-3 rounded-2xl border border-slate-800/80 bg-slate-950/40 p-3 hover:border-primary/20 transition-colors">
       <div className="mt-0.5 w-14 flex-shrink-0 text-[11px] font-mono uppercase tracking-[0.16em] text-primary">
         {label}
       </div>
@@ -250,11 +261,9 @@ const VisualRow = memo(function VisualRow({
         <div className="text-[13px] font-medium text-slate-50">{title}</div>
         <div className="mt-1 text-[12px] text-slate-300">{body}</div>
       </div>
-    </motion.div>;
-});
-
-// Optimized RecentBuilds component with React.memo
-const RecentBuilds = memo(function RecentBuilds() {
+    </div>;
+}
+function RecentBuilds() {
   const [projects, setProjects] = useState<Array<{
     id: string;
     title: string;
@@ -265,60 +274,39 @@ const RecentBuilds = memo(function RecentBuilds() {
   const [isLoadingProjects, setIsLoadingProjects] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Memoize the project transformation function
-  const formatProjects = useCallback((data: any[]) => {
-    return (data || []).map(project => ({
-      id: project.slug,
-      title: project.title,
-      sector: project.sector,
-      summary: project.summary,
-      tag: project.tag || '',
-    }));
-  }, []);
-
-  const fetchProjects = useCallback(async () => {
-    try {
-      setIsLoadingProjects(true);
-      const { data, error: fetchError } = await supabase
-        .from('projects')
-        .select('slug, title, sector, summary, tag')
-        .eq('featured', true)
-        .order('display_order', { ascending: true });
-
-      if (fetchError) throw fetchError;
-
-      const formattedProjects = formatProjects(data);
-      setProjects(formattedProjects);
-      setError(null);
-    } catch (err) {
-      console.error('Error fetching projects:', err);
-      setError('Failed to load projects');
-    } finally {
-      setIsLoadingProjects(false);
-    }
-  }, [formatProjects]);
-
   useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setIsLoadingProjects(true);
+        const { data, error: fetchError } = await supabase
+          .from('projects')
+          .select('slug, title, sector, summary, tag')
+          .eq('featured', true)
+          .order('display_order', { ascending: true });
+
+        if (fetchError) throw fetchError;
+
+        // Transform database data to match component expectations
+        const formattedProjects = (data || []).map(project => ({
+          id: project.slug,
+          title: project.title,
+          sector: project.sector,
+          summary: project.summary,
+          tag: project.tag || '',
+        }));
+
+        setProjects(formattedProjects);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching projects:', err);
+        setError('Failed to load projects');
+      } finally {
+        setIsLoadingProjects(false);
+      }
+    };
+
     fetchProjects();
-  }, [fetchProjects]);
-
-  // Memoize realtime subscription handler
-  const handleProjectChange = useCallback(async () => {
-    try {
-      const { data, error: fetchError } = await supabase
-        .from('projects')
-        .select('slug, title, sector, summary, tag')
-        .eq('featured', true)
-        .order('display_order', { ascending: true });
-
-      if (fetchError) throw fetchError;
-
-      const formattedProjects = formatProjects(data);
-      setProjects(formattedProjects);
-    } catch (err) {
-      console.error('Error refreshing projects:', err);
-    }
-  }, [formatProjects]);
+  }, []);
 
   // Realtime subscription for projects
   useEffect(() => {
@@ -331,26 +319,40 @@ const RecentBuilds = memo(function RecentBuilds() {
           schema: 'public',
           table: 'projects'
         },
-        handleProjectChange
+        async () => {
+          // Refetch projects when any change occurs
+          try {
+            const { data, error: fetchError } = await supabase
+              .from('projects')
+              .select('slug, title, sector, summary, tag')
+              .eq('featured', true)
+              .order('display_order', { ascending: true });
+
+            if (fetchError) throw fetchError;
+
+            const formattedProjects = (data || []).map(project => ({
+              id: project.slug,
+              title: project.title,
+              sector: project.sector,
+              summary: project.summary,
+              tag: project.tag || '',
+            }));
+
+            setProjects(formattedProjects);
+          } catch (err) {
+            console.error('Error refreshing projects:', err);
+          }
+        }
       )
       .subscribe();
 
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [handleProjectChange]);
+  }, []);
 
-  const { elementRef, isVisible } = useScrollAnimation();
-  
   return (
-    <section 
-      id="builds" 
-      ref={elementRef}
-      className={cn(
-        "py-10 sm:py-14 transition-all duration-700",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      )}
-    >
+    <section id="builds" className="py-10 sm:py-14">
       <motion.div 
         initial={{ opacity: 0, y: 20 }} 
         whileInView={{ opacity: 1, y: 0 }} 
@@ -397,28 +399,21 @@ const RecentBuilds = memo(function RecentBuilds() {
           <p className="text-sm text-slate-400">No projects available yet. Check back soon!</p>
         </motion.div>
       ) : (
-        <ParallaxWrapper distance={60}>
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-10"
-          >
-            <CaseStudiesStack caseStudies={projects} />
-          </motion.div>
-        </ParallaxWrapper>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-10"
+        >
+          <CaseStudiesStack caseStudies={projects} />
+        </motion.div>
       )}
     </section>
   );
-});
-
-// Optimized HowItWorks component with React.memo  
-const HowItWorks = memo(function HowItWorks() {
-  const { elementRef, isVisible } = useScrollAnimation();
-  
-  // Memoize static steps data
-  const steps = useMemo(() => [{
+}
+function HowItWorks() {
+  const steps = [{
     label: "Week 1",
     title: "Pinpoint & Prototype",
     body: "Share your challenge or goal—class doc, campus brief, stakeholder repo, student idea. Get a working skeleton in days."
@@ -430,16 +425,8 @@ const HowItWorks = memo(function HowItWorks() {
     label: "Week 4",
     title: "Decide with Clarity",
     body: "Wrap with a real repo, guided walkthrough, and a clear decision: scale, pivot, or pause. Your code, data, and documentation are always yours."
-  }], []);
-  
-  return <section 
-    id="how" 
-    ref={elementRef}
-    className={cn(
-      "border-t border-slate-900/80 py-10 sm:py-14 transition-all duration-700",
-      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-    )}
-  >
+  }];
+  return <section id="how" className="border-t border-slate-900/80 py-10 sm:py-14">
       <motion.div initial={{
       opacity: 0,
       y: 20
@@ -483,20 +470,9 @@ const HowItWorks = memo(function HowItWorks() {
           </motion.div>)}
       </div>
     </section>;
-});
-
-const PilotOffer = memo(function PilotOffer() {
-  const { elementRef, isVisible } = useScrollAnimation();
-  const { ref: parallaxRef, y: parallaxY } = useParallax(80);
-  
-  return <section 
-    id="pilot" 
-    ref={elementRef}
-    className={cn(
-      "border-t border-slate-900/80 py-10 sm:py-14 transition-all duration-700 relative",
-      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-    )}
-  >
+}
+function PilotOffer() {
+  return <section id="pilot" className="border-t border-slate-900/80 py-10 sm:py-14">
       <div className="grid gap-8 md:grid-cols-[minmax(0,1.3fr),minmax(0,1fr)] md:items-center">
         <motion.div initial={{
         opacity: 0,
@@ -563,25 +539,17 @@ const PilotOffer = memo(function PilotOffer() {
           </div>
         </motion.div>
 
-        <motion.div 
-          ref={parallaxRef}
-          initial={{
-            opacity: 0,
-            x: 30
-          }} 
-          whileInView={{
-            opacity: 1,
-            x: 0
-          }} 
-          viewport={{
-            once: true
-          }} 
-          transition={{
-            duration: 0.6
-          }}
-          style={{ y: parallaxY, position: "relative" }}
-          className="rounded-3xl border border-slate-800/80 bg-slate-950/60 p-4 text-xs text-slate-200 sm:p-5 shadow-2xl shadow-primary/5"
-        >
+        <motion.div initial={{
+        opacity: 0,
+        x: 30
+      }} whileInView={{
+        opacity: 1,
+        x: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.6
+      }} className="rounded-3xl border border-slate-800/80 bg-slate-950/60 p-4 text-xs text-slate-200 sm:p-5">
           <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-400">
             Good fit
           </div>
@@ -624,28 +592,10 @@ const PilotOffer = memo(function PilotOffer() {
         </motion.div>
       </div>
     </section>;
-});
-
-const WhoBenefits = memo(function WhoBenefits() {
-  const { elementRef, isVisible } = useScrollAnimation();
-  
-  // Memoize static audiences data
-  const audiences = useMemo(() => [
-    "Students bringing new ideas to life", 
-    "Teachers or nonprofits piloting campus or impact projects", 
-    "Board and governance teams seeking data clarity", 
-    "Solo founders wanting operational peace of mind", 
-    "B2B units innovating under fast timelines"
-  ], []);
-  
-  return <section 
-    id="benefits" 
-    ref={elementRef}
-    className={cn(
-      "border-t border-slate-900/80 py-10 sm:py-14 transition-all duration-700",
-      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-    )}
-  >
+}
+function WhoBenefits() {
+  const audiences = ["Students bringing new ideas to life", "Teachers or nonprofits piloting campus or impact projects", "Board and governance teams seeking data clarity", "Solo founders wanting operational peace of mind", "B2B units innovating under fast timelines"];
+  return <section id="benefits" className="border-t border-slate-900/80 py-10 sm:py-14">
       <motion.div initial={{
       opacity: 0,
       y: 20
@@ -720,20 +670,10 @@ const WhoBenefits = memo(function WhoBenefits() {
         </motion.div>
       </div>
     </section>;
-});
-
-const FAQSection = memo(function FAQSection() {
-  const { elementRef, isVisible } = useScrollAnimation();
-  
+}
+function FAQSection() {
   return (
-    <section 
-      id="faq" 
-      ref={elementRef}
-      className={cn(
-        "border-t border-slate-900/80 py-8 sm:py-12 transition-all duration-700",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      )}
-    >
+    <section id="faq" className="border-t border-slate-900/80 py-8 sm:py-12">
       <motion.div 
         initial={{ opacity: 0, y: 20 }} 
         whileInView={{ opacity: 1, y: 0 }} 
@@ -782,19 +722,10 @@ const FAQSection = memo(function FAQSection() {
       </dl>
     </section>
   );
-});
+}
 
-const ContactSection = memo(function ContactSection() {
-  const { elementRef, isVisible } = useScrollAnimation();
-  
-  return <section 
-    id="contact" 
-    ref={elementRef}
-    className={cn(
-      "border-t border-slate-900/80 py-10 sm:py-14 transition-all duration-700",
-      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-    )}
-  >
+function ContactSection() {
+  return <section id="contact" className="border-t border-slate-900/80 py-10 sm:py-14">
       <motion.div initial={{
       opacity: 0,
       y: 20
@@ -809,26 +740,9 @@ const ContactSection = memo(function ContactSection() {
         <ContactForm />
       </motion.div>
     </section>;
-});
+}
 
-// Optimized Parallax wrapper component with React.memo
-const ParallaxWrapper = memo(function ParallaxWrapper({ 
-  children, 
-  distance = 50 
-}: { 
-  children: React.ReactNode; 
-  distance?: number;
-}) {
-  const { ref, y } = useParallax(distance);
-  
-  return (
-    <motion.div ref={ref} style={{ y, position: "relative" }}>
-      {children}
-    </motion.div>
-  );
-});
-
-const SiteFooter = memo(function SiteFooter() {
+function SiteFooter() {
   return <footer className="border-t border-slate-900/80 py-6">
       <div className="flex flex-col items-start justify-between gap-3 text-xs text-slate-500 sm:flex-row sm:items-center">
         <div>© {new Date().getFullYear()} AltruisticX · AI + Product Engineer</div>
@@ -837,4 +751,4 @@ const SiteFooter = memo(function SiteFooter() {
         </div>
       </div>
     </footer>;
-});
+}
