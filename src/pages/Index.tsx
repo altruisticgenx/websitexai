@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle2, Rocket, Users, TrendingUp } from "lucide-react";
+import { ArrowRight, CheckCircle2, Rocket, Users, TrendingUp, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ScrollToTop } from "@/components/ScrollToTop";
@@ -359,14 +359,16 @@ const Index = () => {
               transition={{ duration: 0.6 }}
               className="text-center"
             >
-              <Button size="lg" className="text-base mb-2" asChild>
-                <a href="mailto:hello@altruisticxai.com?subject=Book%20a%20Pilot%20Call">
-                  Book a Pilot Call
+              <Button size="lg" className="text-base gap-2" asChild>
+                <a 
+                  href="https://www.linkedin.com/in/yourprofile" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  <Linkedin className="h-5 w-5" />
+                  Connect on LinkedIn
                 </a>
               </Button>
-              <p className="text-sm text-muted-foreground">
-                Tell me the mess, we'll find a pilot.
-              </p>
             </motion.div>
           </div>
         </section>
