@@ -14,6 +14,14 @@ export default {
     },
     extend: {
       fontFamily: {
+        sans: [
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          '"Segoe UI"',
+          "Roboto",
+          "sans-serif",
+        ],
         'itim': ['Itim', 'cursive'],
       },
       colors: {
