@@ -37,11 +37,10 @@ export function ScrollToTop() {
           exit={{ opacity: 0, scale: 0.8, y: 20 }}
           transition={{ duration: 0.2 }}
           onClick={scrollToTop}
-          className="group fixed bottom-8 right-8 z-30 rounded-full bg-primary p-4 text-primary-foreground shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 hover:scale-110 transition-all duration-200 ring-2 ring-primary/20 hover:ring-primary/40"
+          className="fixed bottom-6 right-6 z-30 rounded-full border border-primary/60 bg-primary/10 backdrop-blur-sm p-3 text-primary shadow-lg hover:bg-primary/20 hover:scale-110 transition-all duration-200"
           aria-label="Scroll to top"
-          title="Back to top"
         >
-          <ArrowUp size={24} strokeWidth={2.5} className="group-hover:-translate-y-0.5 transition-transform duration-200" />
+          <ArrowUp size={20} strokeWidth={2.5} />
         </motion.button>
       )}
     </AnimatePresence>

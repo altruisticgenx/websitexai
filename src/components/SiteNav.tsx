@@ -4,7 +4,7 @@ import { useActiveSection } from "@/hooks/use-active-section";
 import { ChevronDown } from "lucide-react";
 
 export function SiteNav() {
-  const activeSection = useActiveSection(["hero", "who", "what", "pilots", "how", "why"]);
+  const activeSection = useActiveSection(["", "pilot", "builds", "how", "where"]);
   const [isWorkOpen, setIsWorkOpen] = useState(false);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -27,7 +27,7 @@ export function SiteNav() {
     }
   };
 
-  const isWorkActive = ["who", "what", "pilots", "how", "why"].includes(activeSection);
+  const isWorkActive = ["pilot", "builds", "how"].includes(activeSection);
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -47,11 +47,11 @@ export function SiteNav() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:gap-1">
             <a
-              href="#hero"
+              href="#"
               onClick={handleNavClick}
               className={cn(
                 "px-4 py-2 text-sm font-medium lowercase tracking-wide transition-all duration-200 rounded-md",
-                activeSection === "hero"
+                activeSection === ""
                   ? "text-primary bg-primary/10 scale-105"
                   : "text-foreground hover:text-primary hover:bg-accent/50"
               )}
@@ -95,50 +95,34 @@ export function SiteNav() {
                 >
                   <div className="p-2">
                     <a
-                      href="#who"
+                      href="#pilot"
                       onClick={handleNavClick}
                       className={cn(
                         "block rounded-md px-3 py-2 text-sm transition-colors",
-                        activeSection === "who"
+                        activeSection === "pilot"
                           ? "bg-primary/10 text-primary font-medium"
                           : "text-card-foreground hover:bg-accent hover:text-accent-foreground"
                       )}
                     >
-                      <div className="font-medium">Who uses this?</div>
+                      <div className="font-medium">4-week pilots</div>
                       <div className="text-xs text-muted-foreground">
-                        Teams that need proof
+                        Ship pilot-ready tools
                       </div>
                     </a>
 
                     <a
-                      href="#what"
+                      href="#builds"
                       onClick={handleNavClick}
                       className={cn(
                         "block rounded-md px-3 py-2 text-sm transition-colors",
-                        activeSection === "what"
+                        activeSection === "builds"
                           ? "bg-primary/10 text-primary font-medium"
                           : "text-card-foreground hover:bg-accent hover:text-accent-foreground"
                       )}
                     >
-                      <div className="font-medium">What you get</div>
+                      <div className="font-medium">Recent builds</div>
                       <div className="text-xs text-muted-foreground">
-                        4-week pilot outcomes
-                      </div>
-                    </a>
-
-                    <a
-                      href="#pilots"
-                      onClick={handleNavClick}
-                      className={cn(
-                        "block rounded-md px-3 py-2 text-sm transition-colors",
-                        activeSection === "pilots"
-                          ? "bg-primary/10 text-primary font-medium"
-                          : "text-card-foreground hover:bg-accent hover:text-accent-foreground"
-                      )}
-                    >
-                      <div className="font-medium">Sample pilots</div>
-                      <div className="text-xs text-muted-foreground">
-                        Real examples
+                        See what's been shipped
                       </div>
                     </a>
 
@@ -154,29 +138,26 @@ export function SiteNav() {
                     >
                       <div className="font-medium">How it works</div>
                       <div className="text-xs text-muted-foreground">
-                        4-step process
-                      </div>
-                    </a>
-
-                    <a
-                      href="#why"
-                      onClick={handleNavClick}
-                      className={cn(
-                        "block rounded-md px-3 py-2 text-sm transition-colors",
-                        activeSection === "why"
-                          ? "bg-primary/10 text-primary font-medium"
-                          : "text-card-foreground hover:bg-accent hover:text-accent-foreground"
-                      )}
-                    >
-                      <div className="font-medium">Why this model?</div>
-                      <div className="text-xs text-muted-foreground">
-                        Less risk, more honesty
+                        Weekly sprint process
                       </div>
                     </a>
                   </div>
                 </div>
               )}
             </div>
+
+            <a
+              href="#where"
+              onClick={handleNavClick}
+              className={cn(
+                "px-4 py-2 text-sm font-medium lowercase tracking-wide transition-all duration-200 rounded-md",
+                activeSection === "where"
+                  ? "text-primary bg-primary/10 scale-105"
+                  : "text-foreground hover:text-primary hover:bg-accent/50"
+              )}
+            >
+              about
+            </a>
 
             {/* CTA Button */}
             <a
@@ -224,11 +205,11 @@ export function SiteNav() {
           <div className="md:hidden border-t border-border/40 py-4 animate-in slide-in-from-top-2 duration-200">
             <div className="space-y-1">
               <a
-                href="#hero"
+                href="#"
                 onClick={handleNavClick}
                 className={cn(
                   "block rounded-md px-3 py-2 text-base font-medium lowercase transition-colors",
-                  activeSection === "hero"
+                  activeSection === ""
                     ? "text-primary bg-primary/10"
                     : "text-foreground hover:text-primary hover:bg-accent/50"
                 )}
@@ -248,40 +229,28 @@ export function SiteNav() {
                   Work
                 </div>
                 <a
-                  href="#who"
+                  href="#pilot"
                   onClick={handleNavClick}
                   className={cn(
                     "block rounded-md px-3 py-2 text-sm transition-colors",
-                    activeSection === "who"
+                    activeSection === "pilot"
                       ? "text-primary bg-primary/10 font-medium"
                       : "text-foreground hover:text-primary hover:bg-accent/50"
                   )}
                 >
-                  Who uses this?
+                  4-week pilots
                 </a>
                 <a
-                  href="#what"
+                  href="#builds"
                   onClick={handleNavClick}
                   className={cn(
                     "block rounded-md px-3 py-2 text-sm transition-colors",
-                    activeSection === "what"
+                    activeSection === "builds"
                       ? "text-primary bg-primary/10 font-medium"
                       : "text-foreground hover:text-primary hover:bg-accent/50"
                   )}
                 >
-                  What you get
-                </a>
-                <a
-                  href="#pilots"
-                  onClick={handleNavClick}
-                  className={cn(
-                    "block rounded-md px-3 py-2 text-sm transition-colors",
-                    activeSection === "pilots"
-                      ? "text-primary bg-primary/10 font-medium"
-                      : "text-foreground hover:text-primary hover:bg-accent/50"
-                  )}
-                >
-                  Sample pilots
+                  Recent builds
                 </a>
                 <a
                   href="#how"
@@ -295,19 +264,20 @@ export function SiteNav() {
                 >
                   How it works
                 </a>
-                <a
-                  href="#why"
-                  onClick={handleNavClick}
-                  className={cn(
-                    "block rounded-md px-3 py-2 text-sm transition-colors",
-                    activeSection === "why"
-                      ? "text-primary bg-primary/10 font-medium"
-                      : "text-foreground hover:text-primary hover:bg-accent/50"
-                  )}
-                >
-                  Why this model?
-                </a>
               </div>
+
+              <a
+                href="#where"
+                onClick={handleNavClick}
+                className={cn(
+                  "block rounded-md px-3 py-2 text-base font-medium lowercase transition-colors",
+                  activeSection === "where"
+                    ? "text-primary bg-primary/10"
+                    : "text-foreground hover:text-primary hover:bg-accent/50"
+                )}
+              >
+                about
+              </a>
 
               <a
                 href="https://scheduler.zoom.us/altruistic-xai"

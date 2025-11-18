@@ -54,7 +54,7 @@ function CaseStudyDetail() {
             Book a 30-min intro to discuss your pilot project and get a clear weekly plan.
           </p>
           <a
-            href="mailto:altruisticxai@gmail.com?subject=4-week%20pilot%20-%20AltruisticX%20AI"
+            href="mailto:hello@altruisticxai.com?subject=4-week%20pilot%20-%20AltruisticX%20AI"
             className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/30 hover:opacity-90 transition-opacity"
           >
             Book a 30-min intro
