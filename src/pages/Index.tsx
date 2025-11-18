@@ -12,6 +12,7 @@ import { FAQAssistant } from "@/components/FAQAssistant";
 import { Toaster } from "@/components/ui/toaster";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
+import { AnimatedBackground } from "@/components/AnimatedBackground";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { cn } from "@/lib/utils";
@@ -76,11 +77,14 @@ const Index = () => {
   ]);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50">
+    <div className="relative min-h-screen bg-slate-950 text-slate-50">
+      {/* Animated Background */}
+      <AnimatedBackground />
+      
       {/* Sticky Navigation */}
       <SiteNav />
       
-      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-4 sm:px-6 lg:px-8">
         <main className="flex-1 pt-8">
           {isLoading ? (
             <div className="animate-pulse">
