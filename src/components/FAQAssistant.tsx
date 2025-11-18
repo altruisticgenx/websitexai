@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
-import { Loader2, Sparkles, User, Bot } from "lucide-react";
+import { Loader2, Sparkles, User, Bot, Mic, MicOff, Volume2, VolumeX } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Message {
@@ -18,8 +18,13 @@ export function FAQAssistant() {
   const [followUpQuestions, setFollowUpQuestions] = useState<string[]>([]);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+  const [isListening, setIsListening] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
+  const [isSpeaking, setIsSpeaking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
+  const recognitionRef = useRef<any>(null);
+  const synthRef = useRef<SpeechSynthesis | null>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -28,6 +33,123 @@ export function FAQAssistant() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Initialize speech synthesis
+  useEffect(() => {
+    if ('speechSynthesis' in window) {
+      synthRef.current = window.speechSynthesis;
+    }
+
+    // Initialize speech recognition
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.interimResults = false;
+      recognitionRef.current.lang = 'en-US';
+
+      recognitionRef.current.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setQuestion(transcript);
+        setIsListening(false);
+      };
+
+      recognitionRef.current.onerror = (event: any) => {
+        console.error('Speech recognition error:', event.error);
+        setIsListening(false);
+        toast({
+          title: "Voice input error",
+          description: "Could not recognize speech. Please try again.",
+          variant: "destructive",
+        });
+      };
+
+      recognitionRef.current.onend = () => {
+        setIsListening(false);
+      };
+    }
+
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      if (synthRef.current) {
+        synthRef.current.cancel();
+      }
+    };
+  }, []);
+
+  // Speak assistant messages
+  const speakText = (text: string) => {
+    if (!voiceEnabled || !synthRef.current) return;
+
+    // Cancel any ongoing speech
+    synthRef.current.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    utterance.volume = 1.0;
+
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+
+    synthRef.current.speak(utterance);
+  };
+
+  const toggleVoiceInput = () => {
+    if (!recognitionRef.current) {
+      toast({
+        title: "Voice input not supported",
+        description: "Your browser doesn't support voice input.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (isListening) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+    } else {
+      try {
+        recognitionRef.current.start();
+        setIsListening(true);
+        toast({
+          title: "Listening...",
+          description: "Speak your question now",
+        });
+      } catch (error) {
+        console.error('Error starting recognition:', error);
+        toast({
+          title: "Error",
+          description: "Could not start voice input",
+          variant: "destructive",
+        });
+      }
+    }
+  };
+
+  const toggleVoiceOutput = () => {
+    if (synthRef.current) {
+      synthRef.current.cancel();
+      setIsSpeaking(false);
+    }
+    setVoiceEnabled(!voiceEnabled);
+    toast({
+      title: voiceEnabled ? "Voice output disabled" : "Voice output enabled",
+      description: voiceEnabled 
+        ? "AI responses will not be read aloud" 
+        : "AI responses will be read aloud",
+    });
+  };
+
+  const stopSpeaking = () => {
+    if (synthRef.current) {
+      synthRef.current.cancel();
+      setIsSpeaking(false);
+    }
+  };
 
   const handleAsk = async (questionText?: string) => {
     const textToSend = questionText || question;
@@ -110,6 +232,10 @@ export function FAQAssistant() {
                 if (parsed.conversationId) {
                   setConversationId(parsed.conversationId);
                 }
+                // Speak the complete answer
+                if (voiceEnabled && accumulatedContent) {
+                  speakText(accumulatedContent);
+                }
               }
             } catch (e) {
               console.error("Error parsing SSE:", e);
@@ -150,6 +276,7 @@ export function FAQAssistant() {
   };
 
   const handleNewConversation = () => {
+    stopSpeaking();
     setMessages([]);
     setFollowUpQuestions([]);
     setConversationId(null);
@@ -176,16 +303,41 @@ export function FAQAssistant() {
             AI-Powered Assistant
           </h3>
         </div>
-        {messages.length > 0 && (
+        <div className="flex items-center gap-2">
           <Button
             variant="ghost"
             size="sm"
-            onClick={handleNewConversation}
+            onClick={toggleVoiceOutput}
             className="text-xs"
+            title={voiceEnabled ? "Disable voice output" : "Enable voice output"}
           >
-            New Chat
+            {voiceEnabled ? (
+              <Volume2 className="h-4 w-4" />
+            ) : (
+              <VolumeX className="h-4 w-4" />
+            )}
           </Button>
-        )}
+          {isSpeaking && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={stopSpeaking}
+              className="text-xs animate-pulse"
+            >
+              Stop
+            </Button>
+          )}
+          {messages.length > 0 && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleNewConversation}
+              className="text-xs"
+            >
+              New Chat
+            </Button>
+          )}
+        </div>
       </div>
       
       {messages.length === 0 && (
@@ -260,18 +412,34 @@ export function FAQAssistant() {
 
       {/* Input */}
       <div className="flex flex-col gap-3 sm:flex-row">
-        <Input
-          type="text"
-          placeholder="e.g., What's your typical project timeline?"
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-          onKeyPress={handleKeyPress}
-          disabled={isLoading}
-          className="flex-1 bg-slate-900/50 border-primary/30 text-sm focus:border-primary"
-        />
+        <div className="flex gap-2 flex-1">
+          <Input
+            type="text"
+            placeholder="e.g., What's your typical project timeline?"
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            onKeyPress={handleKeyPress}
+            disabled={isLoading || isListening}
+            className="flex-1 bg-slate-900/50 border-primary/30 text-sm focus:border-primary"
+          />
+          <Button
+            onClick={toggleVoiceInput}
+            disabled={isLoading}
+            variant="outline"
+            size="icon"
+            className={`border-primary/30 ${isListening ? 'bg-primary/20 animate-pulse' : ''}`}
+            title={isListening ? "Stop listening" : "Start voice input"}
+          >
+            {isListening ? (
+              <MicOff className="h-4 w-4" />
+            ) : (
+              <Mic className="h-4 w-4" />
+            )}
+          </Button>
+        </div>
         <Button
           onClick={() => handleAsk()}
-          disabled={isLoading}
+          disabled={isLoading || isListening}
           className="bg-gradient-to-r from-primary to-accent text-primary-foreground hover:opacity-90 whitespace-nowrap"
         >
           {isLoading ? (
