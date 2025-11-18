@@ -94,6 +94,10 @@ export const Hero3DBackground = memo(() => {
         camera={{ position: [0, 0, 8], fov: 50 }}
         dpr={[1, 1.5]} // Limit pixel ratio for performance
         performance={{ min: 0.5 }} // Performance optimization
+        gl={{ 
+          powerPreference: 'high-performance',
+          antialias: false, // Disable for better performance
+        }}
       >
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={1} />
