@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { MetricsVariant } from "@/components/ui/animated-cards-stack";
 import { UniqueIntegrations } from "@/components/UniqueIntegrations";
 import { ProjectTimeline } from "@/components/ProjectTimeline";
+import { PageTransition, SectionTransition } from "@/components/PageTransition";
 
 // --- Case Study Data ---
 const caseStudies = [
@@ -152,8 +153,9 @@ const caseStudies = [
 
 export default function Portfolio() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50">
-      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+    <PageTransition>
+      <div className="min-h-screen bg-slate-950 text-slate-50">
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -296,5 +298,6 @@ export default function Portfolio() {
         </motion.div>
       </div>
     </div>
+    </PageTransition>
   );
 }
