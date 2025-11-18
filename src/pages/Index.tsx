@@ -8,6 +8,7 @@ import { WhereIWork } from "@/components/WhereIWork";
 import { OrganizationTypes } from "@/components/OrganizationTypes";
 import { EngagementModels } from "@/components/EngagementModels";
 import { MobileMenu } from "@/components/MobileMenu";
+import { MobileHeader } from "@/components/MobileHeader";
 import { ContactForm } from "@/components/ContactForm";
 import { FAQAssistant } from "@/components/FAQAssistant";
 import { Toaster } from "@/components/ui/toaster";
@@ -99,8 +100,12 @@ const Index = () => {
     { key: "9", sectionId: "faq", name: "FAQ" },
   ]);
 
-  return <div className="min-h-screen bg-slate-950 text-slate-50">
-      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 sm:px-6 lg:px-8">
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-50">
+      {/* Sticky Mobile Header */}
+      <MobileHeader />
+      
+      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 sm:px-6 lg:px-8 pt-[60px] md:pt-0">
         <SiteHeader />
         <main className="flex-1">
           {isLoading ? (
@@ -142,7 +147,8 @@ const Index = () => {
       <Toaster />
       <ScrollToTop />
       <KeyboardShortcutsHelp />
-    </div>;
+    </div>
+  );
 };
 export default Index;
 
