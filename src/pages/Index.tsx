@@ -375,6 +375,49 @@ function RecentBuilds() {
     fetchProjects();
   }, []);
 
+  // Realtime subscription for projects
+  useEffect(() => {
+    const channel = supabase
+      .channel('projects-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'projects'
+        },
+        async () => {
+          // Refetch projects when any change occurs
+          try {
+            const { data, error: fetchError } = await supabase
+              .from('projects')
+              .select('slug, title, sector, summary, tag')
+              .eq('featured', true)
+              .order('display_order', { ascending: true });
+
+            if (fetchError) throw fetchError;
+
+            const formattedProjects = (data || []).map(project => ({
+              id: project.slug,
+              title: project.title,
+              sector: project.sector,
+              summary: project.summary,
+              tag: project.tag || '',
+            }));
+
+            setProjects(formattedProjects);
+          } catch (err) {
+            console.error('Error refreshing projects:', err);
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
   return (
     <section id="builds" className="py-10 sm:py-14">
       <motion.div 
