@@ -347,7 +347,7 @@ export const MetricsVariant = () => {
   );
 };
 
-// Case Studies Variant (6-second rotation)
+// Case Studies Variant (6-second rotation with 3D effects)
 export const CaseStudiesStack = ({
   caseStudies,
 }: {
@@ -360,6 +360,8 @@ export const CaseStudiesStack = ({
   }>;
 }) => {
   const [activeCards, setActiveCards] = useState(caseStudies);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -368,10 +370,34 @@ export const CaseStudiesStack = ({
         newArray.unshift(newArray.pop()!);
         return newArray;
       });
-    }, 6000); // 6-second rotation for case studies
+    }, 6000);
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setTouchStart({ x: touch.clientX, y: touch.clientY });
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStart) return;
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - touchStart.x;
+    
+    if (Math.abs(deltaX) > 50) {
+      setActiveCards((prev) => {
+        const newArray = [...prev];
+        if (deltaX < 0) {
+          newArray.unshift(newArray.pop()!);
+        } else {
+          newArray.push(newArray.shift()!);
+        }
+        return newArray;
+      });
+    }
+    setTouchStart(null);
+  };
 
   // Icon mapping based on project ID
   const getProjectIcon = (id: string) => {
@@ -379,33 +405,33 @@ export const CaseStudiesStack = ({
       case "sales-copilot":
         return (
           <div className="flex items-center gap-1">
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="h-3 w-3 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
             </svg>
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="h-3 w-3 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
           </div>
         );
       case "founder-os":
         return (
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="h-3 w-3 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
           </svg>
         );
       case "energy-analytics":
         return (
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="h-3 w-3 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
         );
       case "edtech-portal":
         return (
           <div className="flex items-center gap-1">
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="h-3 w-3 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
             </svg>
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="h-3 w-3 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
           </div>
@@ -416,54 +442,82 @@ export const CaseStudiesStack = ({
   };
 
   return (
-    <div className="relative h-[340px] w-full md:h-[380px]">
+    <div 
+      className="relative h-[260px] w-full sm:h-[300px] md:h-[360px] touch-pan-y"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       {activeCards.map((study, index) => {
+        const isHovered = hoveredIndex === index;
+        const isTop = index === 0;
+        
         return (
           <motion.a
             key={study.id}
             href={`/case-study/${study.id}`}
-            className="absolute inset-0 mx-auto flex w-full max-w-lg cursor-pointer flex-col justify-between rounded-3xl border border-blue-400/20 bg-gradient-to-br from-slate-900/90 to-slate-950/90 p-5 shadow-xl backdrop-blur-sm transition-colors hover:border-blue-400/40 md:p-6"
+            className="absolute inset-0 mx-auto flex w-full max-w-lg cursor-pointer flex-col justify-between rounded-2xl border border-blue-400/20 bg-gradient-to-br from-slate-900/95 to-slate-950/95 p-3.5 shadow-2xl backdrop-blur-md transition-all hover:border-blue-400/40 sm:rounded-3xl sm:p-5 md:p-6"
             style={{
               transformOrigin: "top center",
+              perspective: "1000px",
+              willChange: "transform, opacity",
             }}
+            initial={false}
             animate={{
-              top: index * -12,
-              scale: 1 - index * 0.05,
+              top: index * -8,
+              scale: 1 - index * 0.04,
               zIndex: caseStudies.length - index,
-              opacity: index === 0 ? 1 : index === 1 ? 0.7 : index === 2 ? 0.35 : 0,
+              opacity: index === 0 ? 1 : index === 1 ? 0.75 : index === 2 ? 0.4 : 0,
+              rotateX: isTop && isHovered ? -1.5 : 0,
+              rotateY: isTop && isHovered ? 1.5 : 0,
+              y: isTop && isHovered ? -6 : 0,
             }}
+            whileHover={isTop ? {
+              scale: 1.02,
+              boxShadow: "0 25px 50px -12px rgba(59, 130, 246, 0.3)",
+            } : {}}
+            whileTap={isTop ? { scale: 0.98 } : {}}
             transition={{
-              duration: 0.7,
-              ease: [0.32, 0.72, 0, 1],
-              opacity: { duration: 0.8 },
+              duration: 0.4,
+              ease: [0.23, 1, 0.32, 1],
+              type: "spring",
+              stiffness: 300,
+              damping: 30,
             }}
-            whileHover={{ scale: index === 0 ? 1.02 : 1 - index * 0.05 }}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
           >
-            <div className="flex h-full flex-col justify-between p-1">
-              <div>
-                <div className="flex items-center justify-between">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-400/10 px-3 py-1 text-xs font-medium text-blue-300">
-                    {study.sector}
-                  </div>
-                  <div className="rounded-lg bg-blue-400/10 p-2 text-blue-300">
-                    {getProjectIcon(study.id)}
-                  </div>
-                </div>
-                <h3 className="mt-4 text-lg font-semibold text-slate-50 md:text-xl">
-                  {study.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate-300">
-                  {study.summary}
-                </p>
-              </div>
-              <div className="mt-4 flex items-center justify-between border-t border-slate-800/60 pt-3">
-                <span className="rounded-full bg-slate-800/60 px-3 py-1 text-xs text-slate-300">
-                  {study.tag}
-                </span>
-                <span className="text-xs text-primary transition-colors group-hover:text-blue-400">
-                  View case study →
-                </span>
-              </div>
+            <div className="space-y-2.5 sm:space-y-3">
+              <motion.div 
+                className="inline-flex items-center gap-1.5 rounded-full border border-blue-400/30 bg-blue-400/10 px-2.5 py-1 text-[10px] font-medium text-blue-300 sm:gap-2 sm:px-3 sm:py-1.5 sm:text-xs"
+                animate={isTop && isHovered ? { scale: 1.05 } : { scale: 1 }}
+                transition={{ duration: 0.2 }}
+              >
+                <span className="text-blue-300">{getProjectIcon(study.id)}</span>
+                {study.sector}
+              </motion.div>
+              <h3 className="text-base font-semibold leading-tight text-slate-50 sm:text-lg md:text-xl">
+                {study.title}
+              </h3>
+              <p className="line-clamp-3 text-xs leading-relaxed text-slate-300 sm:line-clamp-4 sm:text-sm">
+                {study.summary}
+              </p>
+            </div>
+
+            <div className="mt-2.5 flex items-center justify-between sm:mt-3">
+              <motion.span 
+                className="rounded-full border border-slate-700/80 bg-slate-800/50 px-2.5 py-1 text-[10px] font-medium text-slate-300 sm:px-3 sm:py-1.5 sm:text-xs"
+                animate={isTop && isHovered ? { x: 3 } : { x: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {study.tag}
+              </motion.span>
+              <motion.span 
+                className="text-xs font-medium text-blue-400 transition-colors hover:text-blue-300 sm:text-sm"
+                animate={isTop && isHovered ? { x: 3 } : { x: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                View details →
+              </motion.span>
             </div>
           </motion.a>
         );
