@@ -65,6 +65,17 @@ All colors MUST be HSL.
     --font-size-4xl: clamp(2.25rem, 1.95rem + 1.5vw, 3rem);
     --font-size-5xl: clamp(3rem, 2.5rem + 2.5vw, 4rem);
 
+    /* Fluid Line Height Scale for optimal readability */
+    --line-height-xs: clamp(1rem, 0.95rem + 0.25vw, 1.25rem);
+    --line-height-sm: clamp(1.25rem, 1.15rem + 0.35vw, 1.5rem);
+    --line-height-base: clamp(1.5rem, 1.4rem + 0.5vw, 1.75rem);
+    --line-height-lg: clamp(1.75rem, 1.6rem + 0.75vw, 2rem);
+    --line-height-xl: clamp(1.875rem, 1.7rem + 0.875vw, 2.25rem);
+    --line-height-2xl: clamp(2rem, 1.8rem + 1vw, 2.5rem);
+    --line-height-3xl: clamp(2.25rem, 2rem + 1.25vw, 2.75rem);
+    --line-height-4xl: clamp(2.5rem, 2.2rem + 1.5vw, 3.5rem);
+    --line-height-5xl: clamp(3.5rem, 3rem + 2.5vw, 4.5rem);
+
     --sidebar-background: 0 0% 98%;
 
     --sidebar-foreground: 175 100% 11%;
