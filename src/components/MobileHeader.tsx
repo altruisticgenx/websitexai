@@ -20,7 +20,7 @@ export function MobileHeader() {
       transition={{ duration: 0.3 }}
       className={`md:hidden fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-slate-950/98 backdrop-blur-lg border-b border-slate-800 shadow-lg' 
+          ? 'bg-slate-950/98 backdrop-blur-lg border-b border-lime/30 shadow-lime-glow' 
           : 'bg-slate-950/80 backdrop-blur-md border-b border-slate-800/30'
       }`}
     >

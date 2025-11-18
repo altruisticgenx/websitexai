@@ -187,6 +187,14 @@ All colors MUST be HSL.
     box-shadow: var(--shadow-elevated);
   }
 
+  .shadow-glow {
+    box-shadow: var(--glow-primary);
+  }
+
+  .shadow-lime-glow {
+    box-shadow: var(--glow-lime);
+  }
+
   .gradient-subtle {
     background: var(--gradient-subtle);
   }
@@ -194,6 +202,11 @@ All colors MUST be HSL.
   .gradient-card {
     background: var(--gradient-card);
     backdrop-filter: blur(8px);
+  }
+
+  .border-lime-glow {
+    border: 1px solid hsl(var(--lime) / 0.5);
+    box-shadow: 0 0 20px hsl(var(--lime) / 0.3), inset 0 0 10px hsl(var(--lime) / 0.1);
   }
 
   /* 3D Card Effects */
@@ -210,10 +223,17 @@ All colors MUST be HSL.
     position: relative;
     background: linear-gradient(135deg, 
       rgba(56, 189, 248, 0.1) 0%, 
+      rgba(132, 204, 22, 0.08) 30%,
       rgba(14, 165, 233, 0.05) 50%, 
+      rgba(132, 204, 22, 0.08) 70%,
       rgba(34, 211, 238, 0.1) 100%);
     border: 1px solid transparent;
     background-clip: padding-box;
+    box-shadow: 0 0 15px rgba(132, 204, 22, 0.15);
+  }
+
+  .card-3d-border:hover {
+    box-shadow: 0 0 25px rgba(132, 204, 22, 0.3), 0 0 40px rgba(56, 189, 248, 0.2);
   }
 
   .card-3d-border::before {

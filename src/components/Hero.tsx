@@ -183,7 +183,7 @@ export function Hero() {
                 rotateX: 3,
                 rotateY: -3,
                 scale: 1.03,
-                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.3)",
+                boxShadow: "0 0 25px hsl(var(--lime) / 0.4), 0 20px 25px -5px hsl(var(--primary) / 0.3)",
               }}
               className="card-3d card-3d-border rounded-2xl p-4 transition-all duration-500 cursor-default"
               style={{ transformStyle: 'preserve-3d' }}
@@ -204,7 +204,7 @@ export function Hero() {
                 rotateX: 3,
                 rotateY: -3,
                 scale: 1.03,
-                boxShadow: "0 20px 25px -5px hsl(var(--accent) / 0.3)",
+                boxShadow: "0 0 25px hsl(var(--lime) / 0.4), 0 20px 25px -5px hsl(var(--accent) / 0.3)",
               }}
               className="card-3d card-3d-border rounded-2xl p-4 transition-all duration-500 cursor-default"
               style={{ transformStyle: 'preserve-3d' }}
@@ -225,7 +225,7 @@ export function Hero() {
                 rotateX: 3,
                 rotateY: -3,
                 scale: 1.03,
-                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.3)",
+                boxShadow: "0 0 25px hsl(var(--lime) / 0.4), 0 20px 25px -5px hsl(var(--primary) / 0.3)",
               }}
               className="card-3d card-3d-border rounded-2xl p-4 transition-all duration-500 cursor-default"
               style={{ transformStyle: 'preserve-3d' }}
@@ -247,7 +247,7 @@ export function Hero() {
               className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-primary to-accent px-3 py-1.5 text-xs font-medium text-primary-foreground shadow-glow transition-all duration-300"
               whileHover={{ 
                 scale: 1.05,
-                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.4)"
+                boxShadow: "0 0 30px hsl(var(--lime) / 0.6), 0 20px 25px -5px hsl(var(--primary) / 0.4)"
               }}
               whileTap={{ scale: 0.95 }}
             >
@@ -261,7 +261,8 @@ export function Hero() {
               whileHover={{ 
                 scale: 1.05,
                 backgroundColor: "hsl(var(--primary) / 0.15)",
-                borderColor: "hsl(var(--primary) / 0.5)"
+                borderColor: "hsl(var(--lime) / 0.6)",
+                boxShadow: "0 0 20px hsl(var(--lime) / 0.4)"
               }}
               whileTap={{ scale: 0.95 }}
             >
