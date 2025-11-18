@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { EmailInput } from "@/components/EmailInput";
 import {
   Select,
   SelectContent,
@@ -149,10 +150,11 @@ export function ContactForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input 
-                    type="email" 
-                    placeholder="you@example.com" 
-                    {...field}
+                  <EmailInput
+                    placeholder="you@example.com"
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
                     disabled={isSubmitting}
                   />
                 </FormControl>
