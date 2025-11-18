@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 interface Card {
@@ -399,10 +400,10 @@ export const CaseStudiesStack = ({
     setTouchStart(null);
   };
 
-  // Icon mapping based on project ID
-  const getProjectIcon = (id: string) => {
-    switch (id) {
-      case "sales-copilot":
+  // Icon mapping based on project slug
+  const getProjectIcon = (slug: string) => {
+    switch (slug) {
+      case "ai-sales-copilot":
         return (
           <div className="flex items-center gap-1">
             <svg className="h-3 w-3 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -413,19 +414,19 @@ export const CaseStudiesStack = ({
             </svg>
           </div>
         );
-      case "founder-os":
+      case "founder-os-dashboard":
         return (
           <svg className="h-3 w-3 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
           </svg>
         );
-      case "energy-analytics":
+      case "energy-analytics-pilot":
         return (
           <svg className="h-3 w-3 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
         );
-      case "edtech-portal":
+      case "edtech-pilot-portal":
         return (
           <div className="flex items-center gap-1">
             <svg className="h-3 w-3 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -452,10 +453,9 @@ export const CaseStudiesStack = ({
         const isTop = index === 0;
         
         return (
-          <motion.a
+          <motion.div
             key={study.id}
-            href={`/case-study/${study.id}`}
-            className="absolute inset-0 mx-auto flex w-full max-w-lg cursor-pointer flex-col justify-between rounded-2xl border border-blue-400/20 bg-gradient-to-br from-slate-900/95 to-slate-950/95 p-3.5 shadow-2xl backdrop-blur-md transition-all hover:border-blue-400/40 sm:rounded-3xl sm:p-5 md:p-6"
+            className="absolute inset-0 mx-auto flex w-full max-w-lg"
             style={{
               transformOrigin: "top center",
               perspective: "1000px",
@@ -486,7 +486,11 @@ export const CaseStudiesStack = ({
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
-            <div className="space-y-2.5 sm:space-y-3">
+            <Link
+              to={`/case-study/${study.id}`}
+              className="flex h-full cursor-pointer flex-col justify-between rounded-2xl border border-blue-400/20 bg-gradient-to-br from-slate-900/95 to-slate-950/95 p-3.5 shadow-2xl backdrop-blur-md transition-all hover:border-blue-400/40 sm:rounded-3xl sm:p-5 md:p-6"
+            >
+              <div className="space-y-2.5 sm:space-y-3">
               <motion.div 
                 className="inline-flex items-center gap-1.5 rounded-full border border-blue-400/30 bg-blue-400/10 px-2.5 py-1 text-[10px] font-medium text-blue-300 sm:gap-2 sm:px-3 sm:py-1.5 sm:text-xs"
                 animate={isTop && isHovered ? { scale: 1.05 } : { scale: 1 }}
@@ -519,7 +523,8 @@ export const CaseStudiesStack = ({
                 View details →
               </motion.span>
             </div>
-          </motion.a>
+            </Link>
+          </motion.div>
         );
       })}
     </div>
