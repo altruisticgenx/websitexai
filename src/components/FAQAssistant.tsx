@@ -141,7 +141,10 @@ export function FAQAssistant() {
 
     try {
       const { data, error } = await supabase.functions.invoke("faq-assistant", {
-        body: { question: userMessage.content },
+        body: { 
+          question: userMessage.content,
+          conversationHistory: updatedHistory.slice(-6) // Send last 6 messages for context
+        },
       });
 
       if (error) {
