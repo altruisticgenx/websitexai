@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { useFormPersistence } from "@/hooks/use-form-persistence";
 import { FormSuccessAnimation } from "@/components/FormSuccessAnimation";
@@ -97,12 +97,13 @@ export function ContactForm() {
       return () => clearTimeout(timer);
     });
     return () => subscription.unsubscribe();
-  }, [form.watch, isSuccess]);
+  }, [form.watch, isSuccess, saveData]);
 
   const nameLength = form.watch("name")?.length || 0;
   const messageLength = form.watch("message")?.length || 0;
 
-  const onSubmit = async (data: FormValues) => {
+  // Memoized submit handler
+  const onSubmit = useCallback(async (data: FormValues) => {
     // Check honeypot
     if (data.honeypot) {
       console.warn("Bot detected via honeypot");
@@ -204,23 +205,28 @@ export function ContactForm() {
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [clearData, emailWarning]);
 
-  const handleClearForm = () => {
+  // Memoized clear form handler
+  const handleClearForm = useCallback(() => {
     form.reset();
     clearData();
     toast({
       title: "Form cleared",
       description: "All draft data has been removed.",
     });
-  };
+  }, [form, clearData]);
 
-  const getCharacterCountColor = (current: number, max: number) => {
+  // Memoized character count color function
+  const getCharacterCountColor = useCallback((current: number, max: number) => {
     const percentage = (current / max) * 100;
     if (percentage >= 90) return "text-destructive";
     if (percentage >= 75) return "text-yellow-500";
     return "text-slate-400";
-  };
+  }, []);
+
+  // Memoize computed values
+  const isFormValid = useMemo(() => form.formState.isValid, [form.formState.isValid]);
 
   return (
     <div className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-6 sm:p-8">
@@ -434,7 +440,7 @@ export function ContactForm() {
 
                 <Button
                   type="submit"
-                  disabled={isSubmitting || isSuccess || !form.formState.isValid}
+                  disabled={isSubmitting || isSuccess || !isFormValid}
                   className="w-full bg-emerald-400 text-slate-950 hover:bg-emerald-300 disabled:opacity-50 transition-all"
                 >
                   {isSubmitting ? (

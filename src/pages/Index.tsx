@@ -29,6 +29,7 @@ import {
 } from "@/components/skeletons/SectionSkeleton";
 
 // --- Data Definitions ---
+// Memoize static FAQ data outside component to prevent recreations
 const faqs = [{
   question: "What do I get each week?",
   answer: "One end-to-end deliverable: UI, workflow, integration, or refactor—shipped, not left half-finished."
@@ -41,7 +42,7 @@ const faqs = [{
 }, {
   question: "Is there any long-term contract?",
   answer: "None. Week-to-week, pause as needed. The repo and code are always yours."
-}];
+}] as const;
 
 // --- Main Page Component ---
 const Index = () => {
@@ -64,8 +65,8 @@ const Index = () => {
     }
   }, []);
 
-  // Setup keyboard navigation
-  useKeyboardNavigation([
+  // Memoize static keyboard navigation config
+  const keyboardNavConfig = useMemo(() => [
     { key: "1", sectionId: "builds", name: "Builds" },
     { key: "2", sectionId: "how", name: "How it Works" },
     { key: "3", sectionId: "pilot", name: "4-Week Pilot" },
@@ -75,7 +76,10 @@ const Index = () => {
     { key: "7", sectionId: "shelved", name: "Shelved Experiments" },
     { key: "8", sectionId: "testimonials", name: "Testimonials" },
     { key: "9", sectionId: "faq", name: "FAQ" },
-  ]);
+  ], []);
+
+  // Setup keyboard navigation
+  useKeyboardNavigation(keyboardNavConfig);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
@@ -260,39 +264,60 @@ const RecentBuilds = memo(function RecentBuilds() {
   const [isLoadingProjects, setIsLoadingProjects] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        setIsLoadingProjects(true);
-        const { data, error: fetchError } = await supabase
-          .from('projects')
-          .select('slug, title, sector, summary, tag')
-          .eq('featured', true)
-          .order('display_order', { ascending: true });
-
-        if (fetchError) throw fetchError;
-
-        // Transform database data to match component expectations
-        const formattedProjects = (data || []).map(project => ({
-          id: project.slug,
-          title: project.title,
-          sector: project.sector,
-          summary: project.summary,
-          tag: project.tag || '',
-        }));
-
-        setProjects(formattedProjects);
-        setError(null);
-      } catch (err) {
-        console.error('Error fetching projects:', err);
-        setError('Failed to load projects');
-      } finally {
-        setIsLoadingProjects(false);
-      }
-    };
-
-    fetchProjects();
+  // Memoize the project transformation function
+  const formatProjects = useCallback((data: any[]) => {
+    return (data || []).map(project => ({
+      id: project.slug,
+      title: project.title,
+      sector: project.sector,
+      summary: project.summary,
+      tag: project.tag || '',
+    }));
   }, []);
+
+  const fetchProjects = useCallback(async () => {
+    try {
+      setIsLoadingProjects(true);
+      const { data, error: fetchError } = await supabase
+        .from('projects')
+        .select('slug, title, sector, summary, tag')
+        .eq('featured', true)
+        .order('display_order', { ascending: true });
+
+      if (fetchError) throw fetchError;
+
+      const formattedProjects = formatProjects(data);
+      setProjects(formattedProjects);
+      setError(null);
+    } catch (err) {
+      console.error('Error fetching projects:', err);
+      setError('Failed to load projects');
+    } finally {
+      setIsLoadingProjects(false);
+    }
+  }, [formatProjects]);
+
+  useEffect(() => {
+    fetchProjects();
+  }, [fetchProjects]);
+
+  // Memoize realtime subscription handler
+  const handleProjectChange = useCallback(async () => {
+    try {
+      const { data, error: fetchError } = await supabase
+        .from('projects')
+        .select('slug, title, sector, summary, tag')
+        .eq('featured', true)
+        .order('display_order', { ascending: true });
+
+      if (fetchError) throw fetchError;
+
+      const formattedProjects = formatProjects(data);
+      setProjects(formattedProjects);
+    } catch (err) {
+      console.error('Error refreshing projects:', err);
+    }
+  }, [formatProjects]);
 
   // Realtime subscription for projects
   useEffect(() => {
@@ -305,37 +330,14 @@ const RecentBuilds = memo(function RecentBuilds() {
           schema: 'public',
           table: 'projects'
         },
-        async () => {
-          // Refetch projects when any change occurs
-          try {
-            const { data, error: fetchError } = await supabase
-              .from('projects')
-              .select('slug, title, sector, summary, tag')
-              .eq('featured', true)
-              .order('display_order', { ascending: true });
-
-            if (fetchError) throw fetchError;
-
-            const formattedProjects = (data || []).map(project => ({
-              id: project.slug,
-              title: project.title,
-              sector: project.sector,
-              summary: project.summary,
-              tag: project.tag || '',
-            }));
-
-            setProjects(formattedProjects);
-          } catch (err) {
-            console.error('Error refreshing projects:', err);
-          }
-        }
+        handleProjectChange
       )
       .subscribe();
 
     return () => {
       supabase.removeChannel(channel);
     };
-  }, []);
+  }, [handleProjectChange]);
 
   const { elementRef, isVisible } = useScrollAnimation();
   
@@ -414,7 +416,8 @@ const RecentBuilds = memo(function RecentBuilds() {
 const HowItWorks = memo(function HowItWorks() {
   const { elementRef, isVisible } = useScrollAnimation();
   
-  const steps = [{
+  // Memoize static steps data
+  const steps = useMemo(() => [{
     label: "Week 1",
     title: "Pinpoint & Prototype",
     body: "Share your challenge or goal—class doc, campus brief, stakeholder repo, student idea. Get a working skeleton in days."
@@ -426,7 +429,7 @@ const HowItWorks = memo(function HowItWorks() {
     label: "Week 4",
     title: "Decide with Clarity",
     body: "Wrap with a real repo, guided walkthrough, and a clear decision: scale, pivot, or pause. Your code, data, and documentation are always yours."
-  }];
+  }], []);
   
   return <section 
     id="how" 
@@ -625,7 +628,14 @@ const PilotOffer = memo(function PilotOffer() {
 const WhoBenefits = memo(function WhoBenefits() {
   const { elementRef, isVisible } = useScrollAnimation();
   
-  const audiences = ["Students bringing new ideas to life", "Teachers or nonprofits piloting campus or impact projects", "Board and governance teams seeking data clarity", "Solo founders wanting operational peace of mind", "B2B units innovating under fast timelines"];
+  // Memoize static audiences data
+  const audiences = useMemo(() => [
+    "Students bringing new ideas to life", 
+    "Teachers or nonprofits piloting campus or impact projects", 
+    "Board and governance teams seeking data clarity", 
+    "Solo founders wanting operational peace of mind", 
+    "B2B units innovating under fast timelines"
+  ], []);
   
   return <section 
     id="benefits" 
