@@ -19,6 +19,7 @@ import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { ControlRoomOverlay } from "@/components/ui/control-room-overlay";
+import { AnimatedGridOverlay } from "@/components/ui/animated-grid-overlay";
 import { SiteNav } from "@/components/SiteNav";
 import { 
   HeroSkeleton, 
@@ -218,7 +219,7 @@ function RecentBuilds() {
 
   return (
     <section id="builds" className="py-10 md:py-16 relative border-t border-lime/20 shadow-lime-glow">
-      <ControlRoomOverlay intensity="subtle" />
+      <AnimatedGridOverlay intensity="subtle" showMatrix={true} />
       <div className="mx-auto w-full max-w-5xl px-4 md:px-6 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
@@ -293,7 +294,7 @@ function HowItWorks() {
   }];
   return (
     <section id="how" className="border-t border-lime/20 shadow-lime-glow py-10 md:py-16 relative">
-      <ControlRoomOverlay intensity="subtle" showScanline={false} />
+      <AnimatedGridOverlay intensity="subtle" showMatrix={false} />
       <div className="mx-auto w-full max-w-5xl px-4 md:px-6 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
@@ -345,7 +346,7 @@ function HowItWorks() {
 function PilotOffer() {
   return (
     <section id="pilot" className="border-t border-lime/20 shadow-lime-glow py-10 md:py-16 relative">
-      <ControlRoomOverlay intensity="medium" />
+      <AnimatedGridOverlay intensity="medium" showMatrix={true} />
       <div className="mx-auto w-full max-w-5xl px-4 md:px-6 relative z-10">
         <div className="grid gap-8 md:grid-cols-[minmax(0,1.3fr),minmax(0,1fr)] md:items-start">
           <motion.div 
@@ -468,7 +469,7 @@ function WhoBenefits() {
   const audiences = ["Students bringing new ideas to life", "Teachers or nonprofits piloting campus or impact projects", "Board and governance teams seeking data clarity", "Solo founders wanting operational peace of mind", "B2B units innovating under fast timelines"];
   return (
     <section id="benefits" className="border-t border-lime/20 shadow-lime-glow py-10 md:py-16 relative">
-      <ControlRoomOverlay intensity="subtle" showScanline={false} />
+      <AnimatedGridOverlay intensity="subtle" showMatrix={false} />
       <div className="mx-auto w-full max-w-5xl px-4 md:px-6 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
@@ -551,8 +552,8 @@ function WhoBenefits() {
 function FAQSection() {
   return (
     <section id="faq" className="border-t border-lime/20 shadow-lime-glow py-4 sm:py-6 relative">
-      <ControlRoomOverlay intensity="subtle" />
-      <motion.div 
+      <AnimatedGridOverlay intensity="subtle" showMatrix={true} />
+      <motion.div
         initial={{ opacity: 0, y: 20 }} 
         whileInView={{ opacity: 1, y: 0 }} 
         viewport={{ once: true }} 

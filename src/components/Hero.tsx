@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Linkedin } from "lucide-react";
 import { Hero3DBackground } from "./Hero3D";
-import { ControlRoomOverlay } from "./ui/control-room-overlay";
+import { AnimatedGridOverlay } from "./ui/animated-grid-overlay";
 import { FloatingCard3D } from "./FloatingCard3D";
 
 function VisualRow({
@@ -56,8 +56,8 @@ export function Hero() {
 
   return (
     <section ref={ref} id="home" className="relative py-10 md:py-16 overflow-hidden">
-      {/* Control Room Grid Overlay */}
-      <ControlRoomOverlay intensity="medium" />
+      {/* Animated Grid & Matrix Overlay */}
+      <AnimatedGridOverlay intensity="medium" showMatrix={true} />
       
       {/* 3D Animated Background */}
       <Hero3DBackground />
