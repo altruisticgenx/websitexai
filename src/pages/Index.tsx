@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo, useMemo, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { TestimonialsVariant, CaseStudiesStack } from "@/components/ui/animated-cards-stack";
@@ -132,7 +132,8 @@ export default Index;
 
 // --- Sub-Components ---
 
-function Hero() {
+// Optimized Hero component with React.memo
+const Hero = memo(function Hero() {
   const { elementRef, isVisible } = useScrollAnimation();
   const { ref: parallaxRef, y: parallaxY } = useParallax(100);
   
@@ -144,16 +145,7 @@ function Hero() {
     )}
   >
       <div className="grid gap-10 md:grid-cols-[minmax(0,1.4fr),minmax(0,1fr)] md:items-center">
-        <motion.div initial={{
-        opacity: 0,
-        x: -30
-      }} animate={{
-        opacity: 1,
-        x: 0
-      }} transition={{
-        duration: 0.6,
-        delay: 0.2
-      }}>
+        <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-[11px] font-medium text-foreground">
             <span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
             Ship pilot-ready AI tech in weekly sprints
@@ -169,54 +161,30 @@ function Hero() {
           </p>
 
           <dl className="mt-6 grid max-w-xl grid-cols-1 gap-4 text-xs text-slate-200 sm:grid-cols-3 sm:text-sm">
-            <motion.div initial={{
-            opacity: 0,
-            y: 20
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }} transition={{
-            delay: 0.4
-          }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors">
+            <div className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors animate-fade-in" style={{ animationDelay: '0.4s' }}>
               <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
                 Work hands-on
               </dt>
               <dd className="mt-1 font-medium text-slate-50">
                 Build with real tools and ship working prototypes.
               </dd>
-            </motion.div>
-            <motion.div initial={{
-            opacity: 0,
-            y: 20
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }} transition={{
-            delay: 0.5
-          }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors">
+            </div>
+            <div className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors animate-fade-in" style={{ animationDelay: '0.5s' }}>
               <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
                 Launch actionable tools
               </dt>
               <dd className="mt-1 font-medium text-slate-50">
                 Deploy features users can actually test and use.
               </dd>
-            </motion.div>
-            <motion.div initial={{
-            opacity: 0,
-            y: 20
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }} transition={{
-            delay: 0.6
-          }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors">
+            </div>
+            <div className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors animate-fade-in" style={{ animationDelay: '0.6s' }}>
               <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
                 Start small, deliver early
               </dt>
               <dd className="mt-1 font-medium text-slate-50">
                 First meaningful code in Week 1, ready to demo.
               </dd>
-            </motion.div>
+            </div>
           </dl>
 
           <div className="mt-6 flex flex-col gap-3 text-sm">
@@ -229,24 +197,12 @@ function Hero() {
             </div>
             
           </div>
-        </motion.div>
+        </div>
 
         <motion.div 
           ref={parallaxRef}
-          initial={{
-            opacity: 0,
-            x: 30
-          }} 
-          animate={{
-            opacity: 1,
-            x: 0
-          }} 
-          transition={{
-            duration: 0.6,
-            delay: 0.3
-          }}
-          style={{ y: parallaxY }}
-          className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-4 sm:p-5 shadow-2xl shadow-primary/5"
+          style={{ y: parallaxY, position: "relative" }}
+          className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-4 sm:p-5 shadow-2xl shadow-primary/5 animate-fade-in"
         >
           <div className="text-xs font-mono text-slate-400">
             Build Fast Kit / 4-week pilot
@@ -263,8 +219,10 @@ function Hero() {
         </motion.div>
       </div>
     </section>;
-}
-function VisualRow({
+});
+
+// Optimized VisualRow component with React.memo
+const VisualRow = memo(function VisualRow({
   label,
   title,
   body
@@ -288,8 +246,10 @@ function VisualRow({
         <div className="mt-1 text-[12px] text-slate-300">{body}</div>
       </div>
     </motion.div>;
-}
-function RecentBuilds() {
+});
+
+// Optimized RecentBuilds component with React.memo
+const RecentBuilds = memo(function RecentBuilds() {
   const [projects, setProjects] = useState<Array<{
     id: string;
     title: string;
@@ -448,8 +408,10 @@ function RecentBuilds() {
       )}
     </section>
   );
-}
-function HowItWorks() {
+});
+
+// Optimized HowItWorks component with React.memo  
+const HowItWorks = memo(function HowItWorks() {
   const { elementRef, isVisible } = useScrollAnimation();
   
   const steps = [{
@@ -517,8 +479,9 @@ function HowItWorks() {
           </motion.div>)}
       </div>
     </section>;
-}
-function PilotOffer() {
+});
+
+const PilotOffer = memo(function PilotOffer() {
   const { elementRef, isVisible } = useScrollAnimation();
   const { ref: parallaxRef, y: parallaxY } = useParallax(80);
   
@@ -657,8 +620,9 @@ function PilotOffer() {
         </motion.div>
       </div>
     </section>;
-}
-function WhoBenefits() {
+});
+
+const WhoBenefits = memo(function WhoBenefits() {
   const { elementRef, isVisible } = useScrollAnimation();
   
   const audiences = ["Students bringing new ideas to life", "Teachers or nonprofits piloting campus or impact projects", "Board and governance teams seeking data clarity", "Solo founders wanting operational peace of mind", "B2B units innovating under fast timelines"];
@@ -745,8 +709,9 @@ function WhoBenefits() {
         </motion.div>
       </div>
     </section>;
-}
-function FAQSection() {
+});
+
+const FAQSection = memo(function FAQSection() {
   const { elementRef, isVisible } = useScrollAnimation();
   
   return (
@@ -806,9 +771,9 @@ function FAQSection() {
       </dl>
     </section>
   );
-}
+});
 
-function ContactSection() {
+const ContactSection = memo(function ContactSection() {
   const { elementRef, isVisible } = useScrollAnimation();
   
   return <section 
@@ -833,10 +798,10 @@ function ContactSection() {
         <ContactForm />
       </motion.div>
     </section>;
-}
+});
 
-// Parallax wrapper component for reusable parallax effects
-function ParallaxWrapper({ 
+// Optimized Parallax wrapper component with React.memo
+const ParallaxWrapper = memo(function ParallaxWrapper({ 
   children, 
   distance = 50 
 }: { 
@@ -850,9 +815,9 @@ function ParallaxWrapper({
       {children}
     </motion.div>
   );
-}
+});
 
-function SiteFooter() {
+const SiteFooter = memo(function SiteFooter() {
   return <footer className="border-t border-slate-900/80 py-6">
       <div className="flex flex-col items-start justify-between gap-3 text-xs text-slate-500 sm:flex-row sm:items-center">
         <div>© {new Date().getFullYear()} AltruisticX · AI + Product Engineer</div>
@@ -861,4 +826,4 @@ function SiteFooter() {
         </div>
       </div>
     </footer>;
-}
+});
