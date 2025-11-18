@@ -9,6 +9,7 @@ import { OrganizationTypes } from "@/components/OrganizationTypes";
 import { EngagementModels } from "@/components/EngagementModels";
 import { MobileMenu } from "@/components/MobileMenu";
 import { ContactForm } from "@/components/ContactForm";
+import { FAQAssistant } from "@/components/FAQAssistant";
 import { Toaster } from "@/components/ui/toaster";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
@@ -636,7 +637,7 @@ function WhoBenefits() {
     </section>;
 }
 function FAQSection() {
-  return <section id="faq" className="border-t border-slate-900/80 py-10 sm:py-14">
+  return <section id="faq" className="border-t border-slate-900/80 py-8 sm:py-12">
       <motion.div initial={{
       opacity: 0,
       y: 20
@@ -647,17 +648,28 @@ function FAQSection() {
       once: true
     }} transition={{
       duration: 0.5
-    }} className="max-w-4xl">
-        <h2 className="text-xl font-semibold sm:text-2xl">
-          FAQs: Reduce confusion, pre-answer objections
+    }} className="max-w-4xl mb-6">
+        <h2 className="text-lg sm:text-xl font-semibold">
+          FAQs & AI Assistant
         </h2>
-        <p className="mt-2 text-sm text-slate-300">
-          The short version: we work like a calm, senior teammate who happens to
-          be on a weekly subscription instead of payroll.
+        <p className="mt-2 text-xs sm:text-sm text-slate-300">
+          Get quick answers to common questions or ask our AI assistant about submissions and services.
         </p>
       </motion.div>
 
-      <dl className="mt-6 space-y-4">
+      {/* AI Assistant */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }} 
+        whileInView={{ opacity: 1, y: 0 }} 
+        viewport={{ once: true }} 
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="mb-6"
+      >
+        <FAQAssistant />
+      </motion.div>
+
+      {/* FAQ Items - Compact Grid Layout */}
+      <dl className="grid gap-3 sm:gap-4 sm:grid-cols-2">
         {faqs.map((item, index) => <motion.div key={item.question} initial={{
         opacity: 0,
         y: 20
@@ -669,11 +681,11 @@ function FAQSection() {
       }} transition={{
         duration: 0.5,
         delay: index * 0.05
-      }} className="rounded-2xl border border-slate-800/80 bg-slate-950/60 p-4 hover:border-primary/30 transition-colors">
-            <dt className="text-sm font-medium text-slate-50">
+      }} className="rounded-xl border border-slate-800/80 bg-slate-950/60 p-3 sm:p-4 hover:border-primary/30 transition-colors">
+            <dt className="text-xs sm:text-sm font-medium text-slate-50 leading-tight">
               {item.question}
             </dt>
-            <dd className="mt-2 text-sm text-slate-300">{item.answer}</dd>
+            <dd className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">{item.answer}</dd>
           </motion.div>)}
       </dl>
     </section>;
