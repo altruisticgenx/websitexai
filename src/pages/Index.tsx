@@ -191,15 +191,16 @@ const Hero = memo(function Hero() {
             </div>
           </dl>
 
-          <div className="mt-6 flex flex-col gap-3 text-sm">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-              
-              <a href="https://www.linkedin.com/in/ik11" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/60 bg-primary/10 px-5 py-2.5 text-sm font-medium text-primary hover:bg-primary/20 transition-colors">
-                <Linkedin size={16} />
-                Connect on LinkedIn
-              </a>
-            </div>
-            
+          <div className="mt-6 flex items-center gap-3">
+            <a 
+              href="https://www.linkedin.com/in/ik11" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-primary/60 bg-primary/10 text-primary transition-colors hover:bg-primary/20"
+              aria-label="Connect on LinkedIn"
+            >
+              <Linkedin size={18} />
+            </a>
           </div>
         </div>
 
