@@ -26,17 +26,23 @@ export function MobileHeader() {
     >
       <div className="flex items-center justify-between px-4 py-3">
         {/* Brand/Logo */}
-        <a href="#" className="flex flex-col transition-opacity hover:opacity-80" onClick={(e) => {
+        <a href="#" className="flex items-center gap-1.5 transition-opacity hover:opacity-80" onClick={(e) => {
           e.preventDefault();
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}>
-          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+          <svg 
+            className="w-2.5 h-2.5 text-lime drop-shadow-[0_0_6px_hsl(var(--lime))]" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+          >
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+          <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-primary">
             AltruisticX AI
-          </span>
-          <span className={`text-[10px] text-slate-400 transition-opacity ${
-            isScrolled ? 'opacity-0 h-0' : 'opacity-100'
-          }`}>
-            AI + Product Engineering
           </span>
         </a>
 
