@@ -187,7 +187,7 @@ const Index = () => {
                   {
                     number: "1",
                     title: "A focused question",
-                    body: "\"Can we cut this process from 2 weeks to 2 days?\" \"Can staff understand this dashboard in under 60 seconds?\" We write this down first."
+                    body: '"Can we cut this process from 2 weeks to 2 days?" "Can staff understand this dashboard in under 60 seconds?" We write this down first.'
                   },
                   {
                     number: "2",
@@ -202,7 +202,7 @@ const Index = () => {
                   {
                     number: "4",
                     title: "A clear next step",
-                    body: "Kill it, tweak it, or scale it. No pressure to \"go big\" if it doesn't earn it."
+                    body: 'Kill it, tweak it, or scale it. No pressure to "go big" if it doesn\'t earn it.'
                   }
                 ].map((item, index) => (
                   <Card key={item.number} className="p-6 border-l-4 border-l-primary">
@@ -243,7 +243,7 @@ const Index = () => {
                   label: "Higher Ed · Energy",
                   title: "Campus Energy Storyboard",
                   goal: "Turn raw campus energy data into a simple story that facilities can show to grant committees.",
-                  outcome: "A live dashboard plus a 'energy story' one-pager updated weekly."
+                  outcome: 'A live dashboard plus a "energy story" one-pager updated weekly.'
                 },
                 {
                   label: "Education · Community",
@@ -254,14 +254,14 @@ const Index = () => {
                 {
                   label: "City / Civic",
                   title: "Civic Form Triage Assistant",
-                  goal: "Help staff quickly sort incoming forms and emails into \"urgent now / later / wrong place.\"",
+                  goal: 'Help staff quickly sort incoming forms and emails into "urgent now / later / wrong place."',
                   outcome: "An internal assistant that tags and routes requests instead of one shared inbox chaos."
                 },
                 {
                   label: "Energy & Education",
                   title: "Grant Evidence Pack Helper",
                   goal: "Pull the right metrics, screenshots, and quotes for grant applications without digging through old emails.",
-                  outcome: "A small tool that assembles a \"grant evidence pack\" from your dashboards and notes."
+                  outcome: 'A small tool that assembles a "grant evidence pack" from your dashboards and notes.'
                 }
               ].map((pilot, index) => (
                 <motion.div
@@ -318,7 +318,7 @@ const Index = () => {
                 {
                   step: "Step 2",
                   title: "Sketch & agree (Day 3–5)",
-                  body: "You get a tiny plan: what we're building, what \"good\" looks like, who will touch it."
+                  body: 'You get a tiny plan: what we\'re building, what "good" looks like, who will touch it.'
                 },
                 {
                   step: "Step 3",
@@ -328,7 +328,7 @@ const Index = () => {
                 {
                   step: "Step 4",
                   title: "Share the story (Week 4)",
-                  body: "You get the prototype, a short walkthrough, and a \"what we learned\" summary you can show around."
+                  body: 'You get the prototype, a short walkthrough, and a "what we learned" summary you can show around.'
                 }
               ].map((item, index) => (
                 <motion.div
@@ -392,7 +392,7 @@ const Index = () => {
               {[
                 {
                   title: "Less risk",
-                  body: "Short sprints, clear end, no awkward \"we're stuck with this vendor\" feeling."
+                  body: 'Short sprints, clear end, no awkward "we\'re stuck with this vendor" feeling.'
                 },
                 {
                   title: "More honesty",
