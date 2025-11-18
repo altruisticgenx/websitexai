@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { TestimonialsVariant, CaseStudiesStack } from "@/components/ui/animated-cards-stack";
 import { Linkedin } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { ShelvedExperiments } from "@/components/ShelvedExperiments";
 import { WhereIWork } from "@/components/WhereIWork";
 import { OrganizationTypes } from "@/components/OrganizationTypes";
@@ -82,7 +83,7 @@ const Index = () => {
   useKeyboardNavigation(keyboardNavConfig);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50">
+    <div className="min-h-screen bg-slate-950 text-slate-50 font-sans">
       {/* Sticky Navigation */}
       <SiteNav />
       
@@ -192,15 +193,24 @@ const Hero = memo(function Hero() {
           </dl>
 
           <div className="mt-6 flex items-center gap-3">
-            <a 
-              href="https://www.linkedin.com/in/ik11" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-primary/60 bg-primary/10 text-primary transition-colors hover:bg-primary/20"
-              aria-label="Connect on LinkedIn"
-            >
-              <Linkedin size={18} />
-            </a>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <a 
+                    href="https://www.linkedin.com/in/ik11" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-primary/60 bg-primary/10 text-primary transition-colors hover:bg-primary/20"
+                    aria-label="Connect on LinkedIn"
+                  >
+                    <Linkedin size={18} />
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Connect on LinkedIn</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
 
