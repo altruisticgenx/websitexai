@@ -550,19 +550,19 @@ function WhoBenefits() {
 }
 function FAQSection() {
   return (
-    <section id="faq" className="border-t border-lime/20 shadow-lime-glow py-8 sm:py-12 relative">
+    <section id="faq" className="border-t border-lime/20 shadow-lime-glow py-4 sm:py-6 relative">
       <ControlRoomOverlay intensity="subtle" />
       <motion.div 
         initial={{ opacity: 0, y: 20 }} 
         whileInView={{ opacity: 1, y: 0 }} 
         viewport={{ once: true }} 
         transition={{ duration: 0.5 }} 
-        className="max-w-4xl mb-6"
+        className="max-w-4xl mb-3"
       >
-        <h2 className="heading-display text-base sm:text-lg">
+        <h2 className="heading-display text-[11px] sm:text-xs">
           FAQs & AI Assistant
         </h2>
-        <p className="mt-2 text-xs sm:text-sm text-slate-300">
+        <p className="mt-1 text-[9px] sm:text-[10px] text-slate-300">
           Get quick answers to common questions or ask our AI assistant about submissions and services.
         </p>
       </motion.div>
@@ -573,13 +573,13 @@ function FAQSection() {
         whileInView={{ opacity: 1, y: 0 }} 
         viewport={{ once: true }} 
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="mb-6"
+        className="mb-3"
       >
         <FAQAssistant />
       </motion.div>
 
       {/* FAQ Items - Compact Grid Layout */}
-      <dl className="grid gap-3 sm:gap-4 sm:grid-cols-2">
+      <dl className="grid gap-2 sm:gap-2.5 sm:grid-cols-2">
         {faqs.map((item, index) => (
           <motion.div 
             key={item.question} 
@@ -587,12 +587,12 @@ function FAQSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.05 }}
-            className="rounded-xl border border-slate-800/80 bg-slate-950/60 p-3 sm:p-4 hover:border-primary/30 transition-colors"
+            className="rounded-lg border border-slate-800/60 bg-slate-950/60 p-2 sm:p-2.5 hover:border-primary/30 transition-colors"
           >
-            <dt className="text-xs sm:text-sm font-medium text-slate-50 leading-tight">
+            <dt className="text-[9px] sm:text-[10px] font-medium text-slate-50 leading-tight">
               {item.question}
             </dt>
-            <dd className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
+            <dd className="mt-1 text-[8px] sm:text-[9px] text-slate-300 leading-snug">
               {item.answer}
             </dd>
           </motion.div>
