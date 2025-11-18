@@ -15,6 +15,7 @@ import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { useParallax } from "@/hooks/use-parallax";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteNav } from "@/components/SiteNav";
@@ -110,7 +111,9 @@ const Index = () => {
               <WhereIWork />
               <ShelvedExperiments />
               <div id="testimonials">
-                <TestimonialsVariant />
+                <ParallaxWrapper distance={50}>
+                  <TestimonialsVariant />
+                </ParallaxWrapper>
               </div>
               <FAQSection />
               <ContactSection />
@@ -131,6 +134,7 @@ export default Index;
 
 function Hero() {
   const { elementRef, isVisible } = useScrollAnimation();
+  const { ref: parallaxRef, y: parallaxY } = useParallax(100);
   
   return <section 
     ref={elementRef}
@@ -227,16 +231,23 @@ function Hero() {
           </div>
         </motion.div>
 
-        <motion.div initial={{
-        opacity: 0,
-        x: 30
-      }} animate={{
-        opacity: 1,
-        x: 0
-      }} transition={{
-        duration: 0.6,
-        delay: 0.3
-      }} className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-4 sm:p-5">
+        <motion.div 
+          ref={parallaxRef}
+          initial={{
+            opacity: 0,
+            x: 30
+          }} 
+          animate={{
+            opacity: 1,
+            x: 0
+          }} 
+          transition={{
+            duration: 0.6,
+            delay: 0.3
+          }}
+          style={{ y: parallaxY }}
+          className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-4 sm:p-5 shadow-2xl shadow-primary/5"
+        >
           <div className="text-xs font-mono text-slate-400">
             Build Fast Kit / 4-week pilot
           </div>
@@ -262,7 +273,13 @@ function VisualRow({
   title: string;
   body: string;
 }) {
-  return <div className="flex gap-3 rounded-2xl border border-slate-800/80 bg-slate-950/40 p-3 hover:border-primary/20 transition-colors">
+  const { ref: parallaxRef, y: parallaxY } = useParallax(30);
+  
+  return <motion.div 
+    ref={parallaxRef}
+    style={{ y: parallaxY }}
+    className="flex gap-3 rounded-2xl border border-slate-800/80 bg-slate-950/40 p-3 hover:border-primary/20 hover:bg-slate-950/60 transition-all duration-300"
+  >
       <div className="mt-0.5 w-14 flex-shrink-0 text-[11px] font-mono uppercase tracking-[0.16em] text-primary">
         {label}
       </div>
@@ -270,7 +287,7 @@ function VisualRow({
         <div className="text-[13px] font-medium text-slate-50">{title}</div>
         <div className="mt-1 text-[12px] text-slate-300">{body}</div>
       </div>
-    </div>;
+    </motion.div>;
 }
 function RecentBuilds() {
   const [projects, setProjects] = useState<Array<{
@@ -417,15 +434,17 @@ function RecentBuilds() {
           <p className="text-sm text-slate-400">No projects available yet. Check back soon!</p>
         </motion.div>
       ) : (
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-10"
-        >
-          <CaseStudiesStack caseStudies={projects} />
-        </motion.div>
+        <ParallaxWrapper distance={60}>
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-10"
+          >
+            <CaseStudiesStack caseStudies={projects} />
+          </motion.div>
+        </ParallaxWrapper>
       )}
     </section>
   );
@@ -501,6 +520,7 @@ function HowItWorks() {
 }
 function PilotOffer() {
   const { elementRef, isVisible } = useScrollAnimation();
+  const { ref: parallaxRef, y: parallaxY } = useParallax(80);
   
   return <section 
     id="pilot" 
@@ -576,17 +596,25 @@ function PilotOffer() {
           </div>
         </motion.div>
 
-        <motion.div initial={{
-        opacity: 0,
-        x: 30
-      }} whileInView={{
-        opacity: 1,
-        x: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.6
-      }} className="rounded-3xl border border-slate-800/80 bg-slate-950/60 p-4 text-xs text-slate-200 sm:p-5">
+        <motion.div 
+          ref={parallaxRef}
+          initial={{
+            opacity: 0,
+            x: 30
+          }} 
+          whileInView={{
+            opacity: 1,
+            x: 0
+          }} 
+          viewport={{
+            once: true
+          }} 
+          transition={{
+            duration: 0.6
+          }}
+          style={{ y: parallaxY }}
+          className="rounded-3xl border border-slate-800/80 bg-slate-950/60 p-4 text-xs text-slate-200 sm:p-5 shadow-2xl shadow-primary/5"
+        >
           <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-400">
             Good fit
           </div>
@@ -805,6 +833,23 @@ function ContactSection() {
         <ContactForm />
       </motion.div>
     </section>;
+}
+
+// Parallax wrapper component for reusable parallax effects
+function ParallaxWrapper({ 
+  children, 
+  distance = 50 
+}: { 
+  children: React.ReactNode; 
+  distance?: number;
+}) {
+  const { ref, y } = useParallax(distance);
+  
+  return (
+    <motion.div ref={ref} style={{ y }}>
+      {children}
+    </motion.div>
+  );
 }
 
 function SiteFooter() {
