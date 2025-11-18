@@ -191,6 +191,45 @@ All colors MUST be HSL.
     backdrop-filter: blur(8px);
   }
 
+  /* 3D Card Effects */
+  .card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .card-3d:hover {
+    transform: translateY(-8px) rotateX(5deg) rotateY(-5deg);
+  }
+
+  .card-3d-border {
+    position: relative;
+    background: linear-gradient(135deg, 
+      rgba(56, 189, 248, 0.1) 0%, 
+      rgba(14, 165, 233, 0.05) 50%, 
+      rgba(34, 211, 238, 0.1) 100%);
+    border: 1px solid transparent;
+    background-clip: padding-box;
+  }
+
+  .card-3d-border::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, 
+      rgba(56, 189, 248, 0.5) 0%, 
+      rgba(14, 165, 233, 0.2) 50%, 
+      rgba(34, 211, 238, 0.5) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
   /* Grid pattern animation */
   @keyframes grid-flicker {
     0%, 100% { opacity: 0.03; }
@@ -199,6 +238,20 @@ All colors MUST be HSL.
 
   .bg-grid-pattern {
     animation: grid-flicker 8s ease-in-out infinite;
+  }
+
+  /* 3D Float Animation */
+  @keyframes float-3d {
+    0%, 100% {
+      transform: translateY(0) rotateX(0deg);
+    }
+    50% {
+      transform: translateY(-10px) rotateX(2deg);
+    }
+  }
+
+  .animate-float-3d {
+    animation: float-3d 6s ease-in-out infinite;
   }
   
   /* Prevent rubber band scrolling on iOS */

@@ -317,24 +317,27 @@ function HowItWorks() {
           {steps.map((step, index) => (
             <motion.div 
               key={step.label} 
-              initial={{ opacity: 0, y: 20 }} 
-              whileInView={{ opacity: 1, y: 0 }} 
+              initial={{ opacity: 0, y: 20, rotateX: -10 }} 
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }} 
               viewport={{ once: true }} 
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ 
-                y: -6,
-                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.2)",
-                borderColor: "hsl(var(--primary) / 0.4)"
+                y: -8,
+                rotateX: 5,
+                rotateY: index === 1 ? 0 : index === 0 ? -5 : 5,
+                scale: 1.03,
+                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.3)",
               }}
-              className="group rounded-2xl border border-slate-800/70 bg-gradient-to-br from-slate-950/50 to-slate-900/30 p-4 text-sm transition-all duration-300 cursor-default"
+              className="card-3d card-3d-border group rounded-2xl p-5 text-sm transition-all duration-500 cursor-default"
+              style={{ transformStyle: 'preserve-3d' }}
             >
-              <div className="text-xs font-mono uppercase tracking-[0.18em] text-primary group-hover:text-accent transition-colors">
+              <div className="text-xs font-mono uppercase tracking-[0.18em] text-primary group-hover:text-accent transition-colors" style={{ transform: 'translateZ(15px)' }}>
                 {step.label}
               </div>
-              <h3 className="mt-2 text-sm font-semibold text-slate-50 group-hover:text-primary transition-colors">
+              <h3 className="mt-2 text-sm font-semibold text-slate-50 group-hover:text-primary transition-colors" style={{ transform: 'translateZ(20px)' }}>
                 {step.title}
               </h3>
-              <p className="mt-2 text-sm text-slate-300">{step.body}</p>
+              <p className="mt-2 text-sm text-slate-300" style={{ transform: 'translateZ(10px)' }}>{step.body}</p>
             </motion.div>
           ))}
         </div>
@@ -486,16 +489,23 @@ function WhoBenefits() {
 
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           <motion.div 
-            initial={{ opacity: 0, x: -20 }} 
-            whileInView={{ opacity: 1, x: 0 }} 
+            initial={{ opacity: 0, x: -20, rotateY: -10 }} 
+            whileInView={{ opacity: 1, x: 0, rotateY: 0 }} 
             viewport={{ once: true }} 
-            transition={{ duration: 0.5, delay: 0.1 }} 
-            className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-5"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            whileHover={{
+              rotateY: 3,
+              rotateX: -3,
+              scale: 1.02,
+              boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.3)",
+            }}
+            className="card-3d card-3d-border rounded-2xl p-6 transition-all duration-500"
+            style={{ transformStyle: 'preserve-3d' }}
           >
-            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-primary" style={{ transform: 'translateZ(15px)' }}>
               Perfect For
             </h3>
-            <ul className="mt-3 space-y-2 text-sm text-slate-200">
+            <ul className="mt-3 space-y-2 text-sm text-slate-200" style={{ transform: 'translateZ(10px)' }}>
               {audiences.map((audience, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <span className="text-primary mt-0.5">✓</span>
@@ -506,13 +516,20 @@ function WhoBenefits() {
           </motion.div>
 
           <motion.div 
-            initial={{ opacity: 0, x: 20 }} 
-            whileInView={{ opacity: 1, x: 0 }} 
+            initial={{ opacity: 0, x: 20, rotateY: 10 }} 
+            whileInView={{ opacity: 1, x: 0, rotateY: 0 }} 
             viewport={{ once: true }} 
-            transition={{ duration: 0.5, delay: 0.2 }} 
-            className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-5"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            whileHover={{
+              rotateY: -3,
+              rotateX: -3,
+              scale: 1.02,
+              boxShadow: "0 20px 25px -5px hsl(var(--accent) / 0.3)",
+            }}
+            className="card-3d card-3d-border rounded-2xl p-6 transition-all duration-500"
+            style={{ transformStyle: 'preserve-3d' }}
           >
-            <div className="mb-4">
+            <div className="mb-4" style={{ transform: 'translateZ(15px)' }}>
               <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
                 Ideal Fit
               </h3>
@@ -520,7 +537,7 @@ function WhoBenefits() {
                 Real feedback weekly, ready to experiment, need clear results
               </p>
             </div>
-            <div>
+            <div style={{ transform: 'translateZ(10px)' }}>
               <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">
                 Not a Fit
               </h3>
