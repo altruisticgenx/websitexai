@@ -161,57 +161,69 @@ export type Database = {
       projects: {
         Row: {
           completed_at: string | null
+          context_note: string | null
           created_at: string
           demo_url: string | null
           description: string | null
           display_order: number | null
           featured: boolean | null
           github_url: string | null
+          hypothesis: string | null
           id: string
           image_url: string | null
           sector: string
           slug: string
+          status: string | null
           summary: string
           tag: string | null
           technologies: string[] | null
           title: string
           updated_at: string
+          week_number: number | null
         }
         Insert: {
           completed_at?: string | null
+          context_note?: string | null
           created_at?: string
           demo_url?: string | null
           description?: string | null
           display_order?: number | null
           featured?: boolean | null
           github_url?: string | null
+          hypothesis?: string | null
           id?: string
           image_url?: string | null
           sector: string
           slug: string
+          status?: string | null
           summary: string
           tag?: string | null
           technologies?: string[] | null
           title: string
           updated_at?: string
+          week_number?: number | null
         }
         Update: {
           completed_at?: string | null
+          context_note?: string | null
           created_at?: string
           demo_url?: string | null
           description?: string | null
           display_order?: number | null
           featured?: boolean | null
           github_url?: string | null
+          hypothesis?: string | null
           id?: string
           image_url?: string | null
           sector?: string
           slug?: string
+          status?: string | null
           summary?: string
           tag?: string | null
           technologies?: string[] | null
           title?: string
           updated_at?: string
+          week_number?: number | null
         }
         Relationships: []
       }
