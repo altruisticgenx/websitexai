@@ -1,25 +1,19 @@
-import {
-  NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuContent,
-  NavigationMenuTrigger,
-  NavigationMenuLink,
-  NavigationMenuIndicator,
-} from "@/components/ui/navigation-menu";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useActiveSection } from "@/hooks/use-active-section";
-
-const navLinkClass =
-  "block w-full text-center text-[2.2rem] leading-tight lowercase tracking-[0.05em] transition-all duration-300 font-itim";
+import { ChevronDown } from "lucide-react";
 
 export function SiteNav() {
   const activeSection = useActiveSection(["", "pilot", "builds", "how", "where"]);
+  const [isWorkOpen, setIsWorkOpen] = useState(false);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const href = e.currentTarget.getAttribute("href");
     if (!href) return;
+
+    // Close dropdown when clicking a link
+    setIsWorkOpen(false);
 
     if (href === "#" || href === "") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -33,131 +27,269 @@ export function SiteNav() {
     }
   };
 
+  const isWorkActive = ["pilot", "builds", "how"].includes(activeSection);
+
   return (
-    <div className="relative mx-auto w-full max-w-4xl pt-4 text-foreground">
-      {/* Top bar */}
-      <NavigationMenu className="w-full justify-center">
-        <NavigationMenuList className="grid w-full grid-cols-4 items-center gap-2">
-          {/* Home */}
-          <NavigationMenuItem>
-            <NavigationMenuLink asChild>
+    <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo/Brand */}
+          <a
+            href="#"
+            onClick={handleNavClick}
+            className="flex flex-col font-itim transition-colors hover:text-primary"
+          >
+            <span className="text-lg font-semibold uppercase tracking-wider text-primary">
+              AltruisticX AI
+            </span>
+            <span className="text-xs text-muted-foreground">
+              AI + Product Engineering
+            </span>
+          </a>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex md:items-center md:gap-1">
+            <a
+              href="#"
+              onClick={handleNavClick}
+              className={cn(
+                "px-4 py-2 text-sm font-medium font-itim lowercase tracking-wide transition-all duration-200 rounded-md",
+                activeSection === ""
+                  ? "text-primary bg-primary/10 scale-105"
+                  : "text-foreground hover:text-primary hover:bg-accent/50"
+              )}
+            >
+              home
+            </a>
+
+            <a
+              href="/portfolio"
+              className="px-4 py-2 text-sm font-medium font-itim lowercase tracking-wide text-foreground transition-all duration-200 hover:text-primary hover:bg-accent/50 rounded-md"
+            >
+              lab
+            </a>
+
+            {/* Work Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setIsWorkOpen(!isWorkOpen)}
+                onMouseEnter={() => setIsWorkOpen(true)}
+                className={cn(
+                  "flex items-center gap-1 px-4 py-2 text-sm font-medium font-itim lowercase tracking-wide transition-all duration-200 rounded-md",
+                  isWorkActive
+                    ? "text-primary bg-primary/10 scale-105"
+                    : "text-foreground hover:text-primary hover:bg-accent/50"
+                )}
+              >
+                work
+                <ChevronDown
+                  className={cn(
+                    "h-4 w-4 transition-transform duration-200",
+                    isWorkOpen && "rotate-180"
+                  )}
+                />
+              </button>
+
+              {/* Dropdown Menu */}
+              {isWorkOpen && (
+                <div
+                  onMouseLeave={() => setIsWorkOpen(false)}
+                  className="absolute right-0 top-full mt-2 w-56 rounded-lg border border-border bg-card shadow-xl z-50 animate-in fade-in slide-in-from-top-2 duration-200"
+                >
+                  <div className="p-2">
+                    <a
+                      href="#pilot"
+                      onClick={handleNavClick}
+                      className={cn(
+                        "block rounded-md px-3 py-2 text-sm transition-colors",
+                        activeSection === "pilot"
+                          ? "bg-primary/10 text-primary font-medium"
+                          : "text-card-foreground hover:bg-accent hover:text-accent-foreground"
+                      )}
+                    >
+                      <div className="font-medium">4-week pilots</div>
+                      <div className="text-xs text-muted-foreground">
+                        Ship pilot-ready tools
+                      </div>
+                    </a>
+
+                    <a
+                      href="#builds"
+                      onClick={handleNavClick}
+                      className={cn(
+                        "block rounded-md px-3 py-2 text-sm transition-colors",
+                        activeSection === "builds"
+                          ? "bg-primary/10 text-primary font-medium"
+                          : "text-card-foreground hover:bg-accent hover:text-accent-foreground"
+                      )}
+                    >
+                      <div className="font-medium">Recent builds</div>
+                      <div className="text-xs text-muted-foreground">
+                        See what's been shipped
+                      </div>
+                    </a>
+
+                    <a
+                      href="#how"
+                      onClick={handleNavClick}
+                      className={cn(
+                        "block rounded-md px-3 py-2 text-sm transition-colors",
+                        activeSection === "how"
+                          ? "bg-primary/10 text-primary font-medium"
+                          : "text-card-foreground hover:bg-accent hover:text-accent-foreground"
+                      )}
+                    >
+                      <div className="font-medium">How it works</div>
+                      <div className="text-xs text-muted-foreground">
+                        Weekly sprint process
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <a
+              href="#where"
+              onClick={handleNavClick}
+              className={cn(
+                "px-4 py-2 text-sm font-medium font-itim lowercase tracking-wide transition-all duration-200 rounded-md",
+                activeSection === "where"
+                  ? "text-primary bg-primary/10 scale-105"
+                  : "text-foreground hover:text-primary hover:bg-accent/50"
+              )}
+            >
+              about
+            </a>
+
+            {/* CTA Button */}
+            <a
+              href="mailto:hello@altruisticxai.com"
+              className="ml-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:scale-105 shadow-lg shadow-primary/20"
+            >
+              Book Intro
+            </a>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsWorkOpen(!isWorkOpen)}
+            className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+            aria-label="Toggle menu"
+          >
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+            >
+              {isWorkOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              )}
+            </svg>
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {isWorkOpen && (
+          <div className="md:hidden border-t border-border/40 py-4 animate-in slide-in-from-top-2 duration-200">
+            <div className="space-y-1">
               <a
                 href="#"
                 onClick={handleNavClick}
                 className={cn(
-                  navLinkClass,
+                  "block rounded-md px-3 py-2 text-base font-medium font-itim lowercase transition-colors",
                   activeSection === ""
-                    ? "text-primary scale-110"
-                    : "text-foreground hover:text-primary hover:scale-105"
+                    ? "text-primary bg-primary/10"
+                    : "text-foreground hover:text-primary hover:bg-accent/50"
                 )}
               >
                 home
               </a>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
 
-          {/* Lab / Blog */}
-          <NavigationMenuItem>
-            <NavigationMenuLink asChild>
-              <a 
-                href="/portfolio" 
-                className={cn(navLinkClass, "hover:text-primary")}
+              <a
+                href="/portfolio"
+                className="block rounded-md px-3 py-2 text-base font-medium font-itim lowercase text-foreground transition-colors hover:text-primary hover:bg-accent/50"
               >
                 lab
               </a>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
 
-          {/* Work dropdown */}
-          <NavigationMenuItem>
-            <NavigationMenuTrigger
-              className={cn(
-                navLinkClass,
-                "bg-transparent p-0 hover:bg-transparent focus:bg-transparent data-[state=open]:text-primary",
-                ["pilot", "builds", "how"].includes(activeSection)
-                  ? "text-primary scale-110"
-                  : "text-foreground hover:text-primary hover:scale-105"
-              )}
-            >
-              work
-            </NavigationMenuTrigger>
-            <NavigationMenuContent className="mt-3 rounded-2xl border border-border bg-popover/95 backdrop-blur-sm px-4 py-3 shadow-lg">
-              <ul className="grid gap-2 text-sm text-foreground md:w-64">
-                <li>
-                  <NavigationMenuLink asChild>
-                    <a
-                      href="#pilot"
-                      onClick={handleNavClick}
-                      className="block rounded-md px-2 py-1 hover:bg-accent hover:text-accent-foreground transition-colors"
-                    >
-                      4-week pilots
-                    </a>
-                  </NavigationMenuLink>
-                </li>
-                <li>
-                  <NavigationMenuLink asChild>
-                    <a
-                      href="#builds"
-                      onClick={handleNavClick}
-                      className="block rounded-md px-2 py-1 hover:bg-accent hover:text-accent-foreground transition-colors"
-                    >
-                      pilot proposals
-                    </a>
-                  </NavigationMenuLink>
-                </li>
-                <li>
-                  <NavigationMenuLink asChild>
-                    <a
-                      href="#how"
-                      onClick={handleNavClick}
-                      className="block rounded-md px-2 py-1 hover:bg-accent hover:text-accent-foreground transition-colors"
-                    >
-                      recurring / saas
-                    </a>
-                  </NavigationMenuLink>
-                </li>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
+              <div className="space-y-1 pl-4 pt-2">
+                <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-2">
+                  Work
+                </div>
+                <a
+                  href="#pilot"
+                  onClick={handleNavClick}
+                  className={cn(
+                    "block rounded-md px-3 py-2 text-sm transition-colors",
+                    activeSection === "pilot"
+                      ? "text-primary bg-primary/10 font-medium"
+                      : "text-foreground hover:text-primary hover:bg-accent/50"
+                  )}
+                >
+                  4-week pilots
+                </a>
+                <a
+                  href="#builds"
+                  onClick={handleNavClick}
+                  className={cn(
+                    "block rounded-md px-3 py-2 text-sm transition-colors",
+                    activeSection === "builds"
+                      ? "text-primary bg-primary/10 font-medium"
+                      : "text-foreground hover:text-primary hover:bg-accent/50"
+                  )}
+                >
+                  Recent builds
+                </a>
+                <a
+                  href="#how"
+                  onClick={handleNavClick}
+                  className={cn(
+                    "block rounded-md px-3 py-2 text-sm transition-colors",
+                    activeSection === "how"
+                      ? "text-primary bg-primary/10 font-medium"
+                      : "text-foreground hover:text-primary hover:bg-accent/50"
+                  )}
+                >
+                  How it works
+                </a>
+              </div>
 
-          {/* About */}
-          <NavigationMenuItem>
-            <NavigationMenuLink asChild>
-              <a 
+              <a
                 href="#where"
                 onClick={handleNavClick}
                 className={cn(
-                  navLinkClass,
+                  "block rounded-md px-3 py-2 text-base font-medium font-itim lowercase transition-colors",
                   activeSection === "where"
-                    ? "text-primary scale-110"
-                    : "text-foreground hover:text-primary hover:scale-105"
+                    ? "text-primary bg-primary/10"
+                    : "text-foreground hover:text-primary hover:bg-accent/50"
                 )}
               >
                 about
               </a>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-        </NavigationMenuList>
 
-        <NavigationMenuIndicator />
-      </NavigationMenu>
-
-      {/* Squiggle underline */}
-      <svg
-        className="mt-1 w-full text-primary"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 977.2 18.2"
-      >
-        <path
-          className="squiggle"
-          fill="none"
-          stroke="currentColor"
-          strokeMiterlimit="10"
-          strokeLinecap="round"
-          strokeWidth="4"
-          d="M.8 5.6a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.4 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.4 0l6.1 7a13.6 13.6 0 0 0 20.4 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.4 0l6.1-7a13.6 13.6 0 0 1 20.4 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.4 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.4 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.4 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.4 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.4 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.4 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.4 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.4 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.4 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.4 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.4 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.4 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.4 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.4 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.4 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.4 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.4 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.4 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.4 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.4 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.4 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.4 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.4 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.4 0l6.2-7a13.6 13.6 0 0 1 20.3 0l6.2 7a13.6 13.6 0 0 0 20.3 0l6.2-7a13.6 13.6 0 0 1 20.4 0l6.2 7a13.6 13.6 0 0 0 20.3 0"
-        />
-      </svg>
-    </div>
+              <a
+                href="mailto:hello@altruisticxai.com"
+                className="mt-4 block rounded-full bg-primary px-4 py-2 text-center text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
+              >
+                Book 30-min Intro
+              </a>
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
   );
 }
