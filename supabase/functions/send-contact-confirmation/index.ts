@@ -93,34 +93,59 @@ const checkRateLimit = async (supabase: any, ipAddress: string): Promise<{ allow
 };
 
 const handler = async (req: Request): Promise<Response> => {
+  const requestId = crypto.randomUUID();
+  console.log(`[${requestId}] === NEW REQUEST ===`);
+  console.log(`[${requestId}] Method: ${req.method}`);
+  console.log(`[${requestId}] Timestamp: ${new Date().toISOString()}`);
+  
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
+    console.log(`[${requestId}] CORS preflight - returning 200`);
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
+    // Verify RESEND_API_KEY is configured
+    const resendKey = Deno.env.get("RESEND_API_KEY");
+    if (!resendKey) {
+      console.error(`[${requestId}] CRITICAL: RESEND_API_KEY not configured`);
+      throw new Error("Email service not configured");
+    }
+    console.log(`[${requestId}] RESEND_API_KEY found: ${resendKey.substring(0, 10)}...`);
+
     // Initialize Supabase client with service role for database operations
-    const supabase = createClient(
-      Deno.env.get("SUPABASE_URL") ?? "",
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
-    );
+    const supabaseUrl = Deno.env.get("SUPABASE_URL");
+    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    
+    if (!supabaseUrl || !supabaseKey) {
+      console.error(`[${requestId}] CRITICAL: Supabase credentials not configured`);
+      throw new Error("Database service not configured");
+    }
+    
+    console.log(`[${requestId}] Supabase URL: ${supabaseUrl}`);
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Get client IP for rate limiting
     const clientIP = getClientIP(req);
-    console.log("Request from IP:", clientIP);
+    console.log(`[${requestId}] Request from IP: ${clientIP}`);
 
     // Check rate limit
+    console.log(`[${requestId}] Checking rate limit...`);
     const rateLimitCheck = await checkRateLimit(supabase, clientIP);
     if (!rateLimitCheck.allowed) {
-      console.warn("Rate limit exceeded for IP:", clientIP);
+      console.warn(`[${requestId}] Rate limit exceeded for IP: ${clientIP}`);
       return new Response(
-        JSON.stringify({ error: rateLimitCheck.message }),
+        JSON.stringify({ 
+          error: rateLimitCheck.message,
+          requestId 
+        }),
         {
           status: 429,
           headers: { "Content-Type": "application/json", ...corsHeaders },
         }
       );
     }
+    console.log(`[${requestId}] Rate limit check passed`);
 
     // Parse and validate request
     const { submissionId }: ContactConfirmationRequest = await req.json();
@@ -211,7 +236,15 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    console.log("Email sent successfully:", emailResponse);
+    if (emailResponse.error) {
+      console.error(`[${requestId}] Resend API error:`, emailResponse.error);
+      throw new Error(`Email sending failed: ${JSON.stringify(emailResponse.error)}`);
+    }
+
+    console.log(`[${requestId}] Email sent successfully:`, {
+      id: emailResponse.data?.id,
+      to: submission.email,
+    });
 
     // Mark email as sent
     const { error: updateError } = await supabase
