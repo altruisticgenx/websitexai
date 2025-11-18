@@ -125,30 +125,6 @@ export type Database = {
         }
         Relationships: []
       }
-      faq_conversations: {
-        Row: {
-          created_at: string
-          id: string
-          messages: Json
-          session_id: string
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          messages?: Json
-          session_id: string
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          messages?: Json
-          session_id?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
       faqs: {
         Row: {
           active: boolean | null
