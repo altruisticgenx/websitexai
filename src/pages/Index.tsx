@@ -66,15 +66,23 @@ const faqs = [{
 
 // --- Main Page Component ---
 const Index = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => {
+    // Check if content was previously loaded
+    return !localStorage.getItem('contentLoaded');
+  });
 
-  // Simulate content loading
+  // Simulate content loading for first-time visitors
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1200);
+    const hasLoadedBefore = localStorage.getItem('contentLoaded');
+    
+    if (!hasLoadedBefore) {
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+        localStorage.setItem('contentLoaded', 'true');
+      }, 1200);
 
-    return () => clearTimeout(timer);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   // Setup keyboard navigation
