@@ -285,7 +285,9 @@ export default function Portfolio() {
             just consistent weekly progress.
           </p>
           <a
-            href="mailto:hello@altruisticxai.com?subject=Portfolio%20Inquiry"
+            href="https://scheduler.zoom.us/altruistic-xai"
+            target="_blank"
+            rel="noopener noreferrer"
             className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-emerald-400 px-6 py-3 text-sm font-medium text-slate-950 shadow-lg shadow-emerald-500/30 hover:bg-emerald-300 transition-colors"
           >
             Book a 30-min intro
