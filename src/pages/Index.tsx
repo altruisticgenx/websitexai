@@ -2,12 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { TestimonialsVariant, CaseStudiesStack } from "@/components/ui/animated-cards-stack";
-import { Linkedin } from "lucide-react";
-import { ShelvedExperiments } from "@/components/ShelvedExperiments";
-import { WhereIWork } from "@/components/WhereIWork";
-import { OrganizationTypes } from "@/components/OrganizationTypes";
-import { EngagementModels } from "@/components/EngagementModels";
-import { MobileMenu } from "@/components/MobileMenu";
+import { GraduationCap, Zap, Building2, AlertCircle } from "lucide-react";
 import { MobileHeader } from "@/components/MobileHeader";
 import { ContactForm } from "@/components/ContactForm";
 import { FAQAssistant } from "@/components/FAQAssistant";
@@ -22,757 +17,298 @@ import {
   HeroSkeleton, 
   CardsSkeleton, 
   StepsSkeleton, 
-  TwoColumnSkeleton, 
-  FAQSkeleton,
-  ContactSkeleton 
+  FAQSkeleton 
 } from "@/components/skeletons/SectionSkeleton";
 
-// --- Data Definitions ---
-const faqs = [{
-  question: "What do I get each week?",
-  answer: "One end-to-end deliverable: UI, workflow, integration, or refactor—shipped, not left half-finished."
-}, {
-  question: "Is AltruisticX familiar with my work?",
-  answer: "Yes. Projects span campus energy, EdTech, policy pilots, B2B and student initiatives, working with complex data and diverse teams."
-}, {
-  question: "How do we collaborate?",
-  answer: "Async-first: Loom, Notion, GitHub, Figma. Fast cycles. One quick call if needed—most progress comes from real builds."
-}, {
-  question: "Is there any long-term contract?",
-  answer: "None. Week-to-week, pause as needed. The repo and code are always yours."
-}];
+const lanes = [
+  {
+    label: "ENERGY",
+    title: "Energy Teams",
+    icon: Zap,
+    points: ["Campus & district energy teams", "Utility + local supplier partnerships", "Grants, decarb, and rate cases"]
+  },
+  {
+    label: "EDUCATION",
+    title: "Education Programs",
+    icon: GraduationCap,
+    points: ["Colleges & universities", "Capstone & workforce programs", "Grant-backed pilots"]
+  },
+  {
+    label: "CIVIC & POLICY",
+    title: "Civic Innovation",
+    icon: Building2,
+    points: ["Municipal innovation teams", "Policy labs & foundations", "AI + data for public good"]
+  }
+];
 
-// --- Main Page Component ---
+const pilotWeeks = [
+  { label: "WEEK 1", title: "Scope & First Build", points: ["We agree on 1 clear outcome.", "You get a rough but working version with sample or partial data."] },
+  { label: "WEEK 2", title: "Real Data & Workflow", points: ["Connect to one real system (CSV, API, or database).", "Your team can click through a basic end-to-end flow."] },
+  { label: "WEEK 3", title: "Feedback & Iteration", points: ["Short Loom updates, async comments.", "We refine the UI, copy, and logic based on real use."] },
+  { label: "WEEK 4", title: "Handoff & Next Steps", points: ["Repo, docs, and pilot summary.", "2–3 options for where to take it next (internal, vendor, or second pilot)."] }
+];
+
+const faqs = [
+  { question: "What do I actually get each week?", answer: "A clear, concrete deliverable: UI screens, working flows, integrations, or refactors. We agree on a small weekly scope and ship it end-to-end instead of spreading effort across ten half-finished ideas." },
+  { question: "Do you understand energy, education, or civic work?", answer: "Yes. Most of my work lives across campus energy analytics, education pilots, and local policy/innovation projects. I'm comfortable working with imperfect data, political constraints, and lots of stakeholders." },
+  { question: "How do we collaborate day-to-day?", answer: "Async-first. Looms, Notion, Figma, GitHub. We use one lightweight weekly call if needed, but most progress comes from clear briefs and fast iteration on real artifacts." },
+  { question: "Is there a long-term contract?", answer: "No. This is intentionally week-to-week. The 4-week pilot gives enough time to ship something real without locking you into a long commitment. You can pause when you're caught up." }
+];
+
 const Index = () => {
-  const [isLoading, setIsLoading] = useState(() => {
-    // Check if content was previously loaded
-    return !localStorage.getItem('contentLoaded');
-  });
+  const [isLoading, setIsLoading] = useState(() => !localStorage.getItem('contentLoaded'));
 
-  // Simulate content loading for first-time visitors
   useEffect(() => {
-    const hasLoadedBefore = localStorage.getItem('contentLoaded');
-    
-    if (!hasLoadedBefore) {
+    if (!localStorage.getItem('contentLoaded')) {
       const timer = setTimeout(() => {
         setIsLoading(false);
         localStorage.setItem('contentLoaded', 'true');
       }, 1200);
-
       return () => clearTimeout(timer);
     }
   }, []);
 
-  // Setup keyboard navigation
   useKeyboardNavigation([
-    { key: "1", sectionId: "builds", name: "Builds" },
-    { key: "2", sectionId: "how", name: "How it Works" },
-    { key: "3", sectionId: "pilot", name: "4-Week Pilot" },
-    { key: "4", sectionId: "benefits", name: "Who Benefits" },
-    { key: "5", sectionId: "org-types", name: "Organization Types" },
-    { key: "6", sectionId: "where", name: "Where I Work" },
-    { key: "7", sectionId: "shelved", name: "Shelved Experiments" },
-    { key: "8", sectionId: "testimonials", name: "Testimonials" },
-    { key: "9", sectionId: "faq", name: "FAQ" },
+    { key: "1", sectionId: "who", name: "Who I Build For" },
+    { key: "2", sectionId: "timeline", name: "4-Week Timeline" },
+    { key: "3", sectionId: "lab", name: "Live Pilot Lab" },
+    { key: "4", sectionId: "proof", name: "Proof & Trust" },
+    { key: "5", sectionId: "faq", name: "FAQ" },
   ]);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
-      {/* Sticky Mobile Header */}
       <MobileHeader />
-      
-      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 sm:px-6 lg:px-8 pt-[60px] md:pt-0">
+      <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-4 sm:px-6 lg:px-8 pt-[60px] md:pt-0">
         <SiteHeader />
         <main className="flex-1">
           {isLoading ? (
-            <div className="animate-pulse">
-              <HeroSkeleton />
-              <CardsSkeleton />
-              <StepsSkeleton />
-              <TwoColumnSkeleton />
-              <StepsSkeleton count={2} />
-              <CardsSkeleton count={3} />
-              <FAQSkeleton />
-              <ContactSkeleton />
-            </div>
+            <div className="animate-pulse"><HeroSkeleton /><CardsSkeleton /><StepsSkeleton /><CardsSkeleton count={3} /><FAQSkeleton /></div>
           ) : (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Hero />
-              <RecentBuilds />
-              <EngagementModels />
-              <HowItWorks />
-              <PilotOffer />
-              <WhoBenefits />
-              <OrganizationTypes />
-              <WhereIWork />
-              <ShelvedExperiments />
-              <div id="testimonials">
-                <TestimonialsVariant />
-              </div>
-              <FAQSection />
-              <ContactSection />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+              <Hero /><WhoIBuildFor /><PilotTimeline /><LivePilotLab /><ProofAndTrust /><FAQAndCTA />
             </motion.div>
           )}
         </main>
         <SiteFooter />
       </div>
-      <Toaster />
-      <ScrollToTop />
-      <KeyboardShortcutsHelp />
+      <Toaster /><ScrollToTop /><KeyboardShortcutsHelp />
     </div>
   );
 };
 export default Index;
 
-// --- Sub-Components ---
-
 function SiteHeader() {
-  const activeSection = useActiveSection(["builds", "how", "pilot", "contact"]);
-  
+  const activeSection = useActiveSection(["who", "timeline", "lab", "proof"]);
   return (
-    <motion.header 
-      initial={{ opacity: 0, y: -20 }} 
-      animate={{ opacity: 1, y: 0 }} 
-      transition={{ duration: 0.5 }} 
-      className="hidden md:flex items-center justify-between py-5"
-    >
-      <a href="#" className="flex flex-col" onClick={(e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }}>
-        <span className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
-          AltruisticX AI
-        </span>
-        <span className="text-xs text-slate-400">
-          AI + Product Engineering · Weekly Sprints
-        </span>
+    <motion.header initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="hidden md:flex items-center justify-between py-5">
+      <a href="#" className="flex flex-col" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+        <span className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">AltruisticX AI</span>
+        <span className="text-xs text-slate-400">AI + Product Engineering · Weekly Sprints</span>
       </a>
       <nav className="flex items-center gap-6 text-sm text-slate-300">
-        <a 
-          href="#builds" 
-          className={cn(
-            "relative hover:text-primary transition-colors",
-            activeSection === "builds" && "text-primary after:absolute after:w-full after:h-0.5 after:bg-primary after:bottom-[-8px] after:left-0"
-          )}
-        >
-          Builds
-        </a>
-        <Link to="/portfolio" className="hover:text-primary transition-colors">
-          Portfolio
-        </Link>
-        <a 
-          href="#how" 
-          className={cn(
-            "relative hover:text-primary transition-colors",
-            activeSection === "how" && "text-primary after:absolute after:w-full after:h-0.5 after:bg-primary after:bottom-[-8px] after:left-0"
-          )}
-        >
-          How it works
-        </a>
-        <a 
-          href="#pilot" 
-          className={cn(
-            "relative hover:text-primary transition-colors",
-            activeSection === "pilot" && "text-primary after:absolute after:w-full after:h-0.5 after:bg-primary after:bottom-[-8px] after:left-0"
-          )}
-        >
-          4-week pilot
-        </a>
-        <a 
-          href="https://scheduler.zoom.us/altruistic-xai" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="rounded-full border border-primary/60 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/20 transition-colors"
-        >
-          Book a 30-min intro
-        </a>
+        <a href="#who" className={cn("relative hover:text-primary transition-colors", activeSection === "who" && "text-primary after:absolute after:w-full after:h-0.5 after:bg-primary after:bottom-[-8px] after:left-0")}>Who I Build For</a>
+        <Link to="/portfolio" className="hover:text-primary transition-colors">Portfolio</Link>
+        <a href="#timeline" className={cn("relative hover:text-primary transition-colors", activeSection === "timeline" && "text-primary after:absolute after:w-full after:h-0.5 after:bg-primary after:bottom-[-8px] after:left-0")}>How it works</a>
+        <a href="#lab" className={cn("relative hover:text-primary transition-colors", activeSection === "lab" && "text-primary after:absolute after:w-full after:h-0.5 after:bg-primary after:bottom-[-8px] after:left-0")}>Pilot Lab</a>
+        <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" className="rounded-full border border-primary/60 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/20 transition-colors">Book a Pilot Call</a>
       </nav>
     </motion.header>
   );
 }
 
 function Hero() {
-  return <section className="py-10 sm:py-14">
+  return (
+    <section className="py-10 sm:py-14">
       <div className="grid gap-10 md:grid-cols-[minmax(0,1.4fr),minmax(0,1fr)] md:items-center">
-        <motion.div initial={{
-        opacity: 0,
-        x: -30
-      }} animate={{
-        opacity: 1,
-        x: 0
-      }} transition={{
-        duration: 0.6,
-        delay: 0.2
-      }}>
+        <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-[11px] font-medium text-foreground">
-            <span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-            Ship pilot-ready AI tech in weekly sprints
+            <span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />Live AI Pilot Lab · 4-Week Sprints
           </div>
-
-          <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
-            Build, Learn, Lead—on Your Terms
-          </h1>
-
-          <p className="mt-4 max-w-xl text-sm text-slate-300 sm:text-base">
-            Are you a student, teacher, founder, B2B team, or changemaker in energy, education, or governance? 
-            Skip the slow hiring process and unlock <span className="text-primary font-medium">senior AI/product execution</span>—in focused pilots, shipped week by week.
-          </p>
-
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">Ship Pilot-Ready AI Products in 4 Weeks</h1>
+          <p className="mt-4 max-w-xl text-sm text-slate-300 sm:text-base leading-relaxed">For energy, education, and civic teams who want working software—not another strategy deck. One senior product engineer, one 4-week pilot, zero long-term contract.</p>
+          
           <dl className="mt-6 grid max-w-xl grid-cols-1 gap-4 text-xs text-slate-200 sm:grid-cols-3 sm:text-sm">
-            <motion.div initial={{
-            opacity: 0,
-            y: 20
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }} transition={{
-            delay: 0.4
-          }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors">
-              <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
-                Work hands-on
-              </dt>
-              <dd className="mt-1 font-medium text-slate-50">
-                Build with real tools and ship working prototypes.
-              </dd>
-            </motion.div>
-            <motion.div initial={{
-            opacity: 0,
-            y: 20
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }} transition={{
-            delay: 0.5
-          }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors">
-              <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
-                Launch actionable tools
-              </dt>
-              <dd className="mt-1 font-medium text-slate-50">
-                Deploy features users can actually test and use.
-              </dd>
-            </motion.div>
-            <motion.div initial={{
-            opacity: 0,
-            y: 20
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }} transition={{
-            delay: 0.6
-          }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors">
-              <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">
-                Start small, deliver early
-              </dt>
-              <dd className="mt-1 font-medium text-slate-50">
-                First meaningful code in Week 1, ready to demo.
-              </dd>
-            </motion.div>
+            {[
+              { delay: 0.4, title: "Start fast", desc: "First usable version shipped in Week 1" },
+              { delay: 0.5, title: "Clear outcomes", desc: "Clear pilot scope, demo, and handoff by Week 4" },
+              { delay: 0.6, title: "Zero long-term risk", desc: "Pause anytime, keep your repo, docs, and assets" }
+            ].map((item) => (
+              <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: item.delay }} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-3 hover:border-primary/30 transition-colors">
+                <dt className="text-[11px] uppercase tracking-[0.16em] text-slate-400">{item.title}</dt>
+                <dd className="mt-1 font-medium text-slate-50">{item.desc}</dd>
+              </motion.div>
+            ))}
           </dl>
-
-          <div className="mt-6 flex flex-col gap-3 text-sm">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-              
-              <a href="https://www.linkedin.com/in/ik11" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/60 bg-primary/10 px-5 py-2.5 text-sm font-medium text-primary hover:bg-primary/20 transition-colors">
-                <Linkedin size={16} />
-                Connect on LinkedIn
-              </a>
-            </div>
-            
+          
+          <div className="mt-6 flex flex-col gap-3 text-sm sm:flex-row sm:items-center">
+            <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-slate-950 shadow-lg shadow-primary/30 hover:bg-primary/90 transition-colors w-full sm:w-auto">Book a Pilot Call</a>
+            <p className="text-xs text-slate-400 sm:text-[13px]">Week-to-week · pause anytime · async-first, founder-friendly</p>
           </div>
         </motion.div>
-
-        <motion.div initial={{
-        opacity: 0,
-        x: 30
-      }} animate={{
-        opacity: 1,
-        x: 0
-      }} transition={{
-        duration: 0.6,
-        delay: 0.3
-      }} className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-4 sm:p-5">
-          <div className="text-xs font-mono text-slate-400">
-            Build Fast Kit / 4-week pilot
-          </div>
-          <p className="mt-2 text-sm text-slate-200">
-            One senior engineer. One small backlog. 4 weeks to prove whether
-            this pilot is worth scaling.
-          </p>
+        
+        <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.3 }} className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-4 sm:p-5">
+          <div className="text-xs font-mono text-slate-400">Build Fast Kit / 4-week pilot</div>
+          <p className="mt-2 text-sm text-slate-200 leading-relaxed">One senior engineer. One small backlog. 4 weeks to prove whether this pilot is worth scaling.</p>
           <div className="mt-4 grid gap-3 text-xs text-slate-200">
-            <VisualRow label="Week 1" title="Clarify & ship the first slice" body="Turn the idea into 1–2 concrete flows. Ship a working skeleton instead of a deck." />
-            <VisualRow label="Week 2–3" title="Tighten the flows" body="Integrate data, refine UX, and make it demo-able to internal stakeholders." />
-            <VisualRow label="Week 4" title="Decide with evidence" body="You walk away with a working repo, a clear walkthrough, and a decision: scale, pivot, or park." />
+            {[
+              { week: "Week 1", title: "Clarify & ship the first slice", desc: "Turn the idea into 1–2 concrete flows. Ship a working skeleton instead of a deck." },
+              { week: "Week 2–3", title: "Tighten the flows", desc: "Integrate data, refine UX, and make it demo-able to internal stakeholders." },
+              { week: "Week 4", title: "Decide with evidence", desc: "You walk away with a working repo, a clear walkthrough, and a decision: scale, pivot, or park." }
+            ].map((item) => (
+              <div key={item.week} className="flex gap-3 rounded-2xl border border-slate-800/80 bg-slate-950/40 p-3">
+                <div className="mt-0.5 w-14 flex-shrink-0 text-[11px] font-mono uppercase tracking-[0.16em] text-primary">{item.week}</div>
+                <div><div className="text-[13px] font-medium text-slate-50">{item.title}</div><div className="mt-1 text-[12px] text-slate-300">{item.desc}</div></div>
+              </div>
+            ))}
           </div>
         </motion.div>
       </div>
-    </section>;
+    </section>
+  );
 }
-function VisualRow({
-  label,
-  title,
-  body
-}: {
-  label: string;
-  title: string;
-  body: string;
-}) {
-  return <div className="flex gap-3 rounded-2xl border border-slate-800/80 bg-slate-950/40 p-3 hover:border-primary/20 transition-colors">
-      <div className="mt-0.5 w-14 flex-shrink-0 text-[11px] font-mono uppercase tracking-[0.16em] text-primary">
-        {label}
+
+function WhoIBuildFor() {
+  return (
+    <section id="who" className="border-t border-slate-900/80 py-10 sm:py-14">
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="max-w-4xl">
+        <h2 className="text-xl font-semibold sm:text-2xl">Who I Build For</h2>
+        <p className="mt-2 text-sm text-slate-300">Three lanes where I've done my best work—and where I can help you ship pilots fast.</p>
+      </motion.div>
+      <div className="mt-6 grid gap-4 sm:grid-cols-3">
+        {lanes.map((lane, index) => {
+          const Icon = lane.icon;
+          return (
+            <motion.div key={lane.label} initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.1 }} className="rounded-2xl border border-slate-800/70 bg-slate-900/60 p-5 hover:border-primary/30 hover:-translate-y-1 transition-all">
+              <Icon className="h-8 w-8 mx-auto mb-3 text-primary" />
+              <div className="text-xs font-semibold uppercase tracking-wide text-primary text-center">{lane.label}</div>
+              <h3 className="mt-2 text-sm font-medium text-slate-50 text-center">{lane.title}</h3>
+              <ul className="mt-3 space-y-1 text-xs text-slate-300">{lane.points.map((point) => <li key={point}>• {point}</li>)}</ul>
+            </motion.div>
+          );
+        })}
       </div>
-      <div>
-        <div className="text-[13px] font-medium text-slate-50">{title}</div>
-        <div className="mt-1 text-[12px] text-slate-300">{body}</div>
-      </div>
-    </div>;
+    </section>
+  );
 }
-function RecentBuilds() {
-  const [projects, setProjects] = useState<Array<{
-    id: string;
-    title: string;
-    sector: string;
-    summary: string;
-    tag: string;
-  }>>([]);
-  const [isLoadingProjects, setIsLoadingProjects] = useState(true);
+
+function PilotTimeline() {
+  return (
+    <section id="timeline" className="border-t border-slate-900/80 py-10 sm:py-14">
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="max-w-4xl">
+        <p className="text-xs font-semibold uppercase tracking-wide text-primary">How the 4-week pilot works</p>
+        <h2 className="mt-2 text-xl font-semibold sm:text-2xl md:text-3xl">One month from idea to demo-ready pilot</h2>
+      </motion.div>
+      <div className="mt-8 space-y-4">
+        {pilotWeeks.map((week, index) => (
+          <motion.div key={week.label} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.1 }} className="flex flex-col gap-3 rounded-2xl border border-slate-800/70 bg-slate-900/60 p-4 md:flex-row md:items-start hover:border-primary/30 transition-colors">
+            <div className="md:w-32 shrink-0"><div className="text-xs font-semibold uppercase tracking-wide text-slate-400">{week.label}</div><div className="text-sm font-medium text-slate-50">{week.title}</div></div>
+            <ul className="space-y-1 text-sm text-slate-300">{week.points.map((point) => <li key={point}>• {point}</li>)}</ul>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function LivePilotLab() {
+  const [projects, setProjects] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        setIsLoadingProjects(true);
-        const { data, error: fetchError } = await supabase
-          .from('projects')
-          .select('slug, title, sector, summary, tag')
-          .eq('featured', true)
-          .order('display_order', { ascending: true });
-
-        if (fetchError) throw fetchError;
-
-        // Transform database data to match component expectations
-        const formattedProjects = (data || []).map(project => ({
-          id: project.slug,
-          title: project.title,
-          sector: project.sector,
-          summary: project.summary,
-          tag: project.tag || '',
-        }));
-
-        setProjects(formattedProjects);
-        setError(null);
+        const { data, error } = await supabase.from('projects').select('*').eq('featured', true).order('display_order', { ascending: true });
+        if (error) throw error;
+        setProjects(data || []);
       } catch (err) {
-        console.error('Error fetching projects:', err);
-        setError('Failed to load projects');
+        setError('Failed to load pilot projects');
       } finally {
-        setIsLoadingProjects(false);
+        setLoading(false);
       }
     };
-
     fetchProjects();
   }, []);
 
   return (
-    <section id="builds" className="py-10 sm:py-14">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }} 
-        whileInView={{ opacity: 1, y: 0 }} 
-        viewport={{ once: true }} 
-        transition={{ duration: 0.5 }} 
-        className="flex items-end justify-between gap-4"
-      >
-        <div>
-          <h2 className="text-xl font-semibold sm:text-2xl">
-            Proof: Recent builds & pilots
-          </h2>
-          <p className="mt-2 max-w-xl text-sm text-slate-300">
-            Real examples from energy, education, and founder-backed work. The
-            details change, but the pattern is the same: pick a small surface
-            area and ship something real.
-          </p>
-        </div>
+    <section id="lab" className="border-t border-slate-900/80 py-10 sm:py-14">
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="max-w-4xl">
+        <p className="text-xs font-semibold uppercase tracking-wide text-primary">Live AI Pilot Lab</p>
+        <h2 className="mt-2 text-xl font-semibold sm:text-2xl">Not a portfolio. A lab notebook.</h2>
+        <p className="mt-2 text-sm text-slate-400">Real experiments in energy, education, and civic tech—including the ones that didn't ship.</p>
       </motion.div>
-
-      {isLoadingProjects ? (
-        <div className="mt-10">
-          <CardsSkeleton />
-        </div>
-      ) : error ? (
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mt-10 rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center"
-        >
-          <p className="text-sm text-red-300">{error}</p>
-          <button 
-            onClick={() => window.location.reload()} 
-            className="mt-3 text-xs text-red-400 hover:text-red-300 underline"
-          >
-            Try again
-          </button>
-        </motion.div>
-      ) : projects.length === 0 ? (
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mt-10 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center"
-        >
-          <p className="text-sm text-slate-400">No projects available yet. Check back soon!</p>
-        </motion.div>
-      ) : (
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-10"
-        >
-          <CaseStudiesStack caseStudies={projects} />
-        </motion.div>
-      )}
+      {loading ? <div className="mt-8"><CardsSkeleton count={4} /></div> : error ? <div className="mt-8 rounded-2xl border border-red-500/30 bg-red-500/5 p-6 text-center"><AlertCircle className="mx-auto h-8 w-8 text-red-400" /><p className="mt-2 text-sm text-red-300">{error}</p></div> : <div className="mt-8"><CaseStudiesStack projects={projects} /></div>}
     </section>
   );
 }
-function HowItWorks() {
-  const steps = [{
-    label: "Week 1",
-    title: "Pinpoint & Prototype",
-    body: "Share your challenge or goal—class doc, campus brief, stakeholder repo, student idea. Get a working skeleton in days."
-  }, {
-    label: "Weeks 2–3",
-    title: "Refine & Connect",
-    body: "Iterate with live feedback: data flows, interfaces, reporting. See your concept demo-ready for internal pilots, classes, or team reviews."
-  }, {
-    label: "Week 4",
-    title: "Decide with Clarity",
-    body: "Wrap with a real repo, guided walkthrough, and a clear decision: scale, pivot, or pause. Your code, data, and documentation are always yours."
-  }];
-  return <section id="how" className="border-t border-slate-900/80 py-10 sm:py-14">
-      <motion.div initial={{
-      opacity: 0,
-      y: 20
-    }} whileInView={{
-      opacity: 1,
-      y: 0
-    }} viewport={{
-      once: true
-    }} transition={{
-      duration: 0.5
-    }} className="max-w-4xl">
-        <h2 className="text-xl font-semibold sm:text-2xl">
-          How Our Experimental Pilot Works
-        </h2>
-        <p className="mt-2 text-sm text-slate-300">
-          <span className="text-primary font-medium">The Build Fast Kit: 4 weeks. 3 steps.</span> Intentionally simple. 
-          No massive discovery phase, no 40-page decks. Just a tight loop around one meaningful pilot.
-        </p>
-      </motion.div>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-3">
-        {steps.map((step, index) => <motion.div key={step.label} initial={{
-        opacity: 0,
-        y: 20
-      }} whileInView={{
-        opacity: 1,
-        y: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.5,
-        delay: index * 0.1
-      }} className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-4 text-sm hover:border-primary/30 transition-colors">
-            <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-primary">
-              {step.label}
-            </div>
-            <h3 className="mt-2 text-sm font-semibold text-slate-50">
-              {step.title}
-            </h3>
-            <p className="mt-2 text-[13px] text-slate-300">{step.body}</p>
-          </motion.div>)}
-      </div>
-    </section>;
-}
-function PilotOffer() {
-  return <section id="pilot" className="border-t border-slate-900/80 py-10 sm:py-14">
-      <div className="grid gap-8 md:grid-cols-[minmax(0,1.3fr),minmax(0,1fr)] md:items-center">
-        <motion.div initial={{
-        opacity: 0,
-        x: -30
-      }} whileInView={{
-        opacity: 1,
-        x: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.6
-      }}>
-          <h2 className="text-xl font-semibold sm:text-2xl">
-            Offer: Try a 4-Week Sprint
-          </h2>
-          <p className="mt-2 text-sm text-slate-300">
-            Pilot-ready features every week, demoable anywhere. Async collaboration using Loom, Notion, GitHub, Figma—whatever 
-            works for your team, classroom, or org. Zero lock-in: All repos, infra, and docs belong to you.
-          </p>
-
-          <ul className="mt-4 space-y-2 text-sm text-slate-200">
-            <li className="flex items-start gap-2">
-              <span className="text-primary mt-0.5">✓</span>
-              Pilot-ready features every week, demoable anywhere
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary mt-0.5">✓</span>
-              Async collaboration: Use Loom, Notion, GitHub, Figma—whatever works for your team, classroom, or org
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary mt-0.5">✓</span>
-              Zero lock-in: All repos, infra, and docs belong to you
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary mt-0.5">✓</span>
-              Perfect for fast validation, fundraising, leadership proof, classroom projects
-            </li>
-          </ul>
-          
-          <div className="mt-6 rounded-2xl border border-primary/30 bg-primary/5 p-4">
-            <h3 className="text-sm font-semibold text-primary">Why experiment?</h3>
-            <p className="mt-2 text-sm text-slate-300">
-              Recruiting takes months, costs six figures, and adds complexity. Pilots deliver results now, 
-              helping you move forward—whatever your goals.
-            </p>
-          </div>
-
-          <div className="mt-6">
-            <div className="text-xs uppercase tracking-[0.18em] text-slate-400">
-              For comparison
-            </div>
-            <p className="mt-1 max-w-xs text-xs text-slate-400">
-              Hiring in-house can take 3–6 months, $100k–$150k salary, plus
-              30–40% in overhead—with no guarantee they can move quickly on a
-              messy pilot.
-            </p>
-          </div>
-
-          <div className="mt-6">
-            <p className="text-xs text-slate-400 sm:text-[13px]">
-              Send a quick Loom or doc about your project. If it's a fit, we
-              can start shipping next week.
-            </p>
-          </div>
-        </motion.div>
-
-        <motion.div initial={{
-        opacity: 0,
-        x: 30
-      }} whileInView={{
-        opacity: 1,
-        x: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.6
-      }} className="rounded-3xl border border-slate-800/80 bg-slate-950/60 p-4 text-xs text-slate-200 sm:p-5">
-          <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-400">
-            Good fit
-          </div>
-          <ul className="mt-2 space-y-1">
-            <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
-              Early-stage product with unclear edges.
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
-              Energy, education, civic, or compliance work.
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
-              Need to show progress to leadership or funders.
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary">✓</span>
-              Comfortable with async, fast iteration.
-            </li>
-          </ul>
-
-          <div className="mt-5 text-[11px] font-mono uppercase tracking-[0.18em] text-slate-400">
-            Not a fit
-          </div>
-          <ul className="mt-2 space-y-1 text-slate-400">
-            <li className="flex items-start gap-2">
-              <span>✕</span>
-              You want a big team and a huge scope from day one.
-            </li>
-            <li className="flex items-start gap-2">
-              <span>✕</span>
-              You aren't ready to give real feedback weekly.
-            </li>
-            <li className="flex items-start gap-2">
-              <span>✕</span>
-              You just need a static marketing site or brochure.
-            </li>
-          </ul>
-        </motion.div>
-      </div>
-    </section>;
-}
-function WhoBenefits() {
-  const audiences = ["Students bringing new ideas to life", "Teachers or nonprofits piloting campus or impact projects", "Board and governance teams seeking data clarity", "Solo founders wanting operational peace of mind", "B2B units innovating under fast timelines"];
-  return <section id="benefits" className="border-t border-slate-900/80 py-10 sm:py-14">
-      <motion.div initial={{
-      opacity: 0,
-      y: 20
-    }} whileInView={{
-      opacity: 1,
-      y: 0
-    }} viewport={{
-      once: true
-    }} transition={{
-      duration: 0.5
-    }} className="max-w-4xl">
-        <h2 className="text-xl font-semibold sm:text-2xl">
-          Who Benefits?
-        </h2>
-        <p className="mt-2 text-sm text-slate-300">
-          This approach works for anyone who needs tangible progress without the overhead of traditional hiring.
-        </p>
-      </motion.div>
-
-      <div className="mt-6 grid gap-6 md:grid-cols-2">
-        <motion.div initial={{
-        opacity: 0,
-        x: -20
-      }} whileInView={{
-        opacity: 1,
-        x: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.5,
-        delay: 0.1
-      }} className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-5">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
-            Perfect For
-          </h3>
-          <ul className="mt-3 space-y-2 text-sm text-slate-200">
-            {audiences.map((audience, i) => <li key={i} className="flex items-start gap-2">
-                <span className="text-primary mt-0.5">✓</span>
-                {audience}
-              </li>)}
-          </ul>
-        </motion.div>
-
-        <motion.div initial={{
-        opacity: 0,
-        x: 20
-      }} whileInView={{
-        opacity: 1,
-        x: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.5,
-        delay: 0.2
-      }} className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-5">
-          <div className="mb-4">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
-              Ideal Fit
-            </h3>
-            <p className="mt-2 text-sm text-slate-200">
-              Real feedback weekly, ready to experiment, need clear results
-            </p>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">
-              Not a Fit
-            </h3>
-            <p className="mt-2 text-sm text-slate-400">
-              Big static sites, slow-moving teams, no feedback or iteration
-            </p>
-          </div>
-        </motion.div>
-      </div>
-    </section>;
-}
-function FAQSection() {
+function ProofAndTrust() {
   return (
-    <section id="faq" className="border-t border-slate-900/80 py-8 sm:py-12">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }} 
-        whileInView={{ opacity: 1, y: 0 }} 
-        viewport={{ once: true }} 
-        transition={{ duration: 0.5 }} 
-        className="max-w-4xl mb-6"
-      >
-        <h2 className="text-lg sm:text-xl font-semibold">
-          FAQs & AI Assistant
-        </h2>
-        <p className="mt-2 text-xs sm:text-sm text-slate-300">
-          Get quick answers to common questions or ask our AI assistant about submissions and services.
-        </p>
+    <section id="proof" className="border-t border-slate-900/80 py-10 sm:py-14">
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="max-w-4xl">
+        <h2 className="text-xl font-semibold sm:text-2xl">Proof & Trust</h2>
+        <p className="mt-2 text-sm text-slate-300">Real outcomes from real pilots—no embellishment, no aspirational metrics.</p>
       </motion.div>
+      <div className="mt-8 grid gap-8 md:grid-cols-[minmax(0,1.2fr),minmax(0,1fr)] md:items-start">
+        <div><TestimonialsVariant /></div>
+        <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }} className="rounded-2xl border border-slate-800/70 bg-slate-900/60 p-6">
+          <h3 className="text-sm font-semibold uppercase tracking-wide text-primary">Outcomes from recent pilots</h3>
+          <ul className="mt-4 space-y-3 text-sm text-slate-200">
+            {["$180k in hidden savings uncovered across 200+ campus sites", "6-week prototype to production deployment", "4+ hours saved weekly on manual admin tasks", "Board approval secured in 3 weeks with working demo"].map((outcome) => (
+              <li key={outcome} className="flex items-start gap-2"><span className="text-primary">✓</span><span>{outcome}</span></li>
+            ))}
+          </ul>
+          <div className="mt-6 border-t border-slate-800/70 pt-6">
+            <p className="text-xs uppercase tracking-wide text-slate-400">Good fit</p>
+            <ul className="mt-2 space-y-1 text-xs text-slate-300">
+              {["Early-stage product with unclear edges", "Energy, education, civic, or compliance work", "Need to show progress to leadership or funders", "Comfortable with async, fast iteration"].map((fit) => <li key={fit}>✓ {fit}</li>)}
+            </ul>
+            <p className="mt-4 text-xs uppercase tracking-wide text-slate-400">Not a fit</p>
+            <ul className="mt-2 space-y-1 text-xs text-slate-400">
+              {["You want a big team and huge scope from day one", "You aren't ready to give real feedback weekly", "You just need a static marketing site or brochure"].map((notFit) => <li key={notFit}>✕ {notFit}</li>)}
+            </ul>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
 
-      {/* AI Assistant */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }} 
-        whileInView={{ opacity: 1, y: 0 }} 
-        viewport={{ once: true }} 
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="mb-6"
-      >
-        <FAQAssistant />
+function FAQAndCTA() {
+  return (
+    <section id="faq" className="border-t border-slate-900/80 py-10 sm:py-14">
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="max-w-4xl">
+        <h2 className="text-xl font-semibold sm:text-2xl">FAQs: Reduce confusion, pre-answer objections</h2>
+        <p className="mt-2 text-sm text-slate-300">The short version: we work like a calm, senior teammate who happens to be on a weekly subscription instead of payroll.</p>
       </motion.div>
-
-      {/* FAQ Items - Compact Grid Layout */}
-      <dl className="grid gap-3 sm:gap-4 sm:grid-cols-2">
+      <div className="mt-6"><FAQAssistant /></div>
+      <dl className="mt-6 space-y-4">
         {faqs.map((item, index) => (
-          <motion.div 
-            key={item.question} 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.05 }}
-            className="rounded-xl border border-slate-800/80 bg-slate-950/60 p-3 sm:p-4 hover:border-primary/30 transition-colors"
-          >
-            <dt className="text-xs sm:text-sm font-medium text-slate-50 leading-tight">
-              {item.question}
-            </dt>
-            <dd className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
-              {item.answer}
-            </dd>
+          <motion.div key={item.question} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: index * 0.1 }} className="rounded-2xl border border-slate-800/80 bg-slate-950/60 p-4">
+            <dt className="text-sm font-medium text-slate-50">{item.question}</dt>
+            <dd className="mt-2 text-sm text-slate-300">{item.answer}</dd>
           </motion.div>
         ))}
       </dl>
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3 }} className="mt-12 rounded-3xl border border-primary/30 bg-primary/5 p-8 text-center">
+        <h3 className="text-xl font-semibold text-slate-50">Ready to ship your pilot?</h3>
+        <p className="mt-2 text-sm text-slate-300 max-w-2xl mx-auto">Book a 30-minute intro call. We'll map your pilot scope and decide if this is a fit.</p>
+        <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-medium text-slate-950 hover:bg-primary/90 transition-colors shadow-lg shadow-primary/30">Book a Pilot Call</a>
+        <p className="mt-3 text-xs text-slate-400">Week-to-week · pause anytime · no long-term contract</p>
+      </motion.div>
+      <div className="mt-12"><ContactForm /></div>
     </section>
   );
 }
 
-function ContactSection() {
-  return <section id="contact" className="border-t border-slate-900/80 py-10 sm:py-14">
-      <motion.div initial={{
-      opacity: 0,
-      y: 20
-    }} whileInView={{
-      opacity: 1,
-      y: 0
-    }} viewport={{
-      once: true
-    }} transition={{
-      duration: 0.5
-    }} className="max-w-2xl mx-auto">
-        <ContactForm />
-      </motion.div>
-    </section>;
-}
-
 function SiteFooter() {
-  return <footer className="border-t border-slate-900/80 py-6">
+  return (
+    <footer className="border-t border-slate-900/80 py-6">
       <div className="flex flex-col items-start justify-between gap-3 text-xs text-slate-500 sm:flex-row sm:items-center">
         <div>© {new Date().getFullYear()} AltruisticX · AI + Product Engineer</div>
-        <div className="flex flex-wrap gap-3">
-          <span>Async-first · privacy-aware · built for pilots, classrooms, and fast-moving teams</span>
-        </div>
+        <div className="flex flex-wrap gap-3"><span>Async-first · privacy-aware · pilot-focused</span></div>
       </div>
-    </footer>;
+    </footer>
+  );
 }
