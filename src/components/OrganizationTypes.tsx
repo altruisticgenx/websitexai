@@ -1,8 +1,14 @@
-import React from "react";
+import { memo } from "react";
 import { motion } from "framer-motion";
-import { GraduationCap, Zap, Building2, Rocket } from "lucide-react";
+import { GraduationCap, Zap, Building2, Rocket, LucideIcon } from "lucide-react";
 
-const orgTypes = [
+interface OrgType {
+  icon: LucideIcon;
+  name: string;
+  color: string;
+}
+
+const orgTypes: OrgType[] = [
   {
     icon: GraduationCap,
     name: "Higher Ed Campuses",
@@ -23,9 +29,9 @@ const orgTypes = [
     name: "Impact Startups (1–50 people)",
     color: "text-accent"
   }
-];
+] as const;
 
-export function OrganizationTypes() {
+export const OrganizationTypes = memo(() => {
   return (
     <section id="org-types" className="py-10 sm:py-14">
       <motion.div
@@ -38,7 +44,7 @@ export function OrganizationTypes() {
         <h2 className="text-xl font-semibold sm:text-2xl">
           Organization Types
         </h2>
-        <p className="mt-2 text-sm text-slate-300">
+        <p className="mt-2 text-sm text-muted-foreground">
           The kinds of teams and organizations I work with most often.
         </p>
       </motion.div>
@@ -60,7 +66,7 @@ export function OrganizationTypes() {
                 boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.25)",
                 borderColor: "hsl(var(--primary) / 0.5)"
               }}
-              className="group rounded-2xl border border-slate-800/70 bg-gradient-to-br from-slate-900/60 to-slate-900/30 p-5 text-center transition-all duration-300 cursor-default"
+              className="group rounded-2xl border border-border bg-gradient-to-br from-card/60 to-card/30 p-5 text-center transition-all duration-300 cursor-default"
             >
               <motion.div
                 whileHover={{ 
@@ -69,13 +75,17 @@ export function OrganizationTypes() {
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
               >
-                <Icon className={`h-8 w-8 mx-auto mb-3 ${org.color} transition-colors duration-300`} />
+                <Icon className={`mx-auto mb-3 h-8 w-8 transition-colors duration-300 ${org.color}`} />
               </motion.div>
-              <h3 className="text-sm font-medium text-slate-50 group-hover:text-primary transition-colors">{org.name}</h3>
+              <h3 className="text-sm font-medium text-foreground transition-colors group-hover:text-primary">
+                {org.name}
+              </h3>
             </motion.div>
           );
         })}
       </div>
     </section>
   );
-}
+});
+
+OrganizationTypes.displayName = 'OrganizationTypes';

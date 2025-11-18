@@ -1,25 +1,37 @@
-import { useRef } from 'react';
+import { useRef, useMemo, memo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { MeshDistortMaterial, Sphere, Float } from '@react-three/drei';
 import * as THREE from 'three';
 
-function AnimatedSphere({ position, color, speed }: { position: [number, number, number], color: string, speed: number }) {
+// Design token colors - using HSL values from design system
+const SPHERE_COLORS = {
+  primary: 'hsl(168, 100%, 42%)',    // --primary
+  accent: 'hsl(168, 89%, 53%)',      // --accent
+  secondary: 'hsl(173, 95%, 21%)',   // --secondary
+} as const;
+
+interface SphereProps {
+  position: [number, number, number];
+  color: string;
+  speed: number;
+}
+
+const AnimatedSphere = memo(({ position, color, speed }: SphereProps) => {
   const meshRef = useRef<THREE.Mesh>(null);
   
   useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * speed) * 0.3;
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.2;
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.3;
-    }
+    if (!meshRef.current) return;
+    const time = state.clock.elapsedTime;
+    meshRef.current.position.y = position[1] + Math.sin(time * speed) * 0.3;
+    meshRef.current.rotation.x = time * 0.2;
+    meshRef.current.rotation.y = time * 0.3;
   });
 
   return (
     <Float speed={speed} rotationIntensity={0.5} floatIntensity={0.5}>
-      <Sphere ref={meshRef} args={[1, 64, 64]} position={position}>
+      <Sphere ref={meshRef} args={[1, 32, 32]} position={position}>
         <MeshDistortMaterial
           color={color}
-          attach="material"
           distort={0.4}
           speed={2}
           roughness={0.2}
@@ -28,18 +40,23 @@ function AnimatedSphere({ position, color, speed }: { position: [number, number,
       </Sphere>
     </Float>
   );
-}
+});
 
-function ParticleField() {
+AnimatedSphere.displayName = 'AnimatedSphere';
+
+const ParticleField = memo(() => {
   const points = useRef<THREE.Points>(null);
-  const particlesCount = 100;
+  const particlesCount = 50; // Reduced from 100 for better performance
   
-  const positions = new Float32Array(particlesCount * 3);
-  for (let i = 0; i < particlesCount; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 20;
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
-  }
+  const positions = useMemo(() => {
+    const pos = new Float32Array(particlesCount * 3);
+    for (let i = 0; i < particlesCount; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 20;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 20;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 10;
+    }
+    return pos;
+  }, [particlesCount]);
 
   useFrame((state) => {
     if (points.current) {
@@ -59,29 +76,36 @@ function ParticleField() {
       </bufferGeometry>
       <pointsMaterial
         size={0.05}
-        color="#10b981"
+        color={SPHERE_COLORS.primary}
         transparent
         opacity={0.6}
         sizeAttenuation
       />
     </points>
   );
-}
+});
 
-export function Hero3DBackground() {
+ParticleField.displayName = 'ParticleField';
+
+export const Hero3DBackground = memo(() => {
   return (
-    <div className="absolute inset-0 -z-10 opacity-40">
-      <Canvas camera={{ position: [0, 0, 8], fov: 50 }}>
+    <div className="absolute inset-0 -z-10 opacity-40 pointer-events-none">
+      <Canvas 
+        camera={{ position: [0, 0, 8], fov: 50 }}
+        dpr={[1, 1.5]} // Limit pixel ratio for performance
+        performance={{ min: 0.5 }} // Performance optimization
+      >
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={1} />
-        <pointLight position={[-10, -10, -10]} color="#22d3ee" intensity={0.5} />
+        <pointLight position={[-10, -10, -10]} color={SPHERE_COLORS.accent} intensity={0.5} />
         
-        <AnimatedSphere position={[-3, 0, 0]} color="#10b981" speed={0.8} />
-        <AnimatedSphere position={[3, 1, -2]} color="#22d3ee" speed={1.2} />
-        <AnimatedSphere position={[0, -2, -3]} color="#8b5cf6" speed={1.0} />
+        <AnimatedSphere position={[-3, 0, 0]} color={SPHERE_COLORS.primary} speed={0.8} />
+        <AnimatedSphere position={[3, 1, -2]} color={SPHERE_COLORS.accent} speed={1.2} />
         
         <ParticleField />
       </Canvas>
     </div>
   );
-}
+});
+
+Hero3DBackground.displayName = 'Hero3DBackground';

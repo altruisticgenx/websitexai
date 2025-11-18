@@ -135,3 +135,29 @@ All colors MUST be HSL.
   }
 }
 
+@layer utilities {
+  /* 3D Transform utilities for performance */
+  .translate-z-\[20px\] {
+    transform: translateZ(20px);
+  }
+  
+  .translate-z-\[-10px\] {
+    transform: translateZ(-10px);
+  }
+  
+  .translate-z-\[-20px\] {
+    transform: translateZ(-20px);
+  }
+  
+  /* Performance optimization utilities */
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+}
+
