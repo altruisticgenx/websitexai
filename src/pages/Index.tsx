@@ -139,7 +139,7 @@ function Hero() {
   return <section 
     ref={elementRef}
     className={cn(
-      "py-10 sm:py-14 transition-all duration-700",
+      "py-10 sm:py-14 transition-all duration-700 relative",
       isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
     )}
   >
@@ -277,7 +277,7 @@ function VisualRow({
   
   return <motion.div 
     ref={parallaxRef}
-    style={{ y: parallaxY }}
+    style={{ y: parallaxY, position: "relative" }}
     className="flex gap-3 rounded-2xl border border-slate-800/80 bg-slate-950/40 p-3 hover:border-primary/20 hover:bg-slate-950/60 transition-all duration-300"
   >
       <div className="mt-0.5 w-14 flex-shrink-0 text-[11px] font-mono uppercase tracking-[0.16em] text-primary">
@@ -526,7 +526,7 @@ function PilotOffer() {
     id="pilot" 
     ref={elementRef}
     className={cn(
-      "border-t border-slate-900/80 py-10 sm:py-14 transition-all duration-700",
+      "border-t border-slate-900/80 py-10 sm:py-14 transition-all duration-700 relative",
       isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
     )}
   >
@@ -612,7 +612,7 @@ function PilotOffer() {
           transition={{
             duration: 0.6
           }}
-          style={{ y: parallaxY }}
+          style={{ y: parallaxY, position: "relative" }}
           className="rounded-3xl border border-slate-800/80 bg-slate-950/60 p-4 text-xs text-slate-200 sm:p-5 shadow-2xl shadow-primary/5"
         >
           <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-400">
@@ -846,7 +846,7 @@ function ParallaxWrapper({
   const { ref, y } = useParallax(distance);
   
   return (
-    <motion.div ref={ref} style={{ y }}>
+    <motion.div ref={ref} style={{ y, position: "relative" }}>
       {children}
     </motion.div>
   );
