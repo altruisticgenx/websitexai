@@ -6,8 +6,6 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { MouseParticles } from "@/components/MouseParticles";
 import { ClickRipples } from "@/components/ClickRipples";
-import { ScrollRestoration } from "@/components/ScrollRestoration";
-import { usePrefetchRoute } from "@/hooks/use-prefetch-route";
 import Index from "./pages/Index";
 import Portfolio from "./pages/Portfolio";
 import CaseStudyDetail from "./pages/CaseStudyDetail";
@@ -17,9 +15,6 @@ const queryClient = new QueryClient();
 
 function AnimatedRoutes() {
   const location = useLocation();
-  
-  // Enable route prefetching on hover
-  usePrefetchRoute();
   
   return (
     <AnimatePresence mode="wait" initial={false}>
@@ -39,7 +34,6 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <ScrollRestoration />
       <MouseParticles />
       <ClickRipples />
       <AnimatedRoutes />
