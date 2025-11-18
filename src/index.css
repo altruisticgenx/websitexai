@@ -54,42 +54,6 @@ All colors MUST be HSL.
 
     --radius: 1rem;
 
-    /* Fluid Typography Scale using clamp() */
-    --font-size-xs: clamp(0.75rem, 0.7rem + 0.15vw, 0.875rem);
-    --font-size-sm: clamp(0.875rem, 0.825rem + 0.2vw, 1rem);
-    --font-size-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-    --font-size-lg: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
-    --font-size-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
-    --font-size-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem);
-    --font-size-3xl: clamp(1.875rem, 1.65rem + 1.1vw, 2.25rem);
-    --font-size-4xl: clamp(2.25rem, 1.95rem + 1.5vw, 3rem);
-    --font-size-5xl: clamp(3rem, 2.5rem + 2.5vw, 4rem);
-
-    /* Fluid Line Height Scale for optimal readability */
-    --line-height-xs: clamp(1rem, 0.95rem + 0.25vw, 1.25rem);
-    --line-height-sm: clamp(1.25rem, 1.15rem + 0.35vw, 1.5rem);
-    --line-height-base: clamp(1.5rem, 1.4rem + 0.5vw, 1.75rem);
-    --line-height-lg: clamp(1.75rem, 1.6rem + 0.75vw, 2rem);
-    --line-height-xl: clamp(1.875rem, 1.7rem + 0.875vw, 2.25rem);
-    --line-height-2xl: clamp(2rem, 1.8rem + 1vw, 2.5rem);
-    --line-height-3xl: clamp(2.25rem, 2rem + 1.25vw, 2.75rem);
-    --line-height-4xl: clamp(2.5rem, 2.2rem + 1.5vw, 3.5rem);
-    --line-height-5xl: clamp(3.5rem, 3rem + 2.5vw, 4.5rem);
-
-    /* Fluid Spacing Scale for responsive layouts */
-    --space-1: clamp(0.25rem, 0.23rem + 0.1vw, 0.3rem);
-    --space-2: clamp(0.5rem, 0.46rem + 0.2vw, 0.625rem);
-    --space-3: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
-    --space-4: clamp(1rem, 0.93rem + 0.35vw, 1.25rem);
-    --space-5: clamp(1.25rem, 1.16rem + 0.45vw, 1.5rem);
-    --space-6: clamp(1.5rem, 1.39rem + 0.55vw, 1.875rem);
-    --space-8: clamp(2rem, 1.86rem + 0.7vw, 2.5rem);
-    --space-10: clamp(2.5rem, 2.32rem + 0.9vw, 3.125rem);
-    --space-12: clamp(3rem, 2.79rem + 1.05vw, 3.75rem);
-    --space-16: clamp(4rem, 3.71rem + 1.45vw, 5rem);
-    --space-20: clamp(5rem, 4.64rem + 1.8vw, 6.25rem);
-    --space-24: clamp(6rem, 5.57rem + 2.15vw, 7.5rem);
-
     --sidebar-background: 0 0% 98%;
 
     --sidebar-foreground: 175 100% 11%;
@@ -158,11 +122,6 @@ All colors MUST be HSL.
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    letter-spacing: 0.01em;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    letter-spacing: -0.02em;
   }
   
   /* Prevent rubber band scrolling on iOS */
