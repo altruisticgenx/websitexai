@@ -238,7 +238,7 @@ function LivePilotLab() {
         <h2 className="mt-2 text-xl font-semibold sm:text-2xl">Not a portfolio. A lab notebook.</h2>
         <p className="mt-2 text-sm text-slate-400">Real experiments in energy, education, and civic tech—including the ones that didn't ship.</p>
       </motion.div>
-      {loading ? <div className="mt-8"><CardsSkeleton count={4} /></div> : error ? <div className="mt-8 rounded-2xl border border-red-500/30 bg-red-500/5 p-6 text-center"><AlertCircle className="mx-auto h-8 w-8 text-red-400" /><p className="mt-2 text-sm text-red-300">{error}</p></div> : <div className="mt-8"><CaseStudiesStack projects={projects} /></div>}
+      {loading ? <div className="mt-8"><CardsSkeleton count={4} /></div> : error ? <div className="mt-8 rounded-2xl border border-red-500/30 bg-red-500/5 p-6 text-center"><AlertCircle className="mx-auto h-8 w-8 text-red-400" /><p className="mt-2 text-sm text-red-300">{error}</p></div> : <div className="mt-8"><CaseStudiesStack caseStudies={projects} /></div>}
     </section>
   );
 }
