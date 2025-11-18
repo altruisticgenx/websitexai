@@ -167,6 +167,16 @@ All colors MUST be HSL.
     background: var(--gradient-card);
     backdrop-filter: blur(8px);
   }
+
+  /* Grid pattern animation */
+  @keyframes grid-flicker {
+    0%, 100% { opacity: 0.03; }
+    50% { opacity: 0.05; }
+  }
+
+  .bg-grid-pattern {
+    animation: grid-flicker 8s ease-in-out infinite;
+  }
   
   /* Prevent rubber band scrolling on iOS */
   body, html {
