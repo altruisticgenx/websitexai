@@ -68,7 +68,7 @@ export function Hero() {
         style={{ y: yBackground }}
       >
         <motion.div 
-          className="absolute top-10 left-10 w-96 h-96 bg-primary/20 rounded-full blur-3xl"
+          className="absolute top-10 left-10 w-72 h-72 md:w-96 md:h-96 bg-primary/20 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             x: [0, 50, 0],
@@ -77,13 +77,21 @@ export function Hero() {
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div 
-          className="absolute bottom-20 right-20 w-80 h-80 bg-accent/20 rounded-full blur-3xl"
+          className="absolute bottom-20 right-20 w-64 h-64 md:w-80 md:h-80 bg-lime/30 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.3, 1],
             x: [0, -30, 0],
             y: [0, -50, 0],
           }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div 
+          className="absolute top-1/2 left-1/2 w-56 h-56 md:w-72 md:h-72 bg-lime/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
+          animate={{
+            scale: [1, 1.4, 1],
+            opacity: [0.2, 0.35, 0.2],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
       </motion.div>
 
@@ -94,11 +102,13 @@ export function Hero() {
         animate={{
           background: [
             'radial-gradient(circle at 20% 50%, hsl(var(--primary) / 0.15) 0%, transparent 50%)',
+            'radial-gradient(circle at 50% 50%, hsl(var(--lime) / 0.2) 0%, transparent 50%)',
             'radial-gradient(circle at 80% 50%, hsl(var(--accent) / 0.15) 0%, transparent 50%)',
+            'radial-gradient(circle at 50% 50%, hsl(var(--lime) / 0.2) 0%, transparent 50%)',
             'radial-gradient(circle at 20% 50%, hsl(var(--primary) / 0.15) 0%, transparent 50%)',
           ],
         }}
-        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
       />
 
       {/* Parallax Floating Particles */}
