@@ -46,10 +46,15 @@ export function WhereIWork() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-4 hover:border-primary/30 transition-colors"
+              whileHover={{ 
+                y: -6,
+                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.2)",
+                borderColor: "hsl(var(--primary) / 0.4)"
+              }}
+              className="group rounded-2xl border border-slate-800/70 bg-gradient-to-br from-slate-950/50 to-slate-900/30 p-4 transition-all duration-300 cursor-default"
             >
-              <Icon className="h-6 w-6 text-primary mb-3" />
-              <h3 className="text-sm font-semibold text-slate-50">
+              <Icon className="h-6 w-6 text-primary mb-3 group-hover:scale-110 group-hover:text-accent transition-all duration-300" />
+              <h3 className="text-sm font-semibold text-slate-50 group-hover:text-primary transition-colors">
                 {loc.location}
               </h3>
               <p className="mt-2 text-xs text-slate-300">{loc.details}</p>

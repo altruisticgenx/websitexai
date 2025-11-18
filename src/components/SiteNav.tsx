@@ -42,9 +42,6 @@ export function SiteNav() {
             <span className="text-lg font-semibold uppercase tracking-wider text-primary">
               AltruisticX AI
             </span>
-            <span className="text-xs text-muted-foreground">
-              AI + Product Engineering
-            </span>
           </a>
 
           {/* Desktop Navigation */}
