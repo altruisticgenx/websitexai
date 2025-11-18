@@ -14,6 +14,7 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteNav } from "@/components/SiteNav";
@@ -129,7 +130,15 @@ export default Index;
 // --- Sub-Components ---
 
 function Hero() {
-  return <section className="py-10 sm:py-14">
+  const { elementRef, isVisible } = useScrollAnimation();
+  
+  return <section 
+    ref={elementRef}
+    className={cn(
+      "py-10 sm:py-14 transition-all duration-700",
+      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+    )}
+  >
       <div className="grid gap-10 md:grid-cols-[minmax(0,1.4fr),minmax(0,1fr)] md:items-center">
         <motion.div initial={{
         opacity: 0,
@@ -351,8 +360,17 @@ function RecentBuilds() {
     };
   }, []);
 
+  const { elementRef, isVisible } = useScrollAnimation();
+  
   return (
-    <section id="builds" className="py-10 sm:py-14">
+    <section 
+      id="builds" 
+      ref={elementRef}
+      className={cn(
+        "py-10 sm:py-14 transition-all duration-700",
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+      )}
+    >
       <motion.div 
         initial={{ opacity: 0, y: 20 }} 
         whileInView={{ opacity: 1, y: 0 }} 
@@ -413,6 +431,8 @@ function RecentBuilds() {
   );
 }
 function HowItWorks() {
+  const { elementRef, isVisible } = useScrollAnimation();
+  
   const steps = [{
     label: "Week 1",
     title: "Pinpoint & Prototype",
@@ -426,7 +446,15 @@ function HowItWorks() {
     title: "Decide with Clarity",
     body: "Wrap with a real repo, guided walkthrough, and a clear decision: scale, pivot, or pause. Your code, data, and documentation are always yours."
   }];
-  return <section id="how" className="border-t border-slate-900/80 py-10 sm:py-14">
+  
+  return <section 
+    id="how" 
+    ref={elementRef}
+    className={cn(
+      "border-t border-slate-900/80 py-10 sm:py-14 transition-all duration-700",
+      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+    )}
+  >
       <motion.div initial={{
       opacity: 0,
       y: 20
@@ -472,7 +500,16 @@ function HowItWorks() {
     </section>;
 }
 function PilotOffer() {
-  return <section id="pilot" className="border-t border-slate-900/80 py-10 sm:py-14">
+  const { elementRef, isVisible } = useScrollAnimation();
+  
+  return <section 
+    id="pilot" 
+    ref={elementRef}
+    className={cn(
+      "border-t border-slate-900/80 py-10 sm:py-14 transition-all duration-700",
+      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+    )}
+  >
       <div className="grid gap-8 md:grid-cols-[minmax(0,1.3fr),minmax(0,1fr)] md:items-center">
         <motion.div initial={{
         opacity: 0,
@@ -594,8 +631,18 @@ function PilotOffer() {
     </section>;
 }
 function WhoBenefits() {
+  const { elementRef, isVisible } = useScrollAnimation();
+  
   const audiences = ["Students bringing new ideas to life", "Teachers or nonprofits piloting campus or impact projects", "Board and governance teams seeking data clarity", "Solo founders wanting operational peace of mind", "B2B units innovating under fast timelines"];
-  return <section id="benefits" className="border-t border-slate-900/80 py-10 sm:py-14">
+  
+  return <section 
+    id="benefits" 
+    ref={elementRef}
+    className={cn(
+      "border-t border-slate-900/80 py-10 sm:py-14 transition-all duration-700",
+      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+    )}
+  >
       <motion.div initial={{
       opacity: 0,
       y: 20
@@ -672,8 +719,17 @@ function WhoBenefits() {
     </section>;
 }
 function FAQSection() {
+  const { elementRef, isVisible } = useScrollAnimation();
+  
   return (
-    <section id="faq" className="border-t border-slate-900/80 py-8 sm:py-12">
+    <section 
+      id="faq" 
+      ref={elementRef}
+      className={cn(
+        "border-t border-slate-900/80 py-8 sm:py-12 transition-all duration-700",
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+      )}
+    >
       <motion.div 
         initial={{ opacity: 0, y: 20 }} 
         whileInView={{ opacity: 1, y: 0 }} 
@@ -725,7 +781,16 @@ function FAQSection() {
 }
 
 function ContactSection() {
-  return <section id="contact" className="border-t border-slate-900/80 py-10 sm:py-14">
+  const { elementRef, isVisible } = useScrollAnimation();
+  
+  return <section 
+    id="contact" 
+    ref={elementRef}
+    className={cn(
+      "border-t border-slate-900/80 py-10 sm:py-14 transition-all duration-700",
+      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+    )}
+  >
       <motion.div initial={{
       opacity: 0,
       y: 20
