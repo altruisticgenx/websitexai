@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Linkedin } from "lucide-react";
 
 function VisualRow({
@@ -32,11 +32,49 @@ function VisualRow({
 }
 
 export function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"]
+  });
+
+  // Parallax transforms - different speeds for depth
+  const yBackground = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const yMiddle = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const yForeground = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
   return (
-    <section id="home" className="relative py-10 md:py-16 overflow-hidden">
-      {/* Animated background gradient */}
+    <section ref={ref} id="home" className="relative py-10 md:py-16 overflow-hidden">
+      {/* Parallax Background Layer 1 - Slowest */}
+      <motion.div 
+        className="absolute inset-0 opacity-20"
+        style={{ y: yBackground }}
+      >
+        <motion.div 
+          className="absolute top-10 left-10 w-96 h-96 bg-primary/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, 50, 0],
+            y: [0, 30, 0],
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div 
+          className="absolute bottom-20 right-20 w-80 h-80 bg-accent/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            x: [0, -30, 0],
+            y: [0, -50, 0],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </motion.div>
+
+      {/* Parallax Background Layer 2 - Medium Speed */}
       <motion.div 
         className="absolute inset-0 opacity-30"
+        style={{ y: yMiddle }}
         animate={{
           background: [
             'radial-gradient(circle at 20% 50%, hsl(var(--primary) / 0.15) 0%, transparent 50%)',
@@ -46,8 +84,39 @@ export function Hero() {
         }}
         transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
       />
+
+      {/* Parallax Floating Particles */}
+      <motion.div 
+        className="absolute inset-0 pointer-events-none"
+        style={{ y: yForeground, opacity }}
+      >
+        {[...Array(12)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-primary/40 rounded-full"
+            style={{
+              left: `${10 + (i * 7)}%`,
+              top: `${20 + (i * 5)}%`,
+            }}
+            animate={{
+              y: [0, -30, 0],
+              opacity: [0.2, 0.6, 0.2],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 3 + i * 0.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.2,
+            }}
+          />
+        ))}
+      </motion.div>
       
-      <div className="relative mx-auto flex w-full max-w-5xl flex-col items-center gap-10 px-4 md:flex-row md:px-6">
+      <motion.div 
+        className="relative mx-auto flex w-full max-w-5xl flex-col items-center gap-10 px-4 md:flex-row md:px-6"
+        style={{ opacity }}
+      >
         {/* Left: Text Content (60%) */}
         <motion.div 
           initial={{ opacity: 0, x: -30 }} 
@@ -201,7 +270,7 @@ export function Hero() {
             </div>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }
