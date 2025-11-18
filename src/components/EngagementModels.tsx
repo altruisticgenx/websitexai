@@ -2,7 +2,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Zap, FileText, Layers, RefreshCw } from "lucide-react";
 import { FloatingCard3D } from "./FloatingCard3D";
-import { PilotTimeline } from "./PilotTimeline";
 
 const engagementModels = [
   {
@@ -119,7 +118,61 @@ export function EngagementModels() {
           })}
         </div>
 
-        <PilotTimeline />
+        {/* Compact Roadmap */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-6 rounded-xl border border-slate-800/80 bg-slate-900/60 p-3 sm:mt-8 sm:p-4"
+        >
+          <h3 className="text-center text-xs font-semibold text-slate-50 sm:text-sm">
+            Typical progression
+          </h3>
+          <p className="mt-1 text-center text-[9px] text-slate-400 sm:text-[10px]">
+            Most start with a pilot, then scale
+          </p>
+          
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-2 sm:mt-4 sm:gap-3">
+            <div className="flex flex-col items-center">
+              <div className="rounded-lg bg-emerald-400/10 px-2 py-1 sm:px-3">
+                <span className="text-[10px] font-medium text-emerald-300 sm:text-xs">Pilot</span>
+              </div>
+              <span className="mt-0.5 text-[8px] text-slate-400">4wks</span>
+            </div>
+            
+            <div className="text-slate-600">→</div>
+            
+            <div className="flex flex-col items-center">
+              <div className="rounded-lg bg-blue-400/10 px-2 py-1 sm:px-3">
+                <span className="text-[10px] font-medium text-blue-300 sm:text-xs">Proposal</span>
+              </div>
+              <span className="mt-0.5 text-[8px] text-slate-400">1-2wks</span>
+            </div>
+            
+            <div className="text-slate-600">→</div>
+            
+            <div className="flex flex-col items-center">
+              <div className="rounded-lg bg-violet-400/10 px-2 py-1 sm:px-3">
+                <span className="text-[10px] font-medium text-violet-300 sm:text-xs">Build</span>
+              </div>
+              <span className="mt-0.5 text-[8px] text-slate-400">2-6mo</span>
+            </div>
+            
+            <div className="text-slate-600">→</div>
+            
+            <div className="flex flex-col items-center">
+              <div className="rounded-lg bg-amber-400/10 px-2 py-1 sm:px-3">
+                <span className="text-[10px] font-medium text-amber-300 sm:text-xs">Retainer</span>
+              </div>
+              <span className="mt-0.5 text-[8px] text-slate-400">Ongoing</span>
+            </div>
+          </div>
+
+          <p className="mt-2 text-center text-[8px] text-slate-400 sm:mt-3 sm:text-[9px]">
+            Or jump to any model that fits
+          </p>
+        </motion.div>
       </div>
     </section>
   );

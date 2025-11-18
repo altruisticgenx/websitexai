@@ -23,8 +23,7 @@ export function SiteNav() {
     const sectionId = href.replace("#", "");
     const element = document.getElementById(sectionId);
     if (element) {
-      const offsetTop = element.offsetTop - 64; // 64px for sticky header
-      window.scrollTo({ top: offsetTop, behavior: "smooth" });
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
