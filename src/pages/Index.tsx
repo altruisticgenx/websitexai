@@ -220,7 +220,7 @@ function RecentBuilds() {
   }, []);
 
   return (
-    <section id="builds" className="py-10 md:py-16 relative">
+    <section id="builds" className="py-10 md:py-16 relative border-t border-lime/20 shadow-lime-glow">
       <ControlRoomOverlay intensity="subtle" />
       <div className="mx-auto w-full max-w-5xl px-4 md:px-6 relative z-10">
         <motion.div 
@@ -295,7 +295,7 @@ function HowItWorks() {
     body: "Wrap with a real repo, guided walkthrough, and a clear decision: scale, pivot, or pause. Your code, data, and documentation are always yours."
   }];
   return (
-    <section id="how" className="border-t border-slate-900/80 py-10 md:py-16 relative">
+    <section id="how" className="border-t border-lime/20 shadow-lime-glow py-10 md:py-16 relative">
       <ControlRoomOverlay intensity="subtle" showScanline={false} />
       <div className="mx-auto w-full max-w-5xl px-4 md:px-6 relative z-10">
         <motion.div 
@@ -347,7 +347,7 @@ function HowItWorks() {
 }
 function PilotOffer() {
   return (
-    <section id="pilot" className="border-t border-slate-900/80 py-10 md:py-16 relative">
+    <section id="pilot" className="border-t border-lime/20 shadow-lime-glow py-10 md:py-16 relative">
       <ControlRoomOverlay intensity="medium" />
       <div className="mx-auto w-full max-w-5xl px-4 md:px-6 relative z-10">
         <div className="grid gap-8 md:grid-cols-[minmax(0,1.3fr),minmax(0,1fr)] md:items-start">
@@ -470,7 +470,7 @@ function PilotOffer() {
 function WhoBenefits() {
   const audiences = ["Students bringing new ideas to life", "Teachers or nonprofits piloting campus or impact projects", "Board and governance teams seeking data clarity", "Solo founders wanting operational peace of mind", "B2B units innovating under fast timelines"];
   return (
-    <section id="benefits" className="border-t border-slate-900/80 py-10 md:py-16 relative">
+    <section id="benefits" className="border-t border-lime/20 shadow-lime-glow py-10 md:py-16 relative">
       <ControlRoomOverlay intensity="subtle" showScanline={false} />
       <div className="mx-auto w-full max-w-5xl px-4 md:px-6 relative z-10">
         <motion.div 
@@ -553,7 +553,7 @@ function WhoBenefits() {
 }
 function FAQSection() {
   return (
-    <section id="faq" className="border-t border-slate-900/80 py-8 sm:py-12 relative">
+    <section id="faq" className="border-t border-lime/20 shadow-lime-glow py-8 sm:py-12 relative">
       <ControlRoomOverlay intensity="subtle" />
       <motion.div 
         initial={{ opacity: 0, y: 20 }} 
@@ -606,7 +606,7 @@ function FAQSection() {
 }
 
 function SiteFooter() {
-  return <footer className="border-t border-slate-900/80 py-6">
+  return <footer className="border-t border-lime/20 shadow-lime-glow py-6">
       <div className="flex flex-col items-start justify-between gap-3 text-xs text-slate-500 sm:flex-row sm:items-center">
         <div>© {new Date().getFullYear()} AltruisticX · AI + Product Engineer</div>
         <div className="flex flex-wrap gap-3">
