@@ -8,6 +8,8 @@ import {
   Users,
   TrendingUp,
   Linkedin,
+  Github,
+  Mail,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -512,14 +514,45 @@ const Index = () => {
         {/* Footer */}
         <footer className="border-t border-slate-800 bg-slate-950 py-10">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="space-y-2 text-center">
-              <p className="text-sm font-semibold text-slate-100">
-                AltruisticX AI · Pilots4You Lab
-              </p>
-              <p className="text-xs text-slate-400">
-                AI pilots for energy, education, and civic teams who want proof
-                before promises.
-              </p>
+            <div className="space-y-6 text-center">
+              <div className="space-y-2">
+                <p className="text-sm font-semibold text-slate-100">
+                  AltruisticX AI · Pilots4You Lab
+                </p>
+                <p className="text-xs text-slate-400">
+                  AI pilots for energy, education, and civic teams who want proof
+                  before promises.
+                </p>
+              </div>
+
+              {/* Social Links */}
+              <div className="flex items-center justify-center gap-4">
+                <a
+                  href="https://www.linkedin.com/in/ik11?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-900/70 backdrop-blur transition-all duration-300 hover:scale-110 hover:border-emerald-500/50 hover:bg-slate-800 hover:shadow-lg hover:shadow-emerald-500/20"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="h-5 w-5 text-slate-400 transition-colors duration-300 group-hover:text-emerald-400" />
+                </a>
+                <a
+                  href="https://github.com/altruisticxai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-900/70 backdrop-blur transition-all duration-300 hover:scale-110 hover:border-emerald-500/50 hover:bg-slate-800 hover:shadow-lg hover:shadow-emerald-500/20"
+                  aria-label="GitHub"
+                >
+                  <Github className="h-5 w-5 text-slate-400 transition-colors duration-300 group-hover:text-emerald-400" />
+                </a>
+                <a
+                  href="mailto:hello@altruisticxai.com"
+                  className="group flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-900/70 backdrop-blur transition-all duration-300 hover:scale-110 hover:border-emerald-500/50 hover:bg-slate-800 hover:shadow-lg hover:shadow-emerald-500/20"
+                  aria-label="Email"
+                >
+                  <Mail className="h-5 w-5 text-slate-400 transition-colors duration-300 group-hover:text-emerald-400" />
+                </a>
+              </div>
             </div>
           </div>
         </footer>
