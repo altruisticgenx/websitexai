@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { TestimonialsVariant, CaseStudiesStack } from "@/components/ui/animated-cards-stack";
@@ -15,6 +15,14 @@ import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { cn } from "@/lib/utils";
+import { 
+  HeroSkeleton, 
+  CardsSkeleton, 
+  StepsSkeleton, 
+  TwoColumnSkeleton, 
+  FAQSkeleton,
+  ContactSkeleton 
+} from "@/components/skeletons/SectionSkeleton";
 
 // --- Data Definitions ---
 const recentBuilds = [{
@@ -58,6 +66,17 @@ const faqs = [{
 
 // --- Main Page Component ---
 const Index = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate content loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1200);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   // Setup keyboard navigation
   useKeyboardNavigation([
     { key: "1", sectionId: "builds", name: "Builds" },
@@ -75,20 +94,39 @@ const Index = () => {
       <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 sm:px-6 lg:px-8">
         <SiteHeader />
         <main className="flex-1">
-          <Hero />
-          <RecentBuilds />
-          <EngagementModels />
-          <HowItWorks />
-          <PilotOffer />
-          <WhoBenefits />
-          <OrganizationTypes />
-          <WhereIWork />
-          <ShelvedExperiments />
-          <div id="testimonials">
-            <TestimonialsVariant />
-          </div>
-          <FAQSection />
-          <ContactSection />
+          {isLoading ? (
+            <div className="animate-pulse">
+              <HeroSkeleton />
+              <CardsSkeleton />
+              <StepsSkeleton />
+              <TwoColumnSkeleton />
+              <StepsSkeleton count={2} />
+              <CardsSkeleton count={3} />
+              <FAQSkeleton />
+              <ContactSkeleton />
+            </div>
+          ) : (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Hero />
+              <RecentBuilds />
+              <EngagementModels />
+              <HowItWorks />
+              <PilotOffer />
+              <WhoBenefits />
+              <OrganizationTypes />
+              <WhereIWork />
+              <ShelvedExperiments />
+              <div id="testimonials">
+                <TestimonialsVariant />
+              </div>
+              <FAQSection />
+              <ContactSection />
+            </motion.div>
+          )}
         </main>
         <SiteFooter />
       </div>
