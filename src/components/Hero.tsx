@@ -17,12 +17,12 @@ function VisualRow({
     borderColor: "hsl(var(--primary) / 0.4)",
     backgroundColor: "hsl(var(--slate-900) / 0.6)"
   }}>
-      <div className="mt-0.5 w-12 flex-shrink-0 text-[9px] font-mono uppercase tracking-[0.16em] text-primary group-hover:text-accent transition-colors sm:text-[10px]">
+      <div className="mt-0.5 w-12 flex-shrink-0 label text-primary group-hover:text-accent transition-colors">
         {label}
       </div>
       <div>
-        <div className="text-[10px] font-medium text-foreground group-hover:text-primary transition-colors sm:text-xs">{title}</div>
-        <div className="mt-0.5 text-[9px] text-muted-foreground sm:text-[10px]">{body}</div>
+        <div className="body-sm font-medium text-foreground group-hover:text-primary transition-colors">{title}</div>
+        <div className="mt-0.5 caption">{body}</div>
       </div>
     </motion.div>;
 }
@@ -117,7 +117,7 @@ export function Hero() {
           delay: 0.2
         }}>
             {/* Tag Line */}
-            <motion.div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-2.5 py-1 text-[9px] font-medium text-primary sm:text-[10px]" initial={{
+            <motion.div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-2.5 py-1 caption font-medium text-primary" initial={{
             opacity: 0,
             scale: 0.8
           }} animate={{
@@ -132,7 +132,7 @@ export function Hero() {
             </motion.div>
 
             {/* Main Headline */}
-            <motion.h1 className="mt-3 text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl" initial={{
+            <motion.h1 className="mt-3 heading-1" initial={{
             opacity: 0,
             y: 20
           }} animate={{
@@ -146,7 +146,7 @@ export function Hero() {
             </motion.h1>
 
             {/* Supporting Text */}
-            <motion.p className="mt-2.5 max-w-xl text-xs leading-relaxed text-muted-foreground sm:text-sm" initial={{
+            <motion.p className="mt-2.5 max-w-xl body-base text-muted-foreground" initial={{
             opacity: 0,
             y: 20
           }} animate={{
@@ -158,7 +158,7 @@ export function Hero() {
           }}>For students, teachers, founders, and B2B or civic teams, I offer hands-on AI/product execution without the headcount drama. We pick one concrete problem, turn it into a small backlog, and in 4 weeks you get: a live prototype, clear documentation, and a simple decision—scale it, tweak it, or archive it.</motion.p>
 
             {/* Feature Pills */}
-            <motion.dl className="mt-4 grid max-w-xl grid-cols-1 gap-2 text-[10px] text-slate-200 sm:grid-cols-3 sm:text-xs" initial={{
+            <motion.dl className="mt-4 grid max-w-xl grid-cols-1 gap-2 body-sm text-slate-200 sm:grid-cols-3" initial={{
             opacity: 0
           }} animate={{
             opacity: 1
@@ -170,10 +170,10 @@ export function Hero() {
               y: -2,
               boxShadow: "0 10px 20px -5px hsl(var(--primary) / 0.2)"
             }}>
-                <dt className="text-[9px] uppercase tracking-[0.16em] text-slate-400 group-hover:text-primary transition-colors">
+                <dt className="overline text-slate-400 group-hover:text-primary transition-colors">
                   Work hands-on
                 </dt>
-                <dd className="mt-0.5 font-medium text-slate-50 text-[10px] sm:text-xs">
+                <dd className="mt-0.5 font-medium text-slate-50 body-sm">
                   Build + ship  prototypes.
                 </dd>
               </motion.div>
@@ -181,10 +181,10 @@ export function Hero() {
               y: -2,
               boxShadow: "0 10px 20px -5px hsl(var(--primary) / 0.2)"
             }}>
-                <dt className="text-[9px] uppercase tracking-[0.16em] text-slate-400 group-hover:text-primary transition-colors">
+                <dt className="overline text-slate-400 group-hover:text-primary transition-colors">
                   Launch actionable tools
                 </dt>
-                <dd className="mt-0.5 font-medium text-slate-50 text-[10px] sm:text-xs">
+                <dd className="mt-0.5 font-medium text-slate-50 body-sm">
                   Deploy features for any sector.                                                            
                 </dd>
               </motion.div>
@@ -192,17 +192,17 @@ export function Hero() {
               y: -2,
               boxShadow: "0 10px 20px -5px hsl(var(--primary) / 0.2)"
             }}>
-                <dt className="text-[9px] uppercase tracking-[0.16em] text-slate-400 group-hover:text-primary transition-colors">
+                <dt className="overline text-slate-400 group-hover:text-primary transition-colors">
                   Start small, deliver early
                 </dt>
-                <dd className="mt-0.5 font-medium text-slate-50 text-[10px] sm:text-xs">
+                <dd className="mt-0.5 font-medium text-slate-50 body-sm">
                   First meaningful code in Week 1, ready to demo.
                 </dd>
               </motion.div>
             </motion.dl>
 
             {/* CTA Buttons */}
-            <motion.div className="mt-5 flex flex-col gap-2.5 text-xs sm:flex-row sm:items-center" initial={{
+            <motion.div className="mt-5 flex flex-col gap-2.5 body-base sm:flex-row sm:items-center" initial={{
             opacity: 0,
             y: 20
           }} animate={{
@@ -212,14 +212,14 @@ export function Hero() {
             duration: 0.6,
             delay: 0.8
           }}>
-              <motion.a href="mailto:hello@altruisticxai.com?subject=AltruisticX%20AI%20Pilot%20Intro" className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-xs font-medium text-slate-950 shadow-lg shadow-primary/30 transition-all duration-300 hover:bg-primary/90 hover:shadow-primary/40" whileHover={{
+              <motion.a href="mailto:hello@altruisticxai.com?subject=AltruisticX%20AI%20Pilot%20Intro" className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 btn-text text-slate-950 shadow-lg shadow-primary/30 transition-all duration-300 hover:bg-primary/90 hover:shadow-primary/40" whileHover={{
               scale: 1.05
             }} whileTap={{
               scale: 0.98
             }}>
                 Book a 30-min intro
               </motion.a>
-              <motion.a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-1.5 rounded-full border border-slate-700 bg-slate-900/50 px-4 py-2 text-xs font-medium text-slate-200 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-slate-800/50" whileHover={{
+              <motion.a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-1.5 rounded-full border border-slate-700 bg-slate-900/50 px-4 py-2 btn-text text-slate-200 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-slate-800/50" whileHover={{
               scale: 1.05
             }} whileTap={{
               scale: 0.98
