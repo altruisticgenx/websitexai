@@ -435,7 +435,7 @@ function PilotOffer() {
             y: -1
           }} className={`group relative rounded-md border ${item.color === 'emerald' ? 'border-primary/30 bg-gradient-to-br from-primary/5' : item.color === 'cyan' ? 'border-accent/30 bg-gradient-to-br from-accent/5' : item.color === 'teal' ? 'border-primary/20 bg-gradient-to-br from-primary/5' : 'border-blue-500/30 bg-gradient-to-br from-blue-500/5'} to-slate-950/80 p-2 backdrop-blur-sm overflow-hidden transition-all`}>
                 <div className="relative flex items-start gap-2">
-                  <span className="text-xs flex-shrink-0">{item.icon}</span>
+                  
                   <div className="flex-1 min-w-0">
                     <h4 className="text-xs font-semibold text-foreground">
                       {item.title}
