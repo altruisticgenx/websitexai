@@ -49,10 +49,10 @@ const caseStudies = [
     timeline: "6 weeks pilot-to-production",
     duration: "6 weeks",
     phases: [
-      { week: "Week 1", milestone: "Core UI + lead scoring logic" },
-      { week: "Week 2-3", milestone: "AI integration + email parsing" },
-      { week: "Week 4-5", milestone: "Workflow automation + testing" },
-      { week: "Week 6", milestone: "Polish, deploy, handoff" },
+      { week: "Week 1", milestone: "Core UI + lead scoring algorithm • Built React dashboard skeleton, PostgreSQL schema, and initial ML scoring model • Validated: Founder confirmed UI matches mental model • Deliverable: Clickable prototype scoring 50 test leads" },
+      { week: "Week 2-3", milestone: "AI integration + live email parsing • Connected OpenAI GPT-4 API, built email ingestion pipeline, trained sentiment analysis on 200+ historical emails • Validated: Scored live leads with 89% accuracy vs. founder's manual ratings • Deliverable: Real-time lead scoring from Gmail integration" },
+      { week: "Week 4-5", milestone: "Workflow automation + stress testing • Implemented auto-follow-up sequences, Zapier webhooks, load tested 500 concurrent leads • Validated: Sales team ran parallel test (old CRM vs. new system) — new system flagged 3 high-intent deals old CRM missed • Deliverable: Production-ready automation handling 200+ leads/day" },
+      { week: "Week 6", milestone: "Polish, deploy, team training • Fixed edge cases, deployed to Vercel, conducted 2hr team training, documented API • Validated: Sales team closed first AI-flagged deal worth $42k ARR within week 6 • Deliverable: Live production system + runbook + 90-day support plan" },
     ],
   },
   {
@@ -90,10 +90,10 @@ const caseStudies = [
     timeline: "4 weeks prototype-to-daily-use",
     duration: "4 weeks",
     phases: [
-      { week: "Week 1", milestone: "Core dashboard + contact list" },
-      { week: "Week 2", milestone: "Calendar integration + session tracking" },
-      { week: "Week 3", milestone: "Invoicing + Stripe sync" },
-      { week: "Week 4", milestone: "Refinement + mobile responsiveness" },
+      { week: "Week 1", milestone: "Core dashboard + unified contact list • Built single-page React dashboard, migrated 47 contacts from spreadsheet to Supabase, designed 'calm mode' UI with muted colors • Validated: Founder tested daily for 3 days, confirmed 'finally feels organized' • Deliverable: Working contact manager replacing Notion + spreadsheet" },
+      { week: "Week 2", milestone: "Calendar integration + session tracking • Integrated Cal.com API for booking, built session note-taking UI, added client communication history • Validated: Founder booked 3 client sessions through new system, took structured notes during live calls • Deliverable: Unified scheduling + note-taking workflow" },
+      { week: "Week 3", milestone: "Invoicing + Stripe sync • Connected Stripe API for invoice generation, built automatic session-to-invoice flow, added payment tracking • Validated: Generated $3,200 in real invoices, received first client payment through system • Deliverable: End-to-end client lifecycle (book → meet → note → invoice → track payment)" },
+      { week: "Week 4", milestone: "Mobile optimization + launch • Responsive Tailwind redesign for mobile, added keyboard shortcuts (Cmd+K for quick actions), deployed to custom domain • Validated: Founder used exclusively on iPhone for 1 week, reported 4hr/week time savings vs. old tools • Deliverable: Production app at founderos.app + mobile-first PWA" },
     ],
   },
   {
@@ -131,10 +131,10 @@ const caseStudies = [
     timeline: "8 weeks pilot deployment",
     duration: "8 weeks",
     phases: [
-      { week: "Week 1-2", milestone: "Data pipeline + normalization" },
-      { week: "Week 3-4", milestone: "Dashboard UI + visualization" },
-      { week: "Week 5-6", milestone: "Anomaly detection algorithm" },
-      { week: "Week 7-8", milestone: "Reporting + pilot rollout" },
+      { week: "Week 1-2", milestone: "Data ingestion + live dashboards • Parsed 200+ building meter CSVs (900k rows), built Python ETL pipeline, created Recharts visualizations, designed facility manager UI • Validated: Identified 3 buildings with 24/7 HVAC waste in week 1 data review • Deliverable: Real-time energy dashboard showing 200+ buildings" },
+      { week: "Week 3-4", milestone: "Anomaly detection + cost alerts • Trained ML model on 2-year historical data (1.2M meter readings), built Slack/email alert system, calculated per-building savings projections • Validated: System flagged weekend HVAC spike costing $1,200/month at Building 14 — maintenance confirmed faulty timer • Deliverable: Automated waste detection saving est. $18k/year campus-wide" },
+      { week: "Week 5-6", milestone: "Peer comparison + scenario modeling • Built building peer-comparison tool (similar size/type), added 'what-if' simulator for operational changes, optimized mobile dashboards • Validated: Facilities manager used simulator to justify $50k HVAC upgrade (projected 18-month payback) • Deliverable: Decision-support tools for capital planning" },
+      { week: "Week 7-8", milestone: "Campus rollout + leadership reporting • Deployed to campus subdomain, trained 12 facility managers, created video tutorials, set up monthly executive reports • Validated: Facilities director presented dashboard to CFO, secured $50k capital budget for HVAC upgrades based on data • Deliverable: Adopted campus-wide, tracking $200k+ annual savings opportunities" },
     ],
   },
   {
@@ -171,10 +171,10 @@ const caseStudies = [
     timeline: "5 weeks pilot-ready",
     duration: "5 weeks",
     phases: [
-      { week: "Week 1", milestone: "Student tracking + pilot setup" },
-      { week: "Week 2-3", milestone: "Outcome tracking + analytics" },
-      { week: "Week 4", milestone: "Report generation + PDF export" },
-      { week: "Week 5", milestone: "Training + deployment" },
+      { week: "Week 1", milestone: "Pilot design + 3 school partnerships secured • Co-designed pilot framework with nonprofit team, built student data model in Supabase, secured MOUs with 3 Title I high schools (450 students) • Validated: Principals confirmed alignment with state standards, teachers volunteered as pilot leads • Deliverable: Signed partnerships + pilot curriculum outline + data schema" },
+      { week: "Week 2-3", milestone: "Student portal + teacher dashboard built • Developed React portal for student submissions, built teacher dashboard with real-time outcome tracking, integrated Google Classroom SSO for easy login • Validated: 87 students onboarded in pilot school #1, submitted 34 project reflections in first week • Deliverable: Live portal at pilots.nonprofitname.org used by 450 students across 3 schools" },
+      { week: "Week 4", milestone: "Impact analytics + funder report generator • Built outcome export tool (CSV + charts), tracked completion rates by demographics, created PDF report generator with nonprofit branding • Validated: Program manager generated first funder report in 12 minutes (vs. 3-week manual process) • Deliverable: Automated funder-ready reports with completion rates, demographic breakdowns, qualitative themes" },
+      { week: "Week 5", milestone: "Grant defense + staff training • Compiled pilot impact data (78% completion vs. 45% state avg), trained 6 program coordinators, presented to school board • Validated: 9 students presented projects to school board, grant officer used data to defend $500k funding renewal • Deliverable: Grant-ready impact report showing 40% above-average engagement, used to secure $500k continuation funding (approved 3 weeks later)" },
     ],
   },
 ];
