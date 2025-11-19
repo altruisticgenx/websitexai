@@ -7,19 +7,19 @@ const experiments = [
     icon: FileText,
     name: "Meeting Agenda AI Summarizer",
     status: "Shelved",
-    lesson: "Tech can't fix politics. No decision rights = no dashboard."
+    lesson: "If no one owns the decision, no amount of AI will fix the meeting."
   },
   {
     icon: MessageSquare,
     name: "Civic Comment Sentiment Tracker",
     status: "Killed",
-    lesson: "Efficiency isn't everything. Trust matters most."
+    lesson: "Filtering comments faster didn't build trust. People cared more about being heard than being categorized."
   },
   {
     icon: PenLine,
     name: "AI Essay Grading Assistant",
     status: "Killed",
-    lesson: "Teaching is relational. Students need real feedback."
+    lesson: "Students valued one thoughtful comment from a teacher more than ten AI-generated rubric scores."
   }
 ];
 
