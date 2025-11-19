@@ -362,22 +362,39 @@ export const CaseStudiesStack = ({
   const [activeCards, setActiveCards] = useState(caseStudies);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
+  const [isSwiping, setIsSwiping] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveCards((prev) => {
-        const newArray = [...prev];
-        newArray.unshift(newArray.pop()!);
-        return newArray;
-      });
+      if (!isSwiping) {
+        setActiveCards((prev) => {
+          const newArray = [...prev];
+          newArray.unshift(newArray.pop()!);
+          return newArray;
+        });
+      }
     }, 6000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isSwiping]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     const touch = e.touches[0];
     setTouchStart({ x: touch.clientX, y: touch.clientY });
+    setIsSwiping(false);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStart) return;
+    const touch = e.touches[0];
+    const deltaX = Math.abs(touch.clientX - touchStart.x);
+    const deltaY = Math.abs(touch.clientY - touchStart.y);
+    
+    // If horizontal swipe is more dominant, prevent vertical scroll
+    if (deltaX > deltaY && deltaX > 10) {
+      e.preventDefault();
+      setIsSwiping(true);
+    }
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
@@ -397,6 +414,7 @@ export const CaseStudiesStack = ({
       });
     }
     setTouchStart(null);
+    setTimeout(() => setIsSwiping(false), 100);
   };
 
   // Color gradients for different sectors
@@ -460,12 +478,13 @@ export const CaseStudiesStack = ({
 
   return (
     <div 
-      className="relative h-[160px] w-full sm:h-[180px] md:h-[220px] touch-pan-y"
+      className="relative h-[180px] w-full sm:h-[200px] md:h-[240px] touch-pan-y select-none"
       onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
+      style={{ touchAction: "pan-y" }}
     >
       {activeCards.map((study, index) => {
-        const isHovered = hoveredIndex === index;
         const isTop = index === 0;
         const gradientClass = getCardGradient(study.sector);
         
@@ -473,74 +492,70 @@ export const CaseStudiesStack = ({
           <motion.a
             key={study.id}
             href={`/case-study/${study.id}`}
-            className={`absolute inset-0 mx-auto flex w-full max-w-lg cursor-pointer flex-col justify-between rounded-lg border bg-gradient-to-br ${gradientClass} p-3 shadow-xl backdrop-blur-md transition-all min-h-[44px] sm:rounded-xl sm:p-3.5 md:p-4`}
+            className={`absolute inset-0 mx-auto flex w-full max-w-lg cursor-pointer flex-col justify-between rounded-xl border bg-gradient-to-br ${gradientClass} p-3 shadow-2xl backdrop-blur-md transition-colors min-h-[44px] active:scale-[0.98] sm:p-4 md:rounded-2xl md:p-4`}
             style={{
-              transformOrigin: "top center",
-              perspective: "1200px",
+              transformOrigin: "center center",
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+              transform: "translateZ(0)",
               willChange: "transform, opacity",
             }}
             initial={false}
             animate={{
-              top: index * -5,
-              scale: 1 - index * 0.035,
+              top: index * -6,
+              scale: 1 - index * 0.04,
               zIndex: caseStudies.length - index,
-              opacity: index === 0 ? 1 : index === 1 ? 0.8 : index === 2 ? 0.45 : 0,
-              rotateX: isTop && isHovered ? -2 : 0,
-              rotateY: isTop && isHovered ? 1.5 : 0,
-              y: isTop && isHovered ? -6 : 0,
+              opacity: index === 0 ? 1 : index === 1 ? 0.75 : index === 2 ? 0.4 : 0,
             }}
             whileHover={isTop ? {
-              scale: 1.02,
-              rotateX: -3,
-              rotateY: 2,
+              scale: 1.03,
+              y: -8,
+              rotateX: -2,
+              rotateY: 1,
+              transition: {
+                duration: 0.2,
+                ease: "easeOut",
+              }
             } : {}}
             whileTap={isTop ? { 
-              scale: 0.98,
-              rotateX: -1,
-              rotateY: 0.5,
+              scale: 0.97,
+              transition: {
+                duration: 0.1,
+              }
             } : {}}
             transition={{
-              duration: 0.3,
+              duration: 0.4,
               ease: [0.23, 1, 0.32, 1],
-              type: "spring",
-              stiffness: 400,
-              damping: 30,
             }}
-            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseEnter={() => isTop && setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
-            <div className="space-y-1 sm:space-y-1.5">
-              <motion.div 
-                className="inline-flex items-center gap-1 rounded-full border border-current/30 bg-current/10 px-1.5 py-0.5 text-[8px] font-medium sm:px-2 sm:text-[9px]"
-                animate={isTop && isHovered ? { scale: 1.05 } : { scale: 1 }}
-                transition={{ duration: 0.2 }}
+            <div className="space-y-1.5 sm:space-y-2">
+              <div 
+                className="inline-flex items-center gap-1 rounded-full border border-current/30 bg-current/10 px-2 py-0.5 text-[9px] font-medium sm:text-[10px]"
               >
-                <span>{getProjectIcon(study.id)}</span>
-                {study.sector}
-              </motion.div>
-              <h3 className="text-[11px] font-semibold leading-tight text-slate-50 sm:text-xs md:text-sm">
+                <span className="flex items-center">{getProjectIcon(study.id)}</span>
+                <span>{study.sector}</span>
+              </div>
+              <h3 className="text-xs font-semibold leading-tight text-slate-50 sm:text-sm md:text-base">
                 {study.title}
               </h3>
-              <p className="line-clamp-2 text-[9px] leading-snug text-slate-200/90 sm:text-[10px]">
+              <p className="line-clamp-2 text-[10px] leading-relaxed text-slate-200/90 sm:text-xs">
                 {study.summary}
               </p>
             </div>
 
-            <div className="mt-1.5 flex items-center justify-between gap-2 sm:mt-2">
-              <motion.span 
-                className="rounded-full border border-slate-700/60 bg-slate-800/40 px-1.5 py-0.5 text-[8px] font-medium text-slate-300 sm:px-2 sm:text-[9px]"
-                animate={isTop && isHovered ? { x: 2, scale: 1.03 } : { x: 0, scale: 1 }}
-                transition={{ duration: 0.2 }}
+            <div className="mt-2 flex items-center justify-between gap-2">
+              <span 
+                className="rounded-full border border-slate-700/60 bg-slate-800/40 px-2 py-1 text-[9px] font-medium text-slate-300 sm:text-[10px]"
               >
                 {study.tag}
-              </motion.span>
-              <motion.span 
-                className="text-[9px] font-medium text-current transition-colors sm:text-[10px]"
-                animate={isTop && isHovered ? { x: 2, scale: 1.03 } : { x: 0, scale: 1 }}
-                transition={{ duration: 0.2 }}
+              </span>
+              <span 
+                className="text-[10px] font-medium text-current transition-transform sm:text-xs group-hover:translate-x-1"
               >
                 View →
-              </motion.span>
+              </span>
             </div>
           </motion.a>
         );
