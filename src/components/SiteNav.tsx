@@ -135,13 +135,10 @@ export function SiteNav() {
               {/* Dropdown Menu */}
               {isSolutionsOpen && <div onMouseLeave={() => setIsSolutionsOpen(false)} role="menu" aria-label="Solutions submenu" className="absolute right-0 top-full mt-2 w-48 rounded-lg border border-border bg-card shadow-xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                   <div className="p-2">
-                    <a href="#" onClick={(e) => {
-                      e.preventDefault();
-                      setIsSolutionsOpen(false);
-                    }} role="menuitem" aria-label="Future proofing solutions" className="block rounded-md px-2.5 py-1.5 text-xs transition-colors text-card-foreground hover:bg-accent hover:text-accent-foreground">
+                    <a href="/solutions/future-proofing" onClick={() => setIsSolutionsOpen(false)} role="menuitem" aria-label="Future proofing solutions" className="block rounded-md px-2.5 py-1.5 text-xs transition-colors text-card-foreground hover:bg-accent hover:text-accent-foreground">
                       <div className="font-medium">Future proofing</div>
                       <div className="text-[10px] text-muted-foreground">
-                        Long-term strategic planning
+                        4-week pilot for schools
                       </div>
                     </a>
                   </div>
@@ -194,10 +191,7 @@ export function SiteNav() {
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mb-2">
                   Solutions
                 </div>
-                <a href="#" onClick={(e) => {
-                  e.preventDefault();
-                  setIsMobileMenuOpen(false);
-                }} aria-label="Future proofing solutions" className="block rounded-md px-3 py-2 text-xs transition-colors text-foreground hover:text-primary hover:bg-accent/50">
+                <a href="/solutions/future-proofing" onClick={() => setIsMobileMenuOpen(false)} aria-label="Future proofing solutions" className="block rounded-md px-3 py-2 text-xs transition-colors text-foreground hover:text-primary hover:bg-accent/50">
                   Future proofing
                 </a>
               </div>
