@@ -61,34 +61,30 @@ const Index = () => {
     name: "Builds"
   }, {
     key: "2",
-    sectionId: "how",
-    name: "How it Works"
-  }, {
-    key: "3",
     sectionId: "pilot",
     name: "4-Week Pilot"
   }, {
-    key: "4",
+    key: "3",
     sectionId: "benefits",
     name: "Who Benefits"
   }, {
-    key: "5",
+    key: "4",
     sectionId: "org-types",
     name: "Organization Types"
   }, {
-    key: "6",
+    key: "5",
     sectionId: "where",
     name: "Where I Work"
   }, {
-    key: "7",
+    key: "6",
     sectionId: "shelved",
     name: "Shelved Experiments"
   }, {
-    key: "8",
+    key: "7",
     sectionId: "testimonials",
     name: "Testimonials"
   }, {
-    key: "9",
+    key: "8",
     sectionId: "faq",
     name: "FAQ"
   }]);
@@ -120,7 +116,6 @@ const Index = () => {
               <RecentBuilds />
               
               <TypicalProgression />
-              <HowItWorks />
               <PilotOffer />
               <WhoBenefits />
               <OrganizationTypes />
@@ -318,152 +313,6 @@ function RecentBuilds() {
       }} className="mt-6">
             <CaseStudiesStack caseStudies={projects} />
           </motion.div>}
-      </div>
-    </section>;
-}
-function HowItWorks() {
-  const [hoveredStep, setHoveredStep] = React.useState<number | null>(null);
-  const steps = [{
-    label: "01",
-    title: "Share your idea",
-    body: "Send a doc or quick Loom/call. We scope a realistic 4-week slice.",
-    gradient: "from-emerald-500/20 via-teal-500/15 to-cyan-500/20",
-    glowColor: "rgba(16, 185, 129, 0.3)",
-    borderColor: "border-emerald-500/30",
-    progressColor: "bg-emerald-500"
-  }, {
-    label: "02",
-    title: "Ship weekly",
-    body: "Each week: one complete feature you can demo.",
-    gradient: "from-purple-500/20 via-fuchsia-500/15 to-pink-500/20",
-    glowColor: "rgba(168, 85, 247, 0.3)",
-    borderColor: "border-purple-500/30",
-    progressColor: "bg-purple-500"
-  }, {
-    label: "03",
-    title: "Decide",
-    body: "Working pilot. Clear options: go, pivot, or pause.",
-    gradient: "from-orange-500/20 via-amber-500/15 to-yellow-500/20",
-    glowColor: "rgba(249, 115, 22, 0.3)",
-    borderColor: "border-orange-500/30",
-    progressColor: "bg-orange-500"
-  }];
-  return <section id="how" className="border-t border-slate-900/80 py-3 md:py-4">
-      <div className="mx-auto w-full max-w-5xl px-2 md:px-3">
-        <motion.div initial={{
-          opacity: 0,
-          y: 20
-        }} whileInView={{
-          opacity: 1,
-          y: 0
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.5
-        }}>
-          <h2 className="text-base font-semibold tracking-tight text-foreground md:text-lg">
-            How It Works
-          </h2>
-          <p className="mt-1.5 text-[10px] text-muted-foreground sm:text-xs">
-            Simple 3-step process from idea to working pilot
-          </p>
-        </motion.div>
-
-        <div className="mt-4 grid gap-2 sm:grid-cols-3" style={{
-        perspective: "1000px"
-      }}>
-          {steps.map((step, index) => (
-            <motion.div
-              key={step.label}
-              initial={{
-                opacity: 0,
-                y: 30,
-                rotateX: -15
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-                rotateX: 0
-              }}
-              viewport={{
-                once: true
-              }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.15,
-                type: "spring"
-              }}
-              onMouseEnter={() => setHoveredStep(index)}
-              onMouseLeave={() => setHoveredStep(null)}
-              whileHover={{
-                scale: 1.02,
-                y: -4
-              }}
-              className={cn(
-                "group relative rounded-lg border bg-gradient-to-br backdrop-blur-sm p-3 transition-all cursor-pointer",
-                step.borderColor,
-                step.gradient
-              )}
-              style={{
-                boxShadow: hoveredStep === index ? `0 8px 30px ${step.glowColor}` : 'none',
-              }}
-            >
-              <div className="relative z-10">
-                <div className="text-[10px] font-mono uppercase tracking-wider text-primary/60 sm:text-xs">
-                  {step.label}
-                </div>
-                <h3 className="mt-1 text-xs font-semibold text-foreground sm:text-sm">
-                  {step.title}
-                </h3>
-                <p className="mt-1.5 text-[9px] leading-relaxed text-muted-foreground sm:text-[10px]">
-                  {step.body}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Interactive Timeline Bar */}
-        
-
-        {/* 4-Week Sprint Details */}
-        <motion.div initial={{
-        opacity: 0,
-        y: 20,
-        scale: 0.95
-      }} whileInView={{
-        opacity: 1,
-        y: 0,
-        scale: 1
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.6,
-        delay: 0.4,
-        type: "spring"
-      }} whileHover={{
-        scale: 1.02
-      }} className="mt-2 rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/70 to-slate-900/40 backdrop-blur-sm p-1.5 sm:p-2">
-          <h3 className="text-[9px] font-semibold text-primary sm:text-[10px]">4-Week Sprint Includes</h3>
-          <ul className="mt-1 space-y-0.5 text-[8px] text-slate-200 sm:text-[9px]">
-            <li className="flex items-start gap-1">
-              <span className="text-primary text-[9px]">✓</span>
-              Weekly features you can actually demo
-            </li>
-            <li className="flex items-start gap-1">
-              <span className="text-primary text-[9px]">✓</span>
-              Async tools you already use (Loom, Notion, GitHub, Figma)
-            </li>
-            <li className="flex items-start gap-1">
-              <span className="text-primary text-[9px]">✓</span>
-              You keep all code and docs
-            </li>
-            <li className="flex items-start gap-1">
-              <span className="text-primary text-[9px]">✓</span>
-              Built for validation, fundraising, and teaching
-            </li>
-          </ul>
-        </motion.div>
       </div>
     </section>;
 }
