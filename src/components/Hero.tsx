@@ -12,27 +12,21 @@ function VisualRow({
   title: string;
   body: string;
 }) {
-  return <motion.div 
-    className="group relative flex gap-2 rounded-xl border border-emerald-500/20 bg-slate-950/60 p-2 cursor-default overflow-hidden backdrop-blur-sm" 
-    whileHover={{
-      x: 4,
-      borderColor: "hsl(var(--primary) / 0.5)",
-      backgroundColor: "hsl(var(--slate-900) / 0.8)",
-      boxShadow: "0 0 20px hsl(var(--primary) / 0.2)",
-    }}
-    transition={{ duration: 0.2 }}
-  >
-    <motion.div 
-      className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/5 to-emerald-500/0"
-      animate={{
-        x: ['-100%', '100%'],
-      }}
-      transition={{
-        duration: 3,
-        repeat: Infinity,
-        ease: "linear",
-      }}
-    />
+  return <motion.div className="group relative flex gap-2 rounded-xl border border-emerald-500/20 bg-slate-950/60 p-2 cursor-default overflow-hidden backdrop-blur-sm" whileHover={{
+    x: 4,
+    borderColor: "hsl(var(--primary) / 0.5)",
+    backgroundColor: "hsl(var(--slate-900) / 0.8)",
+    boxShadow: "0 0 20px hsl(var(--primary) / 0.2)"
+  }} transition={{
+    duration: 0.2
+  }}>
+    <motion.div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/5 to-emerald-500/0" animate={{
+      x: ['-100%', '100%']
+    }} transition={{
+      duration: 3,
+      repeat: Infinity,
+      ease: "linear"
+    }} />
     <div className="mt-0.5 w-11 flex-shrink-0 label text-emerald-400 group-hover:text-cyan-400 transition-colors font-mono relative z-10">
       {label}
     </div>
@@ -63,7 +57,6 @@ export function Hero() {
   const fullText = "Build, Learn, Lead—on Your Terms";
   const [displayedText, setDisplayedText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
-
   useEffect(() => {
     let currentIndex = 0;
     const typingSpeed = 80; // milliseconds per character
@@ -79,139 +72,104 @@ export function Hero() {
 
     // Cursor blink effect
     const cursorInterval = setInterval(() => {
-      setShowCursor((prev) => !prev);
+      setShowCursor(prev => !prev);
     }, 530);
-
     return () => {
       clearInterval(typingInterval);
       clearInterval(cursorInterval);
     };
   }, []);
-  
   return <section ref={ref} id="home" className="relative py-8 md:py-12 overflow-hidden bg-slate-950">
       {/* 3D Animated Background */}
       <Hero3DBackground />
       
       {/* Matrix Rain Effect */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-px bg-gradient-to-b from-transparent via-emerald-500 to-transparent"
-            style={{
-              left: `${i * 5}%`,
-              height: '100%',
-            }}
-            animate={{
-              y: ['-100%', '100%'],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              ease: "linear",
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
+        {[...Array(20)].map((_, i) => <motion.div key={i} className="absolute w-px bg-gradient-to-b from-transparent via-emerald-500 to-transparent" style={{
+        left: `${i * 5}%`,
+        height: '100%'
+      }} animate={{
+        y: ['-100%', '100%'],
+        opacity: [0, 1, 0]
+      }} transition={{
+        duration: 3 + Math.random() * 2,
+        repeat: Infinity,
+        ease: "linear",
+        delay: Math.random() * 2
+      }} />)}
       </div>
 
       {/* Scanlines */}
       <div className="absolute inset-0 pointer-events-none opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/20 to-transparent animate-pulse" 
-          style={{
-            backgroundSize: '100% 4px',
-            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, hsl(var(--primary) / 0.1) 2px, hsl(var(--primary) / 0.1) 4px)',
-          }}
-        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/20 to-transparent animate-pulse" style={{
+        backgroundSize: '100% 4px',
+        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, hsl(var(--primary) / 0.1) 2px, hsl(var(--primary) / 0.1) 4px)'
+      }} />
       </div>
 
       {/* Glitch Grid Background */}
-      <motion.div 
-        className="absolute inset-0 opacity-20"
-        style={{ y: yBackground }}
-      >
-        <div className="absolute inset-0"
-          style={{
-            backgroundImage: `
+      <motion.div className="absolute inset-0 opacity-20" style={{
+      y: yBackground
+    }}>
+        <div className="absolute inset-0" style={{
+        backgroundImage: `
               linear-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px),
               linear-gradient(90deg, hsl(var(--primary) / 0.1) 1px, transparent 1px)
             `,
-            backgroundSize: '50px 50px',
-          }}
-        />
-        <motion.div 
-          className="absolute top-10 left-10 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl" 
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [0, 50, 0],
-            y: [0, 30, 0],
-            opacity: [0.2, 0.4, 0.2],
-          }} 
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }} 
-        />
-        <motion.div 
-          className="absolute bottom-20 right-20 w-80 h-80 bg-cyan-500/20 rounded-full blur-3xl" 
-          animate={{
-            scale: [1, 1.3, 1],
-            x: [0, -30, 0],
-            y: [0, -50, 0],
-            opacity: [0.2, 0.4, 0.2],
-          }} 
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }} 
-        />
+        backgroundSize: '50px 50px'
+      }} />
+        <motion.div className="absolute top-10 left-10 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl" animate={{
+        scale: [1, 1.2, 1],
+        x: [0, 50, 0],
+        y: [0, 30, 0],
+        opacity: [0.2, 0.4, 0.2]
+      }} transition={{
+        duration: 15,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }} />
+        <motion.div className="absolute bottom-20 right-20 w-80 h-80 bg-cyan-500/20 rounded-full blur-3xl" animate={{
+        scale: [1, 1.3, 1],
+        x: [0, -30, 0],
+        y: [0, -50, 0],
+        opacity: [0.2, 0.4, 0.2]
+      }} transition={{
+        duration: 12,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }} />
       </motion.div>
 
       {/* Floating Binary/Hex Particles */}
       <motion.div className="absolute inset-0 pointer-events-none" style={{
-        y: yForeground,
-        opacity
+      y: yForeground,
+      opacity
+    }}>
+        {[...Array(12)].map((_, i) => <motion.div key={i} className="absolute caption font-mono text-emerald-500/40" style={{
+        left: `${5 + i * 8}%`,
+        top: `${10 + i * 7}%`
+      }} animate={{
+        y: [0, -40, 0],
+        opacity: [0.1, 0.6, 0.1],
+        rotateZ: [0, 360]
+      }} transition={{
+        duration: 4 + i * 0.3,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: i * 0.2
       }}>
-        {[...Array(12)].map((_, i) => (
-          <motion.div 
-            key={i} 
-            className="absolute caption font-mono text-emerald-500/40"
-            style={{
-              left: `${5 + i * 8}%`,
-              top: `${10 + i * 7}%`,
-            }}
-            animate={{
-              y: [0, -40, 0],
-              opacity: [0.1, 0.6, 0.1],
-              rotateZ: [0, 360],
-            }}
-            transition={{
-              duration: 4 + i * 0.3,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: i * 0.2
-            }}
-          >
             {Math.random() > 0.5 ? '0x' + Math.floor(Math.random() * 0xFF).toString(16) : Math.floor(Math.random() * 2).toString()}
-          </motion.div>
-        ))}
+          </motion.div>)}
       </motion.div>
 
       {/* Scanning Line Effect */}
-      <motion.div
-        className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-50 pointer-events-none"
-        animate={{
-          top: ['0%', '100%'],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-      />
+      <motion.div className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-50 pointer-events-none" animate={{
+      top: ['0%', '100%']
+    }} transition={{
+      duration: 4,
+      repeat: Infinity,
+      ease: "linear"
+    }} />
       
       {/* Content Container with Parallax */}
       <motion.div className="relative z-10 mx-auto max-w-6xl px-3 sm:px-4" style={{
@@ -231,77 +189,54 @@ export function Hero() {
           delay: 0.2
         }}>
             {/* Tag Line with Glitch Effect */}
-            <motion.div 
-              className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/5 px-2.5 py-1 caption font-medium text-emerald-400 backdrop-blur-sm" 
-              initial={{
-                opacity: 0,
-                scale: 0.8
-              }} 
-              animate={{
-                opacity: 1,
-                scale: 1
-              }} 
-              transition={{
-                duration: 0.5,
-                delay: 0.4
-              }}
-              whileHover={{
-                boxShadow: "0 0 20px hsl(var(--primary) / 0.4)",
-              }}
-            >
-              <motion.span 
-                className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400"
-                animate={{
-                  opacity: [1, 0.5, 1],
-                  scale: [1, 1.2, 1],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                }}
-              />
+            <motion.div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/5 px-2.5 py-1 caption font-medium text-emerald-400 backdrop-blur-sm" initial={{
+            opacity: 0,
+            scale: 0.8
+          }} animate={{
+            opacity: 1,
+            scale: 1
+          }} transition={{
+            duration: 0.5,
+            delay: 0.4
+          }} whileHover={{
+            boxShadow: "0 0 20px hsl(var(--primary) / 0.4)"
+          }}>
+              <motion.span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" animate={{
+              opacity: [1, 0.5, 1],
+              scale: [1, 1.2, 1]
+            }} transition={{
+              duration: 2,
+              repeat: Infinity
+            }} />
               <span className="font-mono">{'>'} Ship pilot-ready AI tech</span>
             </motion.div>
 
             {/* Main Headline with Terminal Typing */}
-            <motion.h1 
-              className="mt-3 heading-1 relative font-mono" 
-              initial={{
-                opacity: 0,
-                y: 20
-              }} 
-              animate={{
-                opacity: 1,
-                y: 0
-              }} 
-              transition={{
-                duration: 0.6,
-                delay: 0.5
-              }}
-            >
+            <motion.h1 className="mt-3 heading-1 relative font-mono" initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            duration: 0.6,
+            delay: 0.5
+          }}>
               <span className="relative inline-block">
                 <span className="relative z-10 bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
                   {displayedText}
-                  <motion.span
-                    className="inline-block w-[0.6em] h-[1em] bg-emerald-400 ml-1"
-                    animate={{
-                      opacity: showCursor ? 1 : 0,
-                    }}
-                    transition={{
-                      duration: 0,
-                    }}
-                  />
+                  <motion.span className="inline-block w-[0.6em] h-[1em] bg-emerald-400 ml-1" animate={{
+                  opacity: showCursor ? 1 : 0
+                }} transition={{
+                  duration: 0
+                }} />
                 </span>
-                <motion.span
-                  className="absolute inset-0 bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent blur-sm"
-                  animate={{
-                    opacity: [0.5, 0.8, 0.5],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                  }}
-                >
+                <motion.span className="absolute inset-0 bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent blur-sm" animate={{
+                opacity: [0.5, 0.8, 0.5]
+              }} transition={{
+                duration: 2,
+                repeat: Infinity
+              }}>
                   {displayedText}
                 </motion.span>
               </span>
@@ -320,243 +255,7 @@ export function Hero() {
           }}>For students, teachers, founders, and B2B or civic teams, I offer hands-on AI/product execution without the headcount drama. We pick one concrete problem, turn it into a small backlog, and in 4 weeks you get: a live prototype, clear documentation, and a simple decision—scale it, tweak it, or archive it.</motion.p>
 
             {/* Feature Pills - Unique Interactive Cards */}
-            <motion.div className="mt-4 grid max-w-xl grid-cols-1 gap-2 sm:grid-cols-3" initial={{
-            opacity: 0
-          }} animate={{
-            opacity: 1
-          }} transition={{
-            duration: 0.6,
-            delay: 0.7
-          }}>
-              {/* Card 1 - Hands-on Learning */}
-              <motion.button 
-                className="group relative rounded-xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-950/80 to-slate-900/80 p-3 backdrop-blur-sm overflow-hidden text-left shadow-[0_4px_0_0_hsl(160_84%_39%/0.2)] active:shadow-[0_2px_0_0_hsl(160_84%_39%/0.2)] active:translate-y-[2px] transition-all" 
-                whileHover={{
-                  scale: 1.02,
-                  rotateX: -3,
-                  rotateY: 3,
-                  boxShadow: "0 6px 0 0 hsl(160 84% 39% / 0.3), 0 8px 25px -5px hsl(160 84% 39% / 0.5)",
-                  borderColor: "hsl(160 84% 39% / 0.7)",
-                }}
-                whileTap={{
-                  scale: 0.98,
-                  translateY: 2,
-                }}
-                style={{
-                  transformStyle: "preserve-3d",
-                  perspective: "1000px",
-                }}
-              >
-                {/* Animated grid background */}
-                <motion.div
-                  className="absolute inset-0 opacity-20"
-                  style={{
-                    backgroundImage: `
-                      linear-gradient(hsl(160 84% 39% / 0.3) 1px, transparent 1px),
-                      linear-gradient(90deg, hsl(160 84% 39% / 0.3) 1px, transparent 1px)
-                    `,
-                    backgroundSize: '20px 20px',
-                  }}
-                  animate={{
-                    backgroundPosition: ['0px 0px', '20px 20px'],
-                  }}
-                  transition={{
-                    duration: 10,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                />
-                
-                {/* Shimmer effect */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent"
-                  animate={{
-                    x: ['-200%', '200%'],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                />
-
-                <div className="relative z-10">
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <motion.div 
-                      className="w-1.5 h-1.5 rounded-full bg-emerald-400"
-                      animate={{
-                        scale: [1, 1.3, 1],
-                        opacity: [1, 0.7, 1],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                      }}
-                    />
-                    <span className="caption font-mono text-emerald-400 font-semibold">01_HANDS_ON</span>
-                  </div>
-                  <p className="micro text-emerald-200/90 font-mono leading-tight">
-                    Work directly in code, not endless meetings. Ship real features, not slide decks.
-                  </p>
-                </div>
-              </motion.button>
-              
-              {/* Card 2 - Actionable Tools */}
-              <motion.button 
-                className="group relative rounded-xl border-2 border-cyan-500/40 bg-gradient-to-br from-cyan-950/80 to-slate-900/80 p-3 backdrop-blur-sm overflow-hidden text-left shadow-[0_4px_0_0_hsl(180_100%_50%/0.2)] active:shadow-[0_2px_0_0_hsl(180_100%_50%/0.2)] active:translate-y-[2px] transition-all" 
-                whileHover={{
-                  scale: 1.02,
-                  rotateX: -3,
-                  rotateY: 3,
-                  boxShadow: "0 6px 0 0 hsl(180 100% 50% / 0.3), 0 8px 25px -5px hsl(180 100% 50% / 0.5)",
-                  borderColor: "hsl(180 100% 50% / 0.7)",
-                }}
-                whileTap={{
-                  scale: 0.98,
-                  translateY: 2,
-                }}
-                style={{
-                  transformStyle: "preserve-3d",
-                  perspective: "1000px",
-                }}
-              >
-                {/* Particle field */}
-                <div className="absolute inset-0">
-                  {[...Array(15)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute w-0.5 h-0.5 bg-cyan-400/60 rounded-full"
-                      style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                      }}
-                      animate={{
-                        opacity: [0.2, 0.8, 0.2],
-                        scale: [1, 1.5, 1],
-                      }}
-                      transition={{
-                        duration: 2 + Math.random(),
-                        repeat: Infinity,
-                        delay: Math.random() * 2,
-                      }}
-                    />
-                  ))}
-                </div>
-
-                {/* Scanning line */}
-                <motion.div
-                  className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
-                  animate={{
-                    top: ['0%', '100%'],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                />
-
-                <div className="relative z-10">
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <motion.div 
-                      className="w-1.5 h-1.5 rounded-full bg-cyan-400"
-                      animate={{
-                        scale: [1, 1.3, 1],
-                        opacity: [1, 0.7, 1],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        delay: 0.3,
-                      }}
-                    />
-                    <span className="caption font-mono text-cyan-400 font-semibold">02_ACTIONABLE</span>
-                  </div>
-                  <p className="micro text-cyan-200/90 font-mono leading-tight">
-                    Launch tools users can touch, test, and trust. No vapor, just value.
-                  </p>
-                </div>
-              </motion.button>
-              
-              {/* Card 3 - Fast Delivery */}
-              <motion.button 
-                className="group relative rounded-xl border-2 border-emerald-400/40 bg-gradient-to-br from-teal-950/80 to-slate-900/80 p-3 backdrop-blur-sm overflow-hidden text-left shadow-[0_4px_0_0_hsl(160_100%_40%/0.2)] active:shadow-[0_2px_0_0_hsl(160_100%_40%/0.2)] active:translate-y-[2px] transition-all" 
-                whileHover={{
-                  scale: 1.02,
-                  rotateX: -3,
-                  rotateY: 3,
-                  boxShadow: "0 6px 0 0 hsl(160 100% 40% / 0.3), 0 8px 25px -5px hsl(160 100% 40% / 0.5)",
-                  borderColor: "hsl(160 100% 40% / 0.7)",
-                }}
-                whileTap={{
-                  scale: 0.98,
-                  translateY: 2,
-                }}
-                style={{
-                  transformStyle: "preserve-3d",
-                  perspective: "1000px",
-                }}
-              >
-                {/* Binary rain effect */}
-                <div className="absolute inset-0">
-                  {[...Array(8)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute micro font-mono text-emerald-400/30"
-                      style={{
-                        left: `${i * 12}%`,
-                      }}
-                      animate={{
-                        y: ['-20px', '100%'],
-                        opacity: [0, 1, 0],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "linear",
-                        delay: i * 0.3,
-                      }}
-                    >
-                      {Math.random() > 0.5 ? '1' : '0'}
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* Pulse wave */}
-                <motion.div
-                  className="absolute inset-0 rounded-xl border-2 border-emerald-400/30"
-                  animate={{
-                    scale: [1, 1.05, 1],
-                    opacity: [0.5, 0, 0.5],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                  }}
-                />
-
-                <div className="relative z-10">
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <motion.div 
-                      className="w-1.5 h-1.5 rounded-full bg-emerald-400"
-                      animate={{
-                        scale: [1, 1.3, 1],
-                        opacity: [1, 0.7, 1],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        delay: 0.6,
-                      }}
-                    />
-                    <span className="caption font-mono text-emerald-400 font-semibold">03_FAST</span>
-                  </div>
-                  <p className="micro text-emerald-200/90 font-mono leading-tight">
-                    Start small, iterate weekly, scale what works. No 6-month roadmaps.
-                  </p>
-                </div>
-              </motion.button>
-            </motion.div>
+            
 
             {/* CTA Buttons - Compact 3D Style */}
             <motion.div className="mt-4 flex flex-col gap-2 body-xs sm:flex-row sm:items-center" initial={{
@@ -569,36 +268,26 @@ export function Hero() {
             duration: 0.6,
             delay: 0.8
           }}>
-              <motion.a 
-                href="mailto:hello@altruisticxai.com?subject=AltruisticX%20AI%20Pilot%20Intro" 
-                className="relative inline-flex items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 via-emerald-600 to-cyan-600 px-3 py-1.5 caption font-mono text-slate-950 font-semibold overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.5)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.5)] active:translate-y-[2px] transition-all" 
-                whileHover={{
-                  scale: 1.03,
-                  rotateX: -5,
-                  rotateY: 5,
-                  boxShadow: "0 6px 0 0 hsl(var(--primary) / 0.5), 0 8px 20px -5px hsl(var(--primary) / 0.4)",
-                }} 
-                whileTap={{
-                  scale: 0.97,
-                  translateY: 2,
-                }}
-                style={{
-                  transformStyle: "preserve-3d",
-                  perspective: "1000px",
-                }}
-              >
+              <motion.a href="mailto:hello@altruisticxai.com?subject=AltruisticX%20AI%20Pilot%20Intro" className="relative inline-flex items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 via-emerald-600 to-cyan-600 px-3 py-1.5 caption font-mono text-slate-950 font-semibold overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.5)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.5)] active:translate-y-[2px] transition-all" whileHover={{
+              scale: 1.03,
+              rotateX: -5,
+              rotateY: 5,
+              boxShadow: "0 6px 0 0 hsl(var(--primary) / 0.5), 0 8px 20px -5px hsl(var(--primary) / 0.4)"
+            }} whileTap={{
+              scale: 0.97,
+              translateY: 2
+            }} style={{
+              transformStyle: "preserve-3d",
+              perspective: "1000px"
+            }}>
                 {/* Animated shimmer */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  animate={{
-                    x: ['-200%', '200%'],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                />
+                <motion.div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent" animate={{
+                x: ['-200%', '200%']
+              }} transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "linear"
+              }} />
                 
                 {/* Inner shadow for depth */}
                 <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent rounded-lg" />
@@ -608,48 +297,34 @@ export function Hero() {
                 </span>
                 
                 {/* Glow on hover */}
-                <motion.div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 rounded-lg"
-                  style={{
-                    boxShadow: '0 0 30px hsl(var(--primary)), inset 0 0 20px hsl(var(--primary) / 0.3)',
-                  }}
-                  transition={{ duration: 0.3 }}
-                />
+                <motion.div className="absolute inset-0 opacity-0 group-hover:opacity-100 rounded-lg" style={{
+                boxShadow: '0 0 30px hsl(var(--primary)), inset 0 0 20px hsl(var(--primary) / 0.3)'
+              }} transition={{
+                duration: 0.3
+              }} />
               </motion.a>
               
-              <motion.a 
-                href="https://www.linkedin.com/in/your-profile" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="relative inline-flex items-center justify-center gap-1 rounded-lg border-2 border-emerald-500/40 bg-gradient-to-br from-slate-900/90 to-slate-800/90 px-3 py-1.5 caption text-emerald-400 backdrop-blur-sm font-mono font-medium overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.2)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.2)] active:translate-y-[2px] transition-all" 
-                whileHover={{
-                  scale: 1.03,
-                  rotateX: -5,
-                  rotateY: -5,
-                  borderColor: "hsl(var(--primary) / 0.7)",
-                  boxShadow: "0 6px 0 0 hsl(var(--primary) / 0.2), 0 8px 20px -5px hsl(var(--primary) / 0.3)",
-                }} 
-                whileTap={{
-                  scale: 0.97,
-                  translateY: 2,
-                }}
-                style={{
-                  transformStyle: "preserve-3d",
-                  perspective: "1000px",
-                }}
-              >
+              <motion.a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer" className="relative inline-flex items-center justify-center gap-1 rounded-lg border-2 border-emerald-500/40 bg-gradient-to-br from-slate-900/90 to-slate-800/90 px-3 py-1.5 caption text-emerald-400 backdrop-blur-sm font-mono font-medium overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.2)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.2)] active:translate-y-[2px] transition-all" whileHover={{
+              scale: 1.03,
+              rotateX: -5,
+              rotateY: -5,
+              borderColor: "hsl(var(--primary) / 0.7)",
+              boxShadow: "0 6px 0 0 hsl(var(--primary) / 0.2), 0 8px 20px -5px hsl(var(--primary) / 0.3)"
+            }} whileTap={{
+              scale: 0.97,
+              translateY: 2
+            }} style={{
+              transformStyle: "preserve-3d",
+              perspective: "1000px"
+            }}>
                 {/* Scanning line */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/20 to-emerald-500/0"
-                  animate={{
-                    x: ['-200%', '200%'],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                />
+                <motion.div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/20 to-emerald-500/0" animate={{
+                x: ['-200%', '200%']
+              }} transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear"
+              }} />
                 
                 {/* Inner glow */}
                 <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/10 to-transparent rounded-lg" />
@@ -672,17 +347,13 @@ export function Hero() {
           delay: 0.3
         }}>
             <FloatingCard3D>
-              <motion.div 
-                className="relative rounded-2xl border border-emerald-500/30 bg-slate-900/80 p-3 sm:p-4 backdrop-blur-sm overflow-hidden" 
-                whileHover={{
-                  scale: 1.02,
-                  boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.3), 0 0 60px -15px hsl(var(--primary) / 0.4)",
-                  borderColor: "hsl(var(--primary) / 0.5)",
-                }} 
-                transition={{
-                  duration: 0.3
-                }}
-              >
+              <motion.div className="relative rounded-2xl border border-emerald-500/30 bg-slate-900/80 p-3 sm:p-4 backdrop-blur-sm overflow-hidden" whileHover={{
+              scale: 1.02,
+              boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.3), 0 0 60px -15px hsl(var(--primary) / 0.4)",
+              borderColor: "hsl(var(--primary) / 0.5)"
+            }} transition={{
+              duration: 0.3
+            }}>
                 {/* Terminal Header */}
                 <div className="flex items-center gap-2 mb-3 pb-2 border-b border-emerald-500/20">
                   <div className="flex gap-1.5">
@@ -696,17 +367,13 @@ export function Hero() {
                 </div>
 
                 {/* Scanning Line Effect */}
-                <motion.div
-                  className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-400 to-transparent"
-                  animate={{
-                    top: ['0%', '100%'],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                />
+                <motion.div className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-400 to-transparent" animate={{
+                top: ['0%', '100%']
+              }} transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear"
+              }} />
 
                 <div className="caption font-mono text-emerald-400/90">
                   <span className="text-cyan-400">$</span> cat build-fast-kit.config
