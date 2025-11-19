@@ -1,3 +1,4 @@
+import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.81.1";
 
@@ -197,33 +198,34 @@ Key Service Points:
 Be conversational, professional, and encourage booking a 30-min intro call for complex inquiries. 
 NEVER reveal data about specific submissions, emails, or private user information.`;
 
-    // Call Lovable AI Gateway
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      console.error("❌ LOVABLE_API_KEY not configured");
-      throw new Error("LOVABLE_API_KEY not configured");
+    // Call OpenAI GPT-4o
+    const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
+    if (!OPENAI_API_KEY) {
+      console.error("❌ OPENAI_API_KEY not configured");
+      throw new Error("OPENAI_API_KEY not configured");
     }
 
-    console.log("🤖 Calling Lovable AI Gateway...");
-    const aiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    console.log("🤖 Calling OpenAI GPT-4o...");
+    const aiResponse = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
+        "Authorization": `Bearer ${OPENAI_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash", // Fast and cost-efficient
+        model: "gpt-4o",
         messages: [
           { role: "system", content: context },
-          { role: "user", content: question }
+          { role: "user", content: sanitizedQuestion }
         ],
-        max_completion_tokens: 800, // Optimized token limit
+        max_tokens: 800,
+        temperature: 0.7,
       }),
     });
 
     if (!aiResponse.ok) {
       const errorText = await aiResponse.text();
-      console.error("❌ AI Gateway error:", {
+      console.error("❌ OpenAI API error:", {
         status: aiResponse.status,
         statusText: aiResponse.statusText,
         body: errorText
@@ -236,18 +238,18 @@ NEVER reveal data about specific submissions, emails, or private user informatio
         );
       }
       
-      if (aiResponse.status === 402) {
+      if (aiResponse.status === 401) {
         return new Response(
-          JSON.stringify({ error: "AI service credits exhausted. Please contact support." }),
-          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          JSON.stringify({ error: "OpenAI API authentication failed. Please check API key." }),
+          { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
 
-      throw new Error(`AI Gateway request failed: ${aiResponse.status} ${errorText}`);
+      throw new Error(`OpenAI API request failed: ${aiResponse.status} ${errorText}`);
     }
 
     const aiData = await aiResponse.json();
-    console.log("✅ AI response structure:", { 
+    console.log("✅ OpenAI response structure:", { 
       hasChoices: !!aiData.choices, 
       choicesLength: aiData.choices?.length,
       hasContent: !!aiData.choices?.[0]?.message?.content 
@@ -256,11 +258,11 @@ NEVER reveal data about specific submissions, emails, or private user informatio
     const answer = aiData.choices?.[0]?.message?.content;
 
     if (!answer) {
-      console.error("❌ No answer in AI response:", JSON.stringify(aiData));
-      throw new Error("No response from AI");
+      console.error("❌ No answer in OpenAI response:", JSON.stringify(aiData));
+      throw new Error("No response from OpenAI");
     }
 
-    console.log("✅ Successfully generated answer");
+    console.log("✅ Successfully generated answer with GPT-4o");
     return new Response(
       JSON.stringify({ answer }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
