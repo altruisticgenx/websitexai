@@ -155,10 +155,7 @@ export function Hero() {
           }} transition={{
             duration: 0.6,
             delay: 0.6
-          }}>
-              Are you a student, teacher, founder, B2B team, or changemaker in energy, education, or governance?
-              Skip the slow hiring process and get senior AI/product execution in focused pilots, shipped week by week.
-            </motion.p>
+          }}>For students, teachers, founders, and B2B or civic teams, I offer hands-on AI/product execution without the headcount drama. We pick one concrete problem, turn it into a small backlog, and in 4 weeks you get: a live prototype, clear documentation, and a simple decision—scale it, tweak it, or archive it.</motion.p>
 
             {/* Feature Pills */}
             <motion.dl className="mt-4 grid max-w-xl grid-cols-1 gap-2 text-[10px] text-slate-200 sm:grid-cols-3 sm:text-xs" initial={{
