@@ -6,7 +6,6 @@ import { ChevronDown } from "lucide-react";
 export function SiteNav() {
   const activeSection = useActiveSection(["", "pilot", "builds", "how", "where"]);
   const [isWorkOpen, setIsWorkOpen] = useState(false);
-  const [isLabOpen, setIsLabOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const mobileMenuRef = useFocusTrap<HTMLDivElement>(isMobileMenuOpen);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
@@ -17,7 +16,6 @@ export function SiteNav() {
 
     // Close dropdown and mobile menu when clicking a link
     setIsWorkOpen(false);
-    setIsLabOpen(false);
     setIsMobileMenuOpen(false);
     if (href === "#" || href === "") {
       window.scrollTo({
@@ -83,32 +81,9 @@ export function SiteNav() {
               home
             </a>
 
-            {/* Lab Dropdown */}
-            <div className="relative">
-              <button onClick={() => setIsLabOpen(!isLabOpen)} onMouseEnter={() => setIsLabOpen(true)} aria-expanded={isLabOpen} aria-haspopup="true" aria-label="Lab menu" className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium lowercase tracking-wide text-foreground transition-all duration-200 hover:text-primary hover:bg-accent/50 rounded-md">
-                lab
-                <ChevronDown className={cn("h-3 w-3 transition-transform duration-200", isLabOpen && "rotate-180")} aria-hidden="true" />
-              </button>
-
-              {/* Dropdown Menu */}
-              {isLabOpen && <div onMouseLeave={() => setIsLabOpen(false)} role="menu" aria-label="Lab submenu" className="absolute right-0 top-full mt-2 w-48 rounded-lg border border-border bg-card shadow-xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                  <div className="p-2">
-                    <a href="/portfolio" onClick={handleNavClick} role="menuitem" aria-label="Navigate to portfolio" className="block rounded-md px-2.5 py-1.5 text-xs text-card-foreground hover:bg-accent hover:text-accent-foreground transition-colors">
-                      <div className="font-medium">Portfolio</div>
-                      <div className="text-[10px] text-muted-foreground">
-                        View all projects
-                      </div>
-                    </a>
-
-                    <a href="/solutions" onClick={handleNavClick} role="menuitem" aria-label="Navigate to solutions" className="block rounded-md px-2.5 py-1.5 text-xs text-card-foreground hover:bg-accent hover:text-accent-foreground transition-colors">
-                      <div className="font-medium">Solutions</div>
-                      <div className="text-[10px] text-muted-foreground">
-                        Explore offerings
-                      </div>
-                    </a>
-                  </div>
-                </div>}
-            </div>
+            <a href="/portfolio" aria-label="View portfolio lab" className="px-3 py-1.5 text-xs font-medium lowercase tracking-wide text-foreground transition-all duration-200 hover:text-primary hover:bg-accent/50 rounded-md">
+              lab
+            </a>
 
             <a href="https://futurexedu.lovable.app" target="_blank" rel="noopener noreferrer" aria-label="View 2026 snapshot (opens in new tab)" className="px-3 py-1.5 text-xs font-medium lowercase tracking-wide text-foreground transition-all duration-200 hover:text-primary hover:bg-accent/50 rounded-md">
               2026 snapshot
@@ -171,17 +146,9 @@ export function SiteNav() {
                 home
               </a>
 
-              <div className="space-y-1 pl-4 pt-2">
-                <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mb-2">
-                  Lab
-                </div>
-                <a href="/portfolio" onClick={handleNavClick} aria-label="Navigate to portfolio" className="block rounded-md px-3 py-2 text-xs text-foreground hover:text-primary hover:bg-accent/50 transition-colors">
-                  Portfolio
-                </a>
-                <a href="/solutions" onClick={handleNavClick} aria-label="Navigate to solutions" className="block rounded-md px-3 py-2 text-xs text-foreground hover:text-primary hover:bg-accent/50 transition-colors">
-                  Solutions
-                </a>
-              </div>
+              <a href="/portfolio" aria-label="View portfolio lab" className="block rounded-md px-3 py-2 text-sm font-medium lowercase text-foreground transition-colors hover:text-primary hover:bg-accent/50">
+                lab
+              </a>
 
               <a href="https://futurexedu.lovable.app" target="_blank" rel="noopener noreferrer" aria-label="View 2026 snapshot (opens in new tab)" className="block rounded-md px-3 py-2 text-sm font-medium lowercase text-foreground transition-colors hover:text-primary hover:bg-accent/50">
                 2026 snapshot
