@@ -275,18 +275,27 @@ function HowItWorks() {
   const steps = [{
     label: "01",
     title: "Share your idea",
-    body: "Send a doc or quick Loom/call. We scope a realistic 4-week slice."
+    body: "Send a doc or quick Loom/call. We scope a realistic 4-week slice.",
+    gradient: "from-emerald-500/20 via-teal-500/15 to-cyan-500/20",
+    glowColor: "rgba(16, 185, 129, 0.3)",
+    borderColor: "border-emerald-500/30"
   }, {
     label: "02",
     title: "Ship weekly",
-    body: "Each week: one complete feature you can demo."
+    body: "Each week: one complete feature you can demo.",
+    gradient: "from-purple-500/20 via-fuchsia-500/15 to-pink-500/20",
+    glowColor: "rgba(168, 85, 247, 0.3)",
+    borderColor: "border-purple-500/30"
   }, {
     label: "03",
     title: "Decide",
-    body: "Working pilot. Clear options: go, pivot, or pause."
+    body: "Working pilot. Clear options: go, pivot, or pause.",
+    gradient: "from-orange-500/20 via-amber-500/15 to-yellow-500/20",
+    glowColor: "rgba(249, 115, 22, 0.3)",
+    borderColor: "border-orange-500/30"
   }];
-  return <section id="how" className="border-t border-slate-900/80 py-6 md:py-8">
-      <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
+  return <section id="how" className="border-t border-slate-900/80 py-3 md:py-4">
+      <div className="mx-auto w-full max-w-5xl px-2 md:px-3">
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -298,65 +307,81 @@ function HowItWorks() {
       }} transition={{
         duration: 0.5
       }}>
-          <h2 className="text-base font-semibold tracking-tight text-foreground md:text-lg">
+          <h2 className="text-[11px] font-semibold tracking-tight text-foreground md:text-xs">
             How It Works
           </h2>
-          <p className="mt-1.5 max-w-2xl text-[10px] leading-relaxed text-muted-foreground sm:text-xs">
+          <p className="mt-1 max-w-2xl text-[8px] leading-relaxed text-muted-foreground sm:text-[9px]">
             <span className="text-primary font-medium">4 weeks. 3 steps.</span> No endless meetings.
           </p>
         </motion.div>
 
-        <div className="mt-4 grid gap-3 sm:grid-cols-3">
-          {steps.map((step, index) => <motion.div key={step.label} initial={{
-          opacity: 0,
-          y: 20
-        }} whileInView={{
-          opacity: 1,
-          y: 0
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.5,
-          delay: index * 0.1
-        }} whileHover={{
-          y: -6,
-          boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.2)",
-          borderColor: "hsl(var(--primary) / 0.4)"
-        }} className="group rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/50 to-slate-900/30 p-2.5 text-xs transition-all duration-300 cursor-default">
-              <div className="text-[9px] font-mono uppercase tracking-[0.18em] text-primary group-hover:text-accent transition-colors">
+        <div className="mt-2 grid gap-1.5 sm:grid-cols-3" style={{ perspective: "1000px" }}>
+          {steps.map((step, index) => <motion.div 
+            key={step.label} 
+            initial={{
+              opacity: 0,
+              y: 30,
+              rotateX: -15
+            }} 
+            whileInView={{
+              opacity: 1,
+              y: 0,
+              rotateX: 0
+            }} 
+            viewport={{
+              once: true
+            }} 
+            transition={{
+              duration: 0.6,
+              delay: index * 0.15,
+              type: "spring",
+              stiffness: 100
+            }} 
+            whileHover={{
+              y: -8,
+              rotateY: 5,
+              rotateX: -3,
+              scale: 1.05,
+              boxShadow: `0 20px 40px -10px ${step.glowColor}`,
+              borderColor: step.glowColor
+            }} 
+            style={{ transformStyle: "preserve-3d" }}
+            className={`group rounded-xl border ${step.borderColor} bg-gradient-to-br ${step.gradient} backdrop-blur-sm p-1.5 sm:p-2 text-xs transition-all duration-300 cursor-default`}>
+              <div className="text-[7px] font-mono uppercase tracking-[0.2em] text-primary group-hover:scale-110 transition-transform">
                 {step.label}
               </div>
-              <h3 className="mt-1 text-xs font-semibold text-slate-50 group-hover:text-primary transition-colors">
+              <h3 className="mt-0.5 text-[9px] font-semibold text-slate-50 group-hover:text-primary transition-colors">
                 {step.title}
               </h3>
-              <p className="mt-1 text-[10px] text-slate-300 leading-relaxed">{step.body}</p>
+              <p className="mt-0.5 text-[8px] text-slate-300 leading-relaxed">{step.body}</p>
             </motion.div>)}
         </div>
 
         {/* 4-Week Sprint Details */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-6 rounded-xl border border-slate-800/70 bg-slate-950/50 p-3 sm:p-4"
+          transition={{ duration: 0.6, delay: 0.4, type: "spring" }}
+          whileHover={{ scale: 1.02 }}
+          className="mt-2 rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/70 to-slate-900/40 backdrop-blur-sm p-1.5 sm:p-2"
         >
-          <h3 className="text-xs font-semibold text-primary sm:text-sm">4-Week Sprint Includes</h3>
-          <ul className="mt-2 space-y-1 text-[10px] text-slate-200 sm:text-xs">
-            <li className="flex items-start gap-2">
-              <span className="text-primary mt-0.5">✓</span>
+          <h3 className="text-[9px] font-semibold text-primary sm:text-[10px]">4-Week Sprint Includes</h3>
+          <ul className="mt-1 space-y-0.5 text-[8px] text-slate-200 sm:text-[9px]">
+            <li className="flex items-start gap-1">
+              <span className="text-primary text-[9px]">✓</span>
               Weekly features you can actually demo
             </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary mt-0.5">✓</span>
+            <li className="flex items-start gap-1">
+              <span className="text-primary text-[9px]">✓</span>
               Async tools you already use (Loom, Notion, GitHub, Figma)
             </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary mt-0.5">✓</span>
+            <li className="flex items-start gap-1">
+              <span className="text-primary text-[9px]">✓</span>
               You keep all code and docs
             </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary mt-0.5">✓</span>
+            <li className="flex items-start gap-1">
+              <span className="text-primary text-[9px]">✓</span>
               Built for validation, fundraising, and teaching
             </li>
           </ul>
