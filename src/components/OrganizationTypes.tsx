@@ -33,7 +33,7 @@ const orgTypes: OrgType[] = [
 
 export const OrganizationTypes = memo(() => {
   return (
-    <section id="org-types" className="py-10 sm:py-14">
+    <section id="org-types" className="py-6 sm:py-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -41,15 +41,15 @@ export const OrganizationTypes = memo(() => {
         transition={{ duration: 0.5 }}
         className="max-w-4xl"
       >
-        <h2 className="text-xl font-semibold sm:text-2xl">
+        <h2 className="text-base font-semibold sm:text-lg">
           Organization Types
         </h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The kinds of teams and organizations I work with most often.
+        <p className="mt-1.5 text-[10px] text-muted-foreground sm:text-xs">
+          Common teams I work with:
         </p>
       </motion.div>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-4 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
         {orgTypes.map((org, index) => {
           const Icon = org.icon;
           return (
@@ -60,24 +60,24 @@ export const OrganizationTypes = memo(() => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ 
-                y: -8,
-                scale: 1.05,
-                rotate: 2,
-                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.25)",
+                y: -6,
+                scale: 1.03,
+                rotate: 1,
+                boxShadow: "0 15px 20px -5px hsl(var(--primary) / 0.2)",
                 borderColor: "hsl(var(--primary) / 0.5)"
               }}
-              className="group rounded-2xl border border-border bg-gradient-to-br from-card/60 to-card/30 p-5 text-center transition-all duration-300 cursor-default"
+              className="group rounded-xl border border-border bg-gradient-to-br from-card/60 to-card/30 p-3 text-center transition-all duration-300 cursor-default"
             >
               <motion.div
                 whileHover={{ 
-                  scale: 1.2,
-                  rotate: -5,
+                  scale: 1.15,
+                  rotate: -3,
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
               >
-                <Icon className={`mx-auto mb-3 h-8 w-8 transition-colors duration-300 ${org.color}`} />
+                <Icon className={`mx-auto mb-2 h-5 w-5 transition-colors duration-300 ${org.color}`} />
               </motion.div>
-              <h3 className="text-sm font-medium text-foreground transition-colors group-hover:text-primary">
+              <h3 className="text-[10px] font-medium text-foreground transition-colors group-hover:text-primary sm:text-xs">
                 {org.name}
               </h3>
             </motion.div>

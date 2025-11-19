@@ -50,7 +50,7 @@ const engagementModels: EngagementModel[] = [{
   iconColor: "text-accent"
 }] as const;
 export const EngagementModels = memo(() => {
-  return <section className="py-8 sm:py-10">
+  return <section className="py-5 sm:py-6">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <motion.div initial={{
         opacity: 0,
@@ -62,16 +62,16 @@ export const EngagementModels = memo(() => {
         once: true
       }} transition={{
         duration: 0.6
-      }} className="mb-4 text-center sm:mb-6">
-          <h2 className="text-base font-semibold sm:text-lg">
-            How we work together
+      }} className="mb-3 text-center sm:mb-4">
+          <h2 className="text-sm font-semibold sm:text-base">
+            How We Work Together
           </h2>
-          <p className="mt-1.5 text-[10px] text-slate-300 sm:text-xs">
+          <p className="mt-1 text-[9px] text-slate-300 sm:text-[10px]">
             Different models for different needs
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 sm:gap-2.5 lg:grid-cols-4">
           {engagementModels.map((model, index) => {
           const Icon = model.icon;
           return <motion.div key={model.name} initial={{
@@ -90,29 +90,29 @@ export const EngagementModels = memo(() => {
                   <motion.div whileHover={{
                 scale: 1.03,
                 boxShadow: "0 15px 30px -5px rgba(16, 185, 129, 0.25)"
-              }} className={`group relative h-full rounded-lg border ${model.borderColor} bg-gradient-to-br ${model.color} p-2.5 sm:p-3 transition-all duration-300 cursor-default`}>
-                    <div className={`inline-flex rounded-md bg-slate-900/60 p-1.5 ${model.iconColor}`}>
-                      <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              }} className={`group relative h-full rounded-lg border ${model.borderColor} bg-gradient-to-br ${model.color} p-2 sm:p-2.5 transition-all duration-300 cursor-default`}>
+                    <div className={`inline-flex rounded-md bg-slate-900/60 p-1 ${model.iconColor}`}>
+                      <Icon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                     </div>
                     
-                    <h3 className="mt-1.5 text-[11px] font-semibold text-slate-50 sm:text-xs">
+                    <h3 className="mt-1 text-[10px] font-semibold text-slate-50 sm:text-[11px]">
                       {model.name}
                     </h3>
                     
-                    <p className="mt-1 text-[9px] leading-tight text-slate-200 sm:text-[10px]">
+                    <p className="mt-0.5 text-[8px] leading-tight text-slate-200 sm:text-[9px]">
                       {model.description}
                     </p>
 
-                    <div className="mt-2 space-y-1 border-t border-slate-700/30 pt-1.5">
+                    <div className="mt-1.5 space-y-0.5 border-t border-slate-700/30 pt-1">
                       <div>
-                        <span className="text-[8px] font-medium uppercase tracking-wider text-slate-400">
+                        <span className="text-[7px] font-medium uppercase tracking-wider text-slate-400 sm:text-[8px]">
                           Pros
                         </span>
                         <p className="text-[8px] text-slate-300 sm:text-[9px]">{model.pros}</p>
                       </div>
                       
                       <div>
-                        <span className="text-[8px] font-medium uppercase tracking-wider text-slate-400">
+                        <span className="text-[7px] font-medium uppercase tracking-wider text-slate-400 sm:text-[8px]">
                           Best For
                         </span>
                         <p className="text-[8px] text-slate-300 sm:text-[9px]">{model.bestFor}</p>
