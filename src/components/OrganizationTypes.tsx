@@ -57,10 +57,10 @@ export const OrganizationTypes = memo(() => {
         transition={{ duration: 0.5 }}
         className="max-w-4xl"
       >
-        <h2 className="text-base font-semibold sm:text-lg">
+        <h2 className="heading-3">
           Organization Types
         </h2>
-        <p className="mt-1.5 text-[10px] text-muted-foreground sm:text-xs">
+        <p className="mt-1.5 body-xs text-muted-foreground">
           Click each type to see how we work together:
         </p>
       </motion.div>
@@ -101,7 +101,7 @@ export const OrganizationTypes = memo(() => {
                 >
                   <Icon className={`mx-auto mb-2 h-5 w-5 transition-colors duration-300 ${org.color}`} />
                 </motion.div>
-                <h3 className={`text-[10px] font-medium transition-colors sm:text-xs ${
+                <h3 className={`body-xs font-medium transition-colors ${
                   isExpanded ? org.color : 'text-foreground group-hover:text-primary'
                 }`}>
                   {org.name}
@@ -125,7 +125,7 @@ export const OrganizationTypes = memo(() => {
                     <div className={`rounded-xl border border-border/50 bg-background/95 backdrop-blur-sm p-3 shadow-xl ${
                       'bg-gradient-to-br ' + org.gradient
                     }`}>
-                      <p className="text-[9px] leading-relaxed text-muted-foreground sm:text-[10px]">
+                      <p className="caption leading-relaxed text-muted-foreground">
                         {org.description.split('**').map((part, i) => 
                           i % 2 === 1 ? (
                             <strong key={i} className="font-semibold text-foreground">{part}</strong>
