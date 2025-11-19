@@ -63,10 +63,10 @@ export const EngagementModels = memo(() => {
       }} transition={{
         duration: 0.6
       }} className="mb-2 text-center sm:mb-3">
-          <h2 className="text-[11px] font-semibold sm:text-xs">
+          <h2 className="heading-6">
             How We Work Together
           </h2>
-          <p className="mt-0.5 text-[8px] text-slate-400 sm:text-[9px]">
+          <p className="mt-0.5 micro text-slate-400">
             Pick your speed
           </p>
         </motion.div>
@@ -102,27 +102,27 @@ export const EngagementModels = memo(() => {
                       <Icon className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                     </div>
                     
-                    <h3 className="mt-0.5 text-[9px] font-bold text-slate-50 sm:text-[10px]">
+                    <h3 className="mt-0.5 caption font-bold text-slate-50">
                       {model.name}
                     </h3>
                     
-                    <p className="mt-0.5 text-[7px] leading-snug text-slate-200 sm:text-[8px] font-medium">
+                    <p className="mt-0.5 micro leading-snug text-slate-200 font-medium">
                       {model.description}
                     </p>
 
                     <div className="mt-1 space-y-0.5 border-t border-slate-600/40 pt-0.5">
                       <div>
-                        <span className="text-[6px] font-bold uppercase tracking-wider text-slate-400 sm:text-[7px]">
+                        <span className="overline text-slate-400">
                           ✓
                         </span>
-                        <p className="text-[7px] text-slate-300 sm:text-[8px]">{model.pros}</p>
+                        <p className="micro text-slate-300">{model.pros}</p>
                       </div>
                       
                       <div>
-                        <span className="text-[6px] font-bold uppercase tracking-wider text-slate-400 sm:text-[7px]">
+                        <span className="overline text-slate-400">
                           →
                         </span>
-                        <p className="text-[7px] text-slate-300 sm:text-[8px]">{model.bestFor}</p>
+                        <p className="micro text-slate-300">{model.bestFor}</p>
                       </div>
                     </div>
                   </motion.div>

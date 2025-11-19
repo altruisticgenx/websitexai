@@ -112,8 +112,8 @@ export function ContactForm() {
   return (
     <div className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-6 sm:p-8">
       <div className="mb-6">
-        <h3 className="text-2xl font-semibold text-slate-50">Get in touch</h3>
-        <p className="mt-2 text-sm text-slate-300">
+        <h3 className="heading-2 text-slate-50">Get in touch</h3>
+        <p className="mt-2 body-base text-slate-300">
           Share your project details and I'll respond within 24 hours.
         </p>
       </div>
@@ -125,7 +125,7 @@ export function ContactForm() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel className="body-base">Name</FormLabel>
                 <FormControl>
                   <Input 
                     placeholder="Your name" 
@@ -135,7 +135,7 @@ export function ContactForm() {
                 </FormControl>
                 <div className="flex justify-between items-center">
                   <FormMessage />
-                  <span className={`text-xs ${nameLength > 100 ? 'text-destructive' : 'text-slate-400'}`}>
+                  <span className={`body-xs ${nameLength > 100 ? 'text-destructive' : 'text-slate-400'}`}>
                     {nameLength}/100
                   </span>
                 </div>
@@ -148,7 +148,7 @@ export function ContactForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="body-base">Email</FormLabel>
                 <FormControl>
                   <EmailInput
                     placeholder="you@example.com"
@@ -168,7 +168,7 @@ export function ContactForm() {
             name="projectType"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Project Type</FormLabel>
+                <FormLabel className="body-base">Project Type</FormLabel>
                 <Select 
                   onValueChange={field.onChange} 
                   defaultValue={field.value}
@@ -197,7 +197,7 @@ export function ContactForm() {
             name="message"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Message</FormLabel>
+                <FormLabel className="body-base">Message</FormLabel>
                 <FormControl>
                   <Textarea
                     placeholder="Tell me about your project..."
@@ -208,11 +208,11 @@ export function ContactForm() {
                 </FormControl>
                 <div className="flex justify-between items-center">
                   <FormMessage />
-                  <span className={`text-xs ${messageLength > 1000 ? 'text-destructive' : 'text-slate-400'}`}>
+                  <span className={`body-xs ${messageLength > 1000 ? 'text-destructive' : 'text-slate-400'}`}>
                     {messageLength}/1000
                   </span>
                 </div>
-                <FormDescription className="text-xs">
+                <FormDescription className="body-xs">
                   Minimum 10 characters required
                 </FormDescription>
               </FormItem>
