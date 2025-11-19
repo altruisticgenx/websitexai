@@ -482,42 +482,75 @@ function TypicalProgression() {
             Typical Progression
           </h2>
           <p className="mt-1.5 text-[10px] text-muted-foreground sm:text-xs">
-            Most teams start small, then scale.
+            Start small, scale when ready—or jump to any stage.
           </p>
         </motion.div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="mt-4 rounded-xl border border-slate-800/70 bg-slate-950/50 p-3 sm:p-4"
-        >
-          <div className="flex flex-wrap items-center gap-2 text-[10px] sm:text-xs">
-            <div className="flex items-center gap-2">
-              <span className="rounded-md bg-primary/20 px-2 py-1 font-medium text-primary">Pilot</span>
-              <span className="text-slate-400">4 weeks</span>
+        <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="group rounded-lg border-2 border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.5)]"
+          >
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-bold text-emerald-400 sm:text-xs">1. Pilot</span>
+              <span className="text-[8px] text-emerald-300/80 sm:text-[9px]">4 weeks</span>
             </div>
-            <span className="text-slate-600">→</span>
-            <div className="flex items-center gap-2">
-              <span className="rounded-md bg-slate-800 px-2 py-1 font-medium text-slate-200">Proposal</span>
-              <span className="text-slate-400">1–2 weeks</span>
+            <p className="mt-1 text-[8px] leading-tight text-slate-300 sm:text-[9px]">
+              Ship 1–2 features/week. Demo-ready code. Real builds, not decks. $1,150/wk.
+            </p>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="group rounded-lg border-2 border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.5)]"
+          >
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-bold text-blue-400 sm:text-xs">2. Proposal</span>
+              <span className="text-[8px] text-blue-300/80 sm:text-[9px]">1–2 weeks</span>
             </div>
-            <span className="text-slate-600">→</span>
-            <div className="flex items-center gap-2">
-              <span className="rounded-md bg-slate-800 px-2 py-1 font-medium text-slate-200">Build</span>
-              <span className="text-slate-400">2–6 months</span>
+            <p className="mt-1 text-[8px] leading-tight text-slate-300 sm:text-[9px]">
+              Scope doc, timeline, budget. Grant-ready, stakeholder-approved. RFP support.
+            </p>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="group rounded-lg border-2 border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(139,92,246,0.5)]"
+          >
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-bold text-violet-400 sm:text-xs">3. Build</span>
+              <span className="text-[8px] text-violet-300/80 sm:text-[9px]">2–6 months</span>
             </div>
-            <span className="text-slate-600">→</span>
-            <div className="flex items-center gap-2">
-              <span className="rounded-md bg-slate-800 px-2 py-1 font-medium text-slate-200">Retainer</span>
-              <span className="text-slate-400">Ongoing</span>
+            <p className="mt-1 text-[8px] leading-tight text-slate-300 sm:text-[9px]">
+              Full product delivery. Integrations, testing, documentation. Launch-ready.
+            </p>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="group rounded-lg border-2 border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(249,115,22,0.5)]"
+          >
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-bold text-orange-400 sm:text-xs">4. Retainer</span>
+              <span className="text-[8px] text-orange-300/80 sm:text-[9px]">Ongoing</span>
             </div>
-          </div>
-          <p className="mt-2 text-[10px] text-slate-400 sm:text-xs">
-            Or jump straight to the model that fits.
-          </p>
-        </motion.div>
+            <p className="mt-1 text-[8px] leading-tight text-slate-300 sm:text-[9px]">
+              Monthly support. Bug fixes, features, pivots. Always-on expertise.
+            </p>
+          </motion.div>
+        </div>
       </div>
     </section>;
 }
