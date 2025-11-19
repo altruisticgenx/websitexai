@@ -5,6 +5,12 @@ import { Link } from "react-router-dom";
 import { MetricsVariant } from "@/components/ui/animated-cards-stack";
 import { UniqueIntegrations } from "@/components/UniqueIntegrations";
 import { ProjectTimeline } from "@/components/ProjectTimeline";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 // --- Case Study Data ---
 const caseStudies = [
@@ -228,49 +234,48 @@ export default function Portfolio() {
                 </div>
               </div>
 
-              {/* Challenge */}
-              <div className="mt-3">
-                <h3 className="text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-400">
-                  Challenge
-                </h3>
-                <p className="mt-1 text-[10px] text-slate-200 leading-relaxed">
-                  {study.challenge}
-                </p>
-              </div>
+              {/* Expandable Details */}
+              <Accordion type="multiple" className="mt-3">
+                <AccordionItem value="challenge" className="border-slate-800/50">
+                  <AccordionTrigger className="py-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-400 hover:text-slate-200 hover:no-underline">
+                    Challenge
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-2 pt-1 text-[10px] text-slate-200 leading-relaxed">
+                    {study.challenge}
+                  </AccordionContent>
+                </AccordionItem>
 
-              {/* Solution */}
-              <div className="mt-3">
-                <h3 className="text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-400">
-                  Solution
-                </h3>
-                <p className="mt-1 text-[10px] text-slate-200 leading-relaxed">
-                  {study.solution}
-                </p>
-              </div>
+                <AccordionItem value="solution" className="border-slate-800/50">
+                  <AccordionTrigger className="py-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-400 hover:text-slate-200 hover:no-underline">
+                    Solution
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-2 pt-1 text-[10px] text-slate-200 leading-relaxed">
+                    {study.solution}
+                  </AccordionContent>
+                </AccordionItem>
 
-              {/* Market Value */}
-              {study.marketValue && (
-                <div className="mt-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-2">
-                  <h3 className="text-[9px] font-semibold uppercase tracking-[0.18em] text-emerald-300">
-                    💰 Market Value + ROI
-                  </h3>
-                  <p className="mt-1 text-[10px] text-slate-200 leading-relaxed">
-                    {study.marketValue}
-                  </p>
-                </div>
-              )}
+                {study.marketValue && (
+                  <AccordionItem value="market" className="border-slate-800/50">
+                    <AccordionTrigger className="py-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-emerald-300 hover:text-emerald-200 hover:no-underline">
+                      💰 Market Value + ROI
+                    </AccordionTrigger>
+                    <AccordionContent className="rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-2 text-[10px] text-slate-200 leading-relaxed">
+                      {study.marketValue}
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
 
-              {/* Differentiation */}
-              {study.differentiation && (
-                <div className="mt-3 rounded-xl border border-cyan-500/20 bg-cyan-500/5 p-2">
-                  <h3 className="text-[9px] font-semibold uppercase tracking-[0.18em] text-cyan-300">
-                    🎯 Competitive Differentiation
-                  </h3>
-                  <p className="mt-1 text-[10px] text-slate-200 leading-relaxed">
-                    {study.differentiation}
-                  </p>
-                </div>
-              )}
+                {study.differentiation && (
+                  <AccordionItem value="differentiation" className="border-slate-800/50">
+                    <AccordionTrigger className="py-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-cyan-300 hover:text-cyan-200 hover:no-underline">
+                      🎯 Competitive Differentiation
+                    </AccordionTrigger>
+                    <AccordionContent className="rounded-lg border border-cyan-500/20 bg-cyan-500/5 p-2 text-[10px] text-slate-200 leading-relaxed">
+                      {study.differentiation}
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
+              </Accordion>
 
               {/* Outcomes */}
               <div className="mt-3">
