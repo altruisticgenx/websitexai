@@ -353,7 +353,7 @@ function HowItWorks() {
     </section>;
 }
 function PilotOffer() {
-  return <section id="pilot" className="border-t border-slate-900/80 py-6 md:py-8">
+  return <section id="pilot" className="border-t border-slate-900/80 py-3 md:py-4">
       <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
         <motion.div initial={{
         opacity: 0,
@@ -365,11 +365,11 @@ function PilotOffer() {
         once: true
       }} transition={{
         duration: 0.5
-      }} className="mb-4">
-          <h2 className="heading-2 tracking-tight text-foreground">
+      }} className="mb-3">
+          <h2 className="text-sm font-semibold tracking-tight text-foreground sm:text-base">
             Why a Pilot Partner Instead of Hiring In-House
           </h2>
-          <div className="mt-3 space-y-2 body-xs text-muted-foreground max-w-3xl">
+          <div className="mt-2 space-y-1.5 text-xs text-muted-foreground max-w-3xl leading-relaxed">
             <p>
               Hiring in-house makes sense once you know what you're scaling. When you're still in the "is this even the right thing?" phase, it's a slow and expensive way to find out.
             </p>
@@ -385,7 +385,7 @@ function PilotOffer() {
         {/* What This Model Is For */}
         <motion.div initial={{
         opacity: 0,
-        y: 30
+        y: 20
       }} whileInView={{
         opacity: 1,
         y: 0
@@ -394,11 +394,11 @@ function PilotOffer() {
       }} transition={{
         duration: 0.6,
         delay: 0.1
-      }} className="mb-4">
-          <h3 className="heading-3 text-primary mb-3 font-mono">
-            &gt; What This Model Is For
+      }} className="mb-3">
+          <h3 className="text-xs font-semibold text-primary mb-2 sm:text-sm">
+            What This Model Is For
           </h3>
-          <div className="grid gap-2 sm:grid-cols-2">
+          <div className="grid gap-1.5 sm:grid-cols-2">
             {[{
             title: "Early, ambiguous work",
             desc: "When the edges are fuzzy and you need to learn by shipping, not by planning.",
@@ -421,7 +421,7 @@ function PilotOffer() {
             icon: "⚙"
           }].map((item, i) => <motion.div key={i} initial={{
             opacity: 0,
-            scale: 0.95
+            scale: 0.98
           }} whileInView={{
             opacity: 1,
             scale: 1
@@ -429,36 +429,22 @@ function PilotOffer() {
             once: true
           }} transition={{
             duration: 0.4,
-            delay: i * 0.1
+            delay: i * 0.08
           }} whileHover={{
-            scale: 1.02,
-            y: -2
-          }} className={`group relative rounded-lg border ${item.color === 'emerald' ? 'border-primary/30 bg-gradient-to-br from-primary/10' : item.color === 'cyan' ? 'border-accent/30 bg-gradient-to-br from-accent/10' : item.color === 'teal' ? 'border-primary/20 bg-gradient-to-br from-primary/5' : 'border-blue-500/30 bg-gradient-to-br from-blue-500/10'} via-slate-950/80 to-slate-900/60 p-3 backdrop-blur-sm overflow-hidden`}>
-                {/* Animated background grid */}
-                <div className="absolute inset-0 opacity-20">
-                  <div className="absolute inset-0" style={{
-                backgroundImage: item.color === 'emerald' ? 'linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)' : item.color === 'cyan' ? 'linear-gradient(hsl(var(--accent)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--accent)) 1px, transparent 1px)' : 'linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)',
-                backgroundSize: '20px 20px'
-              }} />
+            scale: 1.01,
+            y: -1
+          }} className={`group relative rounded-md border ${item.color === 'emerald' ? 'border-primary/30 bg-gradient-to-br from-primary/5' : item.color === 'cyan' ? 'border-accent/30 bg-gradient-to-br from-accent/5' : item.color === 'teal' ? 'border-primary/20 bg-gradient-to-br from-primary/5' : 'border-blue-500/30 bg-gradient-to-br from-blue-500/5'} to-slate-950/80 p-2 backdrop-blur-sm overflow-hidden transition-all`}>
+                <div className="relative flex items-start gap-2">
+                  <span className="text-xs flex-shrink-0">{item.icon}</span>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-xs font-semibold text-foreground">
+                      {item.title}
+                    </h4>
+                    <p className="text-[10px] text-muted-foreground leading-relaxed mt-0.5">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
-
-                {/* Icon */}
-                <div className="relative caption font-mono mb-1">
-                  {item.icon}
-                </div>
-
-                {/* Content */}
-                <div className="relative">
-                  <h4 className="body-small font-semibold text-foreground mb-1">
-                    {item.title}
-                  </h4>
-                  <p className="caption text-muted-foreground leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-
-                {/* Hover glow */}
-                <div className={`absolute inset-0 ${item.color === 'emerald' ? 'bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0' : item.color === 'cyan' ? 'bg-gradient-to-r from-accent/0 via-accent/5 to-accent/0' : 'bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0'} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
               </motion.div>)}
           </div>
         </motion.div>
@@ -466,7 +452,7 @@ function PilotOffer() {
         {/* What This Model Is Not For */}
         <motion.div initial={{
         opacity: 0,
-        y: 30
+        y: 20
       }} whileInView={{
         opacity: 1,
         y: 0
@@ -475,22 +461,22 @@ function PilotOffer() {
       }} transition={{
         duration: 0.6,
         delay: 0.2
-      }} className="mb-4">
-          <h3 className="heading-3 text-slate-400 mb-3 font-mono">
-            &gt; What This Model Is Not For
+      }} className="mb-3">
+          <h3 className="text-xs font-semibold text-muted-foreground mb-2 sm:text-sm">
+            What This Model Is Not For
           </h3>
-          <div className="rounded-lg border border-slate-800/70 bg-slate-950/50 p-3">
-            <ul className="space-y-2 caption text-slate-400">
-              <li className="flex items-start gap-2">
-                <span className="opacity-50 mt-0.5">✕</span>
+          <div className="rounded-md border border-slate-800/70 bg-slate-950/50 p-2">
+            <ul className="space-y-1 text-[10px] text-slate-400">
+              <li className="flex items-start gap-1.5">
+                <span className="opacity-50 mt-0.5 text-xs">✕</span>
                 <span>Large, multi-team implementations from day one</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="opacity-50 mt-0.5">✕</span>
+              <li className="flex items-start gap-1.5">
+                <span className="opacity-50 mt-0.5 text-xs">✕</span>
                 <span>Long-term headcount decisions disguised as "pilots"</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="opacity-50 mt-0.5">✕</span>
+              <li className="flex items-start gap-1.5">
+                <span className="opacity-50 mt-0.5 text-xs">✕</span>
                 <span>Purely cosmetic work where a static site or brochure would do</span>
               </li>
             </ul>
@@ -509,11 +495,11 @@ function PilotOffer() {
       }} transition={{
         duration: 0.5,
         delay: 0.3
-      }} className="rounded-xl border border-primary/30 bg-gradient-to-br from-primary/10 via-slate-950/90 to-slate-900/80 p-4 backdrop-blur-sm">
-          <p className="body-small text-foreground font-medium mb-2 font-mono">
-            &gt; Pilot-first, learning-first approach_
+      }} className="rounded-md border border-primary/30 bg-gradient-to-br from-primary/5 to-slate-950/80 p-2.5 backdrop-blur-sm">
+          <p className="text-xs text-foreground font-medium mb-1">
+            Pilot-first, learning-first approach
           </p>
-          <p className="caption text-muted-foreground leading-relaxed">
+          <p className="text-[10px] text-muted-foreground leading-relaxed">
             Small scope, honest results, and no long-term lock-in until you know what's actually worth scaling.
           </p>
         </motion.div>
