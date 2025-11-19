@@ -319,8 +319,8 @@ export function Hero() {
             delay: 0.6
           }}>For students, teachers, founders, and B2B or civic teams, I offer hands-on AI/product execution without the headcount drama. We pick one concrete problem, turn it into a small backlog, and in 4 weeks you get: a live prototype, clear documentation, and a simple decision—scale it, tweak it, or archive it.</motion.p>
 
-            {/* Feature Pills with Hacker Style */}
-            <motion.dl className="mt-4 grid max-w-xl grid-cols-1 gap-2 body-sm text-slate-200 sm:grid-cols-3" initial={{
+            {/* Feature Pills - Unique Interactive Cards */}
+            <motion.div className="mt-4 grid max-w-xl grid-cols-1 gap-2 sm:grid-cols-3" initial={{
             opacity: 0
           }} animate={{
             opacity: 1
@@ -328,18 +328,50 @@ export function Hero() {
             duration: 0.6,
             delay: 0.7
           }}>
-              <motion.div 
-                className="group relative rounded-xl border border-emerald-500/30 bg-slate-900/70 p-2 backdrop-blur-sm overflow-hidden" 
+              {/* Card 1 - Hands-on Learning */}
+              <motion.button 
+                className="group relative rounded-xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-950/80 to-slate-900/80 p-3 backdrop-blur-sm overflow-hidden text-left shadow-[0_4px_0_0_hsl(160_84%_39%/0.2)] active:shadow-[0_2px_0_0_hsl(160_84%_39%/0.2)] active:translate-y-[2px] transition-all" 
                 whileHover={{
-                  y: -2,
-                  boxShadow: "0 10px 20px -5px hsl(var(--primary) / 0.4), 0 0 40px -10px hsl(var(--primary) / 0.3)",
-                  borderColor: "hsl(var(--primary) / 0.6)",
+                  scale: 1.02,
+                  rotateX: -3,
+                  rotateY: 3,
+                  boxShadow: "0 6px 0 0 hsl(160 84% 39% / 0.3), 0 8px 25px -5px hsl(160 84% 39% / 0.5)",
+                  borderColor: "hsl(160 84% 39% / 0.7)",
+                }}
+                whileTap={{
+                  scale: 0.98,
+                  translateY: 2,
+                }}
+                style={{
+                  transformStyle: "preserve-3d",
+                  perspective: "1000px",
                 }}
               >
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0"
+                {/* Animated grid background */}
+                <motion.div
+                  className="absolute inset-0 opacity-20"
+                  style={{
+                    backgroundImage: `
+                      linear-gradient(hsl(160 84% 39% / 0.3) 1px, transparent 1px),
+                      linear-gradient(90deg, hsl(160 84% 39% / 0.3) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '20px 20px',
+                  }}
                   animate={{
-                    x: ['-100%', '100%'],
+                    backgroundPosition: ['0px 0px', '20px 20px'],
+                  }}
+                  transition={{
+                    duration: 10,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+                
+                {/* Shimmer effect */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent"
+                  animate={{
+                    x: ['-200%', '200%'],
                   }}
                   transition={{
                     duration: 3,
@@ -347,61 +379,184 @@ export function Hero() {
                     ease: "linear",
                   }}
                 />
-                <dt className="overline text-emerald-400 group-hover:text-emerald-300 transition-colors relative z-10 font-mono">
-                  {'>'} Work hands-on
-                </dt>
-              </motion.div>
+
+                <div className="relative z-10">
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <motion.div 
+                      className="w-1.5 h-1.5 rounded-full bg-emerald-400"
+                      animate={{
+                        scale: [1, 1.3, 1],
+                        opacity: [1, 0.7, 1],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                      }}
+                    />
+                    <span className="caption font-mono text-emerald-400 font-semibold">01_HANDS_ON</span>
+                  </div>
+                  <p className="micro text-emerald-200/90 font-mono leading-tight">
+                    Work directly in code, not endless meetings. Ship real features, not slide decks.
+                  </p>
+                </div>
+              </motion.button>
               
-              <motion.div 
-                className="group relative rounded-xl border border-cyan-500/30 bg-slate-900/70 p-2 backdrop-blur-sm overflow-hidden" 
+              {/* Card 2 - Actionable Tools */}
+              <motion.button 
+                className="group relative rounded-xl border-2 border-cyan-500/40 bg-gradient-to-br from-cyan-950/80 to-slate-900/80 p-3 backdrop-blur-sm overflow-hidden text-left shadow-[0_4px_0_0_hsl(180_100%_50%/0.2)] active:shadow-[0_2px_0_0_hsl(180_100%_50%/0.2)] active:translate-y-[2px] transition-all" 
                 whileHover={{
-                  y: -2,
-                  boxShadow: "0 10px 20px -5px hsl(180 100% 50% / 0.4), 0 0 40px -10px hsl(180 100% 50% / 0.3)",
-                  borderColor: "hsl(180 100% 50% / 0.6)",
+                  scale: 1.02,
+                  rotateX: -3,
+                  rotateY: 3,
+                  boxShadow: "0 6px 0 0 hsl(180 100% 50% / 0.3), 0 8px 25px -5px hsl(180 100% 50% / 0.5)",
+                  borderColor: "hsl(180 100% 50% / 0.7)",
+                }}
+                whileTap={{
+                  scale: 0.98,
+                  translateY: 2,
+                }}
+                style={{
+                  transformStyle: "preserve-3d",
+                  perspective: "1000px",
                 }}
               >
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/10 to-cyan-500/0"
+                {/* Particle field */}
+                <div className="absolute inset-0">
+                  {[...Array(15)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-0.5 h-0.5 bg-cyan-400/60 rounded-full"
+                      style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                      }}
+                      animate={{
+                        opacity: [0.2, 0.8, 0.2],
+                        scale: [1, 1.5, 1],
+                      }}
+                      transition={{
+                        duration: 2 + Math.random(),
+                        repeat: Infinity,
+                        delay: Math.random() * 2,
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Scanning line */}
+                <motion.div
+                  className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
                   animate={{
-                    x: ['-100%', '100%'],
+                    top: ['0%', '100%'],
                   }}
                   transition={{
-                    duration: 3,
+                    duration: 2,
                     repeat: Infinity,
                     ease: "linear",
-                    delay: 0.5,
                   }}
                 />
-                <dt className="overline text-cyan-400 group-hover:text-cyan-300 transition-colors relative z-10 font-mono">
-                  {'>'} Launch actionable tools
-                </dt>
-              </motion.div>
+
+                <div className="relative z-10">
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <motion.div 
+                      className="w-1.5 h-1.5 rounded-full bg-cyan-400"
+                      animate={{
+                        scale: [1, 1.3, 1],
+                        opacity: [1, 0.7, 1],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: 0.3,
+                      }}
+                    />
+                    <span className="caption font-mono text-cyan-400 font-semibold">02_ACTIONABLE</span>
+                  </div>
+                  <p className="micro text-cyan-200/90 font-mono leading-tight">
+                    Launch tools users can touch, test, and trust. No vapor, just value.
+                  </p>
+                </div>
+              </motion.button>
               
-              <motion.div 
-                className="group relative rounded-xl border border-emerald-500/30 bg-slate-900/70 p-2 backdrop-blur-sm overflow-hidden" 
+              {/* Card 3 - Fast Delivery */}
+              <motion.button 
+                className="group relative rounded-xl border-2 border-emerald-400/40 bg-gradient-to-br from-teal-950/80 to-slate-900/80 p-3 backdrop-blur-sm overflow-hidden text-left shadow-[0_4px_0_0_hsl(160_100%_40%/0.2)] active:shadow-[0_2px_0_0_hsl(160_100%_40%/0.2)] active:translate-y-[2px] transition-all" 
                 whileHover={{
-                  y: -2,
-                  boxShadow: "0 10px 20px -5px hsl(var(--primary) / 0.4), 0 0 40px -10px hsl(var(--primary) / 0.3)",
-                  borderColor: "hsl(var(--primary) / 0.6)",
+                  scale: 1.02,
+                  rotateX: -3,
+                  rotateY: 3,
+                  boxShadow: "0 6px 0 0 hsl(160 100% 40% / 0.3), 0 8px 25px -5px hsl(160 100% 40% / 0.5)",
+                  borderColor: "hsl(160 100% 40% / 0.7)",
+                }}
+                whileTap={{
+                  scale: 0.98,
+                  translateY: 2,
+                }}
+                style={{
+                  transformStyle: "preserve-3d",
+                  perspective: "1000px",
                 }}
               >
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0"
+                {/* Binary rain effect */}
+                <div className="absolute inset-0">
+                  {[...Array(8)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute micro font-mono text-emerald-400/30"
+                      style={{
+                        left: `${i * 12}%`,
+                      }}
+                      animate={{
+                        y: ['-20px', '100%'],
+                        opacity: [0, 1, 0],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "linear",
+                        delay: i * 0.3,
+                      }}
+                    >
+                      {Math.random() > 0.5 ? '1' : '0'}
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Pulse wave */}
+                <motion.div
+                  className="absolute inset-0 rounded-xl border-2 border-emerald-400/30"
                   animate={{
-                    x: ['-100%', '100%'],
+                    scale: [1, 1.05, 1],
+                    opacity: [0.5, 0, 0.5],
                   }}
                   transition={{
-                    duration: 3,
+                    duration: 2,
                     repeat: Infinity,
-                    ease: "linear",
-                    delay: 1,
                   }}
                 />
-                <dt className="overline text-emerald-400 group-hover:text-emerald-300 transition-colors relative z-10 font-mono">
-                  {'>'} Start small, deliver early
-                </dt>
-              </motion.div>
-            </motion.dl>
+
+                <div className="relative z-10">
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <motion.div 
+                      className="w-1.5 h-1.5 rounded-full bg-emerald-400"
+                      animate={{
+                        scale: [1, 1.3, 1],
+                        opacity: [1, 0.7, 1],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: 0.6,
+                      }}
+                    />
+                    <span className="caption font-mono text-emerald-400 font-semibold">03_FAST</span>
+                  </div>
+                  <p className="micro text-emerald-200/90 font-mono leading-tight">
+                    Start small, iterate weekly, scale what works. No 6-month roadmaps.
+                  </p>
+                </div>
+              </motion.button>
+            </motion.div>
 
             {/* CTA Buttons - Compact 3D Style */}
             <motion.div className="mt-4 flex flex-col gap-2 body-xs sm:flex-row sm:items-center" initial={{
