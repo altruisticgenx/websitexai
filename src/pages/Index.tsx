@@ -17,23 +17,10 @@ import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteNav } from "@/components/SiteNav";
-import { HeroSkeleton, CardsSkeleton, StepsSkeleton, TwoColumnSkeleton, FAQSkeleton } from "@/components/skeletons/SectionSkeleton";
+import { HeroSkeleton, CardsSkeleton, StepsSkeleton, TwoColumnSkeleton } from "@/components/skeletons/SectionSkeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 // --- Data Definitions ---
-const faqs = [{
-  question: "What do I get?",
-  answer: "One feature per week: UI, workflow, integration—fully working, not half-done."
-}, {
-  question: "Know my field?",
-  answer: "Yes. Energy, EdTech, policy, B2B, student projects."
-}, {
-  question: "How we work?",
-  answer: "Async: Loom, Notion, GitHub. Quick call if needed."
-}, {
-  question: "Any contract?",
-  answer: "Nope. Week-to-week. Code is yours."
-}];
 
 // --- Main Page Component ---
 const Index = () => {
@@ -85,8 +72,8 @@ const Index = () => {
     name: "Testimonials"
   }, {
     key: "8",
-    sectionId: "faq",
-    name: "FAQ"
+    sectionId: "about",
+    name: "About"
   }]);
   return <div className="min-h-screen bg-slate-950 text-slate-50">
       {/* Scroll Progress Bar */}
@@ -104,7 +91,6 @@ const Index = () => {
               <TwoColumnSkeleton />
               <StepsSkeleton count={2} />
               <CardsSkeleton count={3} />
-              <FAQSkeleton />
             </div> : <motion.div initial={{
           opacity: 0
         }} animate={{
@@ -121,7 +107,7 @@ const Index = () => {
               <OrganizationTypes />
               <WhereIWork />
               <ShelvedExperiments />
-              <FAQSection />
+              <AboutMe />
             </motion.div>}
         </main>
         <SiteFooter />
@@ -648,50 +634,86 @@ function WhoBenefits() {
       </div>
     </section>;
 }
-function FAQSection() {
-  return <section id="faq" className="border-t border-slate-900/80 py-6 md:py-8">
+function AboutMe() {
+  return (
+    <section id="about" className="border-t border-slate-900/80 py-6 md:py-8">
       <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
-        <motion.div initial={{
-          opacity: 0,
-          y: 20
-        }} whileInView={{
-          opacity: 1,
-          y: 0
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.5
-        }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-base font-semibold tracking-tight text-foreground md:text-lg">
-            Frequently Asked Questions
+            About Me
           </h2>
-          <p className="mt-1.5 text-[10px] text-muted-foreground sm:text-xs">
-            Quick answers to common questions about the pilot program
-          </p>
+          <motion.p
+            className="mt-3 body-base text-muted-foreground leading-relaxed"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            I aim to close the gap between proven innovations and implementation by giving anyone the tools to turn regional data, successful pilots, and stalled legislation into AI-assisted solutions for any sector.
+          </motion.p>
         </motion.div>
 
-        {/* FAQ Items - Compact Grid Layout */}
-        <dl className="mt-4 grid gap-2 sm:gap-2.5 sm:grid-cols-2">
-          {faqs.map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="rounded-lg border border-slate-800/70 bg-slate-950/50 p-3 hover:border-primary/30 transition-colors"
-            >
-              <dt className="text-xs font-medium text-foreground sm:text-sm">
-                {item.question}
-              </dt>
-              <dd className="mt-1.5 text-[10px] text-muted-foreground sm:text-xs leading-relaxed">
-                {item.answer}
-              </dd>
-            </motion.div>
-          ))}
-        </dl>
+        {/* Why This Matters Section */}
+        <motion.div
+          className="mt-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <h3 className="text-sm font-semibold text-foreground md:text-base">
+            Why This Matters
+          </h3>
+          <motion.p
+            className="mt-2 body-small text-muted-foreground leading-relaxed"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            Pennsylvania cannot afford another decade of:
+          </motion.p>
+          
+          <ul className="mt-3 space-y-2">
+            {[
+              "Delayed modernization while comparable states advance",
+              "Legislative gridlock on education and infrastructure",
+              "Workforce development disconnected from regional needs",
+              "Civics education that feels irrelevant to students",
+              "Declining trust in public institutions"
+            ].map((item, index) => (
+              <motion.li
+                key={index}
+                className="flex items-start gap-2 body-small text-muted-foreground"
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 + index * 0.05 }}
+              >
+                <span className="inline-block w-1.5 h-1.5 mt-1.5 rounded-full bg-emerald-400 flex-shrink-0" />
+                <span>{item}</span>
+              </motion.li>
+            ))}
+          </ul>
+
+          <motion.p
+            className="mt-4 body-base text-foreground leading-relaxed font-medium"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+          >
+            This work provides the missing infrastructure for a state with all the necessary components but no system connecting them.
+          </motion.p>
+        </motion.div>
       </div>
-    </section>;
+    </section>
+  );
 }
 function SiteFooter() {
   return <footer className="border-t border-slate-900/80 py-4">
