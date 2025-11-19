@@ -630,7 +630,35 @@ function WhoBenefits() {
             </ul>
           </motion.div>
 
-          
+          <motion.div initial={{
+          opacity: 0,
+          x: 20
+        }} whileInView={{
+          opacity: 1,
+          x: 0
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5,
+          delay: 0.2
+        }} className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-3">
+            <div className="mb-3">
+              <h3 className="text-[10px] font-semibold uppercase tracking-[0.16em] text-primary sm:text-xs">
+                Ideal Fit
+              </h3>
+              <p className="mt-1 text-[10px] text-slate-200 sm:text-xs">
+                Weekly feedback, ready to experiment, need clear results
+              </p>
+            </div>
+            <div>
+              <h3 className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400 sm:text-xs">
+                Not a Fit
+              </h3>
+              <p className="mt-1 text-[10px] text-slate-400 sm:text-xs">
+                Big static sites, slow-moving teams, no feedback loop
+              </p>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>;
