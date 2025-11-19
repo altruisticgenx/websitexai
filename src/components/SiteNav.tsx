@@ -6,6 +6,7 @@ import { ChevronDown } from "lucide-react";
 export function SiteNav() {
   const activeSection = useActiveSection(["", "pilot", "builds", "how", "where"]);
   const [isWorkOpen, setIsWorkOpen] = useState(false);
+  const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const mobileMenuRef = useFocusTrap<HTMLDivElement>(isMobileMenuOpen);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
@@ -16,6 +17,7 @@ export function SiteNav() {
 
     // Close dropdown and mobile menu when clicking a link
     setIsWorkOpen(false);
+    setIsSolutionsOpen(false);
     setIsMobileMenuOpen(false);
     if (href === "#" || href === "") {
       window.scrollTo({
@@ -123,9 +125,28 @@ export function SiteNav() {
                 </div>}
             </div>
 
-            <a href="#where" onClick={handleNavClick} aria-label="Navigate to about section" aria-current={activeSection === "where" ? "page" : undefined} className={cn("px-3 py-1.5 text-xs font-medium lowercase tracking-wide transition-all duration-200 rounded-md", activeSection === "where" ? "text-primary bg-primary/10 scale-105" : "text-foreground hover:text-primary hover:bg-accent/50")}>
-              about
-            </a>
+            {/* Solutions Dropdown */}
+            <div className="relative">
+              <button onClick={() => setIsSolutionsOpen(!isSolutionsOpen)} onMouseEnter={() => setIsSolutionsOpen(true)} aria-expanded={isSolutionsOpen} aria-haspopup="true" aria-label="Solutions menu" className={cn("flex items-center gap-1 px-3 py-1.5 text-xs font-medium lowercase tracking-wide transition-all duration-200 rounded-md", "text-foreground hover:text-primary hover:bg-accent/50")}>
+                solutions
+                <ChevronDown className={cn("h-3 w-3 transition-transform duration-200", isSolutionsOpen && "rotate-180")} aria-hidden="true" />
+              </button>
+
+              {/* Dropdown Menu */}
+              {isSolutionsOpen && <div onMouseLeave={() => setIsSolutionsOpen(false)} role="menu" aria-label="Solutions submenu" className="absolute right-0 top-full mt-2 w-48 rounded-lg border border-border bg-card shadow-xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="p-2">
+                    <a href="#" onClick={(e) => {
+                      e.preventDefault();
+                      setIsSolutionsOpen(false);
+                    }} role="menuitem" aria-label="Future proofing solutions" className="block rounded-md px-2.5 py-1.5 text-xs transition-colors text-card-foreground hover:bg-accent hover:text-accent-foreground">
+                      <div className="font-medium">Future proofing</div>
+                      <div className="text-[10px] text-muted-foreground">
+                        Long-term strategic planning
+                      </div>
+                    </a>
+                  </div>
+                </div>}
+            </div>
 
             {/* CTA Button */}
             
@@ -169,9 +190,17 @@ export function SiteNav() {
                 </a>
               </div>
 
-              <a href="#where" onClick={handleNavClick} aria-label="Navigate to about section" aria-current={activeSection === "where" ? "page" : undefined} className={cn("block rounded-md px-3 py-2 text-sm font-medium lowercase transition-colors", activeSection === "where" ? "text-primary bg-primary/10" : "text-foreground hover:text-primary hover:bg-accent/50")}>
-                about
-              </a>
+              <div className="space-y-1 pl-4 pt-2">
+                <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mb-2">
+                  Solutions
+                </div>
+                <a href="#" onClick={(e) => {
+                  e.preventDefault();
+                  setIsMobileMenuOpen(false);
+                }} aria-label="Future proofing solutions" className="block rounded-md px-3 py-2 text-xs transition-colors text-foreground hover:text-primary hover:bg-accent/50">
+                  Future proofing
+                </a>
+              </div>
 
               <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" aria-label="Book a 30-minute introduction call (opens in new tab)" className="mt-4 block rounded-full bg-primary px-4 py-2 text-center text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
                 Book 30-min Intro
