@@ -70,11 +70,22 @@ serve(async (req) => {
 
   try {
     const { question, conversationHistory = [] } = await req.json();
-    console.log("📝 Received question:", question);
+    console.log("📝 Received request");
     console.log("💬 Conversation history length:", conversationHistory.length);
+    
+    // Extract the current question from conversation history (last user message)
+    let currentQuestion = question;
+    if (conversationHistory.length > 0) {
+      const lastMessage = conversationHistory[conversationHistory.length - 1];
+      if (lastMessage && lastMessage.role === 'user') {
+        currentQuestion = lastMessage.content;
+      }
+    }
+    
+    console.log("📝 Current question:", currentQuestion);
 
     // Enhanced input validation
-    if (!question || typeof question !== "string") {
+    if (!currentQuestion || typeof currentQuestion !== "string") {
       console.error("❌ Invalid question format");
       return new Response(
         JSON.stringify({ error: "Question is required and must be a string" }),
@@ -82,8 +93,8 @@ serve(async (req) => {
       );
     }
 
-    if (question.length < 5 || question.length > 500) {
-      console.error("❌ Question length out of bounds:", question.length);
+    if (currentQuestion.length < 5 || currentQuestion.length > 500) {
+      console.error("❌ Question length out of bounds:", currentQuestion.length);
       return new Response(
         JSON.stringify({ error: "Question must be between 5 and 500 characters" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -91,7 +102,7 @@ serve(async (req) => {
     }
 
     // Sanitize input to prevent prompt injection
-    const sanitizedQuestion = question
+    const sanitizedQuestion = currentQuestion
       .replace(/[<>"'`]/g, '')
       .trim();
 
