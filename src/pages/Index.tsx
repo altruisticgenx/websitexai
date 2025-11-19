@@ -305,7 +305,7 @@ function HowItWorks() {
         <div className="mt-2 grid gap-1.5 sm:grid-cols-3" style={{
         perspective: "1000px"
       }}>
-          {steps.map((step, index) => {})}
+          {steps.map((step, index) => null)}
         </div>
 
         {/* Interactive Timeline Bar */}
@@ -685,7 +685,7 @@ function FAQSection() {
 
       {/* FAQ Items - Compact Grid Layout */}
       <dl className="grid gap-2 sm:gap-2.5 sm:grid-cols-2">
-        {faqs.map((item, index) => {})}
+        {faqs.map((item, index) => null)}
       </dl>
     </section>;
 }
