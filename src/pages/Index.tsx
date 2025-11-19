@@ -118,6 +118,7 @@ const Index = () => {
               <Hero />
               <RecentBuilds />
               <EngagementModels />
+              <TypicalProgression />
               <HowItWorks />
               <PilotOffer />
               <WhoBenefits />
@@ -213,7 +214,7 @@ function RecentBuilds() {
   }, []);
   return <section id="builds" className="py-6 md:py-10">
       <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
-        <motion.div initial={{
+      <motion.div initial={{
         opacity: 0,
         y: 20
       }} whileInView={{
@@ -224,10 +225,12 @@ function RecentBuilds() {
       }} transition={{
         duration: 0.5
       }}>
-          <h2 className="text-lg font-semibold tracking-tight text-foreground md:text-xl">
-            Recent builds
+          <h2 className="text-base font-semibold tracking-tight text-foreground md:text-lg">
+            Recent Builds
           </h2>
-          
+          <p className="mt-1 text-[10px] text-muted-foreground sm:text-xs">
+            Small scope, real results—across energy, education, and founder projects.
+          </p>
         </motion.div>
 
         {isLoadingProjects ? <div className="mt-6">
@@ -272,7 +275,7 @@ function HowItWorks() {
   const steps = [{
     label: "01",
     title: "Share your idea",
-    body: "Send a doc or quick call. We scope a realistic 4-week slice."
+    body: "Send a doc or quick Loom/call. We scope a realistic 4-week slice."
   }, {
     label: "02",
     title: "Ship weekly",
@@ -280,9 +283,9 @@ function HowItWorks() {
   }, {
     label: "03",
     title: "Decide",
-    body: "Working pilot. Clear next steps. Your choice: go, pivot, or pause."
+    body: "Working pilot. Clear options: go, pivot, or pause."
   }];
-  return <section id="how" className="border-t border-slate-900/80 py-6 md:py-10">
+  return <section id="how" className="border-t border-slate-900/80 py-6 md:py-8">
       <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
         <motion.div initial={{
         opacity: 0,
@@ -295,15 +298,15 @@ function HowItWorks() {
       }} transition={{
         duration: 0.5
       }}>
-          <h2 className="text-lg font-semibold tracking-tight text-foreground md:text-xl">
-            How it works
+          <h2 className="text-base font-semibold tracking-tight text-foreground md:text-lg">
+            How It Works
           </h2>
-          <p className="mt-2 max-w-2xl text-xs leading-relaxed text-muted-foreground md:text-sm">
-            <span className="text-primary font-medium">4 weeks. 3 steps.</span> No endless meetings or docs—just shipping.
+          <p className="mt-1.5 max-w-2xl text-[10px] leading-relaxed text-muted-foreground sm:text-xs">
+            <span className="text-primary font-medium">4 weeks. 3 steps.</span> No endless meetings.
           </p>
         </motion.div>
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
           {steps.map((step, index) => <motion.div key={step.label} initial={{
           opacity: 0,
           y: 20
@@ -319,148 +322,209 @@ function HowItWorks() {
           y: -6,
           boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.2)",
           borderColor: "hsl(var(--primary) / 0.4)"
-        }} className="group rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/50 to-slate-900/30 p-3 text-sm transition-all duration-300 cursor-default">
-              <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-primary group-hover:text-accent transition-colors">
+        }} className="group rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/50 to-slate-900/30 p-2.5 text-xs transition-all duration-300 cursor-default">
+              <div className="text-[9px] font-mono uppercase tracking-[0.18em] text-primary group-hover:text-accent transition-colors">
                 {step.label}
               </div>
-              <h3 className="mt-1.5 text-xs font-semibold text-slate-50 group-hover:text-primary transition-colors md:text-sm">
+              <h3 className="mt-1 text-xs font-semibold text-slate-50 group-hover:text-primary transition-colors">
                 {step.title}
               </h3>
-              <p className="mt-1.5 text-xs text-slate-300">{step.body}</p>
+              <p className="mt-1 text-[10px] text-slate-300 leading-relaxed">{step.body}</p>
             </motion.div>)}
         </div>
+
+        {/* 4-Week Sprint Details */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-6 rounded-xl border border-slate-800/70 bg-slate-950/50 p-3 sm:p-4"
+        >
+          <h3 className="text-xs font-semibold text-primary sm:text-sm">4-Week Sprint Includes</h3>
+          <ul className="mt-2 space-y-1 text-[10px] text-slate-200 sm:text-xs">
+            <li className="flex items-start gap-2">
+              <span className="text-primary mt-0.5">✓</span>
+              Weekly features you can actually demo
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary mt-0.5">✓</span>
+              Async tools you already use (Loom, Notion, GitHub, Figma)
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary mt-0.5">✓</span>
+              You keep all code and docs
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary mt-0.5">✓</span>
+              Built for validation, fundraising, and teaching
+            </li>
+          </ul>
+        </motion.div>
       </div>
     </section>;
 }
 function PilotOffer() {
-  return <section id="pilot" className="border-t border-slate-900/80 py-6 md:py-10">
+  return <section id="pilot" className="border-t border-slate-900/80 py-6 md:py-8">
       <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
-        <div className="grid gap-8 md:grid-cols-[minmax(0,1.3fr),minmax(0,1fr)] md:items-start">
-          <motion.div initial={{
-          opacity: 0,
-          x: -30
-        }} whileInView={{
-          opacity: 1,
-          x: 0
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.6
-        }}>
-            <h2 className="text-lg font-semibold tracking-tight text-foreground md:text-xl">
-              4-week sprint
-            </h2>
-            <p className="mt-2 max-w-2xl text-xs leading-relaxed text-muted-foreground md:text-sm">
-              Weekly features you can demo. Async tools you already use. Code and docs stay yours.
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-4"
+        >
+          <h2 className="text-base font-semibold tracking-tight text-foreground md:text-lg">
+            Why This Works
+          </h2>
+          <p className="mt-1.5 max-w-2xl text-[10px] leading-relaxed text-muted-foreground sm:text-xs">
+            Most dev work is priced and scoped for big teams and big budgets. You need fast, scrappy builds for <span className="text-primary font-medium">education, research, and civic projects</span>.
+          </p>
+        </motion.div>
+
+        <div className="grid gap-4 md:grid-cols-2">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-3"
+          >
+            <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+              For comparison
+            </h3>
+            <p className="mt-1.5 text-[10px] text-slate-300 leading-relaxed sm:text-xs">
+              Hiring in-house can take 3–6 months, cost $100k–$150k plus 30–40% overhead—with no guarantee they can move quickly on a messy pilot.
             </p>
-
-            <ul className="mt-3 space-y-1.5 text-xs text-slate-200 md:text-sm">
-              <li className="flex items-start gap-2">
-                <span className="text-primary mt-0.5 text-xs">✓</span>
-                Weekly features you can demo
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary mt-0.5 text-xs">✓</span>
-                Async: Loom, Notion, GitHub, Figma
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary mt-0.5 text-xs">✓</span>
-                You keep all code and docs
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary mt-0.5 text-xs">✓</span>
-                For validation, fundraising, teaching
-              </li>
-            </ul>
-            
-            <div className="mt-4 rounded-xl border border-primary/30 bg-primary/5 p-3">
-              <h3 className="text-xs font-semibold text-primary md:text-sm">Why this works</h3>
-              <p className="mt-1.5 text-xs text-slate-300">
-                Most dev work is built for big budgets. You need fast, scrappy builds for education, research, or civic projects.
-              </p>
-            </div>
-
-            <div className="mt-6">
-              <div className="text-xs uppercase tracking-[0.18em] text-slate-400">
-                For comparison
-              </div>
-              <p className="mt-1 max-w-xs text-xs text-slate-400">
-                Hiring in-house can take 3–6 months, $100k–$150k salary, plus
-                30–40% in overhead—with no guarantee they can move quickly on a
-                messy pilot.
-              </p>
-            </div>
-
-            <div className="mt-6">
-              <p className="text-xs text-slate-400 sm:text-sm">
-                Send a quick Loom or doc about your project. If it's a fit, we
-                can start shipping next week.
-              </p>
-            </div>
           </motion.div>
 
-          <motion.div initial={{
-          opacity: 0,
-          x: 30
-        }} whileInView={{
-          opacity: 1,
-          x: 0
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.6
-        }} whileHover={{
-          scale: 1.02,
-          boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.15)"
-        }} className="group rounded-3xl border border-slate-800/80 bg-gradient-to-br from-slate-950/60 to-slate-900/40 p-4 text-xs text-slate-200 sm:p-5 transition-all duration-500 hover:border-primary/30 cursor-default">
-            <div className="text-xs font-mono uppercase tracking-[0.18em] text-slate-400 group-hover:text-primary transition-colors">
-              Good fit
-            </div>
-            <ul className="mt-2 space-y-1">
-              <li className="flex items-start gap-2">
-                <span className="text-primary">✓</span>
-                Early-stage product with unclear edges.
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">✓</span>
-                Energy, education, civic, or compliance work.
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">✓</span>
-                Need to show progress to leadership or funders.
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">✓</span>
-                Comfortable with async, fast iteration.
-              </li>
-            </ul>
-
-            <div className="mt-5 text-xs font-mono uppercase tracking-[0.18em] text-slate-400 group-hover:text-accent transition-colors">
-              Not a fit
-            </div>
-            <ul className="mt-2 space-y-1 text-slate-400">
-              <li className="flex items-start gap-2">
-                <span className="opacity-50">✕</span>
-                You want a big team and a huge scope from day one.
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="opacity-50">✕</span>
-                You aren't ready to give real feedback weekly.
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="opacity-50">✕</span>
-                You just need a static marketing site or brochure.
-              </li>
-            </ul>
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="rounded-xl border border-primary/30 bg-primary/5 p-3"
+          >
+            <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+              This approach
+            </h3>
+            <p className="mt-1.5 text-[10px] text-slate-200 leading-relaxed sm:text-xs">
+              Send a quick Loom or doc. If it's a fit, we start shipping next week. Week-to-week collaboration, no long-term lock-in.
+            </p>
           </motion.div>
         </div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mt-4 grid gap-4 md:grid-cols-2"
+        >
+          <div className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-3">
+            <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-primary">
+              Good fit
+            </div>
+            <ul className="mt-2 space-y-1 text-[10px] sm:text-xs">
+              <li className="flex items-start gap-2 text-slate-200">
+                <span className="text-primary">✓</span>
+                Early-stage product with fuzzy edges
+              </li>
+              <li className="flex items-start gap-2 text-slate-200">
+                <span className="text-primary">✓</span>
+                Energy, education, civic, or compliance work
+              </li>
+              <li className="flex items-start gap-2 text-slate-200">
+                <span className="text-primary">✓</span>
+                Need visible progress for leadership or funders
+              </li>
+              <li className="flex items-start gap-2 text-slate-200">
+                <span className="text-primary">✓</span>
+                Comfortable with async, fast iteration
+              </li>
+            </ul>
+          </div>
+
+          <div className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-3">
+            <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-slate-400">
+              Not a fit
+            </div>
+            <ul className="mt-2 space-y-1 text-[10px] text-slate-400 sm:text-xs">
+              <li className="flex items-start gap-2">
+                <span className="opacity-50">✕</span>
+                You want a big team and huge scope from day one
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="opacity-50">✕</span>
+                You're not ready to give real feedback every week
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="opacity-50">✕</span>
+                You just need a static marketing site or brochure
+              </li>
+            </ul>
+          </div>
+        </motion.div>
+      </div>
+    </section>;
+}
+
+function TypicalProgression() {
+  return <section className="border-t border-slate-900/80 py-6 md:py-8">
+      <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-base font-semibold tracking-tight text-foreground md:text-lg">
+            Typical Progression
+          </h2>
+          <p className="mt-1.5 text-[10px] text-muted-foreground sm:text-xs">
+            Most teams start small, then scale.
+          </p>
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mt-4 rounded-xl border border-slate-800/70 bg-slate-950/50 p-3 sm:p-4"
+        >
+          <div className="flex flex-wrap items-center gap-2 text-[10px] sm:text-xs">
+            <div className="flex items-center gap-2">
+              <span className="rounded-md bg-primary/20 px-2 py-1 font-medium text-primary">Pilot</span>
+              <span className="text-slate-400">4 weeks</span>
+            </div>
+            <span className="text-slate-600">→</span>
+            <div className="flex items-center gap-2">
+              <span className="rounded-md bg-slate-800 px-2 py-1 font-medium text-slate-200">Proposal</span>
+              <span className="text-slate-400">1–2 weeks</span>
+            </div>
+            <span className="text-slate-600">→</span>
+            <div className="flex items-center gap-2">
+              <span className="rounded-md bg-slate-800 px-2 py-1 font-medium text-slate-200">Build</span>
+              <span className="text-slate-400">2–6 months</span>
+            </div>
+            <span className="text-slate-600">→</span>
+            <div className="flex items-center gap-2">
+              <span className="rounded-md bg-slate-800 px-2 py-1 font-medium text-slate-200">Retainer</span>
+              <span className="text-slate-400">Ongoing</span>
+            </div>
+          </div>
+          <p className="mt-2 text-[10px] text-slate-400 sm:text-xs">
+            Or jump straight to the model that fits.
+          </p>
+        </motion.div>
       </div>
     </section>;
 }
 function WhoBenefits() {
-  const audiences = ["Students bringing new ideas to life", "Teachers or nonprofits piloting campus or impact projects", "Board and governance teams seeking data clarity", "Solo founders wanting operational peace of mind", "B2B units innovating under fast timelines"];
-  return <section id="benefits" className="border-t border-slate-900/80 py-10 md:py-16">
-      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
+  const audiences = ["Students bringing new ideas to life", "Teachers or nonprofits piloting campus or impact projects", "Boards and governance teams needing clearer dashboards", "Solo founders wanting operational peace of mind", "B2B units innovating on tight timelines"];
+  return <section id="benefits" className="border-t border-slate-900/80 py-6 md:py-8">
+      <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -472,15 +536,15 @@ function WhoBenefits() {
       }} transition={{
         duration: 0.5
       }}>
-          <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+          <h2 className="text-base font-semibold tracking-tight text-foreground md:text-lg">
             Who Benefits?
           </h2>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            This approach works for anyone who needs tangible progress without the overhead of traditional hiring.
+          <p className="mt-1.5 max-w-2xl text-[10px] leading-relaxed text-muted-foreground sm:text-xs">
+            This model is for anyone who needs <span className="text-primary font-medium">tangible progress without hiring overhead</span>.
           </p>
         </motion.div>
 
-        <div className="mt-6 grid gap-6 md:grid-cols-2">
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
           <motion.div initial={{
           opacity: 0,
           x: -20
@@ -492,11 +556,11 @@ function WhoBenefits() {
         }} transition={{
           duration: 0.5,
           delay: 0.1
-        }} className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-5">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
+        }} className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-3">
+            <h3 className="text-[10px] font-semibold uppercase tracking-[0.16em] text-primary sm:text-xs">
               Perfect For
             </h3>
-            <ul className="mt-3 space-y-2 text-sm text-slate-200">
+            <ul className="mt-2 space-y-1 text-[10px] text-slate-200 sm:text-xs">
               {audiences.map((audience, i) => <li key={i} className="flex items-start gap-2">
                   <span className="text-primary mt-0.5">✓</span>
                   {audience}
@@ -515,21 +579,21 @@ function WhoBenefits() {
         }} transition={{
           duration: 0.5,
           delay: 0.2
-        }} className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-5">
-            <div className="mb-4">
-              <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
+        }} className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-3">
+            <div className="mb-3">
+              <h3 className="text-[10px] font-semibold uppercase tracking-[0.16em] text-primary sm:text-xs">
                 Ideal Fit
               </h3>
-              <p className="mt-2 text-sm text-slate-200">
-                Real feedback weekly, ready to experiment, need clear results
+              <p className="mt-1 text-[10px] text-slate-200 sm:text-xs">
+                Weekly feedback, ready to experiment, need clear results
               </p>
             </div>
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">
+              <h3 className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400 sm:text-xs">
                 Not a Fit
               </h3>
-              <p className="mt-2 text-sm text-slate-400">
-                Big static sites, slow-moving teams, no feedback or iteration
+              <p className="mt-1 text-[10px] text-slate-400 sm:text-xs">
+                Big static sites, slow-moving teams, no feedback loop
               </p>
             </div>
           </motion.div>
@@ -538,7 +602,7 @@ function WhoBenefits() {
     </section>;
 }
 function FAQSection() {
-  return <section id="faq" className="border-t border-slate-900/80 py-6 md:py-10">
+  return <section id="faq" className="border-t border-slate-900/80 py-6 md:py-8">
       <motion.div initial={{
       opacity: 0,
       y: 20
@@ -549,11 +613,11 @@ function FAQSection() {
       once: true
     }} transition={{
       duration: 0.5
-    }} className="max-w-4xl mb-4">
-        <h2 className="text-lg font-semibold md:text-xl">
+    }} className="max-w-4xl mb-3">
+        <h2 className="text-base font-semibold md:text-lg">
           FAQ
         </h2>
-        <p className="mt-1.5 text-xs text-slate-300 md:text-sm">
+        <p className="mt-1 text-[10px] text-slate-300 sm:text-xs">
           Like working with a senior dev on a weekly subscription.
         </p>
       </motion.div>
@@ -570,12 +634,12 @@ function FAQSection() {
     }} transition={{
       duration: 0.5,
       delay: 0.1
-    }} className="mb-6">
+    }} className="mb-4">
         <FAQAssistant />
       </motion.div>
 
       {/* FAQ Items - Compact Grid Layout */}
-      <dl className="grid gap-2 sm:gap-3 sm:grid-cols-2">
+      <dl className="grid gap-2 sm:gap-2.5 sm:grid-cols-2">
         {faqs.map((item, index) => <motion.div key={item.question} initial={{
         opacity: 0,
         y: 20
@@ -587,11 +651,11 @@ function FAQSection() {
       }} transition={{
         duration: 0.5,
         delay: index * 0.05
-      }} className="rounded-xl border border-slate-800/80 bg-slate-950/60 p-2.5 sm:p-3 hover:border-primary/30 transition-colors">
-            <dt className="text-xs font-medium text-slate-50 leading-tight md:text-sm">
+      }} className="rounded-xl border border-slate-800/80 bg-slate-950/60 p-2 sm:p-2.5 hover:border-primary/30 transition-colors">
+            <dt className="text-[10px] font-medium text-slate-50 leading-tight sm:text-xs">
               {item.question}
             </dt>
-            <dd className="mt-1 text-xs text-slate-300 leading-relaxed">
+            <dd className="mt-0.5 text-[9px] text-slate-300 leading-relaxed sm:text-[10px]">
               {item.answer}
             </dd>
           </motion.div>)}
