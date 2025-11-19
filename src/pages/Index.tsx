@@ -369,17 +369,25 @@ function PilotOffer() {
           <h2 className="text-sm font-semibold tracking-tight text-foreground sm:text-base">
             Why a Pilot Partner Instead of Hiring In-House
           </h2>
-          <div className="mt-2 space-y-1.5 text-xs text-muted-foreground max-w-3xl leading-relaxed">
-            <p>
-              Hiring in-house makes sense once you know what you're scaling. When you're still in the "is this even the right thing?" phase, it's a slow and expensive way to find out.
-            </p>
-            <p>
-              Bringing on a full-time senior hire typically means months of recruiting, six-figure commitments, and added overhead—before you even know if the pilot is worth scaling.
-            </p>
-            <p className="text-foreground font-medium">
-              My model is different: You bring a real problem, we design a small, honest experiment, and within a few weeks you have something you can show to leadership, funders, or partners—plus a clearer sense of what to do next.
-            </p>
-          </div>
+          <ul className="mt-2 space-y-1.5 max-w-3xl">
+            {[
+              "Hiring in-house makes sense once you know what you're scaling. When you're still in the \"is this even the right thing?\" phase, it's a slow and expensive way to find out.",
+              "Bringing on a full-time senior hire typically means months of recruiting, six-figure commitments, and added overhead—before you even know if the pilot is worth scaling.",
+              "My model is different: You bring a real problem, we design a small, honest experiment, and within a few weeks you have something you can show to leadership, funders, or partners—plus a clearer sense of what to do next."
+            ].map((text, i) => (
+              <motion.li
+                key={i}
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className={`flex items-start gap-2 text-[10px] leading-relaxed ${i === 2 ? 'text-foreground font-medium' : 'text-muted-foreground'}`}
+              >
+                <span className="text-primary mt-0.5 text-xs">•</span>
+                <span>{text}</span>
+              </motion.li>
+            ))}
+          </ul>
         </motion.div>
 
         {/* What This Model Is For */}
