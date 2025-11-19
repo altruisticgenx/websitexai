@@ -15,43 +15,43 @@ interface EngagementModel {
 const engagementModels: EngagementModel[] = [{
   name: "Pilot",
   icon: Zap,
-  description: "4-week sprint—real builds, not decks.",
-  pros: "Momentum, learning, low risk",
-  bestFor: "Validation, rapid iteration",
-  color: "from-primary/20 to-accent/20",
-  borderColor: "border-primary/40",
-  iconColor: "text-primary"
+  description: "$1,150/wk · 4 weeks · Ship Week 1",
+  pros: "Fast start, real code, low commit",
+  bestFor: "Students, founders, first builds",
+  color: "from-emerald-500/30 via-teal-500/20 to-cyan-500/30",
+  borderColor: "border-emerald-400/50",
+  iconColor: "text-emerald-400"
 }, {
   name: "Proposal",
   icon: FileText,
-  description: "Scoped plan: objectives, timeline, budget.",
-  pros: "Clarity, stakeholder buy-in",
-  bestFor: "Grants, compliance work",
-  color: "from-secondary/20 to-accent/20",
-  borderColor: "border-secondary/40",
-  iconColor: "text-accent"
+  description: "Scoped doc · Timeline · Budget",
+  pros: "Stakeholder clarity, grant-ready",
+  bestFor: "Federal/state grants, RFPs",
+  color: "from-blue-500/30 via-indigo-500/20 to-purple-500/30",
+  borderColor: "border-blue-400/50",
+  iconColor: "text-blue-400"
 }, {
   name: "Full Project",
   icon: Layers,
-  description: "Multi-month end-to-end execution.",
-  pros: "Stability, full solution",
-  bestFor: "Long-term scaling",
-  color: "from-primary/15 to-secondary/15",
-  borderColor: "border-primary/40",
-  iconColor: "text-primary"
+  description: "2-6 months · End-to-end delivery",
+  pros: "Complete solution, stable team",
+  bestFor: "Campuses, B2B teams, scale-ups",
+  color: "from-violet-500/30 via-fuchsia-500/20 to-pink-500/30",
+  borderColor: "border-violet-400/50",
+  iconColor: "text-violet-400"
 }, {
   name: "Retainer",
   icon: RefreshCw,
-  description: "Ongoing flexible support.",
-  pros: "Continuous expertise",
-  bestFor: "Evolving roadmaps",
-  color: "from-accent/20 to-primary/20",
-  borderColor: "border-accent/40",
-  iconColor: "text-accent"
+  description: "Monthly · Ongoing support · Flexible",
+  pros: "Always-on expertise, evolving needs",
+  bestFor: "Post-launch, maintenance, pivots",
+  color: "from-orange-500/30 via-amber-500/20 to-yellow-500/30",
+  borderColor: "border-orange-400/50",
+  iconColor: "text-orange-400"
 }] as const;
 export const EngagementModels = memo(() => {
-  return <section className="py-5 sm:py-6">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+  return <section className="py-3 sm:py-4">
+      <div className="mx-auto max-w-6xl px-3 sm:px-4">
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -62,16 +62,16 @@ export const EngagementModels = memo(() => {
         once: true
       }} transition={{
         duration: 0.6
-      }} className="mb-3 text-center sm:mb-4">
-          <h2 className="text-sm font-semibold sm:text-base">
+      }} className="mb-2 text-center sm:mb-3">
+          <h2 className="text-[11px] font-semibold sm:text-xs">
             How We Work Together
           </h2>
-          <p className="mt-1 text-[9px] text-slate-300 sm:text-[10px]">
-            Different models for different needs
+          <p className="mt-0.5 text-[8px] text-slate-400 sm:text-[9px]">
+            Pick your speed
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 gap-2 sm:gap-2.5 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-1.5 sm:gap-2 lg:grid-cols-4" style={{ perspective: "1000px" }}>
           {engagementModels.map((model, index) => {
           const Icon = model.icon;
           return <motion.div key={model.name} initial={{
@@ -87,35 +87,42 @@ export const EngagementModels = memo(() => {
             delay: index * 0.1
           }}>
                 <FloatingCard3D className="h-full">
-                  <motion.div whileHover={{
-                scale: 1.03,
-                boxShadow: "0 15px 30px -5px rgba(16, 185, 129, 0.25)"
-              }} className={`group relative h-full rounded-lg border ${model.borderColor} bg-gradient-to-br ${model.color} p-2 sm:p-2.5 transition-all duration-300 cursor-default`}>
-                    <div className={`inline-flex rounded-md bg-slate-900/60 p-1 ${model.iconColor}`}>
-                      <Icon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                  <motion.div 
+                    whileHover={{
+                      scale: 1.05,
+                      rotateY: 5,
+                      rotateX: -5,
+                      z: 50,
+                      boxShadow: "0 20px 40px -10px rgba(16, 185, 129, 0.4)"
+                    }} 
+                    className={`group relative h-full rounded-md border-2 ${model.borderColor} bg-gradient-to-br ${model.color} p-1.5 sm:p-2 transition-all duration-300 cursor-default backdrop-blur-sm`}
+                    style={{ transformStyle: "preserve-3d" }}
+                  >
+                    <div className={`inline-flex rounded bg-slate-950/80 p-0.5 ${model.iconColor} shadow-lg`}>
+                      <Icon className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                     </div>
                     
-                    <h3 className="mt-1 text-[10px] font-semibold text-slate-50 sm:text-[11px]">
+                    <h3 className="mt-0.5 text-[9px] font-bold text-slate-50 sm:text-[10px]">
                       {model.name}
                     </h3>
                     
-                    <p className="mt-0.5 text-[8px] leading-tight text-slate-200 sm:text-[9px]">
+                    <p className="mt-0.5 text-[7px] leading-snug text-slate-200 sm:text-[8px] font-medium">
                       {model.description}
                     </p>
 
-                    <div className="mt-1.5 space-y-0.5 border-t border-slate-700/30 pt-1">
+                    <div className="mt-1 space-y-0.5 border-t border-slate-600/40 pt-0.5">
                       <div>
-                        <span className="text-[7px] font-medium uppercase tracking-wider text-slate-400 sm:text-[8px]">
-                          Pros
+                        <span className="text-[6px] font-bold uppercase tracking-wider text-slate-400 sm:text-[7px]">
+                          ✓
                         </span>
-                        <p className="text-[8px] text-slate-300 sm:text-[9px]">{model.pros}</p>
+                        <p className="text-[7px] text-slate-300 sm:text-[8px]">{model.pros}</p>
                       </div>
                       
                       <div>
-                        <span className="text-[7px] font-medium uppercase tracking-wider text-slate-400 sm:text-[8px]">
-                          Best For
+                        <span className="text-[6px] font-bold uppercase tracking-wider text-slate-400 sm:text-[7px]">
+                          →
                         </span>
-                        <p className="text-[8px] text-slate-300 sm:text-[9px]">{model.bestFor}</p>
+                        <p className="text-[7px] text-slate-300 sm:text-[8px]">{model.bestFor}</p>
                       </div>
                     </div>
                   </motion.div>
