@@ -136,6 +136,12 @@ export function SiteNav() {
                         4-week pilot for schools
                       </div>
                     </a>
+                    <a href="https://docs.google.com/document/d/150vF2RNZe395m3TTrq3zQTDGjFxsvfuM4CxNvqiRoss/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer" onClick={() => setIsSolutionsOpen(false)} role="menuitem" aria-label="Our mission (opens in new tab)" className="block rounded-md px-2 py-1.5 body-xs transition-colors text-card-foreground hover:bg-accent hover:text-accent-foreground">
+                      <div className="font-medium body-sm">Our mission</div>
+                      <div className="micro text-muted-foreground">
+                        Learn about our purpose
+                      </div>
+                    </a>
                   </div>
                 </div>}
             </div>
@@ -188,6 +194,9 @@ export function SiteNav() {
                 </div>
                 <a href="/solutions/future-proofing" onClick={() => setIsMobileMenuOpen(false)} aria-label="Future proofing solutions" className="block rounded-md px-2 py-1.5 body-xs transition-colors text-foreground hover:text-primary hover:bg-accent/50">
                   Future proofing
+                </a>
+                <a href="https://docs.google.com/document/d/150vF2RNZe395m3TTrq3zQTDGjFxsvfuM4CxNvqiRoss/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)} aria-label="Our mission (opens in new tab)" className="block rounded-md px-2 py-1.5 body-xs transition-colors text-foreground hover:text-primary hover:bg-accent/50">
+                  Our mission
                 </a>
               </div>
 
