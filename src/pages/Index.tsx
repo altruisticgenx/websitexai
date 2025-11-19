@@ -110,9 +110,6 @@ const Index = () => {
               <OrganizationTypes />
               <WhereIWork />
               <ShelvedExperiments />
-              <div id="testimonials">
-                <TestimonialsVariant />
-              </div>
               <FAQSection />
             </motion.div>
           )}
