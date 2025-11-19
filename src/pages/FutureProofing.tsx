@@ -6,56 +6,73 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 // Shared Components
-function SectionHeader({ eyebrow, title, intro }: { eyebrow?: string; title: string; intro?: string }) {
-  return (
-    <div className="mb-4 md:mb-6">
-      {eyebrow && (
-        <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-primary mb-1">
+function SectionHeader({
+  eyebrow,
+  title,
+  intro
+}: {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+}) {
+  return <div className="mb-4 md:mb-6">
+      {eyebrow && <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-primary mb-1">
           {eyebrow}
-        </p>
-      )}
+        </p>}
       <h2 className="text-lg md:text-xl lg:text-2xl font-semibold tracking-tight text-foreground">
         {title}
       </h2>
-      {intro && (
-        <p className="mt-2 max-w-3xl text-[10px] md:text-[11px] leading-relaxed text-muted-foreground">
+      {intro && <p className="mt-2 max-w-3xl text-[10px] md:text-[11px] leading-relaxed text-muted-foreground">
           {intro}
-        </p>
-      )}
-    </div>
-  );
+        </p>}
+    </div>;
 }
-
-function OutcomeCard({ icon: Icon, title, items, gradient }: { icon: any; title: string; items: string[]; gradient: string }) {
-  return (
-    <motion.div
-      whileHover={{ scale: 1.02, rotateY: 2 }}
-      className={`rounded-2xl border border-border/50 bg-gradient-to-br ${gradient} backdrop-blur-sm p-3 md:p-4 transform-gpu transition-all duration-300`}
-    >
+function OutcomeCard({
+  icon: Icon,
+  title,
+  items,
+  gradient
+}: {
+  icon: any;
+  title: string;
+  items: string[];
+  gradient: string;
+}) {
+  return <motion.div whileHover={{
+    scale: 1.02,
+    rotateY: 2
+  }} className={`rounded-2xl border border-border/50 bg-gradient-to-br ${gradient} backdrop-blur-sm p-3 md:p-4 transform-gpu transition-all duration-300`}>
       <div className="flex items-center gap-2 mb-2">
         <Icon className="h-3 w-3 md:h-4 md:w-4 text-primary" />
         <h3 className="text-[11px] md:text-[13px] font-semibold text-foreground">{title}</h3>
       </div>
       <ul className="space-y-1.5">
-        {items.map((item, idx) => (
-          <li key={idx} className="flex items-start gap-1.5 text-[9px] md:text-[10px] text-muted-foreground">
+        {items.map((item, idx) => <li key={idx} className="flex items-start gap-1.5 text-[9px] md:text-[10px] text-muted-foreground">
             <CheckCircle2 className="h-2.5 w-2.5 md:h-3 md:w-3 text-emerald-400 flex-shrink-0 mt-0.5" />
             <span>{item}</span>
-          </li>
-        ))}
+          </li>)}
       </ul>
-    </motion.div>
-  );
+    </motion.div>;
 }
-
-function WeekCard({ weekNumber, title, goal, activities, gradient, glowColor }: { weekNumber: number; title: string; goal: string; activities: string[]; gradient: string; glowColor: string }) {
-  return (
-    <motion.div
-      whileHover={{ scale: 1.03, y: -4 }}
-      onHoverStart={(e) => (e.currentTarget as HTMLElement).style.boxShadow = `0 0 30px ${glowColor}`}
-      onHoverEnd={(e) => (e.currentTarget as HTMLElement).style.boxShadow = ''}
-      className={`rounded-2xl border border-border/50 bg-gradient-to-br ${gradient} backdrop-blur-sm p-3 md:p-4 transform-gpu transition-all duration-300`}
-    >
+function WeekCard({
+  weekNumber,
+  title,
+  goal,
+  activities,
+  gradient,
+  glowColor
+}: {
+  weekNumber: number;
+  title: string;
+  goal: string;
+  activities: string[];
+  gradient: string;
+  glowColor: string;
+}) {
+  return <motion.div whileHover={{
+    scale: 1.03,
+    y: -4
+  }} onHoverStart={e => (e.currentTarget as HTMLElement).style.boxShadow = `0 0 30px ${glowColor}`} onHoverEnd={e => (e.currentTarget as HTMLElement).style.boxShadow = ''} className={`rounded-2xl border border-border/50 bg-gradient-to-br ${gradient} backdrop-blur-sm p-3 md:p-4 transform-gpu transition-all duration-300`}>
       <div className="flex items-center gap-2 mb-2">
         <span className="text-[9px] font-mono uppercase tracking-[0.18em] text-primary">
           Week {weekNumber}
@@ -70,103 +87,52 @@ function WeekCard({ weekNumber, title, goal, activities, gradient, glowColor }: 
         <div>
           <p className="text-[8px] uppercase tracking-wider text-muted-foreground mb-1">Activities</p>
           <ul className="space-y-1">
-            {activities.map((activity, idx) => (
-              <li key={idx} className="text-[8px] md:text-[9px] text-muted-foreground flex items-start gap-1">
+            {activities.map((activity, idx) => <li key={idx} className="text-[8px] md:text-[9px] text-muted-foreground flex items-start gap-1">
                 <span className="text-primary">•</span>
                 <span>{activity}</span>
-              </li>
-            ))}
+              </li>)}
           </ul>
         </div>
       </div>
-    </motion.div>
-  );
+    </motion.div>;
 }
-
 export default function FutureProofing() {
   const [hoveredWeek, setHoveredWeek] = useState<number | null>(null);
-
-  const weeks = [
-    {
-      weekNumber: 1,
-      title: "From 'Politics is Noise' to 'This is a System'",
-      goal: "Students can explain at least one structural reason change stalls—no screaming pundits required.",
-      activities: [
-        "Explore the Legislative Action vs In Committee chart",
-        "Map local problems: overheated classrooms, unreliable buses, attendance, burnout",
-        "Write: 'One thing I never knew about how bills get stuck'"
-      ],
-      gradient: "from-purple-500/10 via-purple-500/5 to-transparent",
-      glowColor: "rgba(168, 85, 247, 0.4)"
-    },
-    {
-      weekNumber: 2,
-      title: "Shared Problems, Not Tribes",
-      goal: "Shift from 'my side vs your side' to 'Here are our shared problems and the tradeoffs we're actually arguing about.'",
-      activities: [
-        "Use Regional Needs to find 3 problems almost everyone wants solved",
-        "Learn to rewrite divisive, blame-heavy language into neutral, systems-focused language",
-        "Map values (safety, freedom, fairness, jobs) across different archetypes"
-      ],
-      gradient: "from-blue-500/10 via-blue-500/5 to-transparent",
-      glowColor: "rgba(59, 130, 246, 0.4)"
-    },
-    {
-      weekNumber: 3,
-      title: "Hot Topics as Design Challenges",
-      goal: "Students learn to shape proposals that could survive a committee room.",
-      activities: [
-        "Module 1: AI & Tech – Institutionalize AI Coaching (write briefs for different audiences)",
-        "Module 2: Energy & Infrastructure – Solar + V2G Buses (tailor proposals to rural vs urban)",
-        "Practice addressing different concerns with the same data"
-      ],
-      gradient: "from-orange-500/10 via-orange-500/5 to-transparent",
-      glowColor: "rgba(249, 115, 22, 0.4)"
-    },
-    {
-      weekNumber: 4,
-      title: "Student Proposals & Civic Trust",
-      goal: "Students finish with a concrete artifact (their brief) and a measurable shift in how they see civic action.",
-      activities: [
-        "Choose a theme: AI & Tech, Energy & Infrastructure, or Academic/Workforce",
-        "Define 1 local problem + 1 pilot + 1 bill stuck 'In Committee'",
-        "Draft and hand-edit a 1-page policy brief",
-        "Present or submit to real decision-makers",
-        "Complete Civic Trust Shift reflection"
-      ],
-      gradient: "from-emerald-500/10 via-emerald-500/5 to-transparent",
-      glowColor: "rgba(16, 185, 129, 0.4)"
-    }
-  ];
-
-  const studentOutcomes = [
-    "Can explain at least one real reason a bill stalls—beyond 'politicians are bad'",
-    "Can rewrite inflammatory language into neutral, problem-focused framing",
-    "Can draft audience-specific policy briefs anchored in real data",
-    "Report increased comfort talking to people who disagree",
-    "Increased willingness to contact decision-makers"
-  ];
-
-  const teacherOutcomes = [
-    "A structured, low-lift 4-week unit you can plug into existing courses",
-    "Ready-made prompts, dashboards, and templates instead of starting from scratch",
-    "A safer way to discuss hot topics—anchored in data, not social media takes",
-    "Evidence-based framework for reducing classroom division"
-  ];
-
-  const schoolOutcomes = [
-    "Evidence that you're actively reducing division, not just managing it",
-    "Student work you can bring to boards, families, and funders to show impact",
-    "A repeatable model for future pilots in energy, AI, and workforce policy"
-  ];
-
-  return (
-    <div className="min-h-screen bg-background">
+  const weeks = [{
+    weekNumber: 1,
+    title: "From 'Politics is Noise' to 'This is a System'",
+    goal: "Students can explain at least one structural reason change stalls—no screaming pundits required.",
+    activities: ["Explore the Legislative Action vs In Committee chart", "Map local problems: overheated classrooms, unreliable buses, attendance, burnout", "Write: 'One thing I never knew about how bills get stuck'"],
+    gradient: "from-purple-500/10 via-purple-500/5 to-transparent",
+    glowColor: "rgba(168, 85, 247, 0.4)"
+  }, {
+    weekNumber: 2,
+    title: "Shared Problems, Not Tribes",
+    goal: "Shift from 'my side vs your side' to 'Here are our shared problems and the tradeoffs we're actually arguing about.'",
+    activities: ["Use Regional Needs to find 3 problems almost everyone wants solved", "Learn to rewrite divisive, blame-heavy language into neutral, systems-focused language", "Map values (safety, freedom, fairness, jobs) across different archetypes"],
+    gradient: "from-blue-500/10 via-blue-500/5 to-transparent",
+    glowColor: "rgba(59, 130, 246, 0.4)"
+  }, {
+    weekNumber: 3,
+    title: "Hot Topics as Design Challenges",
+    goal: "Students learn to shape proposals that could survive a committee room.",
+    activities: ["Module 1: AI & Tech – Institutionalize AI Coaching (write briefs for different audiences)", "Module 2: Energy & Infrastructure – Solar + V2G Buses (tailor proposals to rural vs urban)", "Practice addressing different concerns with the same data"],
+    gradient: "from-orange-500/10 via-orange-500/5 to-transparent",
+    glowColor: "rgba(249, 115, 22, 0.4)"
+  }, {
+    weekNumber: 4,
+    title: "Student Proposals & Civic Trust",
+    goal: "Students finish with a concrete artifact (their brief) and a measurable shift in how they see civic action.",
+    activities: ["Choose a theme: AI & Tech, Energy & Infrastructure, or Academic/Workforce", "Define 1 local problem + 1 pilot + 1 bill stuck 'In Committee'", "Draft and hand-edit a 1-page policy brief", "Present or submit to real decision-makers", "Complete Civic Trust Shift reflection"],
+    gradient: "from-emerald-500/10 via-emerald-500/5 to-transparent",
+    glowColor: "rgba(16, 185, 129, 0.4)"
+  }];
+  const studentOutcomes = ["Can explain at least one real reason a bill stalls—beyond 'politicians are bad'", "Can rewrite inflammatory language into neutral, problem-focused framing", "Can draft audience-specific policy briefs anchored in real data", "Report increased comfort talking to people who disagree", "Increased willingness to contact decision-makers"];
+  const teacherOutcomes = ["A structured, low-lift 4-week unit you can plug into existing courses", "Ready-made prompts, dashboards, and templates instead of starting from scratch", "A safer way to discuss hot topics—anchored in data, not social media takes", "Evidence-based framework for reducing classroom division"];
+  const schoolOutcomes = ["Evidence that you're actively reducing division, not just managing it", "Student work you can bring to boards, families, and funders to show impact", "A repeatable model for future pilots in energy, AI, and workforce policy"];
+  return <div className="min-h-screen bg-background">
       {/* Skip to content link */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-3 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md"
-      >
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-3 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md">
         Skip to content
       </a>
 
@@ -178,10 +144,7 @@ export default function FutureProofing() {
               AltruisticX AI
             </span>
           </Link>
-          <Link
-            to="/"
-            className="text-[9px] md:text-[10px] text-muted-foreground hover:text-foreground transition-colors"
-          >
+          <Link to="/" className="text-[9px] md:text-[10px] text-muted-foreground hover:text-foreground transition-colors">
             ← Back to home
           </Link>
         </div>
@@ -190,12 +153,15 @@ export default function FutureProofing() {
       <main id="main-content" className="mx-auto max-w-6xl px-3 md:px-6">
         {/* Hero Section */}
         <section className="py-8 md:py-12 border-b border-border/30">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          duration: 0.6
+        }} className="text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-[9px] font-medium text-primary mb-4">
               <span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
               4-Week Pilot for Schools
@@ -222,14 +188,10 @@ export default function FutureProofing() {
 
             <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
               <Button asChild size="lg" className="text-[11px] md:text-xs">
-                <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer">
-                  Book Pilot Call
-                </a>
+                
               </Button>
               <Button asChild variant="outline" size="lg" className="text-[11px] md:text-xs">
-                <a href="mailto:hello@altruisticxai.com?subject=Future-Proofing%20Starter%20Kit%20Request">
-                  Get Starter Kit
-                </a>
+                <a href="mailto:hello@altruisticxai.com?subject=Future-Proofing%20Starter%20Kit%20Request">EDU Starter Kit</a>
               </Button>
             </div>
           </motion.div>
@@ -237,19 +199,18 @@ export default function FutureProofing() {
 
         {/* The Problem Section */}
         <section className="py-8 md:py-12 border-b border-border/30">
-          <SectionHeader
-            eyebrow="The Challenge"
-            title="Gatekept 'Innovation' vs Real Civic Skills"
-            intro="Most 'innovation in education' still looks like a platform built in Silicon Valley, a glossy PDF, and a top-down rollout teachers didn't ask for."
-          />
+          <SectionHeader eyebrow="The Challenge" title="Gatekept 'Innovation' vs Real Civic Skills" intro="Most 'innovation in education' still looks like a platform built in Silicon Valley, a glossy PDF, and a top-down rollout teachers didn't ask for." />
 
           <div className="grid gap-3 md:grid-cols-2 mt-4">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm p-3 md:p-4"
-            >
+            <motion.div initial={{
+            opacity: 0,
+            x: -20
+          }} whileInView={{
+            opacity: 1,
+            x: 0
+          }} viewport={{
+            once: true
+          }} className="rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm p-3 md:p-4">
               <h3 className="text-[11px] md:text-[13px] font-semibold text-foreground mb-2">The Broken System</h3>
               <ul className="space-y-2 text-[9px] md:text-[10px] text-muted-foreground">
                 <li className="flex items-start gap-2">
@@ -271,12 +232,15 @@ export default function FutureProofing() {
               </ul>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent backdrop-blur-sm p-3 md:p-4"
-            >
+            <motion.div initial={{
+            opacity: 0,
+            x: 20
+          }} whileInView={{
+            opacity: 1,
+            x: 0
+          }} viewport={{
+            once: true
+          }} className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent backdrop-blur-sm p-3 md:p-4">
               <h3 className="text-[11px] md:text-[13px] font-semibold text-foreground mb-2">The Potential</h3>
               <ul className="space-y-2 text-[9px] md:text-[10px] text-muted-foreground">
                 <li className="flex items-start gap-2">
@@ -302,31 +266,12 @@ export default function FutureProofing() {
 
         {/* Our Approach Section */}
         <section className="py-8 md:py-12 border-b border-border/30">
-          <SectionHeader
-            eyebrow="Our Method"
-            title="Pilot Lab Civics, Not Platform Civics"
-            intro="Turn your classroom into a policy-to-practice lab where students act as co-designers, not just users."
-          />
+          <SectionHeader eyebrow="Our Method" title="Pilot Lab Civics, Not Platform Civics" intro="Turn your classroom into a policy-to-practice lab where students act as co-designers, not just users." />
 
           <div className="grid gap-3 md:grid-cols-3 mt-4">
-            <OutcomeCard
-              icon={Users}
-              title="Students as Co-Designers"
-              items={["Act as analysts, not just 'users'", "Real user journeys with real problems", "Build agency through authentic work"]}
-              gradient="from-emerald-500/10 via-emerald-500/5 to-transparent"
-            />
-            <OutcomeCard
-              icon={GraduationCap}
-              title="Teachers as Partners"
-              items={["Sense-makers, not just implementers", "Low-lift structured units", "Safe framework for hot topics"]}
-              gradient="from-cyan-500/10 via-cyan-500/5 to-transparent"
-            />
-            <OutcomeCard
-              icon={Building2}
-              title="Districts Get Evidence"
-              items={["Local evidence, not case studies", "Student work for boards & funders", "Repeatable pilot model"]}
-              gradient="from-teal-500/10 via-teal-500/5 to-transparent"
-            />
+            <OutcomeCard icon={Users} title="Students as Co-Designers" items={["Act as analysts, not just 'users'", "Real user journeys with real problems", "Build agency through authentic work"]} gradient="from-emerald-500/10 via-emerald-500/5 to-transparent" />
+            <OutcomeCard icon={GraduationCap} title="Teachers as Partners" items={["Sense-makers, not just implementers", "Low-lift structured units", "Safe framework for hot topics"]} gradient="from-cyan-500/10 via-cyan-500/5 to-transparent" />
+            <OutcomeCard icon={Building2} title="Districts Get Evidence" items={["Local evidence, not case studies", "Student work for boards & funders", "Repeatable pilot model"]} gradient="from-teal-500/10 via-teal-500/5 to-transparent" />
           </div>
 
           <div className="mt-6">
@@ -364,51 +309,31 @@ export default function FutureProofing() {
 
         {/* 4-Week Pilot Timeline */}
         <section className="py-8 md:py-12 border-b border-border/30">
-          <SectionHeader
-            eyebrow="Structured Program"
-            title="4-Week Pilot: What It Actually Looks Like"
-            intro="2–3 sessions per week, 45–60 minutes. Fits civics, social studies, advisory, capstone, or interdisciplinary projects."
-          />
+          <SectionHeader eyebrow="Structured Program" title="4-Week Pilot: What It Actually Looks Like" intro="2–3 sessions per week, 45–60 minutes. Fits civics, social studies, advisory, capstone, or interdisciplinary projects." />
 
           <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {weeks.map((week) => (
-              <div
-                key={week.weekNumber}
-                onMouseEnter={() => setHoveredWeek(week.weekNumber)}
-                onMouseLeave={() => setHoveredWeek(null)}
-              >
+            {weeks.map(week => <div key={week.weekNumber} onMouseEnter={() => setHoveredWeek(week.weekNumber)} onMouseLeave={() => setHoveredWeek(null)}>
                 <WeekCard {...week} />
-              </div>
-            ))}
+              </div>)}
           </div>
 
           {/* Timeline Progress Bar */}
           <div className="mt-6 relative">
             <div className="relative h-1 rounded-full bg-border/50">
-              <motion.div
-                className="absolute top-0 left-0 h-full rounded-full"
-                style={{
-                  background: hoveredWeek === 1 ? 'linear-gradient(to right, rgb(168, 85, 247), rgb(168, 85, 247))' :
-                              hoveredWeek === 2 ? 'linear-gradient(to right, rgb(168, 85, 247), rgb(59, 130, 246))' :
-                              hoveredWeek === 3 ? 'linear-gradient(to right, rgb(168, 85, 247), rgb(59, 130, 246), rgb(249, 115, 22))' :
-                              hoveredWeek === 4 ? 'linear-gradient(to right, rgb(168, 85, 247), rgb(59, 130, 246), rgb(249, 115, 22), rgb(16, 185, 129))' :
-                              'transparent'
-                }}
-                animate={{
-                  width: hoveredWeek === 1 ? '25%' : hoveredWeek === 2 ? '50%' : hoveredWeek === 3 ? '75%' : hoveredWeek === 4 ? '100%' : '0%'
-                }}
-                transition={{ duration: 0.3 }}
-              />
+              <motion.div className="absolute top-0 left-0 h-full rounded-full" style={{
+              background: hoveredWeek === 1 ? 'linear-gradient(to right, rgb(168, 85, 247), rgb(168, 85, 247))' : hoveredWeek === 2 ? 'linear-gradient(to right, rgb(168, 85, 247), rgb(59, 130, 246))' : hoveredWeek === 3 ? 'linear-gradient(to right, rgb(168, 85, 247), rgb(59, 130, 246), rgb(249, 115, 22))' : hoveredWeek === 4 ? 'linear-gradient(to right, rgb(168, 85, 247), rgb(59, 130, 246), rgb(249, 115, 22), rgb(16, 185, 129))' : 'transparent'
+            }} animate={{
+              width: hoveredWeek === 1 ? '25%' : hoveredWeek === 2 ? '50%' : hoveredWeek === 3 ? '75%' : hoveredWeek === 4 ? '100%' : '0%'
+            }} transition={{
+              duration: 0.3
+            }} />
             </div>
             <div className="flex justify-between mt-2 text-[8px] text-muted-foreground">
               <span>Start</span>
-              <motion.span
-                className="text-primary font-medium"
-                animate={{
-                  opacity: hoveredWeek ? 1 : 0,
-                  scale: hoveredWeek ? 1 : 0.8
-                }}
-              >
+              <motion.span className="text-primary font-medium" animate={{
+              opacity: hoveredWeek ? 1 : 0,
+              scale: hoveredWeek ? 1 : 0.8
+            }}>
                 {hoveredWeek ? `Week ${hoveredWeek}/4` : ''}
               </motion.span>
               <span>Complete</span>
@@ -418,18 +343,18 @@ export default function FutureProofing() {
 
         {/* Why This Beats Silicon Valley */}
         <section className="py-8 md:py-12 border-b border-border/30">
-          <SectionHeader
-            eyebrow="The Difference"
-            title="Why This Beats the Silicon Valley / Gatekept Model"
-          />
+          <SectionHeader eyebrow="The Difference" title="Why This Beats the Silicon Valley / Gatekept Model" />
 
           <div className="mt-4 grid gap-3 md:grid-cols-2">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="rounded-2xl border border-destructive/30 bg-destructive/5 backdrop-blur-sm p-3 md:p-4"
-            >
+            <motion.div initial={{
+            opacity: 0,
+            x: -20
+          }} whileInView={{
+            opacity: 1,
+            x: 0
+          }} viewport={{
+            once: true
+          }} className="rounded-2xl border border-destructive/30 bg-destructive/5 backdrop-blur-sm p-3 md:p-4">
               <h3 className="text-[11px] md:text-[13px] font-semibold text-foreground mb-3">The Usual Way (Gatekept Ed)</h3>
               <ul className="space-y-2 text-[9px] md:text-[10px] text-muted-foreground">
                 <li>• Product shipped from somewhere else</li>
@@ -440,12 +365,15 @@ export default function FutureProofing() {
               </ul>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent backdrop-blur-sm p-3 md:p-4"
-            >
+            <motion.div initial={{
+            opacity: 0,
+            x: 20
+          }} whileInView={{
+            opacity: 1,
+            x: 0
+          }} viewport={{
+            once: true
+          }} className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent backdrop-blur-sm p-3 md:p-4">
               <h3 className="text-[11px] md:text-[13px] font-semibold text-foreground mb-3">Our Way (Pilot Lab Civics)</h3>
               <ul className="space-y-2 text-[9px] md:text-[10px] text-muted-foreground">
                 <li className="flex items-start gap-1.5">
@@ -475,74 +403,47 @@ export default function FutureProofing() {
 
         {/* Expected Outcomes */}
         <section className="py-8 md:py-12 border-b border-border/30">
-          <SectionHeader
-            eyebrow="Results"
-            title="Outcomes You Can Expect"
-            intro="Measurable impact for students, teachers, and schools."
-          />
+          <SectionHeader eyebrow="Results" title="Outcomes You Can Expect" intro="Measurable impact for students, teachers, and schools." />
 
           <div className="mt-4 grid gap-3 md:grid-cols-3">
-            <OutcomeCard
-              icon={Target}
-              title="For Students"
-              items={studentOutcomes}
-              gradient="from-purple-500/10 via-purple-500/5 to-transparent"
-            />
-            <OutcomeCard
-              icon={GraduationCap}
-              title="For Teachers"
-              items={teacherOutcomes}
-              gradient="from-blue-500/10 via-blue-500/5 to-transparent"
-            />
-            <OutcomeCard
-              icon={Building2}
-              title="For Schools & Districts"
-              items={schoolOutcomes}
-              gradient="from-emerald-500/10 via-emerald-500/5 to-transparent"
-            />
+            <OutcomeCard icon={Target} title="For Students" items={studentOutcomes} gradient="from-purple-500/10 via-purple-500/5 to-transparent" />
+            <OutcomeCard icon={GraduationCap} title="For Teachers" items={teacherOutcomes} gradient="from-blue-500/10 via-blue-500/5 to-transparent" />
+            <OutcomeCard icon={Building2} title="For Schools & Districts" items={schoolOutcomes} gradient="from-emerald-500/10 via-emerald-500/5 to-transparent" />
           </div>
         </section>
 
         {/* How We Support */}
         <section className="py-8 md:py-12 border-b border-border/30">
-          <SectionHeader
-            eyebrow="Support"
-            title="How AltruisticX AI Supports the Pilot"
-            intro="We don't just drop off a PDF and run. You get hands-on support to make this work for your context."
-          />
+          <SectionHeader eyebrow="Support" title="How AltruisticX AI Supports the Pilot" intro="We don't just drop off a PDF and run. You get hands-on support to make this work for your context." />
 
           <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <motion.div
-              whileHover={{ scale: 1.03 }}
-              className="rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm p-3 text-center transform-gpu transition-all"
-            >
+            <motion.div whileHover={{
+            scale: 1.03
+          }} className="rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm p-3 text-center transform-gpu transition-all">
               <Lightbulb className="h-5 w-5 md:h-6 md:w-6 text-primary mx-auto mb-2" />
               <h3 className="text-[10px] md:text-[11px] font-semibold text-foreground mb-1">Pilot Design Call</h3>
               <p className="text-[8px] md:text-[9px] text-muted-foreground">Tune the lab to your state, bills, and schedule</p>
             </motion.div>
 
-            <motion.div
-              whileHover={{ scale: 1.03 }}
-              className="rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm p-3 text-center transform-gpu transition-all"
-            >
+            <motion.div whileHover={{
+            scale: 1.03
+          }} className="rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm p-3 text-center transform-gpu transition-all">
               <Target className="h-5 w-5 md:h-6 md:w-6 text-primary mx-auto mb-2" />
               <h3 className="text-[10px] md:text-[11px] font-semibold text-foreground mb-1">Dashboard Configuration</h3>
               <p className="text-[8px] md:text-[9px] text-muted-foreground">Customized for your region and focus areas</p>
             </motion.div>
 
-            <motion.div
-              whileHover={{ scale: 1.03 }}
-              className="rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm p-3 text-center transform-gpu transition-all"
-            >
+            <motion.div whileHover={{
+            scale: 1.03
+          }} className="rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm p-3 text-center transform-gpu transition-all">
               <FileText className="h-5 w-5 md:h-6 md:w-6 text-primary mx-auto mb-2" />
               <h3 className="text-[10px] md:text-[11px] font-semibold text-foreground mb-1">Teacher Facilitation Guide</h3>
               <p className="text-[8px] md:text-[9px] text-muted-foreground">Week-by-week guide with prompts and timing</p>
             </motion.div>
 
-            <motion.div
-              whileHover={{ scale: 1.03 }}
-              className="rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm p-3 text-center transform-gpu transition-all"
-            >
+            <motion.div whileHover={{
+            scale: 1.03
+          }} className="rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm p-3 text-center transform-gpu transition-all">
               <FileText className="h-5 w-5 md:h-6 md:w-6 text-primary mx-auto mb-2" />
               <h3 className="text-[10px] md:text-[11px] font-semibold text-foreground mb-1">Templates & Resources</h3>
               <p className="text-[8px] md:text-[9px] text-muted-foreground">Briefs, reflections, and Civic Trust Shift tile</p>
@@ -606,6 +507,5 @@ export default function FutureProofing() {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 }
