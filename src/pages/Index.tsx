@@ -272,27 +272,32 @@ function RecentBuilds() {
     </section>;
 }
 function HowItWorks() {
+  const [hoveredStep, setHoveredStep] = React.useState<number | null>(null);
+  
   const steps = [{
     label: "01",
     title: "Share your idea",
     body: "Send a doc or quick Loom/call. We scope a realistic 4-week slice.",
     gradient: "from-emerald-500/20 via-teal-500/15 to-cyan-500/20",
     glowColor: "rgba(16, 185, 129, 0.3)",
-    borderColor: "border-emerald-500/30"
+    borderColor: "border-emerald-500/30",
+    progressColor: "bg-emerald-500"
   }, {
     label: "02",
     title: "Ship weekly",
     body: "Each week: one complete feature you can demo.",
     gradient: "from-purple-500/20 via-fuchsia-500/15 to-pink-500/20",
     glowColor: "rgba(168, 85, 247, 0.3)",
-    borderColor: "border-purple-500/30"
+    borderColor: "border-purple-500/30",
+    progressColor: "bg-purple-500"
   }, {
     label: "03",
     title: "Decide",
     body: "Working pilot. Clear options: go, pivot, or pause.",
     gradient: "from-orange-500/20 via-amber-500/15 to-yellow-500/20",
     glowColor: "rgba(249, 115, 22, 0.3)",
-    borderColor: "border-orange-500/30"
+    borderColor: "border-orange-500/30",
+    progressColor: "bg-orange-500"
   }];
   return <section id="how" className="border-t border-slate-900/80 py-3 md:py-4">
       <div className="mx-auto w-full max-w-5xl px-2 md:px-3">
@@ -345,6 +350,8 @@ function HowItWorks() {
               boxShadow: `0 20px 40px -10px ${step.glowColor}`,
               borderColor: step.glowColor
             }} 
+            onHoverStart={() => setHoveredStep(index)}
+            onHoverEnd={() => setHoveredStep(null)}
             style={{ transformStyle: "preserve-3d" }}
             className={`group rounded-xl border ${step.borderColor} bg-gradient-to-br ${step.gradient} backdrop-blur-sm p-1.5 sm:p-2 text-xs transition-all duration-300 cursor-default`}>
               <div className="text-[7px] font-mono uppercase tracking-[0.2em] text-primary group-hover:scale-110 transition-transform">
@@ -356,6 +363,46 @@ function HowItWorks() {
               <p className="mt-0.5 text-[8px] text-slate-300 leading-relaxed">{step.body}</p>
             </motion.div>)}
         </div>
+
+        {/* Interactive Timeline Bar */}
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="mt-3 mb-2"
+        >
+          <div className="relative h-1 rounded-full bg-slate-800/50 overflow-hidden">
+            <motion.div 
+              className={`absolute top-0 left-0 h-full rounded-full ${
+                hoveredStep !== null ? steps[hoveredStep].progressColor : "bg-primary"
+              }`}
+              initial={{ width: "0%" }}
+              animate={{ 
+                width: hoveredStep !== null 
+                  ? `${((hoveredStep + 1) / steps.length) * 100}%`
+                  : "0%"
+              }}
+              transition={{ 
+                duration: 0.5, 
+                ease: "easeOut"
+              }}
+            />
+          </div>
+          <div className="mt-1 flex justify-between text-[7px] text-slate-400">
+            <span>Start</span>
+            <motion.span 
+              animate={{ 
+                opacity: hoveredStep !== null ? 1 : 0.5,
+                scale: hoveredStep !== null ? 1.1 : 1
+              }}
+              className="font-mono"
+            >
+              {hoveredStep !== null ? `${hoveredStep + 1}/${steps.length}` : "0/3"}
+            </motion.span>
+            <span>Complete</span>
+          </div>
+        </motion.div>
 
         {/* 4-Week Sprint Details */}
         <motion.div 
