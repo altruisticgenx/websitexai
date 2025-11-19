@@ -15,19 +15,19 @@ function VisualRow({
 }) {
   return (
     <motion.div 
-      className="group flex gap-3 rounded-2xl border border-slate-800/80 bg-slate-950/40 p-3 transition-all duration-300 cursor-default"
+      className="group flex gap-2 rounded-xl border border-slate-800/80 bg-slate-950/40 p-2 transition-all duration-300 cursor-default"
       whileHover={{ 
         x: 4,
         borderColor: "hsl(var(--primary) / 0.4)",
         backgroundColor: "hsl(var(--slate-900) / 0.6)"
       }}
     >
-      <div className="mt-0.5 w-14 flex-shrink-0 text-xs font-mono uppercase tracking-[0.16em] text-primary group-hover:text-accent transition-colors">
+      <div className="mt-0.5 w-12 flex-shrink-0 text-[9px] font-mono uppercase tracking-[0.16em] text-primary group-hover:text-accent transition-colors sm:text-[10px]">
         {label}
       </div>
       <div>
-        <div className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{title}</div>
-        <div className="mt-1 text-xs text-muted-foreground">{body}</div>
+        <div className="text-[10px] font-medium text-foreground group-hover:text-primary transition-colors sm:text-xs">{title}</div>
+        <div className="mt-0.5 text-[9px] text-muted-foreground sm:text-[10px]">{body}</div>
       </div>
     </motion.div>
   );
@@ -47,7 +47,7 @@ export function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section ref={ref} id="home" className="relative py-10 md:py-16 overflow-hidden">
+    <section ref={ref} id="home" className="relative py-8 md:py-12 overflow-hidden">
       {/* 3D Animated Background */}
       <Hero3DBackground />
       
@@ -118,164 +118,164 @@ export function Hero() {
         ))}
       </motion.div>
       
+      {/* Content Container with Parallax */}
       <motion.div 
-        className="relative mx-auto flex w-full max-w-5xl flex-col items-center gap-10 px-4 md:flex-row md:px-6"
-        style={{ opacity }}
+        className="relative z-10 mx-auto max-w-6xl px-3 sm:px-4"
+        style={{ y: yForeground, opacity }}
       >
-        {/* Left: Text Content (60%) */}
-        <motion.div 
-          initial={{ opacity: 0, x: -30 }} 
-          animate={{ opacity: 1, x: 0 }} 
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex-1"
-        >
-          <motion.div 
-            className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-gradient-to-r from-primary/10 to-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary shadow-lg shadow-primary/20"
-            whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.3)" }}
-            transition={{ type: "spring", stiffness: 400 }}
+        <div className="grid gap-6 md:grid-cols-[minmax(0,1.4fr),minmax(0,1fr)] md:items-center">
+          {/* Left Column - Main Message */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-            Ship pilot-ready AI tech
+            {/* Tag Line */}
+            <motion.div 
+              className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-2.5 py-1 text-[9px] font-medium text-primary sm:text-[10px]"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
+              Ship pilot-ready AI tech
+            </motion.div>
+
+            {/* Main Headline */}
+            <motion.h1 
+              className="mt-3 text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              Build, Learn, Lead—on Your Terms
+            </motion.h1>
+
+            {/* Supporting Text */}
+            <motion.p 
+              className="mt-2.5 max-w-xl text-xs leading-relaxed text-muted-foreground sm:text-sm"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              Are you a student, teacher, founder, B2B team, or changemaker in energy, education, or governance?
+              Skip the slow hiring process and get senior AI/product execution in focused pilots, shipped week by week.
+            </motion.p>
+
+            {/* Feature Pills */}
+            <motion.dl 
+              className="mt-4 grid max-w-xl grid-cols-1 gap-2 text-[10px] text-slate-200 sm:grid-cols-3 sm:text-xs"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+            >
+              <motion.div 
+                className="group rounded-xl border border-slate-800/70 bg-slate-900/70 p-2 transition-all duration-300 hover:border-primary/30"
+                whileHover={{ y: -2, boxShadow: "0 10px 20px -5px hsl(var(--primary) / 0.2)" }}
+              >
+                <dt className="text-[9px] uppercase tracking-[0.16em] text-slate-400 group-hover:text-primary transition-colors">
+                  Work hands-on
+                </dt>
+                <dd className="mt-0.5 font-medium text-slate-50 text-[10px] sm:text-xs">
+                  Build with real tools and ship working prototypes.
+                </dd>
+              </motion.div>
+              <motion.div 
+                className="group rounded-xl border border-slate-800/70 bg-slate-900/70 p-2 transition-all duration-300 hover:border-primary/30"
+                whileHover={{ y: -2, boxShadow: "0 10px 20px -5px hsl(var(--primary) / 0.2)" }}
+              >
+                <dt className="text-[9px] uppercase tracking-[0.16em] text-slate-400 group-hover:text-primary transition-colors">
+                  Launch actionable tools
+                </dt>
+                <dd className="mt-0.5 font-medium text-slate-50 text-[10px] sm:text-xs">
+                  Deploy features people can actually test and use.
+                </dd>
+              </motion.div>
+              <motion.div 
+                className="group rounded-xl border border-slate-800/70 bg-slate-900/70 p-2 transition-all duration-300 hover:border-primary/30"
+                whileHover={{ y: -2, boxShadow: "0 10px 20px -5px hsl(var(--primary) / 0.2)" }}
+              >
+                <dt className="text-[9px] uppercase tracking-[0.16em] text-slate-400 group-hover:text-primary transition-colors">
+                  Start small, deliver early
+                </dt>
+                <dd className="mt-0.5 font-medium text-slate-50 text-[10px] sm:text-xs">
+                  First meaningful code in Week 1, ready to demo.
+                </dd>
+              </motion.div>
+            </motion.dl>
+
+            {/* CTA Buttons */}
+            <motion.div 
+              className="mt-5 flex flex-col gap-2.5 text-xs sm:flex-row sm:items-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+            >
+              <motion.a
+                href="mailto:hello@altruisticxai.com?subject=AltruisticX%20AI%20Pilot%20Intro"
+                className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-xs font-medium text-slate-950 shadow-lg shadow-primary/30 transition-all duration-300 hover:bg-primary/90 hover:shadow-primary/40"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Book a 30-min intro
+              </motion.a>
+              <motion.a
+                href="https://www.linkedin.com/in/your-profile"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-1.5 rounded-full border border-slate-700 bg-slate-900/50 px-4 py-2 text-xs font-medium text-slate-200 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-slate-800/50"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Linkedin className="h-3 w-3" />
+                Connect on LinkedIn
+              </motion.a>
+            </motion.div>
           </motion.div>
 
-          <motion.h1 
-            className="mt-4 font-itim text-4xl font-semibold tracking-tight md:text-5xl bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
+          {/* Right Column - Visual Block */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
           >
-            Build, Learn, Lead—on Your Terms
-          </motion.h1>
-
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            Are you a student, teacher, founder, B2B team, or changemaker in energy, education, or governance? 
-            Skip the slow hiring process and unlock <span className="text-primary font-medium">senior AI/product execution</span>—in focused pilots, shipped week by week.
-          </p>
-
-          <dl className="mt-6 grid max-w-xl grid-cols-1 gap-4 sm:grid-cols-3">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 0.4 }}
-              whileHover={{ 
-                y: -4, 
-                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.2)",
-                borderColor: "hsl(var(--primary) / 0.5)"
-              }}
-              className="rounded-2xl border border-slate-800/70 bg-gradient-to-br from-slate-900/70 to-slate-900/40 p-3 transition-all duration-300 cursor-default"
-            >
-              <dt className="text-xs uppercase tracking-[0.16em] text-slate-400">
-                Work hands-on
-              </dt>
-              <dd className="mt-1 text-sm font-medium text-foreground">
-                Build with real tools and ship working prototypes.
-              </dd>
-            </motion.div>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 0.5 }}
-              whileHover={{ 
-                y: -4, 
-                boxShadow: "0 20px 25px -5px hsl(var(--accent) / 0.2)",
-                borderColor: "hsl(var(--accent) / 0.5)"
-              }}
-              className="rounded-2xl border border-slate-800/70 bg-gradient-to-br from-slate-900/70 to-slate-900/40 p-3 transition-all duration-300 cursor-default"
-            >
-              <dt className="text-xs uppercase tracking-[0.16em] text-slate-400">
-                Launch actionable tools
-              </dt>
-              <dd className="mt-1 text-sm font-medium text-foreground">
-                Deploy features users can actually test and use.
-              </dd>
-            </motion.div>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 0.6 }}
-              whileHover={{ 
-                y: -4, 
-                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.2)",
-                borderColor: "hsl(var(--primary) / 0.5)"
-              }}
-              className="rounded-2xl border border-slate-800/70 bg-gradient-to-br from-slate-900/70 to-slate-900/40 p-3 transition-all duration-300 cursor-default"
-            >
-              <dt className="text-xs uppercase tracking-[0.16em] text-slate-400">
-                Start small, deliver early
-              </dt>
-              <dd className="mt-1 text-sm font-medium text-foreground">
-                First meaningful code in Week 1, ready to demo.
-              </dd>
-            </motion.div>
-          </dl>
-
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <motion.a 
-              href="https://scheduler.zoom.us/altruistic-xai" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-primary to-accent px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/30 transition-all duration-300"
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.4)"
-              }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Book a 30-min intro
-            </motion.a>
-            <motion.a
-              href="https://www.linkedin.com/in/ik11"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-5 py-2.5 text-sm font-medium text-primary transition-all duration-300"
-              whileHover={{ 
-                scale: 1.05,
-                backgroundColor: "hsl(var(--primary) / 0.15)",
-                borderColor: "hsl(var(--primary) / 0.5)"
-              }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Linkedin size={16} />
-              Connect on LinkedIn
-            </motion.a>
-          </div>
-        </motion.div>
-
-        {/* Right: Visual Block (40%) */}
-        <motion.div 
-          initial={{ opacity: 0, x: 30 }} 
-          animate={{ opacity: 1, x: 0 }} 
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex-1"
-        >
-          <FloatingCard3D>
-            <div className="rounded-3xl border border-slate-800/80 bg-gradient-to-br from-slate-900/80 to-slate-900/40 p-4 sm:p-5 backdrop-blur-sm shadow-xl">
-              <div className="text-xs font-mono uppercase tracking-[0.16em] text-primary/80">
-                Build Fast Kit / 4-week pilot
-              </div>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                One senior engineer. One small backlog. 4 weeks to prove whether this pilot is worth scaling.
-              </p>
-              <div className="mt-4 grid gap-3">
-                <VisualRow 
-                  label="Week 1" 
-                  title="Clarify & ship the first slice" 
-                  body="Turn the idea into 1–2 concrete flows. Ship a working skeleton instead of a deck." 
-                />
-                <VisualRow 
-                  label="Week 2–3" 
-                  title="Tighten the flows" 
-                  body="Integrate data, refine UX, and make it demo-able to internal stakeholders." 
-                />
-                <VisualRow 
-                  label="Week 4" 
-                  title="Decide with evidence" 
-                  body="You walk away with a working repo, a clear walkthrough, and a decision: scale, pivot, or park." 
-                />
-              </div>
-            </div>
-          </FloatingCard3D>
-        </motion.div>
+            <FloatingCard3D>
+              <motion.div 
+                className="rounded-2xl border border-slate-800/80 bg-slate-900/60 p-3 sm:p-4 backdrop-blur-sm"
+                whileHover={{ 
+                  scale: 1.02,
+                  boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.15)"
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="text-[10px] font-mono text-slate-400 sm:text-xs">
+                  Build Fast Kit / 4-week pilot
+                </div>
+                <p className="mt-1.5 text-xs text-slate-200 sm:text-sm">
+                  One senior engineer. One small backlog. 4 weeks to prove whether
+                  this pilot is worth scaling.
+                </p>
+                <div className="mt-3 grid gap-2 text-xs text-slate-200">
+                  <VisualRow
+                    label="Week 1"
+                    title="Clarify & ship the first slice"
+                    body="Turn the idea into 1–2 concrete flows. Ship a working skeleton instead of a slide deck."
+                  />
+                  <VisualRow
+                    label="Week 2–3"
+                    title="Tighten the flows"
+                    body="Integrate data, refine UX, and make it demo-ready for internal stakeholders."
+                  />
+                  <VisualRow
+                    label="Week 4"
+                    title="Decide with evidence"
+                    body="You walk away with a working repo, a clear walkthrough, and a decision: scale, pivot, or park."
+                  />
+                </div>
+              </motion.div>
+            </FloatingCard3D>
+          </motion.div>
+        </div>
       </motion.div>
     </section>
   );
