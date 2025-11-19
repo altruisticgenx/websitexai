@@ -1,19 +1,24 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useActiveSection } from "@/hooks/use-active-section";
+import { useFocusTrap } from "@/hooks/use-focus-trap";
 import { ChevronDown } from "lucide-react";
 
 export function SiteNav() {
   const activeSection = useActiveSection(["", "pilot", "builds", "how", "where"]);
   const [isWorkOpen, setIsWorkOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useFocusTrap<HTMLDivElement>(isMobileMenuOpen);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const href = e.currentTarget.getAttribute("href");
     if (!href) return;
 
-    // Close dropdown when clicking a link
+    // Close dropdown and mobile menu when clicking a link
     setIsWorkOpen(false);
+    setIsMobileMenuOpen(false);
 
     if (href === "#" || href === "") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -28,6 +33,32 @@ export function SiteNav() {
   };
 
   const isWorkActive = ["pilot", "builds", "how"].includes(activeSection);
+
+  // Handle ESC key to close mobile menu
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+        // Return focus to the menu button
+        mobileMenuButtonRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [isMobileMenuOpen]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <>
@@ -212,10 +243,11 @@ export function SiteNav() {
 
           {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsWorkOpen(!isWorkOpen)}
+            ref={mobileMenuButtonRef}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
             aria-label="Toggle mobile menu"
-            aria-expanded={isWorkOpen}
+            aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
           >
             <svg
@@ -224,8 +256,9 @@ export function SiteNav() {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
+              aria-hidden="true"
             >
-              {isWorkOpen ? (
+              {isMobileMenuOpen ? (
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -243,8 +276,9 @@ export function SiteNav() {
         </div>
 
         {/* Mobile Menu */}
-        {isWorkOpen && (
+        {isMobileMenuOpen && (
           <div 
+            ref={mobileMenuRef}
             id="mobile-menu"
             className="md:hidden border-t border-border/40 py-4 animate-in slide-in-from-top-2 duration-200"
             role="navigation"
