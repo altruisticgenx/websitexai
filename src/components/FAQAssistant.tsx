@@ -206,16 +206,16 @@ export function FAQAssistant() {
       } else {
         throw new Error("No answer received from AI");
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error asking question:", error);
       
       // Remove the user message if error occurred
       setConversationHistory(conversationHistory);
       
       // More specific error messages
-      const errorMessage = error.message?.includes("No answer") 
+      const errorMessage = error instanceof Error && error.message?.includes("No answer") 
         ? "The AI couldn't generate a response. Please try rephrasing your question."
-        : error.message?.includes("LOVABLE_API_KEY")
+        : error instanceof Error && error.message?.includes("LOVABLE_API_KEY")
         ? "AI service is not configured. Please contact support."
         : "Failed to get answer. Please try again.";
 
