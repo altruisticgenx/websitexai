@@ -177,7 +177,7 @@ export function Hero() {
                   Work hands-on
                 </dt>
                 <dd className="mt-0.5 font-medium text-slate-50 text-[10px] sm:text-xs">
-                  Build with real tools and ship working prototypes.
+                  Build + ship  prototypes.
                 </dd>
               </motion.div>
               <motion.div className="group rounded-xl border border-slate-800/70 bg-slate-900/70 p-2 transition-all duration-300 hover:border-primary/30" whileHover={{
@@ -188,7 +188,7 @@ export function Hero() {
                   Launch actionable tools
                 </dt>
                 <dd className="mt-0.5 font-medium text-slate-50 text-[10px] sm:text-xs">
-                  Deploy features people can actually test and use.
+                  Deploy features for any sector.                                                            
                 </dd>
               </motion.div>
               <motion.div className="group rounded-xl border border-slate-800/70 bg-slate-900/70 p-2 transition-all duration-300 hover:border-primary/30" whileHover={{
