@@ -84,7 +84,7 @@ const Index = () => {
       <SiteNav />
       
       <div className="relative mx-auto flex min-h-screen max-w-5xl flex-col px-3 sm:px-4">
-        <main className="flex-1 pt-2 sm:pt-4">
+        <main id="main-content" className="flex-1 pt-2 sm:pt-4" role="main">
           {isLoading ? (
             <div className="animate-pulse">
               <HeroSkeleton />
