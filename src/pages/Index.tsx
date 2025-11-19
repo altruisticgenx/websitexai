@@ -300,97 +300,16 @@ function HowItWorks() {
   }];
   return <section id="how" className="border-t border-slate-900/80 py-3 md:py-4">
       <div className="mx-auto w-full max-w-5xl px-2 md:px-3">
-        <motion.div initial={{
-        opacity: 0,
-        y: 20
-      }} whileInView={{
-        opacity: 1,
-        y: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.5
-      }}>
-          <h2 className="text-[11px] font-semibold tracking-tight text-foreground md:text-xs">
-            How It Works
-          </h2>
-          <p className="mt-1 max-w-2xl text-[8px] leading-relaxed text-muted-foreground sm:text-[9px]">
-            <span className="text-primary font-medium">4 weeks. 3 steps.</span> No endless meetings.
-          </p>
-        </motion.div>
+        
 
         <div className="mt-2 grid gap-1.5 sm:grid-cols-3" style={{
         perspective: "1000px"
       }}>
-          {steps.map((step, index) => <motion.div key={step.label} initial={{
-          opacity: 0,
-          y: 30,
-          rotateX: -15
-        }} whileInView={{
-          opacity: 1,
-          y: 0,
-          rotateX: 0
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.6,
-          delay: index * 0.15,
-          type: "spring",
-          stiffness: 100
-        }} whileHover={{
-          y: -8,
-          rotateY: 5,
-          rotateX: -3,
-          scale: 1.05,
-          boxShadow: `0 20px 40px -10px ${step.glowColor}`,
-          borderColor: step.glowColor
-        }} onHoverStart={() => setHoveredStep(index)} onHoverEnd={() => setHoveredStep(null)} style={{
-          transformStyle: "preserve-3d"
-        }} className={`group rounded-xl border ${step.borderColor} bg-gradient-to-br ${step.gradient} backdrop-blur-sm p-1.5 sm:p-2 text-xs transition-all duration-300 cursor-default`}>
-              <div className="text-[7px] font-mono uppercase tracking-[0.2em] text-primary group-hover:scale-110 transition-transform">
-                {step.label}
-              </div>
-              <h3 className="mt-0.5 text-[9px] font-semibold text-slate-50 group-hover:text-primary transition-colors">
-                {step.title}
-              </h3>
-              <p className="mt-0.5 text-[8px] text-slate-300 leading-relaxed">{step.body}</p>
-            </motion.div>)}
+          {steps.map((step, index) => {})}
         </div>
 
         {/* Interactive Timeline Bar */}
-        <motion.div initial={{
-        opacity: 0,
-        y: 10
-      }} whileInView={{
-        opacity: 1,
-        y: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.5,
-        delay: 0.5
-      }} className="mt-3 mb-2">
-          <div className="relative h-1 rounded-full bg-slate-800/50 overflow-hidden">
-            <motion.div className={`absolute top-0 left-0 h-full rounded-full ${hoveredStep !== null ? steps[hoveredStep].progressColor : "bg-primary"}`} initial={{
-            width: "0%"
-          }} animate={{
-            width: hoveredStep !== null ? `${(hoveredStep + 1) / steps.length * 100}%` : "0%"
-          }} transition={{
-            duration: 0.5,
-            ease: "easeOut"
-          }} />
-          </div>
-          <div className="mt-1 flex justify-between text-[7px] text-slate-400">
-            <span>Start</span>
-            <motion.span animate={{
-            opacity: hoveredStep !== null ? 1 : 0.5,
-            scale: hoveredStep !== null ? 1.1 : 1
-          }} className="font-mono">
-              {hoveredStep !== null ? `${hoveredStep + 1}/${steps.length}` : "0/3"}
-            </motion.span>
-            <span>Complete</span>
-          </div>
-        </motion.div>
+        
 
         {/* 4-Week Sprint Details */}
         <motion.div initial={{
