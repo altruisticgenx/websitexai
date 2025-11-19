@@ -660,63 +660,139 @@ function AboutMe() {
           </motion.p>
         </motion.div>
 
-        {/* Why This Matters Section */}
+        {/* Why This Matters Section - 3D Glowing Card */}
         <motion.div
-          className="mt-6 rounded-xl border border-slate-800/70 bg-slate-950/30 p-4 md:p-5"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          className="relative mt-6 group perspective-1000"
+          initial={{ opacity: 0, y: 30, rotateX: -10 }}
+          whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.2, type: "spring", bounce: 0.3 }}
+          whileHover={{ 
+            scale: 1.02,
+            rotateX: 2,
+            rotateY: -2,
+            transition: { duration: 0.3 }
+          }}
+          style={{ transformStyle: "preserve-3d" }}
         >
-          <h3 className="heading-4 text-foreground">
-            Why This Matters
-          </h3>
-          <motion.p
-            className="mt-2 body-base text-muted-foreground"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            Pennsylvania cannot afford another decade of:
-          </motion.p>
+          {/* Glow effect background */}
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 via-cyan-500 to-emerald-500 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500 animate-pulse" />
           
-          <ul className="mt-3 space-y-2">
-            {[
-              "Delayed modernization while comparable states advance",
-              "Legislative gridlock on education and infrastructure",
-              "Workforce development disconnected from regional needs",
-              "Civics education that feels irrelevant to students",
-              "Declining trust in public institutions"
-            ].map((item, index) => (
-              <motion.li
-                key={index}
-                className="flex items-start gap-2.5 body-base text-muted-foreground group"
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 + index * 0.05 }}
-              >
-                <motion.span 
-                  className="inline-block w-1.5 h-1.5 mt-1.5 rounded-full bg-emerald-400 flex-shrink-0 group-hover:scale-125 transition-transform"
-                  whileHover={{ scale: 1.3 }}
+          {/* Main card */}
+          <div className="relative rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/95 via-slate-900/95 to-slate-950/95 backdrop-blur-xl p-4 md:p-5 shadow-2xl overflow-hidden">
+            {/* Animated gradient overlay */}
+            <motion.div 
+              className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              animate={{
+                backgroundPosition: ['0% 0%', '100% 100%'],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            />
+            
+            {/* Scanning line effect */}
+            <motion.div 
+              className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"
+              animate={{
+                top: ['-100%', '200%']
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+            
+            <div className="relative z-10">
+              <h3 className="heading-4 text-foreground flex items-center gap-2">
+                <motion.span
+                  className="inline-block w-2 h-2 rounded-full bg-emerald-400"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [1, 0.5, 1]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity
+                  }}
                 />
-                <span className="flex-1">{item}</span>
-              </motion.li>
-            ))}
-          </ul>
+                Why This Matters
+              </h3>
+              
+              <motion.p
+                className="mt-2 body-sm text-muted-foreground"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                Pennsylvania cannot afford another decade of:
+              </motion.p>
+              
+              <ul className="mt-3 space-y-1.5">
+                {[
+                  "Delayed modernization while comparable states advance",
+                  "Legislative gridlock on education and infrastructure",
+                  "Workforce development disconnected from regional needs",
+                  "Civics education that feels irrelevant to students",
+                  "Declining trust in public institutions"
+                ].map((item, index) => (
+                  <motion.li
+                    key={index}
+                    className="flex items-start gap-2 caption text-muted-foreground/90 group/item"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      duration: 0.5, 
+                      delay: 0.4 + index * 0.08,
+                      type: "spring",
+                      stiffness: 100
+                    }}
+                    whileHover={{
+                      x: 4,
+                      transition: { duration: 0.2 }
+                    }}
+                  >
+                    <motion.span 
+                      className="inline-block w-1 h-1 mt-1 rounded-full bg-emerald-400/70 flex-shrink-0"
+                      whileHover={{ 
+                        scale: 1.5,
+                        backgroundColor: "rgb(52, 211, 153)"
+                      }}
+                      animate={{
+                        scale: [1, 1.1, 1],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: index * 0.2
+                      }}
+                    />
+                    <span className="flex-1 group-hover/item:text-muted-foreground transition-colors">{item}</span>
+                  </motion.li>
+                ))}
+              </ul>
 
-          <motion.div
-            className="mt-5 pt-4 border-t border-slate-800/50"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-          >
-            <p className="body-base text-foreground leading-relaxed">
-              This work provides the missing infrastructure for a state with all the necessary components but no system connecting them.
-            </p>
-          </motion.div>
+              <motion.div
+                className="mt-5 pt-4 border-t border-slate-800/50"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.9 }}
+              >
+                <p className="body-base text-foreground leading-relaxed font-medium">
+                  This work provides the missing infrastructure for a state with all the necessary components but no system connecting them.
+                </p>
+              </motion.div>
+            </div>
+            
+            {/* Corner accent */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-500/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          </div>
         </motion.div>
       </div>
     </section>
