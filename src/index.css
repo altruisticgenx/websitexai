@@ -24,6 +24,104 @@ All colors MUST be HSL.
       transition-duration: 0.01ms !important;
     }
   }
+}
+
+/* Semantic Typography System */
+@layer components {
+  /* Headings - Mobile-first, responsive */
+  .heading-1 {
+    @apply text-xl font-semibold tracking-tight;
+    @apply sm:text-2xl md:text-3xl;
+  }
+  
+  .heading-2 {
+    @apply text-lg font-semibold tracking-tight;
+    @apply sm:text-xl md:text-2xl;
+  }
+  
+  .heading-3 {
+    @apply text-base font-semibold;
+    @apply sm:text-lg;
+  }
+  
+  .heading-4 {
+    @apply text-sm font-semibold;
+    @apply sm:text-base;
+  }
+  
+  .heading-5 {
+    @apply text-xs font-semibold;
+    @apply sm:text-sm;
+  }
+  
+  .heading-6 {
+    @apply text-[10px] font-semibold;
+    @apply sm:text-xs;
+  }
+  
+  /* Body text - Mobile-first */
+  .body-xl {
+    @apply text-base leading-relaxed;
+    @apply sm:text-lg;
+  }
+  
+  .body-lg {
+    @apply text-sm leading-relaxed;
+    @apply sm:text-base;
+  }
+  
+  .body-base {
+    @apply text-xs leading-relaxed;
+    @apply sm:text-sm;
+  }
+  
+  .body-sm {
+    @apply text-[10px] leading-snug;
+    @apply sm:text-xs;
+  }
+  
+  .body-xs {
+    @apply text-[9px] leading-snug;
+    @apply sm:text-[10px];
+  }
+  
+  /* Utility text */
+  .caption {
+    @apply text-[9px] text-muted-foreground;
+    @apply sm:text-[10px];
+  }
+  
+  .label {
+    @apply text-[9px] font-medium uppercase tracking-[0.16em];
+    @apply sm:text-[10px];
+  }
+  
+  .overline {
+    @apply text-[8px] font-semibold uppercase tracking-wider text-muted-foreground;
+    @apply sm:text-[9px];
+  }
+  
+  .micro {
+    @apply text-[7px] leading-tight;
+    @apply sm:text-[8px];
+  }
+  
+  /* Button text */
+  .btn-text {
+    @apply text-xs font-medium;
+    @apply sm:text-sm;
+  }
+  
+  .btn-text-sm {
+    @apply text-[10px] font-medium;
+    @apply sm:text-xs;
+  }
+  
+  /* Code/Mono text */
+  .code-text {
+    @apply font-mono text-[10px];
+    @apply sm:text-xs;
+  }
 
   :root {
     --background: 175 100% 11%;
