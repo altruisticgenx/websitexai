@@ -83,19 +83,19 @@ export function Hero() {
       {/* 3D Animated Background */}
       <Hero3DBackground />
       
-      {/* Matrix Rain Effect */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none">
-        {[...Array(20)].map((_, i) => <motion.div key={i} className="absolute w-px bg-gradient-to-b from-transparent via-emerald-500 to-transparent" style={{
-        left: `${i * 5}%`,
-        height: '100%'
+      {/* Matrix Rain Effect - Optimized */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none overflow-hidden">
+        {[...Array(10)].map((_, i) => <motion.div key={i} className="absolute w-px bg-gradient-to-b from-transparent via-emerald-500 to-transparent" style={{
+        left: `${i * 10}%`,
+        height: '200px',
+        top: '-200px'
       }} animate={{
-        y: ['-100%', '100%'],
-        opacity: [0, 1, 0]
+        y: ['0vh', '100vh']
       }} transition={{
-        duration: 3 + Math.random() * 2,
+        duration: 4 + Math.random() * 2,
         repeat: Infinity,
         ease: "linear",
-        delay: Math.random() * 2
+        delay: Math.random() * 3
       }} />)}
       </div>
 

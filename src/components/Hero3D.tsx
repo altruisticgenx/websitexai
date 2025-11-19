@@ -22,18 +22,19 @@ const AnimatedSphere = memo(({ position, color, speed }: SphereProps) => {
   useFrame((state) => {
     if (!meshRef.current) return;
     const time = state.clock.elapsedTime;
-    meshRef.current.position.y = position[1] + Math.sin(time * speed) * 0.3;
-    meshRef.current.rotation.x = time * 0.2;
-    meshRef.current.rotation.y = time * 0.3;
+    // Constrained movement to prevent extreme values
+    meshRef.current.position.y = position[1] + Math.sin(time * speed) * 0.2;
+    meshRef.current.rotation.x = time * 0.15;
+    meshRef.current.rotation.y = time * 0.2;
   });
 
   return (
-    <Float speed={speed} rotationIntensity={0.5} floatIntensity={0.5}>
-      <Sphere ref={meshRef} args={[1, 32, 32]} position={position}>
+    <Float speed={speed * 0.8} rotationIntensity={0.3} floatIntensity={0.3}>
+      <Sphere ref={meshRef} args={[1, 24, 24]} position={position}>
         <MeshDistortMaterial
           color={color}
-          distort={0.4}
-          speed={2}
+          distort={0.3}
+          speed={1.5}
           roughness={0.2}
           metalness={0.8}
         />
@@ -46,21 +47,22 @@ AnimatedSphere.displayName = 'AnimatedSphere';
 
 const ParticleField = memo(() => {
   const points = useRef<THREE.Points>(null);
-  const particlesCount = 50; // Reduced from 100 for better performance
+  const particlesCount = 30; // Further reduced for better performance
   
   const positions = useMemo(() => {
     const pos = new Float32Array(particlesCount * 3);
     for (let i = 0; i < particlesCount; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 20;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 20;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 10;
+      pos[i * 3] = (Math.random() - 0.5) * 15; // Reduced range
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 15;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 8;
     }
     return pos;
-  }, [particlesCount]);
+  }, []);
 
   useFrame((state) => {
     if (points.current) {
-      points.current.rotation.y = state.clock.elapsedTime * 0.05;
+      // Slower, smoother rotation
+      points.current.rotation.y = state.clock.elapsedTime * 0.03;
     }
   });
 
@@ -75,10 +77,10 @@ const ParticleField = memo(() => {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.05}
+        size={0.04}
         color={SPHERE_COLORS.primary}
         transparent
-        opacity={0.6}
+        opacity={0.5}
         sizeAttenuation
       />
     </points>
