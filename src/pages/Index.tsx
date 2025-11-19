@@ -245,7 +245,7 @@ function RecentBuilds() {
   }, []);
   return <section id="builds" className="py-6 md:py-10">
       <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
-      <motion.div initial={{
+        <motion.div initial={{
         opacity: 0,
         y: 20
       }} whileInView={{
@@ -256,10 +256,10 @@ function RecentBuilds() {
       }} transition={{
         duration: 0.5
       }}>
-          <h2 className="heading-3 text-foreground">
+          <h2 className="heading-3 text-foreground text-reveal">
             Recent Builds
           </h2>
-          <p className="mt-1 body-base text-muted-foreground">
+          <p className="mt-1 body-base text-muted-foreground text-reveal text-reveal-delay-1">
             Small scope, real results—across energy, education, and founder projects.
           </p>
         </motion.div>
@@ -296,15 +296,15 @@ function RecentBuilds() {
       }} transition={{
         duration: 0.6,
         delay: 0.2
-      }} className="mt-6">
+      }} className="mt-6 horizontal-scroll pb-2">
             <CaseStudiesStack caseStudies={projects} />
           </motion.div>}
       </div>
     </section>;
 }
 function PilotOffer() {
-  return <section id="pilot" className="border-t border-slate-900/80 py-3 md:py-4">
-      <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
+  return <section id="pilot" className="border-t border-slate-900/80 py-3 md:py-4 gradient-mesh">
+      <div className="mx-auto w-full max-w-5xl px-3 md:px-4 organic-spacing">
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -315,8 +315,8 @@ function PilotOffer() {
         once: true
       }} transition={{
         duration: 0.5
-      }} className="mb-3">
-          <h2 className="text-sm font-semibold tracking-tight text-foreground sm:text-base">
+      }} className="mb-3 isolated-component">
+          <h2 className="text-sm font-semibold tracking-tight text-foreground sm:text-base text-reveal">
             Why a Pilot Partner Instead of Hiring In-House
           </h2>
           <ul className="mt-2 space-y-1.5 max-w-3xl">
@@ -458,15 +458,15 @@ function TypicalProgression() {
       }} transition={{
         duration: 0.5
       }}>
-          <h2 className="heading-3 text-foreground">
+          <h2 className="heading-3 text-foreground text-reveal">
             Typical Progression
           </h2>
-          <p className="mt-1.5 body-base text-muted-foreground">
+          <p className="mt-1.5 body-base text-muted-foreground text-reveal text-reveal-delay-1">
             Start small, scale when ready—or jump to any stage.
           </p>
         </motion.div>
 
-        <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4 fluid-space">
           <motion.div initial={{
           opacity: 0,
           scale: 0.95
@@ -478,7 +478,7 @@ function TypicalProgression() {
         }} transition={{
           duration: 0.5,
           delay: 0.1
-        }} className="group rounded-lg border-2 border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.5)]">
+        }} className="group rounded-lg border-2 border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] isolated-component preserve-3d">
             <div className="flex items-center gap-1.5">
               <span className="body-sm font-bold text-emerald-400">1. Pilot</span>
               <span className="caption text-emerald-300/80">4 weeks</span>
@@ -499,7 +499,7 @@ function TypicalProgression() {
         }} transition={{
           duration: 0.5,
           delay: 0.2
-        }} className="group rounded-lg border-2 border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.5)]">
+        }} className="group rounded-lg border-2 border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] isolated-component preserve-3d">
             <div className="flex items-center gap-1.5">
               <span className="body-sm font-bold text-blue-400">2. Proposal</span>
               <span className="caption text-blue-300/80">1–2 weeks</span>
@@ -520,7 +520,7 @@ function TypicalProgression() {
         }} transition={{
           duration: 0.5,
           delay: 0.3
-        }} className="group rounded-lg border-2 border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(139,92,246,0.5)]">
+        }} className="group rounded-lg border-2 border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] isolated-component preserve-3d">
             <div className="flex items-center gap-1.5">
               <span className="body-sm font-bold text-violet-400">3. Build</span>
               <span className="caption text-violet-300/80">2–6 months</span>
@@ -541,7 +541,7 @@ function TypicalProgression() {
         }} transition={{
           duration: 0.5,
           delay: 0.4
-        }} className="group rounded-lg border-2 border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(249,115,22,0.5)]">
+        }} className="group rounded-lg border-2 border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(249,115,22,0.5)] isolated-component preserve-3d">
             <div className="flex items-center gap-1.5">
               <span className="body-sm font-bold text-orange-400">4. Retainer</span>
               <span className="caption text-orange-300/80">Ongoing</span>
@@ -636,8 +636,8 @@ function WhoBenefits() {
 }
 function AboutMe() {
   return (
-    <section id="about" className="border-t border-slate-900/80 py-6 md:py-8">
-      <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
+    <section id="about" className="border-t border-slate-900/80 py-6 md:py-8 gradient-mesh">
+      <div className="mx-auto w-full max-w-5xl px-3 md:px-4 organic-spacing">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -646,11 +646,11 @@ function AboutMe() {
           transition={{ duration: 0.6 }}
           className="space-y-2"
         >
-          <h2 className="heading-3 text-foreground">
+          <h2 className="heading-3 text-foreground text-reveal">
             About Me
           </h2>
           <motion.p
-            className="body-base text-muted-foreground max-w-3xl"
+            className="body-base text-muted-foreground max-w-3xl text-reveal text-reveal-delay-1"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

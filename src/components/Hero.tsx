@@ -73,7 +73,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section ref={ref} id="home" className="relative py-8 md:py-12 overflow-hidden bg-slate-950">
+    <section ref={ref} id="home" className="relative py-8 md:py-12 overflow-hidden bg-slate-950 gradient-mesh">
       {/* 3D Animated Background - Lazy Loaded */}
       {shouldRender3D && <Hero3DBackground />}
       
@@ -112,10 +112,10 @@ export function Hero() {
 
       {/* Main Content with Parallax */}
       <motion.div 
-        className="relative z-10 px-4 py-6 mx-auto max-w-7xl"
+        className="relative z-10 px-4 py-6 mx-auto max-w-7xl organic-spacing"
         style={{ y: yForeground, opacity }}
       >
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto fluid-space">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -123,7 +123,7 @@ export function Hero() {
           >
             {/* Tagline with Animated Dot */}
             <motion.div
-              className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/5 px-3 py-1 caption font-mono text-emerald-100"
+              className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/5 px-3 py-1 caption font-mono text-emerald-100 text-reveal"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
@@ -138,7 +138,7 @@ export function Hero() {
 
             {/* Main Headline with Terminal Typing */}
             <motion.h1
-              className="mt-3 heading-1 relative font-mono"
+              className="mt-3 heading-1 relative font-mono text-reveal text-reveal-delay-1"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
@@ -164,7 +164,7 @@ export function Hero() {
 
             {/* Supporting Text */}
             <motion.p
-              className="mt-2.5 max-w-xl body-base text-muted-foreground"
+              className="mt-2.5 max-w-xl body-base text-muted-foreground text-reveal text-reveal-delay-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
@@ -222,7 +222,7 @@ export function Hero() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/10 to-transparent rounded-lg" />
                 <Mail className="h-2.5 w-2.5 relative z-10" />
-                <span className="relative z-10 text-xs sm:text-sm">altruisticxai@gmail.com</span>
+                <span className="relative z-10">altruisticxai@gmail.com</span>
               </motion.a>
               
               <motion.a
