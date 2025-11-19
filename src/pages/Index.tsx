@@ -139,6 +139,55 @@ export default Index;
 
 // --- Sub-Components ---
 
+function FeatureCardWithTooltip({ item, index }: { item: { title: string; desc: string; color: string; icon: string; example: string }; index: number }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <Tooltip open={isOpen} onOpenChange={setIsOpen}>
+      <TooltipTrigger asChild>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: index * 0.08 }}
+          whileHover={{ scale: 1.01, y: -1 }}
+          onClick={handleClick}
+          onTouchStart={handleClick}
+          className={`group relative rounded-md border ${
+            item.color === 'emerald'
+              ? 'border-primary/30 bg-gradient-to-br from-primary/5'
+              : item.color === 'cyan'
+              ? 'border-accent/30 bg-gradient-to-br from-accent/5'
+              : item.color === 'teal'
+              ? 'border-primary/20 bg-gradient-to-br from-primary/5'
+              : 'border-blue-500/30 bg-gradient-to-br from-blue-500/5'
+          } to-slate-950/80 p-2 backdrop-blur-sm overflow-hidden transition-all cursor-pointer touch-manipulation active:scale-[0.98]`}
+        >
+          <div className="relative flex items-start gap-2">
+            <div className="flex-1 min-w-0">
+              <h4 className="text-xs font-semibold text-foreground">
+                {item.title}
+              </h4>
+              <p className="text-[10px] text-muted-foreground leading-relaxed mt-0.5">
+                {item.desc}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </TooltipTrigger>
+      <TooltipContent side="top" className="max-w-[280px] bg-slate-900/95 border-primary/30 backdrop-blur-sm">
+        <p className="text-[10px] text-slate-200 leading-relaxed">
+          <span className="font-semibold text-primary">Real Example:</span> {item.example}
+        </p>
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
 function RecentBuilds() {
   const [projects, setProjects] = useState<Array<{
     id: string;
@@ -433,41 +482,7 @@ function PilotOffer() {
               color: "blue",
               icon: "⚙",
               example: "Founder OS: Solo founder needed operational clarity. Weekly async Looms, quick pivots. Built unified scheduling, CRM, and invoicing—calm founder cockpit."
-            }].map((item, i) => <Tooltip key={i}>
-                  <TooltipTrigger asChild>
-                    <motion.div initial={{
-                opacity: 0,
-                scale: 0.98
-              }} whileInView={{
-                opacity: 1,
-                scale: 1
-              }} viewport={{
-                once: true
-              }} transition={{
-                duration: 0.4,
-                delay: i * 0.08
-              }} whileHover={{
-                scale: 1.01,
-                y: -1
-              }} className={`group relative rounded-md border ${item.color === 'emerald' ? 'border-primary/30 bg-gradient-to-br from-primary/5' : item.color === 'cyan' ? 'border-accent/30 bg-gradient-to-br from-accent/5' : item.color === 'teal' ? 'border-primary/20 bg-gradient-to-br from-primary/5' : 'border-blue-500/30 bg-gradient-to-br from-blue-500/5'} to-slate-950/80 p-2 backdrop-blur-sm overflow-hidden transition-all cursor-help`}>
-                      <div className="relative flex items-start gap-2">
-                        <div className="flex-1 min-w-0">
-                          <h4 className="text-xs font-semibold text-foreground">
-                            {item.title}
-                          </h4>
-                          <p className="text-[10px] text-muted-foreground leading-relaxed mt-0.5">
-                            {item.desc}
-                          </p>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </TooltipTrigger>
-                  <TooltipContent side="top" className="max-w-[280px] bg-slate-900/95 border-primary/30 backdrop-blur-sm">
-                    <p className="text-[10px] text-slate-200 leading-relaxed">
-                      <span className="font-semibold text-primary">Real Example:</span> {item.example}
-                    </p>
-                  </TooltipContent>
-                </Tooltip>)}
+            }].map((item, i) => <FeatureCardWithTooltip key={i} item={item} index={i} />)}
             </div>
           </TooltipProvider>
         </motion.div>
