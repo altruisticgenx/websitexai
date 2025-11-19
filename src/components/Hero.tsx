@@ -403,8 +403,8 @@ export function Hero() {
               </motion.div>
             </motion.dl>
 
-            {/* CTA Buttons with Hacker Glow */}
-            <motion.div className="mt-5 flex flex-col gap-2.5 body-base sm:flex-row sm:items-center" initial={{
+            {/* CTA Buttons - Compact 3D Style */}
+            <motion.div className="mt-4 flex flex-col gap-2 body-xs sm:flex-row sm:items-center" initial={{
             opacity: 0,
             y: 20
           }} animate={{
@@ -416,18 +416,27 @@ export function Hero() {
           }}>
               <motion.a 
                 href="mailto:hello@altruisticxai.com?subject=AltruisticX%20AI%20Pilot%20Intro" 
-                className="relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 px-4 py-2 btn-text text-slate-950 font-mono overflow-hidden group" 
+                className="relative inline-flex items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 via-emerald-600 to-cyan-600 px-3 py-1.5 caption font-mono text-slate-950 font-semibold overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.5)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.5)] active:translate-y-[2px] transition-all" 
                 whileHover={{
-                  scale: 1.05
+                  scale: 1.03,
+                  rotateX: -5,
+                  rotateY: 5,
+                  boxShadow: "0 6px 0 0 hsl(var(--primary) / 0.5), 0 8px 20px -5px hsl(var(--primary) / 0.4)",
                 }} 
                 whileTap={{
-                  scale: 0.98
+                  scale: 0.97,
+                  translateY: 2,
+                }}
+                style={{
+                  transformStyle: "preserve-3d",
+                  perspective: "1000px",
                 }}
               >
+                {/* Animated shimmer */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-emerald-500"
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
                   animate={{
-                    x: ['-100%', '100%'],
+                    x: ['-200%', '200%'],
                   }}
                   transition={{
                     duration: 2,
@@ -435,13 +444,19 @@ export function Hero() {
                     ease: "linear",
                   }}
                 />
-                <span className="relative z-10 flex items-center gap-2">
-                  <span>{'>'}</span> Book a 30-min intro
+                
+                {/* Inner shadow for depth */}
+                <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent rounded-lg" />
+                
+                <span className="relative z-10 flex items-center gap-1 drop-shadow-sm">
+                  <span>{'>'}</span> Book intro
                 </span>
+                
+                {/* Glow on hover */}
                 <motion.div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100"
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 rounded-lg"
                   style={{
-                    boxShadow: '0 0 40px hsl(var(--primary)), 0 0 60px hsl(var(--primary) / 0.5)',
+                    boxShadow: '0 0 30px hsl(var(--primary)), inset 0 0 20px hsl(var(--primary) / 0.3)',
                   }}
                   transition={{ duration: 0.3 }}
                 />
@@ -451,20 +466,28 @@ export function Hero() {
                 href="https://www.linkedin.com/in/your-profile" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="relative inline-flex items-center justify-center gap-1.5 rounded-full border border-emerald-500/30 bg-slate-900/50 px-4 py-2 btn-text text-emerald-400 backdrop-blur-sm font-mono overflow-hidden group" 
+                className="relative inline-flex items-center justify-center gap-1 rounded-lg border-2 border-emerald-500/40 bg-gradient-to-br from-slate-900/90 to-slate-800/90 px-3 py-1.5 caption text-emerald-400 backdrop-blur-sm font-mono font-medium overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.2)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.2)] active:translate-y-[2px] transition-all" 
                 whileHover={{
-                  scale: 1.05,
-                  borderColor: "hsl(var(--primary) / 0.6)",
-                  boxShadow: "0 0 20px hsl(var(--primary) / 0.3)",
+                  scale: 1.03,
+                  rotateX: -5,
+                  rotateY: -5,
+                  borderColor: "hsl(var(--primary) / 0.7)",
+                  boxShadow: "0 6px 0 0 hsl(var(--primary) / 0.2), 0 8px 20px -5px hsl(var(--primary) / 0.3)",
                 }} 
                 whileTap={{
-                  scale: 0.98
+                  scale: 0.97,
+                  translateY: 2,
+                }}
+                style={{
+                  transformStyle: "preserve-3d",
+                  perspective: "1000px",
                 }}
               >
+                {/* Scanning line */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0"
+                  className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/20 to-emerald-500/0"
                   animate={{
-                    x: ['-100%', '100%'],
+                    x: ['-200%', '200%'],
                   }}
                   transition={{
                     duration: 3,
@@ -472,8 +495,12 @@ export function Hero() {
                     ease: "linear",
                   }}
                 />
-                <Linkedin className="h-3 w-3 relative z-10" />
-                <span className="relative z-10">Connect on LinkedIn</span>
+                
+                {/* Inner glow */}
+                <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/10 to-transparent rounded-lg" />
+                
+                <Linkedin className="h-2.5 w-2.5 relative z-10" />
+                <span className="relative z-10">LinkedIn</span>
               </motion.a>
             </motion.div>
           </motion.div>
