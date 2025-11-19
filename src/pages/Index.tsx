@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteNav } from "@/components/SiteNav";
 import { HeroSkeleton, CardsSkeleton, StepsSkeleton, TwoColumnSkeleton, FAQSkeleton } from "@/components/skeletons/SectionSkeleton";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 // --- Data Definitions ---
 const faqs = [{
@@ -406,55 +407,69 @@ function PilotOffer() {
           <h3 className="text-xs font-semibold text-primary mb-2 sm:text-sm">
             What This Model Is For
           </h3>
-          <div className="grid gap-1.5 sm:grid-cols-2">
-            {[{
-            title: "Early, ambiguous work",
-            desc: "When the edges are fuzzy and you need to learn by shipping, not by planning.",
-            color: "emerald",
-            icon: "🧭"
-          }, {
-            title: "Complex domains",
-            desc: "Energy, education, civic systems, compliance—places where policy, people, and tech collide.",
-            color: "cyan",
-            icon: "⚡"
-          }, {
-            title: "Proof, not promises",
-            desc: "You need visible movement and credible artifacts, not another strategy deck.",
-            color: "teal",
-            icon: "✓"
-          }, {
-            title: "Lean, collaborative teams",
-            desc: "You're comfortable working in short cycles, reacting to real results, and adjusting quickly.",
-            color: "blue",
-            icon: "⚙"
-          }].map((item, i) => <motion.div key={i} initial={{
-            opacity: 0,
-            scale: 0.98
-          }} whileInView={{
-            opacity: 1,
-            scale: 1
-          }} viewport={{
-            once: true
-          }} transition={{
-            duration: 0.4,
-            delay: i * 0.08
-          }} whileHover={{
-            scale: 1.01,
-            y: -1
-          }} className={`group relative rounded-md border ${item.color === 'emerald' ? 'border-primary/30 bg-gradient-to-br from-primary/5' : item.color === 'cyan' ? 'border-accent/30 bg-gradient-to-br from-accent/5' : item.color === 'teal' ? 'border-primary/20 bg-gradient-to-br from-primary/5' : 'border-blue-500/30 bg-gradient-to-br from-blue-500/5'} to-slate-950/80 p-2 backdrop-blur-sm overflow-hidden transition-all`}>
-                <div className="relative flex items-start gap-2">
-                  
-                  <div className="flex-1 min-w-0">
-                    <h4 className="text-xs font-semibold text-foreground">
-                      {item.title}
-                    </h4>
-                    <p className="text-[10px] text-muted-foreground leading-relaxed mt-0.5">
-                      {item.desc}
+          <TooltipProvider delayDuration={200}>
+            <div className="grid gap-1.5 sm:grid-cols-2">
+              {[{
+              title: "Early, ambiguous work",
+              desc: "When the edges are fuzzy and you need to learn by shipping, not by planning.",
+              color: "emerald",
+              icon: "🧭",
+              example: "AI Sales Copilot: Started with messy CRM exports and unclear goals. Week 1: data flow. Week 2: first dashboard. Week 4: auto-prioritized leads ready for demo."
+            }, {
+              title: "Complex domains",
+              desc: "Energy, education, civic systems, compliance—places where policy, people, and tech collide.",
+              color: "cyan",
+              icon: "⚡",
+              example: "Energy Analytics Pilot: 200+ campus meters, Excel chaos. Built real-time dashboard showing savings opportunities across policy, billing, and operations."
+            }, {
+              title: "Proof, not promises",
+              desc: "You need visible movement and credible artifacts, not another strategy deck.",
+              color: "teal",
+              icon: "✓",
+              example: "EdTech Portal: Education nonprofit needed evidence for funders. 4 weeks: working pilot tracking outcomes. Result: defended funding with real data."
+            }, {
+              title: "Lean, collaborative teams",
+              desc: "You're comfortable working in short cycles, reacting to real results, and adjusting quickly.",
+              color: "blue",
+              icon: "⚙",
+              example: "Founder OS: Solo founder needed operational clarity. Weekly async Looms, quick pivots. Built unified scheduling, CRM, and invoicing—calm founder cockpit."
+            }].map((item, i) => <Tooltip key={i}>
+                  <TooltipTrigger asChild>
+                    <motion.div initial={{
+                opacity: 0,
+                scale: 0.98
+              }} whileInView={{
+                opacity: 1,
+                scale: 1
+              }} viewport={{
+                once: true
+              }} transition={{
+                duration: 0.4,
+                delay: i * 0.08
+              }} whileHover={{
+                scale: 1.01,
+                y: -1
+              }} className={`group relative rounded-md border ${item.color === 'emerald' ? 'border-primary/30 bg-gradient-to-br from-primary/5' : item.color === 'cyan' ? 'border-accent/30 bg-gradient-to-br from-accent/5' : item.color === 'teal' ? 'border-primary/20 bg-gradient-to-br from-primary/5' : 'border-blue-500/30 bg-gradient-to-br from-blue-500/5'} to-slate-950/80 p-2 backdrop-blur-sm overflow-hidden transition-all cursor-help`}>
+                      <div className="relative flex items-start gap-2">
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-xs font-semibold text-foreground">
+                            {item.title}
+                          </h4>
+                          <p className="text-[10px] text-muted-foreground leading-relaxed mt-0.5">
+                            {item.desc}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-[280px] bg-slate-900/95 border-primary/30 backdrop-blur-sm">
+                    <p className="text-[10px] text-slate-200 leading-relaxed">
+                      <span className="font-semibold text-primary">Real Example:</span> {item.example}
                     </p>
-                  </div>
-                </div>
-              </motion.div>)}
-          </div>
+                  </TooltipContent>
+                </Tooltip>)}
+            </div>
+          </TooltipProvider>
         </motion.div>
 
         {/* What This Model Is Not For */}
