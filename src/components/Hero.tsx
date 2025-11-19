@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Linkedin } from "lucide-react";
+import { Linkedin, Mail } from "lucide-react";
 import { Hero3DBackground } from "./Hero3D";
 import { FloatingCard3D } from "./FloatingCard3D";
 function VisualRow({
@@ -268,7 +268,7 @@ export function Hero() {
             duration: 0.6,
             delay: 0.8
           }}>
-              <motion.a href="mailto:hello@altruisticxai.com?subject=AltruisticX%20AI%20Pilot%20Intro" className="relative inline-flex items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 via-emerald-600 to-cyan-600 px-3 py-1.5 caption font-mono text-slate-950 font-semibold overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.5)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.5)] active:translate-y-[2px] transition-all" whileHover={{
+              <motion.a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" className="relative inline-flex items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 via-emerald-600 to-cyan-600 px-3 py-1.5 caption font-mono text-slate-950 font-semibold overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.5)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.5)] active:translate-y-[2px] transition-all" whileHover={{
               scale: 1.03,
               rotateX: -5,
               rotateY: 5,
@@ -304,7 +304,7 @@ export function Hero() {
               }} />
               </motion.a>
               
-              <motion.a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer" className="relative inline-flex items-center justify-center gap-1 rounded-lg border-2 border-emerald-500/40 bg-gradient-to-br from-slate-900/90 to-slate-800/90 px-3 py-1.5 caption text-emerald-400 backdrop-blur-sm font-mono font-medium overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.2)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.2)] active:translate-y-[2px] transition-all" whileHover={{
+              <motion.a href="mailto:altruisticxai@gmail.com" className="relative inline-flex items-center justify-center gap-1 rounded-lg border-2 border-emerald-500/40 bg-gradient-to-br from-slate-900/90 to-slate-800/90 px-3 py-1.5 caption text-emerald-400 backdrop-blur-sm font-mono font-medium overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.2)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.2)] active:translate-y-[2px] transition-all" whileHover={{
               scale: 1.03,
               rotateX: -5,
               rotateY: -5,
@@ -329,8 +329,8 @@ export function Hero() {
                 {/* Inner glow */}
                 <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/10 to-transparent rounded-lg" />
                 
-                <Linkedin className="h-2.5 w-2.5 relative z-10" />
-                <span className="relative z-10">LinkedIn</span>
+                <Mail className="h-2.5 w-2.5 relative z-10" />
+                <span className="relative z-10">Email</span>
               </motion.a>
             </motion.div>
           </motion.div>
