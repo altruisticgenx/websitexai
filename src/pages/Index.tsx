@@ -353,122 +353,202 @@ function HowItWorks() {
     </section>;
 }
 function PilotOffer() {
-  return <section id="pilot" className="border-t border-slate-900/80 py-6 md:py-8">
-      <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
-        <motion.div initial={{
-        opacity: 0,
-        y: 20
-      }} whileInView={{
-        opacity: 1,
-        y: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.5
-      }} className="mb-4">
-          <h2 className="text-base font-semibold tracking-tight text-foreground md:text-lg">
-            Why This Works
+  return <section id="pilot" className="relative border-t border-slate-900/80 py-6 md:py-8 overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              linear-gradient(hsl(var(--primary) / 0.2) 1px, transparent 1px),
+              linear-gradient(90deg, hsl(var(--primary) / 0.2) 1px, transparent 1px)
+            `,
+            backgroundSize: '40px 40px',
+          }}
+        />
+      </div>
+
+      <div className="mx-auto w-full max-w-5xl px-3 md:px-4 relative z-10">
+        {/* Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          whileInView={{ opacity: 1, y: 0 }} 
+          viewport={{ once: true }} 
+          transition={{ duration: 0.5 }} 
+          className="mb-5"
+        >
+          <div className="inline-flex items-center gap-2 px-2 py-1 rounded-lg border border-emerald-500/30 bg-emerald-500/5 mb-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="caption font-mono text-emerald-400">PILOT_PARTNER.md</span>
+          </div>
+          <h2 className="heading-3 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+            Why a Pilot Partner Instead of Hiring In-House
           </h2>
-          <p className="mt-1.5 max-w-2xl text-[10px] leading-relaxed text-muted-foreground sm:text-xs">
-            Most dev work is priced and scoped for big teams and big budgets. You need fast, scrappy builds for <span className="text-primary font-medium">education, research, and civic projects</span>.
+          <p className="mt-2 max-w-3xl body-xs text-slate-300 leading-relaxed">
+            Hiring in-house makes sense once you know what you're scaling. When you're still in the <span className="text-emerald-400 font-mono">"is this even the right thing?"</span> phase, it's a slow and expensive way to find out.
           </p>
         </motion.div>
 
-        <div className="grid gap-4 md:grid-cols-2">
-          <motion.div initial={{
-          opacity: 0,
-          x: -20
-        }} whileInView={{
-          opacity: 1,
-          x: 0
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.5
-        }} className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-3">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
-              For comparison
-            </h3>
-            <p className="mt-1.5 text-[10px] text-slate-300 leading-relaxed sm:text-xs">
-              Hiring in-house can take 3–6 months, cost $100k–$150k plus 30–40% overhead—with no guarantee they can move quickly on a messy pilot.
-            </p>
+        {/* Comparison Cards */}
+        <div className="grid gap-3 md:grid-cols-2 mb-5">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }} 
+            whileInView={{ opacity: 1, x: 0 }} 
+            viewport={{ once: true }} 
+            transition={{ duration: 0.5 }}
+            className="group relative rounded-xl border-2 border-red-500/20 bg-gradient-to-br from-red-950/30 to-slate-950/50 p-4 overflow-hidden"
+          >
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-red-500/0 via-red-500/5 to-red-500/0"
+              animate={{ x: ['-200%', '200%'] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+            />
+            <div className="relative z-10">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="micro font-mono uppercase tracking-wider text-red-400 font-semibold">Traditional Hire</span>
+                <span className="text-red-400/50">⚠️</span>
+              </div>
+              <ul className="space-y-1.5 micro text-slate-300">
+                <li className="flex items-start gap-2">
+                  <span className="text-red-400 mt-0.5">×</span>
+                  <span><strong className="text-red-300">3–6 months</strong> recruiting cycle</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-400 mt-0.5">×</span>
+                  <span><strong className="text-red-300">$100k–$150k</strong> salary + 30–40% overhead</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-400 mt-0.5">×</span>
+                  <span>No guarantee they can move fast on <em className="text-slate-400">messy pilots</em></span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-400 mt-0.5">×</span>
+                  <span>Long-term commitment before validation</span>
+                </li>
+              </ul>
+            </div>
           </motion.div>
 
-          <motion.div initial={{
-          opacity: 0,
-          x: 20
-        }} whileInView={{
-          opacity: 1,
-          x: 0
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.5
-        }} className="rounded-xl border border-primary/30 bg-primary/5 p-3">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
-              This approach
-            </h3>
-            <p className="mt-1.5 text-[10px] text-slate-200 leading-relaxed sm:text-xs">
-              Send a quick Loom or doc. If it's a fit, we start shipping next week. Week-to-week collaboration, no long-term lock-in.
-            </p>
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }} 
+            whileInView={{ opacity: 1, x: 0 }} 
+            viewport={{ once: true }} 
+            transition={{ duration: 0.5 }}
+            className="group relative rounded-xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-950/40 to-slate-950/50 p-4 overflow-hidden"
+          >
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0"
+              animate={{ x: ['-200%', '200%'] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "linear", delay: 1 }}
+            />
+            <div className="relative z-10">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="micro font-mono uppercase tracking-wider text-emerald-400 font-semibold">Pilot Partner</span>
+                <span className="text-emerald-400">✓</span>
+              </div>
+              <ul className="space-y-1.5 micro text-slate-200">
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-400 mt-0.5">→</span>
+                  <span>Start shipping <strong className="text-emerald-300">next week</strong></span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-400 mt-0.5">→</span>
+                  <span><strong className="text-emerald-300">$1,150/week</strong> — pause anytime</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-400 mt-0.5">→</span>
+                  <span>Real artifacts for leadership, funders, partners</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-400 mt-0.5">→</span>
+                  <span>Learn by <em className="text-emerald-300">shipping</em>, not planning</span>
+                </li>
+              </ul>
+            </div>
           </motion.div>
         </div>
 
-        <motion.div initial={{
-        opacity: 0,
-        y: 20
-      }} whileInView={{
-        opacity: 1,
-        y: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.5,
-        delay: 0.2
-      }} className="mt-4 grid gap-4 md:grid-cols-2">
-          <div className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-3">
-            <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-primary">
-              Good fit
+        {/* What This Model Is For */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mb-4"
+        >
+          <h3 className="heading-6 text-emerald-400 mb-3 font-mono flex items-center gap-2">
+            <span className="text-emerald-400">{'>'}</span> What This Model Is For
+          </h3>
+          <div className="grid gap-2 sm:grid-cols-2">
+            <div className="relative rounded-lg border border-emerald-500/20 bg-slate-950/60 p-3 overflow-hidden group">
+              <motion.div
+                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400 to-transparent"
+                animate={{ x: ['-100%', '100%'] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              />
+              <h4 className="caption font-mono text-emerald-400 mb-1 font-semibold">Early, ambiguous work</h4>
+              <p className="micro text-slate-300">When the edges are fuzzy and you need to learn by shipping, not by planning.</p>
             </div>
-            <ul className="mt-2 space-y-1 text-[10px] sm:text-xs">
-              <li className="flex items-start gap-2 text-slate-200">
-                <span className="text-primary">✓</span>
-                Early-stage product with fuzzy edges
-              </li>
-              <li className="flex items-start gap-2 text-slate-200">
-                <span className="text-primary">✓</span>
-                Energy, education, civic, or compliance work
-              </li>
-              <li className="flex items-start gap-2 text-slate-200">
-                <span className="text-primary">✓</span>
-                Need visible progress for leadership or funders
-              </li>
-              <li className="flex items-start gap-2 text-slate-200">
-                <span className="text-primary">✓</span>
-                Comfortable with async, fast iteration
-              </li>
-            </ul>
-          </div>
 
-          <div className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-3">
-            <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-slate-400">
-              Not a fit
+            <div className="relative rounded-lg border border-cyan-500/20 bg-slate-950/60 p-3 overflow-hidden group">
+              <motion.div
+                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
+                animate={{ x: ['-100%', '100%'] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: 0.5 }}
+              />
+              <h4 className="caption font-mono text-cyan-400 mb-1 font-semibold">Complex domains</h4>
+              <p className="micro text-slate-300">Energy, education, civic systems, compliance—places where policy, people, and tech collide.</p>
             </div>
-            <ul className="mt-2 space-y-1 text-[10px] text-slate-400 sm:text-xs">
-              <li className="flex items-start gap-2">
-                <span className="opacity-50">✕</span>
-                You want a big team and huge scope from day one
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="opacity-50">✕</span>
-                You're not ready to give real feedback every week
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="opacity-50">✕</span>
-                You just need a static marketing site or brochure
-              </li>
-            </ul>
+
+            <div className="relative rounded-lg border border-emerald-500/20 bg-slate-950/60 p-3 overflow-hidden group">
+              <motion.div
+                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400 to-transparent"
+                animate={{ x: ['-100%', '100%'] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: 1 }}
+              />
+              <h4 className="caption font-mono text-emerald-400 mb-1 font-semibold">Proof, not promises</h4>
+              <p className="micro text-slate-300">You need visible movement and credible artifacts, not another strategy deck.</p>
+            </div>
+
+            <div className="relative rounded-lg border border-cyan-500/20 bg-slate-950/60 p-3 overflow-hidden group">
+              <motion.div
+                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
+                animate={{ x: ['-100%', '100%'] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: 1.5 }}
+              />
+              <h4 className="caption font-mono text-cyan-400 mb-1 font-semibold">Lean, collaborative teams</h4>
+              <p className="micro text-slate-300">You're comfortable working in short cycles, reacting to real results, and adjusting quickly.</p>
+            </div>
           </div>
+        </motion.div>
+
+        {/* What This Model Is Not For */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="rounded-xl border border-slate-800/50 bg-slate-950/30 p-4"
+        >
+          <h3 className="heading-6 text-slate-400 mb-2 font-mono flex items-center gap-2">
+            <span className="text-slate-500">×</span> What This Model Is Not For
+          </h3>
+          <ul className="space-y-1.5 micro text-slate-400">
+            <li className="flex items-start gap-2">
+              <span className="text-slate-500 mt-0.5">•</span>
+              <span>Large, multi-team implementations from day one</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-slate-500 mt-0.5">•</span>
+              <span>Long-term headcount decisions disguised as "pilots"</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-slate-500 mt-0.5">•</span>
+              <span>Purely cosmetic work where a static site or brochure would do</span>
+            </li>
+          </ul>
+          <p className="mt-3 micro text-slate-500 italic border-t border-slate-800/50 pt-3">
+            This is a <span className="text-emerald-400 font-mono">pilot-first, learning-first</span> approach: small scope, honest results, and no long-term lock-in until you know what's actually worth scaling.
+          </p>
         </motion.div>
       </div>
     </section>;
