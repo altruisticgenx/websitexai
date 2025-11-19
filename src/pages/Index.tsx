@@ -350,12 +350,77 @@ function HowItWorks() {
   }];
   return <section id="how" className="border-t border-slate-900/80 py-3 md:py-4">
       <div className="mx-auto w-full max-w-5xl px-2 md:px-3">
-        
+        <motion.div initial={{
+          opacity: 0,
+          y: 20
+        }} whileInView={{
+          opacity: 1,
+          y: 0
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5
+        }}>
+          <h2 className="text-base font-semibold tracking-tight text-foreground md:text-lg">
+            How It Works
+          </h2>
+          <p className="mt-1.5 text-[10px] text-muted-foreground sm:text-xs">
+            Simple 3-step process from idea to working pilot
+          </p>
+        </motion.div>
 
-        <div className="mt-2 grid gap-1.5 sm:grid-cols-3" style={{
+        <div className="mt-4 grid gap-2 sm:grid-cols-3" style={{
         perspective: "1000px"
       }}>
-          {steps.map((step, index) => null)}
+          {steps.map((step, index) => (
+            <motion.div
+              key={step.label}
+              initial={{
+                opacity: 0,
+                y: 30,
+                rotateX: -15
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                rotateX: 0
+              }}
+              viewport={{
+                once: true
+              }}
+              transition={{
+                duration: 0.6,
+                delay: index * 0.15,
+                type: "spring"
+              }}
+              onMouseEnter={() => setHoveredStep(index)}
+              onMouseLeave={() => setHoveredStep(null)}
+              whileHover={{
+                scale: 1.02,
+                y: -4
+              }}
+              className={cn(
+                "group relative rounded-lg border bg-gradient-to-br backdrop-blur-sm p-3 transition-all cursor-pointer",
+                step.borderColor,
+                step.gradient
+              )}
+              style={{
+                boxShadow: hoveredStep === index ? `0 8px 30px ${step.glowColor}` : 'none',
+              }}
+            >
+              <div className="relative z-10">
+                <div className="text-[10px] font-mono uppercase tracking-wider text-primary/60 sm:text-xs">
+                  {step.label}
+                </div>
+                <h3 className="mt-1 text-xs font-semibold text-foreground sm:text-sm">
+                  {step.title}
+                </h3>
+                <p className="mt-1.5 text-[9px] leading-relaxed text-muted-foreground sm:text-[10px]">
+                  {step.body}
+                </p>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
         {/* Interactive Timeline Bar */}
@@ -736,26 +801,47 @@ function WhoBenefits() {
 }
 function FAQSection() {
   return <section id="faq" className="border-t border-slate-900/80 py-6 md:py-8">
-      {/* FAQ Items - Compact Grid Layout */}
-      <dl className="grid gap-2 sm:gap-2.5 sm:grid-cols-2">
-        {faqs.map((item, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: index * 0.05 }}
-            className="rounded-lg border border-slate-800/70 bg-slate-950/50 p-3"
-          >
-            <dt className="text-xs font-medium text-foreground sm:text-sm">
-              {item.question}
-            </dt>
-            <dd className="mt-1.5 text-[10px] text-muted-foreground sm:text-xs">
-              {item.answer}
-            </dd>
-          </motion.div>
-        ))}
-      </dl>
+      <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
+        <motion.div initial={{
+          opacity: 0,
+          y: 20
+        }} whileInView={{
+          opacity: 1,
+          y: 0
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5
+        }}>
+          <h2 className="text-base font-semibold tracking-tight text-foreground md:text-lg">
+            Frequently Asked Questions
+          </h2>
+          <p className="mt-1.5 text-[10px] text-muted-foreground sm:text-xs">
+            Quick answers to common questions about the pilot program
+          </p>
+        </motion.div>
+
+        {/* FAQ Items - Compact Grid Layout */}
+        <dl className="mt-4 grid gap-2 sm:gap-2.5 sm:grid-cols-2">
+          {faqs.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
+              className="rounded-lg border border-slate-800/70 bg-slate-950/50 p-3 hover:border-primary/30 transition-colors"
+            >
+              <dt className="text-xs font-medium text-foreground sm:text-sm">
+                {item.question}
+              </dt>
+              <dd className="mt-1.5 text-[10px] text-muted-foreground sm:text-xs leading-relaxed">
+                {item.answer}
+              </dd>
+            </motion.div>
+          ))}
+        </dl>
+      </div>
     </section>;
 }
 function SiteFooter() {
