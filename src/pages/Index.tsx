@@ -118,7 +118,6 @@ const Index = () => {
       </div>
       <ScrollToTop />
       <KeyboardShortcutsHelp />
-      <FAQAssistant />
     </div>
   );
 };
