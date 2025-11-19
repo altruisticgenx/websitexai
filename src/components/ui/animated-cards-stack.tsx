@@ -399,6 +399,23 @@ export const CaseStudiesStack = ({
     setTouchStart(null);
   };
 
+  // Color gradients for different sectors
+  const getCardGradient = (sector: string) => {
+    const gradients: Record<string, string> = {
+      'Education Nonprofit': 'from-blue-500/20 via-indigo-500/15 to-violet-500/20 border-blue-400/30',
+      'Founder-Backed Startup': 'from-emerald-500/20 via-teal-500/15 to-green-500/20 border-emerald-400/30',
+      'Solo Founder': 'from-amber-500/20 via-orange-500/15 to-yellow-500/20 border-amber-400/30',
+      'Climate & Energy': 'from-lime-500/20 via-green-500/15 to-emerald-500/20 border-lime-400/30',
+      'Healthcare & Civic': 'from-rose-500/20 via-pink-500/15 to-fuchsia-500/20 border-rose-400/30',
+      'Civic Innovation': 'from-purple-500/20 via-violet-500/15 to-indigo-500/20 border-purple-400/30',
+      'Higher Education': 'from-cyan-500/20 via-sky-500/15 to-blue-500/20 border-cyan-400/30',
+      'Climate Tech': 'from-green-500/20 via-emerald-500/15 to-teal-500/20 border-green-400/30',
+      'Nonprofit Operations': 'from-orange-500/20 via-amber-500/15 to-yellow-500/20 border-orange-400/30',
+      'Social Justice': 'from-red-500/20 via-rose-500/15 to-pink-500/20 border-red-400/30',
+    };
+    return gradients[sector] || 'from-slate-800/20 via-slate-700/15 to-slate-600/20 border-slate-400/30';
+  };
+
   // Icon mapping based on project ID
   const getProjectIcon = (id: string) => {
     switch (id) {
@@ -443,19 +460,20 @@ export const CaseStudiesStack = ({
 
   return (
     <div 
-      className="relative h-[200px] w-full sm:h-[240px] md:h-[300px] touch-pan-y"
+      className="relative h-[160px] w-full sm:h-[180px] md:h-[220px] touch-pan-y"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
       {activeCards.map((study, index) => {
         const isHovered = hoveredIndex === index;
         const isTop = index === 0;
+        const gradientClass = getCardGradient(study.sector);
         
         return (
           <motion.a
             key={study.id}
             href={`/case-study/${study.id}`}
-            className="absolute inset-0 mx-auto flex w-full max-w-lg cursor-pointer flex-col justify-between rounded-xl border border-blue-400/20 bg-gradient-to-br from-slate-900/95 to-slate-950/95 p-2.5 shadow-2xl backdrop-blur-md transition-all hover:border-blue-400/40 sm:rounded-2xl sm:p-4 md:p-5"
+            className={`absolute inset-0 mx-auto flex w-full max-w-lg cursor-pointer flex-col justify-between rounded-lg border bg-gradient-to-br ${gradientClass} p-3 shadow-xl backdrop-blur-md transition-all min-h-[44px] sm:rounded-xl sm:p-3.5 md:p-4`}
             style={{
               transformOrigin: "top center",
               perspective: "1200px",
@@ -463,66 +481,65 @@ export const CaseStudiesStack = ({
             }}
             initial={false}
             animate={{
-              top: index * -6,
-              scale: 1 - index * 0.04,
+              top: index * -5,
+              scale: 1 - index * 0.035,
               zIndex: caseStudies.length - index,
-              opacity: index === 0 ? 1 : index === 1 ? 0.75 : index === 2 ? 0.4 : 0,
-              rotateX: isTop && isHovered ? -3 : 0,
-              rotateY: isTop && isHovered ? 2 : 0,
-              y: isTop && isHovered ? -8 : 0,
+              opacity: index === 0 ? 1 : index === 1 ? 0.8 : index === 2 ? 0.45 : 0,
+              rotateX: isTop && isHovered ? -2 : 0,
+              rotateY: isTop && isHovered ? 1.5 : 0,
+              y: isTop && isHovered ? -6 : 0,
             }}
             whileHover={isTop ? {
-              scale: 1.03,
-              rotateX: -4,
-              rotateY: 3,
-              boxShadow: "0 30px 60px -15px rgba(59, 130, 246, 0.4)",
+              scale: 1.02,
+              rotateX: -3,
+              rotateY: 2,
             } : {}}
             whileTap={isTop ? { 
-              scale: 0.97,
-              rotateX: -2,
-              rotateY: 1,
+              scale: 0.98,
+              rotateX: -1,
+              rotateY: 0.5,
             } : {}}
             transition={{
-              duration: 0.35,
+              duration: 0.3,
               ease: [0.23, 1, 0.32, 1],
               type: "spring",
-              stiffness: 350,
-              damping: 25,
+              stiffness: 400,
+              damping: 30,
             }}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
-            <div className="space-y-1.5 sm:space-y-2">
+            <div className="space-y-1 sm:space-y-1.5">
               <motion.div 
-                className="inline-flex items-center gap-1 rounded-full border border-blue-400/30 bg-blue-400/10 px-2 py-0.5 text-[9px] font-medium text-blue-300 sm:gap-1.5 sm:px-2.5 sm:py-1 sm:text-[10px]"
-                animate={isTop && isHovered ? { scale: 1.08, rotateZ: -1 } : { scale: 1 }}
+                className="inline-flex items-center gap-1 rounded-full border border-current/30 bg-current/10 px-1.5 py-0.5 text-[8px] font-medium sm:px-2 sm:text-[9px]"
+                animate={isTop && isHovered ? { scale: 1.05 } : { scale: 1 }}
                 transition={{ duration: 0.2 }}
               >
-                <span className="text-blue-300">{getProjectIcon(study.id)}</span>
+                <span>{getProjectIcon(study.id)}</span>
                 {study.sector}
               </motion.div>
-              <h3 className="text-sm font-semibold leading-tight text-slate-50 sm:text-base md:text-lg">
+              <h3 className="text-[11px] font-semibold leading-tight text-slate-50 sm:text-xs md:text-sm">
                 {study.title}
               </h3>
-              <p className="line-clamp-2 text-[10px] leading-relaxed text-slate-300 sm:line-clamp-3 sm:text-xs">
+              <p className="line-clamp-2 text-[9px] leading-snug text-slate-200/90 sm:text-[10px]">
                 {study.summary}
               </p>
             </div>
 
-            <div className="mt-1.5 flex items-center justify-between sm:mt-2">
+            <div className="mt-1.5 flex items-center justify-between gap-2 sm:mt-2">
               <motion.span 
-                className="rounded-full border border-slate-700/80 bg-slate-800/50 px-2 py-0.5 text-[9px] font-medium text-slate-300 sm:px-2.5 sm:py-1 sm:text-[10px]"
-                animate={isTop && isHovered ? { x: 4, scale: 1.05 } : { x: 0, scale: 1 }}
+                className="rounded-full border border-slate-700/60 bg-slate-800/40 px-1.5 py-0.5 text-[8px] font-medium text-slate-300 sm:px-2 sm:text-[9px]"
+                animate={isTop && isHovered ? { x: 2, scale: 1.03 } : { x: 0, scale: 1 }}
                 transition={{ duration: 0.2 }}
               >
                 {study.tag}
               </motion.span>
               <motion.span 
-                className="text-[10px] font-medium text-blue-400 transition-colors hover:text-blue-300 sm:text-xs"
-                animate={isTop && isHovered ? { x: 4, scale: 1.05 } : { x: 0, scale: 1 }}
+                className="text-[9px] font-medium text-current transition-colors sm:text-[10px]"
+                animate={isTop && isHovered ? { x: 2, scale: 1.03 } : { x: 0, scale: 1 }}
                 transition={{ duration: 0.2 }}
               >
-                Details →
+                View →
               </motion.span>
             </div>
           </motion.a>
