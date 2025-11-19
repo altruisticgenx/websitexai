@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Linkedin } from "lucide-react";
 import { Hero3DBackground } from "./Hero3D";
@@ -58,6 +58,35 @@ export function Hero() {
   const yMiddle = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const yForeground = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  // Typing animation state
+  const fullText = "Build, Learn, Lead—on Your Terms";
+  const [displayedText, setDisplayedText] = useState("");
+  const [showCursor, setShowCursor] = useState(true);
+
+  useEffect(() => {
+    let currentIndex = 0;
+    const typingSpeed = 80; // milliseconds per character
+
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setDisplayedText(fullText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, typingSpeed);
+
+    // Cursor blink effect
+    const cursorInterval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 530);
+
+    return () => {
+      clearInterval(typingInterval);
+      clearInterval(cursorInterval);
+    };
+  }, []);
   
   return <section ref={ref} id="home" className="relative py-8 md:py-12 overflow-hidden bg-slate-950">
       {/* 3D Animated Background */}
@@ -234,9 +263,9 @@ export function Hero() {
               <span className="font-mono">{'>'} Ship pilot-ready AI tech</span>
             </motion.div>
 
-            {/* Main Headline with Glitch */}
+            {/* Main Headline with Terminal Typing */}
             <motion.h1 
-              className="mt-3 heading-1 relative" 
+              className="mt-3 heading-1 relative font-mono" 
               initial={{
                 opacity: 0,
                 y: 20
@@ -252,7 +281,16 @@ export function Hero() {
             >
               <span className="relative inline-block">
                 <span className="relative z-10 bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
-                  Build, Learn, Lead—on Your Terms
+                  {displayedText}
+                  <motion.span
+                    className="inline-block w-[0.6em] h-[1em] bg-emerald-400 ml-1"
+                    animate={{
+                      opacity: showCursor ? 1 : 0,
+                    }}
+                    transition={{
+                      duration: 0,
+                    }}
+                  />
                 </span>
                 <motion.span
                   className="absolute inset-0 bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent blur-sm"
@@ -264,7 +302,7 @@ export function Hero() {
                     repeat: Infinity,
                   }}
                 >
-                  Build, Learn, Lead—on Your Terms
+                  {displayedText}
                 </motion.span>
               </span>
             </motion.h1>
