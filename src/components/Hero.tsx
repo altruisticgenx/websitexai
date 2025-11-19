@@ -17,7 +17,7 @@ function VisualRow({
     borderColor: "hsl(var(--primary) / 0.4)",
     backgroundColor: "hsl(var(--slate-900) / 0.6)"
   }}>
-      <div className="mt-0.5 w-12 flex-shrink-0 label text-primary group-hover:text-accent transition-colors">
+      <div className="mt-0.5 w-11 flex-shrink-0 label text-primary group-hover:text-accent transition-colors">
         {label}
       </div>
       <div>
@@ -173,9 +173,7 @@ export function Hero() {
                 <dt className="overline text-slate-400 group-hover:text-primary transition-colors">
                   Work hands-on
                 </dt>
-                <dd className="mt-0.5 font-medium text-slate-50 body-sm">
-                  Build + ship  prototypes.
-                </dd>
+                
               </motion.div>
               <motion.div className="group rounded-xl border border-slate-800/70 bg-slate-900/70 p-2 transition-all duration-300 hover:border-primary/30" whileHover={{
               y: -2,
@@ -184,9 +182,7 @@ export function Hero() {
                 <dt className="overline text-slate-400 group-hover:text-primary transition-colors">
                   Launch actionable tools
                 </dt>
-                <dd className="mt-0.5 font-medium text-slate-50 body-sm">
-                  Deploy features for any sector.                                                            
-                </dd>
+                
               </motion.div>
               <motion.div className="group rounded-xl border border-slate-800/70 bg-slate-900/70 p-2 transition-all duration-300 hover:border-primary/30" whileHover={{
               y: -2,
@@ -195,9 +191,7 @@ export function Hero() {
                 <dt className="overline text-slate-400 group-hover:text-primary transition-colors">
                   Start small, deliver early
                 </dt>
-                <dd className="mt-0.5 font-medium text-slate-50 body-sm">
-                  First meaningful code in Week 1, ready to demo.
-                </dd>
+                
               </motion.div>
             </motion.dl>
 
