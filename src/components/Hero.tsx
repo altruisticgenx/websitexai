@@ -3,41 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Linkedin, Mail } from "lucide-react";
 import { Hero3DBackground } from "./Hero3D";
 import { FloatingCard3D } from "./FloatingCard3D";
-function VisualRow({
-  label,
-  title,
-  body
-}: {
-  label: string;
-  title: string;
-  body: string;
-}) {
-  return <motion.div className="group relative flex gap-2 rounded-xl border border-emerald-500/20 bg-slate-950/60 p-2 cursor-default overflow-hidden backdrop-blur-sm" whileHover={{
-    x: 4,
-    borderColor: "hsl(var(--primary) / 0.5)",
-    backgroundColor: "hsl(var(--slate-900) / 0.8)",
-    boxShadow: "0 0 20px hsl(var(--primary) / 0.2)"
-  }} transition={{
-    duration: 0.2
-  }}>
-    <motion.div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/5 to-emerald-500/0" animate={{
-      x: ['-100%', '100%']
-    }} transition={{
-      duration: 3,
-      repeat: Infinity,
-      ease: "linear"
-    }} />
-    <div className="mt-0.5 w-11 flex-shrink-0 label text-emerald-400 group-hover:text-cyan-400 transition-colors font-mono relative z-10">
-      {label}
-    </div>
-    <div className="relative z-10">
-      <div className="body-sm font-medium text-slate-200 group-hover:text-emerald-300 transition-colors font-mono">
-        <span className="text-emerald-500">{'>'}</span> {title}
-      </div>
-      <div className="mt-0.5 caption text-slate-400">{body}</div>
-    </div>
-  </motion.div>;
-}
+
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const {
@@ -407,7 +373,7 @@ export function Hero() {
           delay: 0.3
         }}>
             <FloatingCard3D>
-              <motion.div className="relative rounded-2xl border border-emerald-500/30 bg-slate-900/80 p-3 sm:p-4 backdrop-blur-sm overflow-hidden" whileHover={{
+              <motion.div className="relative max-w-lg rounded-2xl border border-slate-800 bg-slate-950/70 shadow-lg overflow-hidden" whileHover={{
               scale: 1.02,
               boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.3), 0 0 60px -15px hsl(var(--primary) / 0.4)",
               borderColor: "hsl(var(--primary) / 0.5)"
@@ -415,15 +381,13 @@ export function Hero() {
               duration: 0.3
             }}>
                 {/* Terminal Header */}
-                <div className="flex items-center gap-2 mb-3 pb-2 border-b border-emerald-500/20">
-                  <div className="flex gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-red-500/70" />
-                    <div className="w-2 h-2 rounded-full bg-yellow-500/70" />
-                    <div className="w-2 h-2 rounded-full bg-emerald-500/70" />
-                  </div>
-                  <div className="caption font-mono text-emerald-400/70">
-                    ~/build-fast-kit.sh
-                  </div>
+                <div className="flex items-center gap-2 border-b border-slate-800 px-3 py-2 text-xs text-slate-400">
+                  <span className="flex gap-1">
+                    <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
+                  </span>
+                  <span className="ml-2 font-mono">~/altruisticxai</span>
                 </div>
 
                 {/* Scanning Line Effect */}
@@ -435,16 +399,32 @@ export function Hero() {
                 ease: "linear"
               }} />
 
-                <div className="caption font-mono text-emerald-400/90">
-                  <span className="text-cyan-400">$</span> cat build-fast-kit.config
-                </div>
-                <p className="mt-1.5 body-xs text-slate-300 font-mono">
-                  <span className="text-emerald-400">{'>'}</span> A 3-person team. One small backlog. 4 weeks to prove whether this pilot is worth scaling.
-                </p>
-                <div className="mt-3 grid gap-2 body-xs text-slate-200">
-                  <VisualRow label="Week 1" title="Clarify & ship the first slice" body="Turn the idea into 1–2 concrete flows. Ship a working skeleton instead of a slide deck." />
-                  <VisualRow label="Week 2–3" title="Tighten the flows" body="Integrate data, refine UX, and make it demo-ready for internal stakeholders." />
-                  <VisualRow label="Week 4" title="Decide with evidence" body="You walk away with a working repo, a clear walkthrough, and a decision: scale, pivot, or park." />
+                <div className="px-4 py-3 font-mono text-xs leading-relaxed text-slate-200">
+                  <p className="text-sky-300">$ ./pa-pilot.sh</p>
+
+                  <p className="mt-2 text-emerald-300">
+                    &gt; one senior builder. one district backlog.
+                    <br />
+                    &gt; 4 weeks to turn real data + real bills into a working civic lab.
+                  </p>
+
+                  <p className="mt-3 text-slate-400">week 1</p>
+                  <p className="text-slate-100">
+                    &gt; ship the first slice — a live dashboard for one problem:
+                    attendance, buses, buildings, or energy.
+                  </p>
+
+                  <p className="mt-3 text-slate-400">week 2–3</p>
+                  <p className="text-slate-100">
+                    &gt; make it usable — pull in real district data, plug in pilots (HIT, AI
+                    tutors, V2G, solar), refine the flows.
+                  </p>
+
+                  <p className="mt-3 text-slate-400">week 4</p>
+                  <p className="text-slate-100">
+                    &gt; decide with evidence — show it to leaders and students. scale it,
+                    adapt it to more schools, or park it with a clear readout.
+                  </p>
                 </div>
               </motion.div>
             </FloatingCard3D>
