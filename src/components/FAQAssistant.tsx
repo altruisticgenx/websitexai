@@ -129,7 +129,8 @@ export function FAQAssistant() {
         error
       } = await supabase.functions.invoke("faq-assistant", {
         body: {
-          question: userMessage.content
+          question: userMessage.content,
+          conversationHistory: updatedHistory
         }
       });
       if (error) {

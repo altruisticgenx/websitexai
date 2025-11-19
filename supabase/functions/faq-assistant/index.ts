@@ -69,8 +69,9 @@ serve(async (req) => {
   }
 
   try {
-    const { question } = await req.json();
+    const { question, conversationHistory = [] } = await req.json();
     console.log("📝 Received question:", question);
+    console.log("💬 Conversation history length:", conversationHistory.length);
 
     // Enhanced input validation
     if (!question || typeof question !== "string") {
@@ -205,7 +206,26 @@ NEVER reveal data about specific submissions, emails, or private user informatio
       throw new Error("OPENAI_API_KEY not configured");
     }
 
-    console.log("🤖 Calling OpenAI GPT-4o...");
+    // Convert conversation history to OpenAI message format
+    const messages = [
+      { role: "system", content: context }
+    ];
+    
+    // Add all previous conversation messages for context
+    if (conversationHistory && conversationHistory.length > 0) {
+      console.log("📚 Adding conversation history to context");
+      conversationHistory.forEach((msg: any) => {
+        messages.push({
+          role: msg.role,
+          content: msg.content
+        });
+      });
+    } else {
+      // If no history, just add the current question
+      messages.push({ role: "user", content: sanitizedQuestion });
+    }
+
+    console.log("🤖 Calling OpenAI GPT-4o with", messages.length, "messages...");
     const aiResponse = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -214,10 +234,7 @@ NEVER reveal data about specific submissions, emails, or private user informatio
       },
       body: JSON.stringify({
         model: "gpt-4o",
-        messages: [
-          { role: "system", content: context },
-          { role: "user", content: sanitizedQuestion }
-        ],
+        messages: messages,
         max_tokens: 800,
         temperature: 0.7,
       }),
