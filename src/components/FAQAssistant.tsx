@@ -211,79 +211,35 @@ export function FAQAssistant() {
       handleAsk(0);
     }
   };
-  
-  return (
-    <Card className="w-full max-w-2xl mx-auto p-4 sm:p-6">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <Sparkles className="h-5 w-5 text-primary" />
-          <h2 className="text-lg font-semibold">AI Assistant</h2>
-        </div>
-        {conversationHistory.length > 0 && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={clearHistory}
-            aria-label="Clear conversation history"
-          >
-            <Trash2 className="h-4 w-4" />
-          </Button>
-        )}
-      </div>
+  return <Card className="w-full max-w-2xl mx-auto p-4 sm:p-6">
+      
 
-      {conversationHistory.length > 0 && (
-        <ScrollArea className="h-[300px] mb-4 rounded-lg border p-4">
+      {conversationHistory.length > 0 && <ScrollArea className="h-[300px] mb-4 rounded-lg border p-4">
           <AnimatePresence>
-            {conversationHistory.map((msg, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className={`mb-4 ${msg.role === "user" ? "text-right" : "text-left"}`}
-              >
-                <div
-                  className={`inline-block max-w-[80%] rounded-lg p-3 ${
-                    msg.role === "user"
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-muted-foreground"
-                  }`}
-                >
+            {conversationHistory.map((msg, idx) => <motion.div key={idx} initial={{
+          opacity: 0,
+          y: 10
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} exit={{
+          opacity: 0
+        }} className={`mb-4 ${msg.role === "user" ? "text-right" : "text-left"}`}>
+                <div className={`inline-block max-w-[80%] rounded-lg p-3 ${msg.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
                   <div className="flex items-start gap-2">
-                    {msg.role === "assistant" && (
-                      <MessageSquare className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                    )}
+                    {msg.role === "assistant" && <MessageSquare className="h-4 w-4 mt-0.5 flex-shrink-0" />}
                     <p className="text-sm">{msg.content}</p>
                   </div>
                 </div>
-              </motion.div>
-            ))}
+              </motion.div>)}
           </AnimatePresence>
-        </ScrollArea>
-      )}
+        </ScrollArea>}
 
       <div className="flex gap-2">
-        <Input
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-          onKeyPress={handleKeyPress}
-          placeholder="Ask me anything..."
-          disabled={isLoading}
-          aria-label="Ask a question"
-          className="flex-1"
-        />
-        <Button
-          onClick={() => handleAsk(0)}
-          disabled={isLoading || !question.trim()}
-          aria-label="Submit question"
-        >
-          {isLoading ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <Sparkles className="h-4 w-4" />
-          )}
+        <Input value={question} onChange={e => setQuestion(e.target.value)} onKeyPress={handleKeyPress} placeholder="Ask me anything..." disabled={isLoading} aria-label="Ask a question" className="flex-1" />
+        <Button onClick={() => handleAsk(0)} disabled={isLoading || !question.trim()} aria-label="Submit question">
+          {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
         </Button>
       </div>
-    </Card>
-  );
+    </Card>;
 }
