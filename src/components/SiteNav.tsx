@@ -66,6 +66,15 @@ export function SiteNav() {
               lab
             </a>
 
+            <a
+              href="https://futurexedu.lovable.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 text-sm font-medium lowercase tracking-wide text-foreground transition-all duration-200 hover:text-primary hover:bg-accent/50 rounded-md"
+            >
+              2026 snapshot
+            </a>
+
             {/* Work Dropdown */}
             <div className="relative">
               <button
@@ -222,6 +231,15 @@ export function SiteNav() {
                 className="block rounded-md px-3 py-2 text-base font-medium lowercase text-foreground transition-colors hover:text-primary hover:bg-accent/50"
               >
                 lab
+              </a>
+
+              <a
+                href="https://futurexedu.lovable.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-md px-3 py-2 text-base font-medium lowercase text-foreground transition-colors hover:text-primary hover:bg-accent/50"
+              >
+                2026 snapshot
               </a>
 
               <div className="space-y-1 pl-4 pt-2">
