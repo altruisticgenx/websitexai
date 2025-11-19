@@ -273,7 +273,6 @@ function RecentBuilds() {
 }
 function HowItWorks() {
   const [hoveredStep, setHoveredStep] = React.useState<number | null>(null);
-  
   const steps = [{
     label: "01",
     title: "Share your idea",
@@ -320,40 +319,34 @@ function HowItWorks() {
           </p>
         </motion.div>
 
-        <div className="mt-2 grid gap-1.5 sm:grid-cols-3" style={{ perspective: "1000px" }}>
-          {steps.map((step, index) => <motion.div 
-            key={step.label} 
-            initial={{
-              opacity: 0,
-              y: 30,
-              rotateX: -15
-            }} 
-            whileInView={{
-              opacity: 1,
-              y: 0,
-              rotateX: 0
-            }} 
-            viewport={{
-              once: true
-            }} 
-            transition={{
-              duration: 0.6,
-              delay: index * 0.15,
-              type: "spring",
-              stiffness: 100
-            }} 
-            whileHover={{
-              y: -8,
-              rotateY: 5,
-              rotateX: -3,
-              scale: 1.05,
-              boxShadow: `0 20px 40px -10px ${step.glowColor}`,
-              borderColor: step.glowColor
-            }} 
-            onHoverStart={() => setHoveredStep(index)}
-            onHoverEnd={() => setHoveredStep(null)}
-            style={{ transformStyle: "preserve-3d" }}
-            className={`group rounded-xl border ${step.borderColor} bg-gradient-to-br ${step.gradient} backdrop-blur-sm p-1.5 sm:p-2 text-xs transition-all duration-300 cursor-default`}>
+        <div className="mt-2 grid gap-1.5 sm:grid-cols-3" style={{
+        perspective: "1000px"
+      }}>
+          {steps.map((step, index) => <motion.div key={step.label} initial={{
+          opacity: 0,
+          y: 30,
+          rotateX: -15
+        }} whileInView={{
+          opacity: 1,
+          y: 0,
+          rotateX: 0
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.6,
+          delay: index * 0.15,
+          type: "spring",
+          stiffness: 100
+        }} whileHover={{
+          y: -8,
+          rotateY: 5,
+          rotateX: -3,
+          scale: 1.05,
+          boxShadow: `0 20px 40px -10px ${step.glowColor}`,
+          borderColor: step.glowColor
+        }} onHoverStart={() => setHoveredStep(index)} onHoverEnd={() => setHoveredStep(null)} style={{
+          transformStyle: "preserve-3d"
+        }} className={`group rounded-xl border ${step.borderColor} bg-gradient-to-br ${step.gradient} backdrop-blur-sm p-1.5 sm:p-2 text-xs transition-all duration-300 cursor-default`}>
               <div className="text-[7px] font-mono uppercase tracking-[0.2em] text-primary group-hover:scale-110 transition-transform">
                 {step.label}
               </div>
@@ -365,39 +358,34 @@ function HowItWorks() {
         </div>
 
         {/* Interactive Timeline Bar */}
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-3 mb-2"
-        >
+        <motion.div initial={{
+        opacity: 0,
+        y: 10
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5,
+        delay: 0.5
+      }} className="mt-3 mb-2">
           <div className="relative h-1 rounded-full bg-slate-800/50 overflow-hidden">
-            <motion.div 
-              className={`absolute top-0 left-0 h-full rounded-full ${
-                hoveredStep !== null ? steps[hoveredStep].progressColor : "bg-primary"
-              }`}
-              initial={{ width: "0%" }}
-              animate={{ 
-                width: hoveredStep !== null 
-                  ? `${((hoveredStep + 1) / steps.length) * 100}%`
-                  : "0%"
-              }}
-              transition={{ 
-                duration: 0.5, 
-                ease: "easeOut"
-              }}
-            />
+            <motion.div className={`absolute top-0 left-0 h-full rounded-full ${hoveredStep !== null ? steps[hoveredStep].progressColor : "bg-primary"}`} initial={{
+            width: "0%"
+          }} animate={{
+            width: hoveredStep !== null ? `${(hoveredStep + 1) / steps.length * 100}%` : "0%"
+          }} transition={{
+            duration: 0.5,
+            ease: "easeOut"
+          }} />
           </div>
           <div className="mt-1 flex justify-between text-[7px] text-slate-400">
             <span>Start</span>
-            <motion.span 
-              animate={{ 
-                opacity: hoveredStep !== null ? 1 : 0.5,
-                scale: hoveredStep !== null ? 1.1 : 1
-              }}
-              className="font-mono"
-            >
+            <motion.span animate={{
+            opacity: hoveredStep !== null ? 1 : 0.5,
+            scale: hoveredStep !== null ? 1.1 : 1
+          }} className="font-mono">
               {hoveredStep !== null ? `${hoveredStep + 1}/${steps.length}` : "0/3"}
             </motion.span>
             <span>Complete</span>
@@ -405,14 +393,23 @@ function HowItWorks() {
         </motion.div>
 
         {/* 4-Week Sprint Details */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20, scale: 0.95 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4, type: "spring" }}
-          whileHover={{ scale: 1.02 }}
-          className="mt-2 rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/70 to-slate-900/40 backdrop-blur-sm p-1.5 sm:p-2"
-        >
+        <motion.div initial={{
+        opacity: 0,
+        y: 20,
+        scale: 0.95
+      }} whileInView={{
+        opacity: 1,
+        y: 0,
+        scale: 1
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.6,
+        delay: 0.4,
+        type: "spring"
+      }} whileHover={{
+        scale: 1.02
+      }} className="mt-2 rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/70 to-slate-900/40 backdrop-blur-sm p-1.5 sm:p-2">
           <h3 className="text-[9px] font-semibold text-primary sm:text-[10px]">4-Week Sprint Includes</h3>
           <ul className="mt-1 space-y-0.5 text-[8px] text-slate-200 sm:text-[9px]">
             <li className="flex items-start gap-1">
@@ -439,13 +436,17 @@ function HowItWorks() {
 function PilotOffer() {
   return <section id="pilot" className="border-t border-slate-900/80 py-6 md:py-8">
       <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-4"
-        >
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5
+      }} className="mb-4">
           <h2 className="text-base font-semibold tracking-tight text-foreground md:text-lg">
             Why This Works
           </h2>
@@ -455,13 +456,17 @@ function PilotOffer() {
         </motion.div>
 
         <div className="grid gap-4 md:grid-cols-2">
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-3"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          x: -20
+        }} whileInView={{
+          opacity: 1,
+          x: 0
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5
+        }} className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-3">
             <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
               For comparison
             </h3>
@@ -470,13 +475,17 @@ function PilotOffer() {
             </p>
           </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="rounded-xl border border-primary/30 bg-primary/5 p-3"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          x: 20
+        }} whileInView={{
+          opacity: 1,
+          x: 0
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5
+        }} className="rounded-xl border border-primary/30 bg-primary/5 p-3">
             <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
               This approach
             </h3>
@@ -486,13 +495,18 @@ function PilotOffer() {
           </motion.div>
         </div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-4 grid gap-4 md:grid-cols-2"
-        >
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5,
+        delay: 0.2
+      }} className="mt-4 grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-3">
             <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-primary">
               Good fit
@@ -540,16 +554,20 @@ function PilotOffer() {
       </div>
     </section>;
 }
-
 function TypicalProgression() {
   return <section className="border-t border-slate-900/80 py-6 md:py-8">
       <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5
+      }}>
           <h2 className="text-base font-semibold tracking-tight text-foreground md:text-lg">
             Typical Progression
           </h2>
@@ -559,13 +577,18 @@ function TypicalProgression() {
         </motion.div>
 
         <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="group rounded-lg border-2 border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.5)]"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          scale: 0.95
+        }} whileInView={{
+          opacity: 1,
+          scale: 1
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5,
+          delay: 0.1
+        }} className="group rounded-lg border-2 border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.5)]">
             <div className="flex items-center gap-1.5">
               <span className="text-[10px] font-bold text-emerald-400 sm:text-xs">1. Pilot</span>
               <span className="text-[8px] text-emerald-300/80 sm:text-[9px]">4 weeks</span>
@@ -575,13 +598,18 @@ function TypicalProgression() {
             </p>
           </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="group rounded-lg border-2 border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.5)]"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          scale: 0.95
+        }} whileInView={{
+          opacity: 1,
+          scale: 1
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5,
+          delay: 0.2
+        }} className="group rounded-lg border-2 border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.5)]">
             <div className="flex items-center gap-1.5">
               <span className="text-[10px] font-bold text-blue-400 sm:text-xs">2. Proposal</span>
               <span className="text-[8px] text-blue-300/80 sm:text-[9px]">1–2 weeks</span>
@@ -591,13 +619,18 @@ function TypicalProgression() {
             </p>
           </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="group rounded-lg border-2 border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(139,92,246,0.5)]"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          scale: 0.95
+        }} whileInView={{
+          opacity: 1,
+          scale: 1
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5,
+          delay: 0.3
+        }} className="group rounded-lg border-2 border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(139,92,246,0.5)]">
             <div className="flex items-center gap-1.5">
               <span className="text-[10px] font-bold text-violet-400 sm:text-xs">3. Build</span>
               <span className="text-[8px] text-violet-300/80 sm:text-[9px]">2–6 months</span>
@@ -607,13 +640,18 @@ function TypicalProgression() {
             </p>
           </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="group rounded-lg border-2 border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(249,115,22,0.5)]"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          scale: 0.95
+        }} whileInView={{
+          opacity: 1,
+          scale: 1
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5,
+          delay: 0.4
+        }} className="group rounded-lg border-2 border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(249,115,22,0.5)]">
             <div className="flex items-center gap-1.5">
               <span className="text-[10px] font-bold text-orange-400 sm:text-xs">4. Retainer</span>
               <span className="text-[8px] text-orange-300/80 sm:text-[9px]">Ongoing</span>
@@ -708,24 +746,7 @@ function WhoBenefits() {
 }
 function FAQSection() {
   return <section id="faq" className="border-t border-slate-900/80 py-6 md:py-8">
-      <motion.div initial={{
-      opacity: 0,
-      y: 20
-    }} whileInView={{
-      opacity: 1,
-      y: 0
-    }} viewport={{
-      once: true
-    }} transition={{
-      duration: 0.5
-    }} className="max-w-4xl mb-3">
-        <h2 className="text-base font-semibold md:text-lg">
-          FAQ
-        </h2>
-        <p className="mt-1 text-[10px] text-slate-300 sm:text-xs">
-          Like working with a senior dev on a weekly subscription.
-        </p>
-      </motion.div>
+      
 
       {/* AI Assistant */}
       <motion.div initial={{
@@ -745,25 +766,7 @@ function FAQSection() {
 
       {/* FAQ Items - Compact Grid Layout */}
       <dl className="grid gap-2 sm:gap-2.5 sm:grid-cols-2">
-        {faqs.map((item, index) => <motion.div key={item.question} initial={{
-        opacity: 0,
-        y: 20
-      }} whileInView={{
-        opacity: 1,
-        y: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.5,
-        delay: index * 0.05
-      }} className="rounded-xl border border-slate-800/80 bg-slate-950/60 p-2 sm:p-2.5 hover:border-primary/30 transition-colors">
-            <dt className="text-[10px] font-medium text-slate-50 leading-tight sm:text-xs">
-              {item.question}
-            </dt>
-            <dd className="mt-0.5 text-[9px] text-slate-300 leading-relaxed sm:text-[10px]">
-              {item.answer}
-            </dd>
-          </motion.div>)}
+        {faqs.map((item, index) => {})}
       </dl>
     </section>;
 }
