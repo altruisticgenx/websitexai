@@ -210,11 +210,11 @@ Key Service Points:
 Be conversational, professional, and encourage booking a 30-min intro call for complex inquiries. 
 NEVER reveal data about specific submissions, emails, or private user information.`;
 
-    // Call OpenAI GPT-4o
-    const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
-    if (!OPENAI_API_KEY) {
-      console.error("❌ OPENAI_API_KEY not configured");
-      throw new Error("OPENAI_API_KEY not configured");
+    // Call Lovable AI Gateway
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    if (!LOVABLE_API_KEY) {
+      console.error("❌ LOVABLE_API_KEY not configured");
+      throw new Error("LOVABLE_API_KEY not configured");
     }
 
     // Convert conversation history to OpenAI message format
@@ -236,15 +236,15 @@ NEVER reveal data about specific submissions, emails, or private user informatio
       messages.push({ role: "user", content: sanitizedQuestion });
     }
 
-    console.log("🤖 Calling OpenAI GPT-4o with", messages.length, "messages...");
-    const aiResponse = await fetch("https://api.openai.com/v1/chat/completions", {
+    console.log("🤖 Calling Lovable AI Gateway with", messages.length, "messages...");
+    const aiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${OPENAI_API_KEY}`,
+        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "gpt-4o",
+        model: "google/gemini-2.5-flash",
         messages: messages,
         max_tokens: 800,
         temperature: 0.7,
@@ -253,7 +253,7 @@ NEVER reveal data about specific submissions, emails, or private user informatio
 
     if (!aiResponse.ok) {
       const errorText = await aiResponse.text();
-      console.error("❌ OpenAI API error:", {
+      console.error("❌ Lovable AI Gateway error:", {
         status: aiResponse.status,
         statusText: aiResponse.statusText,
         body: errorText
@@ -266,18 +266,25 @@ NEVER reveal data about specific submissions, emails, or private user informatio
         );
       }
       
+      if (aiResponse.status === 402) {
+        return new Response(
+          JSON.stringify({ error: "AI credits exhausted. Please add credits to your Lovable workspace." }),
+          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      
       if (aiResponse.status === 401) {
         return new Response(
-          JSON.stringify({ error: "OpenAI API authentication failed. Please check API key." }),
+          JSON.stringify({ error: "AI authentication failed. Please check configuration." }),
           { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
 
-      throw new Error(`OpenAI API request failed: ${aiResponse.status} ${errorText}`);
+      throw new Error(`Lovable AI request failed: ${aiResponse.status} ${errorText}`);
     }
 
     const aiData = await aiResponse.json();
-    console.log("✅ OpenAI response structure:", { 
+    console.log("✅ Lovable AI response structure:", { 
       hasChoices: !!aiData.choices, 
       choicesLength: aiData.choices?.length,
       hasContent: !!aiData.choices?.[0]?.message?.content 
@@ -286,11 +293,11 @@ NEVER reveal data about specific submissions, emails, or private user informatio
     const answer = aiData.choices?.[0]?.message?.content;
 
     if (!answer) {
-      console.error("❌ No answer in OpenAI response:", JSON.stringify(aiData));
-      throw new Error("No response from OpenAI");
+      console.error("❌ No answer in Lovable AI response:", JSON.stringify(aiData));
+      throw new Error("No response from AI");
     }
 
-    console.log("✅ Successfully generated answer with GPT-4o");
+    console.log("✅ Successfully generated answer with Lovable AI");
     return new Response(
       JSON.stringify({ answer }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
