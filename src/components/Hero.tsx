@@ -53,10 +53,41 @@ export function Hero() {
   const yForeground = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
+  // Lazy loading state for 3D background
+  const [shouldRender3D, setShouldRender3D] = useState(false);
+
   // Typing animation state
   const fullText = "Build, Learn, Lead—on Your Terms";
   const [displayedText, setDisplayedText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
+  
+  // Intersection Observer for lazy loading 3D background
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !shouldRender3D) {
+            setShouldRender3D(true);
+          }
+        });
+      },
+      {
+        rootMargin: '100px', // Start loading slightly before it comes into view
+        threshold: 0.1,
+      }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [shouldRender3D]);
+
   useEffect(() => {
     let currentIndex = 0;
     const typingSpeed = 80; // milliseconds per character
@@ -80,8 +111,8 @@ export function Hero() {
     };
   }, []);
   return <section ref={ref} id="home" className="relative py-8 md:py-12 overflow-hidden bg-slate-950">
-      {/* 3D Animated Background */}
-      <Hero3DBackground />
+      {/* 3D Animated Background - Lazy Loaded */}
+      {shouldRender3D && <Hero3DBackground />}
       
       {/* Matrix Rain Effect - Optimized */}
       <div className="absolute inset-0 opacity-10 pointer-events-none overflow-hidden">
