@@ -151,8 +151,8 @@ export function FAQAssistant() {
         // Handle credit exhaustion
         if (error.message?.includes("402") || error.message?.includes("credits exhausted")) {
           toast({
-            title: "Service temporarily unavailable",
-            description: "AI assistant credits need to be replenished. Please try again later.",
+            title: "AI Credits Exhausted",
+            description: "Please add credits to your Lovable workspace to continue using the AI assistant.",
             variant: "destructive"
           });
           // Remove the user message we just added
