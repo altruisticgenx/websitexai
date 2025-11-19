@@ -8,7 +8,7 @@ import { WhereIWork } from "@/components/WhereIWork";
 import { OrganizationTypes } from "@/components/OrganizationTypes";
 import { EngagementModels } from "@/components/EngagementModels";
 import { Hero } from "@/components/Hero";
-import { FAQAssistant } from "@/components/FAQAssistant";
+
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
@@ -736,27 +736,25 @@ function WhoBenefits() {
 }
 function FAQSection() {
   return <section id="faq" className="border-t border-slate-900/80 py-6 md:py-8">
-      
-
-      {/* AI Assistant */}
-      <motion.div initial={{
-      opacity: 0,
-      y: 20
-    }} whileInView={{
-      opacity: 1,
-      y: 0
-    }} viewport={{
-      once: true
-    }} transition={{
-      duration: 0.5,
-      delay: 0.1
-    }} className="mb-4">
-        <FAQAssistant />
-      </motion.div>
-
       {/* FAQ Items - Compact Grid Layout */}
       <dl className="grid gap-2 sm:gap-2.5 sm:grid-cols-2">
-        {faqs.map((item, index) => null)}
+        {faqs.map((item, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: index * 0.05 }}
+            className="rounded-lg border border-slate-800/70 bg-slate-950/50 p-3"
+          >
+            <dt className="text-xs font-medium text-foreground sm:text-sm">
+              {item.question}
+            </dt>
+            <dd className="mt-1.5 text-[10px] text-muted-foreground sm:text-xs">
+              {item.answer}
+            </dd>
+          </motion.div>
+        ))}
       </dl>
     </section>;
 }
