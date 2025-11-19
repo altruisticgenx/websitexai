@@ -1,3 +1,5 @@
+import { PilotApplicationForm } from "@/components/PilotApplicationForm";
+
 export default function FutureProofing() {
   return (
     <main className="min-h-screen bg-slate-950 text-slate-50">
@@ -22,10 +24,11 @@ export default function FutureProofing() {
                 href="#apply"
                 className="inline-flex items-center rounded-full bg-sky-400 px-5 py-2.5 text-sm font-medium text-slate-950 hover:bg-sky-300 transition"
               >
-                Apply for the 2025–2026 Pilot
+                Apply Below
               </a>
               <a
-                href="#download"
+                href="/pennsylvania_future_proofing_pilot.pdf"
+                download
                 className="inline-flex items-center rounded-full border border-slate-500 px-5 py-2.5 text-sm font-medium text-slate-100 hover:bg-slate-900/60 transition"
               >
                 Download Pilot Overview (PDF)
@@ -275,23 +278,7 @@ export default function FutureProofing() {
               AI-supported civic solutions—without waiting for new mandates.
             </p>
           </div>
-          <div className="flex flex-wrap gap-3">
-            <a
-              href="https://scheduler.zoom.us/altruistic-xai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full bg-sky-400 px-5 py-2.5 text-sm font-medium text-slate-950 hover:bg-sky-300 transition"
-            >
-              Apply for the 2025–2026 Pilot
-            </a>
-            <a
-              id="download"
-              href="#download"
-              className="inline-flex items-center rounded-full border border-slate-500 px-5 py-2.5 text-sm font-medium text-slate-100 hover:bg-slate-900/60 transition"
-            >
-              Download Full Pilot PDF
-            </a>
-          </div>
+          <PilotApplicationForm />
           <p className="text-xs text-slate-400">
             Ideal for 1–3 pilot schools per district in 2025–2026, with room to
             scale to 20–50 districts by Fall 2026.
