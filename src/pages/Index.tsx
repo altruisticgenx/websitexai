@@ -153,7 +153,7 @@ function FeatureCardWithTooltip({ item, index }: { item: { title: string; desc: 
               <h4 className="text-xs font-semibold text-foreground">
                 {item.title}
               </h4>
-              <p className="text-[10px] text-muted-foreground leading-relaxed mt-0.5">
+              <p className="body-sm text-muted-foreground leading-relaxed mt-0.5">
                 {item.desc}
               </p>
             </div>
@@ -161,7 +161,7 @@ function FeatureCardWithTooltip({ item, index }: { item: { title: string; desc: 
         </motion.div>
       </TooltipTrigger>
       <TooltipContent side="top" className="max-w-[280px] bg-slate-900/95 border-primary/30 backdrop-blur-sm">
-        <p className="text-[10px] text-slate-200 leading-relaxed">
+        <p className="body-sm text-slate-200 leading-relaxed">
           <span className="font-semibold text-primary">Real Example:</span> {item.example}
         </p>
       </TooltipContent>
@@ -256,10 +256,10 @@ function RecentBuilds() {
       }} transition={{
         duration: 0.5
       }}>
-          <h2 className="text-base font-semibold tracking-tight text-foreground md:text-lg">
+          <h2 className="heading-3 text-foreground">
             Recent Builds
           </h2>
-          <p className="mt-1 text-[10px] text-muted-foreground sm:text-xs">
+          <p className="mt-1 body-base text-muted-foreground">
             Small scope, real results—across energy, education, and founder projects.
           </p>
         </motion.div>
@@ -331,7 +331,7 @@ function PilotOffer() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                className={`flex items-start gap-2 text-[10px] leading-relaxed ${i === 2 ? 'text-foreground font-medium' : 'text-muted-foreground'}`}
+                className={`flex items-start gap-2 body-base leading-relaxed ${i === 2 ? 'text-foreground font-medium' : 'text-muted-foreground'}`}
               >
                 <span className="text-primary mt-0.5 text-xs">•</span>
                 <span>{text}</span>
@@ -404,7 +404,7 @@ function PilotOffer() {
             What This Model Is Not For
           </h3>
           <div className="rounded-md border border-slate-800/70 bg-slate-950/50 p-2">
-            <ul className="space-y-1 text-[10px] text-slate-400">
+            <ul className="space-y-1 body-base text-slate-400">
               <li className="flex items-start gap-1.5">
                 <span className="opacity-50 mt-0.5 text-xs">✕</span>
                 <span>Large, multi-team implementations from day one</span>
@@ -437,7 +437,7 @@ function PilotOffer() {
           <p className="text-xs text-foreground font-medium mb-1">
             Pilot-first, learning-first approach
           </p>
-          <p className="text-[10px] text-muted-foreground leading-relaxed">
+          <p className="body-base text-muted-foreground leading-relaxed">
             Small scope, honest results, and no long-term lock-in until you know what's actually worth scaling.
           </p>
         </motion.div>
@@ -458,10 +458,10 @@ function TypicalProgression() {
       }} transition={{
         duration: 0.5
       }}>
-          <h2 className="text-base font-semibold tracking-tight text-foreground md:text-lg">
+          <h2 className="heading-3 text-foreground">
             Typical Progression
           </h2>
-          <p className="mt-1.5 text-[10px] text-muted-foreground sm:text-xs">
+          <p className="mt-1.5 body-base text-muted-foreground">
             Start small, scale when ready—or jump to any stage.
           </p>
         </motion.div>
@@ -480,10 +480,10 @@ function TypicalProgression() {
           delay: 0.1
         }} className="group rounded-lg border-2 border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.5)]">
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-bold text-emerald-400 sm:text-xs">1. Pilot</span>
-              <span className="text-[8px] text-emerald-300/80 sm:text-[9px]">4 weeks</span>
+              <span className="body-sm font-bold text-emerald-400">1. Pilot</span>
+              <span className="caption text-emerald-300/80">4 weeks</span>
             </div>
-            <p className="mt-1 text-[8px] leading-tight text-slate-300 sm:text-[9px]">
+            <p className="mt-1 body-sm leading-tight text-slate-300">
               Ship 1–2 features/week. Demo-ready code. Real builds, not decks. $1,150/wk.
             </p>
           </motion.div>
@@ -501,10 +501,10 @@ function TypicalProgression() {
           delay: 0.2
         }} className="group rounded-lg border-2 border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.5)]">
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-bold text-blue-400 sm:text-xs">2. Proposal</span>
-              <span className="text-[8px] text-blue-300/80 sm:text-[9px]">1–2 weeks</span>
+              <span className="body-sm font-bold text-blue-400">2. Proposal</span>
+              <span className="caption text-blue-300/80">1–2 weeks</span>
             </div>
-            <p className="mt-1 text-[8px] leading-tight text-slate-300 sm:text-[9px]">
+            <p className="mt-1 body-sm leading-tight text-slate-300">
               Scope doc, timeline, budget. Grant-ready, stakeholder-approved. RFP support.
             </p>
           </motion.div>
@@ -522,10 +522,10 @@ function TypicalProgression() {
           delay: 0.3
         }} className="group rounded-lg border-2 border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(139,92,246,0.5)]">
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-bold text-violet-400 sm:text-xs">3. Build</span>
-              <span className="text-[8px] text-violet-300/80 sm:text-[9px]">2–6 months</span>
+              <span className="body-sm font-bold text-violet-400">3. Build</span>
+              <span className="caption text-violet-300/80">2–6 months</span>
             </div>
-            <p className="mt-1 text-[8px] leading-tight text-slate-300 sm:text-[9px]">
+            <p className="mt-1 body-sm leading-tight text-slate-300">
               Full product delivery. Integrations, testing, documentation. Launch-ready.
             </p>
           </motion.div>
@@ -543,10 +543,10 @@ function TypicalProgression() {
           delay: 0.4
         }} className="group rounded-lg border-2 border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(249,115,22,0.5)]">
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-bold text-orange-400 sm:text-xs">4. Retainer</span>
-              <span className="text-[8px] text-orange-300/80 sm:text-[9px]">Ongoing</span>
+              <span className="body-sm font-bold text-orange-400">4. Retainer</span>
+              <span className="caption text-orange-300/80">Ongoing</span>
             </div>
-            <p className="mt-1 text-[8px] leading-tight text-slate-300 sm:text-[9px]">
+            <p className="mt-1 body-sm leading-tight text-slate-300">
               Monthly support. Bug fixes, features, pivots. Always-on expertise.
             </p>
           </motion.div>
@@ -569,10 +569,10 @@ function WhoBenefits() {
       }} transition={{
         duration: 0.5
       }}>
-          <h2 className="text-base font-semibold tracking-tight text-foreground md:text-lg">
+          <h2 className="heading-3 text-foreground">
             Who Benefits?
           </h2>
-          <p className="mt-1.5 max-w-2xl text-[10px] leading-relaxed text-muted-foreground sm:text-xs">
+          <p className="mt-1.5 max-w-2xl body-base leading-relaxed text-muted-foreground">
             This model is for anyone who needs <span className="text-primary font-medium">tangible progress without hiring overhead</span>.
           </p>
         </motion.div>
@@ -590,10 +590,10 @@ function WhoBenefits() {
           duration: 0.5,
           delay: 0.1
         }} className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-3">
-            <h3 className="text-[10px] font-semibold uppercase tracking-[0.16em] text-primary sm:text-xs">
+            <h3 className="label text-primary">
               Perfect For
             </h3>
-            <ul className="mt-2 space-y-1 text-[10px] text-slate-200 sm:text-xs">
+            <ul className="mt-2 space-y-1 body-base text-slate-200">
               {audiences.map((audience, i) => <li key={i} className="flex items-start gap-2">
                   <span className="text-primary mt-0.5">✓</span>
                   {audience}
@@ -614,18 +614,18 @@ function WhoBenefits() {
           delay: 0.2
         }} className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-3">
             <div className="mb-3">
-              <h3 className="text-[10px] font-semibold uppercase tracking-[0.16em] text-primary sm:text-xs">
+              <h3 className="label text-primary">
                 Ideal Fit
               </h3>
-              <p className="mt-1 text-[10px] text-slate-200 sm:text-xs">
+              <p className="mt-1 body-base text-slate-200">
                 Weekly feedback, ready to experiment, need clear results
               </p>
             </div>
             <div>
-              <h3 className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400 sm:text-xs">
+              <h3 className="label text-slate-400">
                 Not a Fit
               </h3>
-              <p className="mt-1 text-[10px] text-slate-400 sm:text-xs">
+              <p className="mt-1 body-base text-slate-400">
                 Big static sites, slow-moving teams, no feedback loop
               </p>
             </div>
@@ -638,17 +638,19 @@ function AboutMe() {
   return (
     <section id="about" className="border-t border-slate-900/80 py-6 md:py-8">
       <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
+          className="space-y-2"
         >
-          <h2 className="text-base font-semibold tracking-tight text-foreground md:text-lg">
+          <h2 className="heading-3 text-foreground">
             About Me
           </h2>
           <motion.p
-            className="mt-3 body-base text-muted-foreground leading-relaxed"
+            className="body-base text-muted-foreground max-w-3xl"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -660,17 +662,17 @@ function AboutMe() {
 
         {/* Why This Matters Section */}
         <motion.div
-          className="mt-6"
+          className="mt-6 rounded-xl border border-slate-800/70 bg-slate-950/30 p-4 md:p-5"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <h3 className="text-sm font-semibold text-foreground md:text-base">
+          <h3 className="heading-4 text-foreground">
             Why This Matters
           </h3>
           <motion.p
-            className="mt-2 body-small text-muted-foreground leading-relaxed"
+            className="mt-2 body-base text-muted-foreground"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -689,27 +691,32 @@ function AboutMe() {
             ].map((item, index) => (
               <motion.li
                 key={index}
-                className="flex items-start gap-2 body-small text-muted-foreground"
+                className="flex items-start gap-2.5 body-base text-muted-foreground group"
                 initial={{ opacity: 0, x: -10 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.4 + index * 0.05 }}
               >
-                <span className="inline-block w-1.5 h-1.5 mt-1.5 rounded-full bg-emerald-400 flex-shrink-0" />
-                <span>{item}</span>
+                <motion.span 
+                  className="inline-block w-1.5 h-1.5 mt-1.5 rounded-full bg-emerald-400 flex-shrink-0 group-hover:scale-125 transition-transform"
+                  whileHover={{ scale: 1.3 }}
+                />
+                <span className="flex-1">{item}</span>
               </motion.li>
             ))}
           </ul>
 
-          <motion.p
-            className="mt-4 body-base text-foreground leading-relaxed font-medium"
+          <motion.div
+            className="mt-5 pt-4 border-t border-slate-800/50"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            This work provides the missing infrastructure for a state with all the necessary components but no system connecting them.
-          </motion.p>
+            <p className="body-base text-foreground leading-relaxed">
+              This work provides the missing infrastructure for a state with all the necessary components but no system connecting them.
+            </p>
+          </motion.div>
         </motion.div>
       </div>
     </section>
@@ -717,7 +724,7 @@ function AboutMe() {
 }
 function SiteFooter() {
   return <footer className="border-t border-slate-900/80 py-4">
-      <div className="flex flex-col items-start justify-between gap-2 text-[10px] text-slate-500 sm:flex-row sm:items-center md:text-xs">
+      <div className="flex flex-col items-start justify-between gap-2 body-sm text-slate-500 sm:flex-row sm:items-center">
         <div>© {new Date().getFullYear()} AltruisticX AI</div>
         <div className="flex flex-wrap gap-2">
           <span>Async · privacy-aware · built for pilots</span>
