@@ -330,7 +330,7 @@ export function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/10 to-transparent rounded-lg" />
                 
                 <Mail className="h-2.5 w-2.5 relative z-10" />
-                <span className="relative z-10">altruisticxai@gmail.com</span>
+                <span className="relative z-10 text-[10px] sm:text-xs">altruisticxai@gmail.com</span>
               </motion.a>
               
               <motion.a href="https://www.linkedin.com/in/ik11/" target="_blank" rel="noopener noreferrer" className="relative inline-flex items-center justify-center gap-1 rounded-lg border-2 border-emerald-500/40 bg-gradient-to-br from-slate-900/90 to-slate-800/90 px-3 py-1.5 caption text-emerald-400 backdrop-blur-sm font-mono font-medium overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.2)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.2)] active:translate-y-[2px] transition-all" whileHover={{
