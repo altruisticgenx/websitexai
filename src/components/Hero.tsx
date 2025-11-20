@@ -122,14 +122,15 @@ export function Hero() {
     <section 
       ref={ref} 
       id="home" 
-      className="relative py-8 md:py-12 overflow-hidden bg-background gradient-mesh"
+      className="relative py-8 md:py-12 overflow-hidden bg-background rainbow-gradient-overlay"
       onMouseMove={handleMouseMove}
     >
       {/* Mouse Trail Particles */}
       {trailParticles.map((particle) => {
         const age = Date.now() - particle.timestamp;
-        const lifespan = 1000; // 1 second
+        const lifespan = 1000;
         const progress = age / lifespan;
+        const hue = (particle.id * 60) % 360; // Rainbow color cycle
         
         return (
           <motion.div
@@ -138,8 +139,8 @@ export function Hero() {
             style={{
               left: particle.x,
               top: particle.y,
-              background: `radial-gradient(circle, hsl(var(--primary) / ${1 - progress}), transparent)`,
-              boxShadow: `0 0 ${8 * (1 - progress)}px ${4 * (1 - progress)}px hsl(var(--primary) / ${0.6 * (1 - progress)})`,
+              background: `radial-gradient(circle, hsl(${hue} 100% 60% / ${1 - progress}), transparent)`,
+              boxShadow: `0 0 ${8 * (1 - progress)}px ${4 * (1 - progress)}px hsl(${hue} 100% 60% / ${0.6 * (1 - progress)})`,
             }}
             initial={{ scale: 0, opacity: 1 }}
             animate={{ 
@@ -251,17 +252,17 @@ export function Hero() {
             >
               <span className="text-muted-foreground">Focus:</span>
               <motion.button
-                className="relative px-3 py-1.5 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all"
+                className="relative px-3 py-1.5 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all rainbow-border"
                 onMouseEnter={() => setActiveSector("energy")}
                 onMouseLeave={() => setActiveSector(null)}
                 whileHover={{ scale: 1.05, borderColor: "hsl(var(--primary) / 0.6)" }}
                 style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
               >
-                {/* Glowing Halo Effect - Behind button */}
+                {/* Rainbow Glowing Halo */}
                 <motion.div
-                  className="absolute inset-0 rounded-lg bg-primary blur-xl -z-10"
+                  className="absolute inset-0 rounded-lg rainbow-gradient-bg blur-xl -z-10 opacity-0"
                   animate={{
-                    opacity: activeSector === "energy" ? [0.3, 0.6, 0.3] : 0.1,
+                    opacity: activeSector === "energy" ? [0.3, 0.6, 0.3] : 0,
                     scale: activeSector === "energy" ? [1.2, 1.5, 1.2] : 1,
                   }}
                   transition={{
@@ -336,17 +337,17 @@ export function Hero() {
               </motion.button>
               
               <motion.button
-                className="relative px-3 py-1.5 rounded-lg border-2 border-accent/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all"
+                className="relative px-3 py-1.5 rounded-lg border-2 border-accent/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all rainbow-border"
                 onMouseEnter={() => setActiveSector("education")}
                 onMouseLeave={() => setActiveSector(null)}
                 whileHover={{ scale: 1.05, borderColor: "hsl(var(--accent) / 0.6)" }}
                 style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
               >
-                {/* Glowing Halo Effect - Behind button */}
+                {/* Rainbow Glowing Halo */}
                 <motion.div
-                  className="absolute inset-0 rounded-lg bg-accent blur-xl -z-10"
+                  className="absolute inset-0 rounded-lg rainbow-gradient-bg blur-xl -z-10 opacity-0"
                   animate={{
-                    opacity: activeSector === "education" ? [0.3, 0.6, 0.3] : 0.1,
+                    opacity: activeSector === "education" ? [0.3, 0.6, 0.3] : 0,
                     scale: activeSector === "education" ? [1.2, 1.5, 1.2] : 1,
                   }}
                   transition={{
