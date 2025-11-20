@@ -5,13 +5,16 @@ import { Hero } from "@/components/Hero";
 import { LazySection } from "@/components/LazySection";
 import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
 
-// Lazy load below-the-fold sections
+// Lazy load heavier, below-the-fold sections
 const ShelvedExperiments = lazy(() =>
   import("@/components/ShelvedExperiments").then((m) => ({ default: m.ShelvedExperiments })),
 );
 const WhereIWork = lazy(() => import("@/components/WhereIWork").then((m) => ({ default: m.WhereIWork })));
 const OrganizationTypes = lazy(() =>
   import("@/components/OrganizationTypes").then((m) => ({ default: m.OrganizationTypes })),
+);
+const EngagementModels = lazy(() =>
+  import("@/components/EngagementModels").then((m) => ({ default: m.EngagementModels })),
 );
 
 import { ScrollToTop } from "@/components/ScrollToTop";
@@ -24,54 +27,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { SiteNav } from "@/components/SiteNav";
 import { HeroSkeleton, CardsSkeleton, StepsSkeleton, TwoColumnSkeleton } from "@/components/skeletons/SectionSkeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { getCardGradient, cardContainer } from "@/lib/ui";
-
-// -----------------------------
-// Error Boundary + Lazy wrapper
-// -----------------------------
-class ErrorBoundary extends React.Component<{ fallback?: React.ReactNode }, { hasError: boolean }> {
-  constructor(props: any) {
-    super(props);
-    this.state = { hasError: false };
-  }
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-  componentDidCatch(error: any, info: any) {
-    if (process.env.NODE_ENV !== "production") {
-      // eslint-disable-next-line no-console
-      console.error("Lazy section crashed:", error, info);
-    }
-  }
-  render() {
-    if (this.state.hasError) {
-      return (
-        this.props.fallback ?? (
-          <div
-            role="alert"
-            className="rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center text-sm text-red-300"
-          >
-            Something went wrong loading this section.
-          </div>
-        )
-      );
-    }
-    return this.props.children as React.ReactNode;
-  }
-}
-
-const LazyWithBoundary: React.FC<{ children: React.ReactNode; fallback?: React.ReactNode }> = ({
-  children,
-  fallback,
-}) => (
-  <ErrorBoundary fallback={fallback}>
-    <Suspense
-      fallback={fallback ?? <div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
-    >
-      {children}
-    </Suspense>
-  </ErrorBoundary>
-);
 
 // -----------------------------
 // Main Page Component
@@ -174,23 +129,29 @@ const Index: React.FC = () => {
                 <WhoBenefits />
               </LazySection>
 
-              <LazyWithBoundary>
+              <Suspense
+                fallback={<div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
+              >
                 <LazySection>
                   <OrganizationTypes />
                 </LazySection>
-              </LazyWithBoundary>
+              </Suspense>
 
-              <LazyWithBoundary>
+              <Suspense
+                fallback={<div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
+              >
                 <LazySection>
                   <WhereIWork />
                 </LazySection>
-              </LazyWithBoundary>
+              </Suspense>
 
-              <LazyWithBoundary>
+              <Suspense
+                fallback={<div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
+              >
                 <LazySection>
                   <ShelvedExperiments />
                 </LazySection>
-              </LazyWithBoundary>
+              </Suspense>
 
               <LazySection>
                 <AboutMe />
@@ -223,7 +184,19 @@ type FeatureItem = {
 
 const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = React.memo(({ item, index }) => {
   const prefersReducedMotion = useReducedMotion();
-  const colorClasses = useMemo(() => getCardGradient(item.color as any), [item.color]);
+
+  const colorClasses = useMemo(() => {
+    switch (item.color) {
+      case "emerald":
+        return "border-primary/30 from-primary/5";
+      case "cyan":
+        return "border-accent/30 from-accent/5";
+      case "teal":
+        return "border-primary/20 from-primary/5";
+      default:
+        return "border-blue-500/30 from-blue-500/5";
+    }
+  }, [item.color]);
 
   return (
     <Tooltip>
@@ -243,14 +216,14 @@ const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = R
           aria-label={`${item.title} – ${item.desc}`}
         >
           <div className="relative flex items-start gap-2">
-            <div className="min-w-0 flex-1 text-left">
+            <div className="flex-1 min-w-0 text-left">
               <h4 className="mb-1 text-sm font-semibold text-foreground">{item.title}</h4>
               <p className="body-base leading-relaxed text-muted-foreground">{item.desc}</p>
             </div>
           </div>
         </motion.button>
       </TooltipTrigger>
-      <TooltipContent side="top" className="max-w-[280px] border-primary/30 bg-slate-900/95 backdrop-blur-sm">
+      <TooltipContent side="top" className="max-w-[280px] bg-slate-900/95 backdrop-blur-sm border-primary/30">
         <p className="body-sm leading-relaxed text-slate-200">
           <span className="font-semibold text-primary">Real Example:</span> {item.example}
         </p>
@@ -503,32 +476,6 @@ const PilotOffer: React.FC = React.memo(() => {
 PilotOffer.displayName = "PilotOffer";
 
 const TypicalProgression: React.FC = React.memo(() => {
-  const steps = [
-    {
-      title: "1. Pilot",
-      sub: "4 weeks",
-      body: "Ship 1–2 features/week. Demo-ready code. Real builds, not decks.",
-      ring: "emerald",
-    },
-    {
-      title: "2. Proposal",
-      sub: "1–2 weeks",
-      body: "Scope doc, timeline, budget. Grant-ready, stakeholder-approved. RFP support.",
-      ring: "blue",
-    },
-    {
-      title: "3. Build",
-      sub: "2–6 months",
-      body: "Full product delivery. Integrations, testing, documentation. Launch-ready.",
-      ring: "violet",
-    },
-    {
-      title: "4. Retainer",
-      sub: "Ongoing",
-      body: "Monthly support. Bug fixes, features, pivots. Always-on expertise.",
-      ring: "orange",
-    },
-  ] as const;
   return (
     <section className="border-t border-slate-900/80 py-10 lg:py-16">
       <div className="mx-auto w-full max-w-5xl px-4">
@@ -544,14 +491,45 @@ const TypicalProgression: React.FC = React.memo(() => {
         </motion.div>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step, i) => (
+          {[
+            {
+              title: "1. Pilot",
+              sub: "4 weeks",
+              body: "Ship 1–2 features/week. Demo-ready code. Real builds, not decks.",
+              ring: "emerald",
+            },
+            {
+              title: "2. Proposal",
+              sub: "1–2 weeks",
+              body: "Scope doc, timeline, budget. Grant-ready, stakeholder-approved. RFP support.",
+              ring: "blue",
+            },
+            {
+              title: "3. Build",
+              sub: "2–6 months",
+              body: "Full product delivery. Integrations, testing, documentation. Launch-ready.",
+              ring: "violet",
+            },
+            {
+              title: "4. Retainer",
+              sub: "Ongoing",
+              body: "Monthly support. Bug fixes, features, pivots. Always-on expertise.",
+              ring: "orange",
+            },
+          ].map((step, i) => (
             <motion.div
               key={step.title}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: 0.08 * i }}
-              className={cardContainer(step.ring as any)}
+              className={cn(
+                "group rounded-lg border-2 p-4 backdrop-blur-sm transition-all",
+                step.ring === "emerald" && "border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20",
+                step.ring === "blue" && "border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20",
+                step.ring === "violet" && "border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20",
+                step.ring === "orange" && "border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20",
+              )}
             >
               <div className="mb-2 flex items-center gap-2">
                 <span className="body-base font-bold text-slate-100">{step.title}</span>
