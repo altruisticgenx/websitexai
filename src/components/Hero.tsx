@@ -37,6 +37,8 @@ export function Hero() {
   const [trailParticles, setTrailParticles] = useState<TrailParticle[]>([]);
   const particleIdRef = useRef(0);
   const lastMousePos = useRef({ x: 0, y: 0, timestamp: 0 });
+  const lastSoundTime = useRef(0);
+  const audioContextRef = useRef<AudioContext | null>(null);
   
   // Intersection Observer for lazy loading 3D background
   useEffect(() => {
@@ -90,6 +92,58 @@ export function Hero() {
     };
   }, [fullText]);
 
+  // Initialize Audio Context
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+    }
+    return () => {
+      if (audioContextRef.current) {
+        audioContextRef.current.close();
+      }
+    };
+  }, []);
+
+  // Play sound based on speed threshold
+  const playSpeedSound = (speed: number) => {
+    if (!audioContextRef.current) return;
+    
+    const now = Date.now();
+    // Throttle sounds to prevent spam (minimum 100ms between sounds)
+    if (now - lastSoundTime.current < 100) return;
+    
+    const audioContext = audioContextRef.current;
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    // Different frequencies and volumes based on speed thresholds
+    if (speed < 0.5) {
+      // Slow: Low frequency, subtle
+      oscillator.frequency.value = 200;
+      gainNode.gain.value = 0.05;
+    } else if (speed < 1.5) {
+      // Medium: Mid frequency, moderate
+      oscillator.frequency.value = 400;
+      gainNode.gain.value = 0.08;
+    } else {
+      // Fast: High frequency, prominent
+      oscillator.frequency.value = 800;
+      gainNode.gain.value = 0.12;
+    }
+    
+    oscillator.type = 'sine';
+    oscillator.start();
+    
+    // Fade out
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+    oscillator.stop(audioContext.currentTime + 0.15);
+    
+    lastSoundTime.current = now;
+  };
+
   // Handle mouse movement for trail effect
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (!ref.current) return;
@@ -105,6 +159,11 @@ export function Hero() {
     const dt = Math.max(now - lastMousePos.current.timestamp, 1);
     const distance = Math.sqrt(dx * dx + dy * dy);
     const speed = Math.min(distance / dt, 3); // Normalize speed (0-3)
+    
+    // Play sound when speed exceeds threshold
+    if (speed > 0.3) {
+      playSpeedSound(speed);
+    }
     
     lastMousePos.current = { x, y, timestamp: now };
     
