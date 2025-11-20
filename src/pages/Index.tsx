@@ -243,7 +243,7 @@ function RecentBuilds() {
       supabase.removeChannel(channel);
     };
   }, []);
-  return <section id="builds" className="py-6 md:py-10">
+  return <section id="builds" className="py-6 md:py-10 rainbow-gradient-overlay">
       <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
         <motion.div initial={{
         opacity: 0,
@@ -303,7 +303,7 @@ function RecentBuilds() {
     </section>;
 }
 function PilotOffer() {
-  return <section id="pilot" className="border-t border-slate-900/80 py-3 md:py-4 gradient-mesh">
+  return <section id="pilot" className="border-t border-slate-900/80 py-3 md:py-4 rainbow-mesh">
       <div className="mx-auto w-full max-w-5xl px-3 md:px-4 organic-spacing">
         <motion.div initial={{
         opacity: 0,
@@ -478,7 +478,7 @@ function TypicalProgression() {
         }} transition={{
           duration: 0.5,
           delay: 0.1
-        }} className="group rounded-lg border-2 border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] isolated-component preserve-3d">
+        }} className="group rounded-lg border-2 border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] isolated-component preserve-3d rainbow-border">
             <div className="flex items-center gap-1.5">
               <span className="body-sm font-bold text-emerald-400">1. Pilot</span>
               <span className="caption text-emerald-300/80">4 weeks</span>
@@ -499,7 +499,7 @@ function TypicalProgression() {
         }} transition={{
           duration: 0.5,
           delay: 0.2
-        }} className="group rounded-lg border-2 border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] isolated-component preserve-3d">
+        }} className="group rounded-lg border-2 border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] isolated-component preserve-3d rainbow-border">
             <div className="flex items-center gap-1.5">
               <span className="body-sm font-bold text-blue-400">2. Proposal</span>
               <span className="caption text-blue-300/80">1–2 weeks</span>
@@ -520,7 +520,7 @@ function TypicalProgression() {
         }} transition={{
           duration: 0.5,
           delay: 0.3
-        }} className="group rounded-lg border-2 border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] isolated-component preserve-3d">
+        }} className="group rounded-lg border-2 border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] isolated-component preserve-3d rainbow-border">
             <div className="flex items-center gap-1.5">
               <span className="body-sm font-bold text-violet-400">3. Build</span>
               <span className="caption text-violet-300/80">2–6 months</span>
@@ -541,7 +541,7 @@ function TypicalProgression() {
         }} transition={{
           duration: 0.5,
           delay: 0.4
-        }} className="group rounded-lg border-2 border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(249,115,22,0.5)] isolated-component preserve-3d">
+        }} className="group rounded-lg border-2 border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(249,115,22,0.5)] isolated-component preserve-3d rainbow-border">
             <div className="flex items-center gap-1.5">
               <span className="body-sm font-bold text-orange-400">4. Retainer</span>
               <span className="caption text-orange-300/80">Ongoing</span>
@@ -636,7 +636,7 @@ function WhoBenefits() {
 }
 function AboutMe() {
   return (
-    <section id="about" className="border-t border-slate-900/80 py-6 md:py-8 gradient-mesh">
+    <section id="about" className="border-t border-slate-900/80 py-6 md:py-8 rainbow-mesh">
       <div className="mx-auto w-full max-w-5xl px-3 md:px-4 organic-spacing">
         {/* Header */}
         <motion.div
@@ -676,7 +676,7 @@ function AboutMe() {
           style={{ transformStyle: "preserve-3d" }}
         >
           {/* Glow effect background */}
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 via-cyan-500 to-emerald-500 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500 animate-pulse" />
+          <div className="absolute -inset-0.5 rainbow-gradient-bg rounded-2xl opacity-0 group-hover:opacity-40 blur-lg transition-all duration-500" />
           
           {/* Main card */}
           <div className="relative rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/95 via-slate-900/95 to-slate-950/95 backdrop-blur-xl p-4 md:p-5 shadow-2xl overflow-hidden">
