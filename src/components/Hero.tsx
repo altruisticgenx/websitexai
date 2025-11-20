@@ -182,6 +182,29 @@ export function Hero() {
                 whileHover={{ scale: 1.05, borderColor: "hsl(var(--primary) / 0.6)" }}
                 style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
               >
+                {/* Floating Particles */}
+                {[...Array(3)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-1 h-1 rounded-full bg-primary/60"
+                    style={{
+                      left: `${20 + i * 30}%`,
+                      top: `${30 + i * 20}%`,
+                    }}
+                    animate={{
+                      y: [-5, 5, -5],
+                      x: [-3, 3, -3],
+                      opacity: [0.3, 0.7, 0.3],
+                      scale: [0.8, 1.2, 0.8],
+                    }}
+                    transition={{
+                      duration: 2 + i * 0.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.3,
+                    }}
+                  />
+                ))}
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0"
                   animate={{ x: ['-200%', '200%'] }}
@@ -197,6 +220,29 @@ export function Hero() {
                 whileHover={{ scale: 1.05, borderColor: "hsl(var(--accent) / 0.6)" }}
                 style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
               >
+                {/* Floating Particles */}
+                {[...Array(3)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-1 h-1 rounded-full bg-accent/60"
+                    style={{
+                      left: `${25 + i * 25}%`,
+                      top: `${25 + i * 25}%`,
+                    }}
+                    animate={{
+                      y: [-4, 6, -4],
+                      x: [-2, 4, -2],
+                      opacity: [0.4, 0.8, 0.4],
+                      scale: [0.9, 1.1, 0.9],
+                    }}
+                    transition={{
+                      duration: 2.5 + i * 0.4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.4,
+                    }}
+                  />
+                ))}
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/20 to-accent/0"
                   animate={{ x: ['-200%', '200%'] }}
