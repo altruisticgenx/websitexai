@@ -8,6 +8,7 @@ interface TrailParticle {
   x: number;
   y: number;
   timestamp: number;
+  speed: number;
 }
 
 export function Hero() {
@@ -35,6 +36,7 @@ export function Hero() {
   // Mouse trail particles state
   const [trailParticles, setTrailParticles] = useState<TrailParticle[]>([]);
   const particleIdRef = useRef(0);
+  const lastMousePos = useRef({ x: 0, y: 0, timestamp: 0 });
   
   // Intersection Observer for lazy loading 3D background
   useEffect(() => {
@@ -95,12 +97,23 @@ export function Hero() {
     const rect = ref.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
+    const now = Date.now();
+    
+    // Calculate speed based on distance and time since last movement
+    const dx = x - lastMousePos.current.x;
+    const dy = y - lastMousePos.current.y;
+    const dt = Math.max(now - lastMousePos.current.timestamp, 1);
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const speed = Math.min(distance / dt, 3); // Normalize speed (0-3)
+    
+    lastMousePos.current = { x, y, timestamp: now };
     
     const newParticle: TrailParticle = {
       id: particleIdRef.current++,
       x,
       y,
-      timestamp: Date.now(),
+      timestamp: now,
+      speed,
     };
     
     setTrailParticles(prev => [...prev, newParticle]);
@@ -131,6 +144,16 @@ export function Hero() {
         const lifespan = 1000; // 1 second
         const progress = age / lifespan;
         
+        // Interpolate between primary (slow) and accent (fast) based on speed
+        const speedRatio = Math.min(particle.speed / 3, 1); // Normalize to 0-1
+        const primaryWeight = 1 - speedRatio;
+        const accentWeight = speedRatio;
+        
+        // Dynamic color mixing between primary and accent
+        const mixedColor = speedRatio < 0.5 
+          ? `color-mix(in oklch, hsl(var(--primary)) ${(1 - speedRatio * 2) * 100}%, hsl(var(--accent)) ${speedRatio * 2 * 100}%)`
+          : `color-mix(in oklch, hsl(var(--accent)) ${((speedRatio - 0.5) * 2) * 100}%, hsl(var(--primary)) ${(1 - (speedRatio - 0.5) * 2) * 100}%)`;
+        
         return (
           <motion.div
             key={particle.id}
@@ -138,16 +161,20 @@ export function Hero() {
             style={{
               left: particle.x,
               top: particle.y,
-              background: `radial-gradient(circle, hsl(var(--primary) / ${1 - progress}), transparent)`,
-              boxShadow: `0 0 ${8 * (1 - progress)}px ${4 * (1 - progress)}px hsl(var(--primary) / ${0.6 * (1 - progress)})`,
+              background: speedRatio < 0.5
+                ? `radial-gradient(circle, hsl(var(--primary) / ${1 - progress}), transparent)`
+                : `radial-gradient(circle, hsl(var(--accent) / ${1 - progress}), transparent)`,
+              boxShadow: speedRatio < 0.5
+                ? `0 0 ${8 * (1 - progress)}px ${4 * (1 - progress)}px hsl(var(--primary) / ${0.6 * (1 - progress)})`
+                : `0 0 ${12 * (1 - progress)}px ${6 * (1 - progress)}px hsl(var(--accent) / ${0.7 * (1 - progress)})`,
             }}
             initial={{ scale: 0, opacity: 1 }}
             animate={{ 
-              scale: [0, 1.5, 0],
+              scale: [0, 1.5 + (speedRatio * 0.5), 0],
               opacity: [1, 0.8, 0],
             }}
             transition={{ 
-              duration: 1,
+              duration: 1 - (speedRatio * 0.3),
               ease: "easeOut",
             }}
           />
