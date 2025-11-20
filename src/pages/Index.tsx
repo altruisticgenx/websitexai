@@ -303,8 +303,11 @@ function RecentBuilds() {
     </section>;
 }
 function PilotOffer() {
-  return <section id="pilot" className="border-t border-slate-900/80 py-3 md:py-4 rainbow-mesh">
-      <div className="mx-auto w-full max-w-5xl px-3 md:px-4 organic-spacing">
+  const [isForOpen, setIsForOpen] = useState(false);
+  const [isNotForOpen, setIsNotForOpen] = useState(false);
+
+  return <section id="pilot" className="border-t border-slate-900/80 py-4 md:py-6 rainbow-mesh">
+      <div className="mx-auto w-full max-w-4xl px-4 md:px-6">
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -315,11 +318,11 @@ function PilotOffer() {
         once: true
       }} transition={{
         duration: 0.5
-      }} className="mb-3 isolated-component">
-          <h2 className="text-sm font-semibold tracking-tight text-foreground sm:text-base text-reveal">
+      }} className="mb-4">
+          <h2 className="text-lg font-bold tracking-tight text-emerald-300 sm:text-xl md:text-2xl">
             Why a Pilot Partner Instead of Hiring In-House
           </h2>
-          <ul className="mt-2 space-y-1.5 max-w-3xl">
+          <ul className="mt-3 space-y-2 max-w-3xl text-sm md:text-base">
             {[
               "Hiring in-house makes sense once you know what you're scaling. When you're still in the \"is this even the right thing?\" phase, it's a slow and expensive way to find out.",
               "Bringing on a full-time senior hire typically means months of recruiting, six-figure commitments, and added overhead—before you even know if the pilot is worth scaling.",
@@ -331,16 +334,16 @@ function PilotOffer() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                className={`flex items-start gap-2 body-base leading-relaxed ${i === 2 ? 'text-foreground font-medium' : 'text-muted-foreground'}`}
+                className={`flex items-start gap-2 leading-relaxed ${i === 2 ? 'text-slate-100 font-semibold' : 'text-slate-300'}`}
               >
-                <span className="text-primary mt-0.5 text-xs">•</span>
+                <span className="text-emerald-400 mt-0.5 text-sm">•</span>
                 <span>{text}</span>
               </motion.li>
             ))}
           </ul>
         </motion.div>
 
-        {/* What This Model Is For */}
+        {/* What This Model Is For - Dropdown */}
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -353,41 +356,65 @@ function PilotOffer() {
         duration: 0.6,
         delay: 0.1
       }} className="mb-3">
-          <h3 className="text-xs font-semibold text-primary mb-2 sm:text-sm">
-            What This Model Is For
-          </h3>
-          <TooltipProvider delayDuration={200}>
-            <div className="grid gap-1.5 sm:grid-cols-2">
-              {[{
-              title: "Early, ambiguous work",
-              desc: "When the edges are fuzzy and you need to learn by shipping, not by planning.",
-              color: "emerald",
-              icon: "🧭",
-              example: "AI Sales Copilot: Started with messy CRM exports and unclear goals. Week 1: data flow. Week 2: first dashboard. Week 4: auto-prioritized leads ready for demo."
-            }, {
-              title: "Complex domains",
-              desc: "Energy, education, civic systems, compliance—places where policy, people, and tech collide.",
-              color: "cyan",
-              icon: "⚡",
-              example: "Energy Analytics Pilot: 200+ campus meters, Excel chaos. Built real-time dashboard showing savings opportunities across policy, billing, and operations."
-            }, {
-              title: "Proof, not promises",
-              desc: "You need visible movement and credible artifacts, not another strategy deck.",
-              color: "teal",
-              icon: "✓",
-              example: "EdTech Portal: Education nonprofit needed evidence for funders. 4 weeks: working pilot tracking outcomes. Result: defended funding with real data."
-            }, {
-              title: "Lean, collaborative teams",
-              desc: "You're comfortable working in short cycles, reacting to real results, and adjusting quickly.",
-              color: "blue",
-              icon: "⚙",
-              example: "Founder OS: Solo founder needed operational clarity. Weekly async Looms, quick pivots. Built unified scheduling, CRM, and invoicing—calm founder cockpit."
-            }].map((item, i) => <FeatureCardWithTooltip key={i} item={item} index={i} />)}
-            </div>
-          </TooltipProvider>
+          <button
+            onClick={() => setIsForOpen(!isForOpen)}
+            className="w-full flex items-center justify-between rounded-lg border border-emerald-400/40 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 px-4 py-3 text-left transition-all hover:border-emerald-400/60 hover:from-emerald-500/20 hover:to-teal-500/20"
+          >
+            <h3 className="text-sm font-bold text-emerald-300 sm:text-base">
+              What This Model Is For
+            </h3>
+            <svg
+              className={`h-5 w-5 text-emerald-400 transition-transform ${isForOpen ? 'rotate-180' : ''}`}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          
+          {isForOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="mt-3"
+            >
+              <TooltipProvider delayDuration={200}>
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {[{
+                  title: "Early, ambiguous work",
+                  desc: "When the edges are fuzzy and you need to learn by shipping, not by planning.",
+                  color: "emerald",
+                  icon: "🧭",
+                  example: "AI Sales Copilot: Started with messy CRM exports and unclear goals. Week 1: data flow. Week 2: first dashboard. Week 4: auto-prioritized leads ready for demo."
+                }, {
+                  title: "Complex domains",
+                  desc: "Energy, education, civic systems, compliance—places where policy, people, and tech collide.",
+                  color: "cyan",
+                  icon: "⚡",
+                  example: "Energy Analytics Pilot: 200+ campus meters, Excel chaos. Built real-time dashboard showing savings opportunities across policy, billing, and operations."
+                }, {
+                  title: "Proof, not promises",
+                  desc: "You need visible movement and credible artifacts, not another strategy deck.",
+                  color: "teal",
+                  icon: "✓",
+                  example: "EdTech Portal: Education nonprofit needed evidence for funders. 4 weeks: working pilot tracking outcomes. Result: defended funding with real data."
+                }, {
+                  title: "Lean, collaborative teams",
+                  desc: "You're comfortable working in short cycles, reacting to real results, and adjusting quickly.",
+                  color: "blue",
+                  icon: "⚙",
+                  example: "Founder OS: Solo founder needed operational clarity. Weekly async Looms, quick pivots. Built unified scheduling, CRM, and invoicing—calm founder cockpit."
+                }].map((item, i) => <FeatureCardWithTooltip key={i} item={item} index={i} />)}
+                </div>
+              </TooltipProvider>
+            </motion.div>
+          )}
         </motion.div>
 
-        {/* What This Model Is Not For */}
+        {/* What This Model Is Not For - Dropdown */}
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -399,26 +426,50 @@ function PilotOffer() {
       }} transition={{
         duration: 0.6,
         delay: 0.2
-      }} className="mb-3">
-          <h3 className="text-xs font-semibold text-muted-foreground mb-2 sm:text-sm">
-            What This Model Is Not For
-          </h3>
-          <div className="rounded-md border border-slate-800/70 bg-slate-950/50 p-2">
-            <ul className="space-y-1 body-base text-slate-400">
-              <li className="flex items-start gap-1.5">
-                <span className="opacity-50 mt-0.5 text-xs">✕</span>
-                <span>Large, multi-team implementations from day one</span>
-              </li>
-              <li className="flex items-start gap-1.5">
-                <span className="opacity-50 mt-0.5 text-xs">✕</span>
-                <span>Long-term headcount decisions disguised as "pilots"</span>
-              </li>
-              <li className="flex items-start gap-1.5">
-                <span className="opacity-50 mt-0.5 text-xs">✕</span>
-                <span>Purely cosmetic work where a static site or brochure would do</span>
-              </li>
-            </ul>
-          </div>
+      }} className="mb-4">
+          <button
+            onClick={() => setIsNotForOpen(!isNotForOpen)}
+            className="w-full flex items-center justify-between rounded-lg border border-slate-700/60 bg-slate-800/30 px-4 py-3 text-left transition-all hover:border-slate-600/80 hover:bg-slate-800/50"
+          >
+            <h3 className="text-sm font-bold text-slate-300 sm:text-base">
+              What This Model Is Not For
+            </h3>
+            <svg
+              className={`h-5 w-5 text-slate-400 transition-transform ${isNotForOpen ? 'rotate-180' : ''}`}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          
+          {isNotForOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="mt-3"
+            >
+              <div className="rounded-lg border border-slate-800/70 bg-slate-950/50 p-4">
+                <ul className="space-y-2 text-sm text-slate-300 md:text-base">
+                  <li className="flex items-start gap-2">
+                    <span className="text-slate-500 mt-0.5">✕</span>
+                    <span>Large, multi-team implementations from day one</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-slate-500 mt-0.5">✕</span>
+                    <span>Long-term headcount decisions disguised as "pilots"</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-slate-500 mt-0.5">✕</span>
+                    <span>Purely cosmetic work where a static site or brochure would do</span>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
+          )}
         </motion.div>
 
         {/* Bottom CTA */}
@@ -433,11 +484,11 @@ function PilotOffer() {
       }} transition={{
         duration: 0.5,
         delay: 0.3
-      }} className="rounded-md border border-primary/30 bg-gradient-to-br from-primary/5 to-slate-950/80 p-2.5 backdrop-blur-sm">
-          <p className="text-xs text-foreground font-medium mb-1">
+      }} className="rounded-lg border border-emerald-400/30 bg-gradient-to-br from-emerald-500/10 to-slate-950/80 p-4 backdrop-blur-sm">
+          <p className="text-sm font-bold text-emerald-200 mb-2 sm:text-base">
             Pilot-first, learning-first approach
           </p>
-          <p className="body-base text-muted-foreground leading-relaxed">
+          <p className="text-sm text-slate-200 leading-relaxed md:text-base">
             Small scope, honest results, and no long-term lock-in until you know what's actually worth scaling.
           </p>
         </motion.div>
