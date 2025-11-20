@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { TestimonialsVariant, CaseStudiesStack } from "@/components/ui/animated-cards-stack";
 import { Linkedin } from "lucide-react";
-import { ShelvedExperiments } from "@/components/ShelvedExperiments";
-import { WhereIWork } from "@/components/WhereIWork";
-import { OrganizationTypes } from "@/components/OrganizationTypes";
-import { EngagementModels } from "@/components/EngagementModels";
 import { Hero } from "@/components/Hero";
+import { LazySection } from "@/components/LazySection";
+
+// Lazy load heavy components
+const ShelvedExperiments = lazy(() => import("@/components/ShelvedExperiments").then(m => ({ default: m.ShelvedExperiments })));
+const WhereIWork = lazy(() => import("@/components/WhereIWork").then(m => ({ default: m.WhereIWork })));
+const OrganizationTypes = lazy(() => import("@/components/OrganizationTypes").then(m => ({ default: m.OrganizationTypes })));
+const EngagementModels = lazy(() => import("@/components/EngagementModels").then(m => ({ default: m.EngagementModels })));
 
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { ScrollProgress } from "@/components/ScrollProgress";
@@ -101,13 +104,39 @@ const Index = () => {
               <Hero />
               <RecentBuilds />
               
-              <TypicalProgression />
-              <PilotOffer />
-              <WhoBenefits />
-              <OrganizationTypes />
-              <WhereIWork />
-              <ShelvedExperiments />
-              <AboutMe />
+              <LazySection>
+                <TypicalProgression />
+              </LazySection>
+              
+              <LazySection>
+                <PilotOffer />
+              </LazySection>
+              
+              <LazySection>
+                <WhoBenefits />
+              </LazySection>
+              
+              <Suspense fallback={<div className="animate-pulse h-64 bg-slate-900/60 rounded-2xl" />}>
+                <LazySection>
+                  <OrganizationTypes />
+                </LazySection>
+              </Suspense>
+              
+              <Suspense fallback={<div className="animate-pulse h-64 bg-slate-900/60 rounded-2xl" />}>
+                <LazySection>
+                  <WhereIWork />
+                </LazySection>
+              </Suspense>
+              
+              <Suspense fallback={<div className="animate-pulse h-64 bg-slate-900/60 rounded-2xl" />}>
+                <LazySection>
+                  <ShelvedExperiments />
+                </LazySection>
+              </Suspense>
+              
+              <LazySection>
+                <AboutMe />
+              </LazySection>
             </motion.div>}
         </main>
         <SiteFooter />

@@ -101,19 +101,17 @@ export function SiteNav() {
               {/* Dropdown Menu */}
               {isWorkOpen && <div onMouseLeave={() => setIsWorkOpen(false)} role="menu" aria-label="Work submenu" className="absolute right-0 top-full mt-2 w-44 rounded-lg border border-border bg-card/95 backdrop-blur-sm shadow-xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                   <div className="p-1.5">
-                    
+                    <a href="#pilot" onClick={handleNavClick} role="menuitem" aria-label="Navigate to 4-week pilots section" className={cn("block rounded-md px-2 py-1.5 body-xs transition-colors", activeSection === "pilot" ? "bg-primary/10 text-primary font-medium" : "text-card-foreground hover:bg-accent hover:text-accent-foreground")}>
+                      <div className="font-medium body-sm">4-week pilots</div>
+                      <div className="micro text-muted-foreground">
+                        Pilot partner model
+                      </div>
+                    </a>
 
                     <a href="#builds" onClick={handleNavClick} role="menuitem" aria-label="Navigate to recent builds section" className={cn("block rounded-md px-2 py-1.5 body-xs transition-colors", activeSection === "builds" ? "bg-primary/10 text-primary font-medium" : "text-card-foreground hover:bg-accent hover:text-accent-foreground")}>
                       <div className="font-medium body-sm">Recent builds</div>
                       <div className="micro text-muted-foreground">
                         See what's been shipped
-                      </div>
-                    </a>
-
-                    <a href="#how" onClick={handleNavClick} role="menuitem" aria-label="Navigate to how it works section" className={cn("block rounded-md px-2 py-1.5 body-xs transition-colors", activeSection === "how" ? "bg-primary/10 text-primary font-medium" : "text-card-foreground hover:bg-accent hover:text-accent-foreground")}>
-                      <div className="font-medium body-sm">How it works</div>
-                      <div className="micro text-muted-foreground">
-                        Weekly sprint process
                       </div>
                     </a>
                   </div>
