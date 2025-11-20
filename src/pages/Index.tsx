@@ -1,28 +1,732 @@
-export type GradientKind = "emerald" | "cyan" | "teal" | "blue" | "violet" | "orange";
+import React, { useCallback, useEffect, useMemo, useRef, useState, Suspense, lazy } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { CaseStudiesStack } from "@/components/ui/animated-cards-stack";
+import { Hero } from "@/components/Hero";
+import { LazySection } from "@/components/LazySection";
+import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
 
-/** Tailwind class presets for gradient + border treatment on cards */
-export function getCardGradient(kind: GradientKind): string {
-  switch (kind) {
-    case "emerald":
-      return "border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20";
-    case "cyan":
-      return "border-cyan-500/30 bg-gradient-to-br from-cyan-500/10 to-slate-950/80";
-    case "teal":
-      return "border-teal-500/30 bg-gradient-to-br from-teal-500/10 to-slate-950/80";
-    case "blue":
-      return "border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20";
-    case "violet":
-      return "border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20";
-    case "orange":
-      return "border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20";
-    default:
-      return "border-slate-800 bg-slate-900/60";
+// Lazy load heavier, below-the-fold sections
+const ShelvedExperiments = lazy(() =>
+  import("@/components/ShelvedExperiments").then((m) => ({ default: m.ShelvedExperiments })),
+);
+const WhereIWork = lazy(() => import("@/components/WhereIWork").then((m) => ({ default: m.WhereIWork })));
+const OrganizationTypes = lazy(() =>
+  import("@/components/OrganizationTypes").then((m) => ({ default: m.OrganizationTypes })),
+);
+const EngagementModels = lazy(() =>
+  import("@/components/EngagementModels").then((m) => ({ default: m.EngagementModels })),
+);
+
+import { ScrollToTop } from "@/components/ScrollToTop";
+import { ScrollProgress } from "@/components/ScrollProgress";
+import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
+import { SwipeIndicator } from "@/components/SwipeIndicator";
+import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
+import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
+import { SiteNav } from "@/components/SiteNav";
+import { HeroSkeleton, CardsSkeleton, StepsSkeleton, TwoColumnSkeleton } from "@/components/skeletons/SectionSkeleton";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
+// -----------------------------
+// Main Page Component
+// -----------------------------
+const Index: React.FC = () => {
+  const prefersReducedMotion = useReducedMotion();
+
+  // Avoid flicker on first paint; hydrate with a tiny stored flag
+  const [isBootLoading, setBootLoading] = useState(() => !safeLocalStorageGet("contentLoaded"));
+
+  // Keep stable ref of section ids for swipe/keyboard nav
+  const sectionIdsRef = useRef<string[]>(["builds", "pilot", "benefits", "org-types", "where", "shelved", "about"]);
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+
+  // Simulate initial load once for first-time visitors
+  useEffect(() => {
+    if (!safeLocalStorageGet("contentLoaded")) {
+      const t = window.setTimeout(() => {
+        setBootLoading(false);
+        safeLocalStorageSet("contentLoaded", "true");
+      }, 700); // faster perceived load, mobile-first
+      return () => window.clearTimeout(t);
+    }
+    setBootLoading(false);
+  }, []);
+
+  // Swipe gesture support (mobile-first)
+  const swipeRef = useSwipeGesture<HTMLDivElement>({
+    onSwipeUp: () => navigateSection(1),
+    onSwipeDown: () => navigateSection(-1),
+    threshold: 72,
+  });
+
+  const navigateSection = useCallback(
+    (delta: number) => {
+      const ids = sectionIdsRef.current;
+      const next = Math.max(0, Math.min(ids.length - 1, currentSectionIndex + delta));
+      if (next !== currentSectionIndex) {
+        setCurrentSectionIndex(next);
+        const el = document.getElementById(ids[next]);
+        el?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+      }
+    },
+    [currentSectionIndex, prefersReducedMotion],
+  );
+
+  // Keyboard quick-jumps (1..8)
+  useKeyboardNavigation([
+    { key: "1", sectionId: "builds", name: "Builds" },
+    { key: "2", sectionId: "pilot", name: "4-Week Pilot" },
+    { key: "3", sectionId: "benefits", name: "Who Benefits" },
+    { key: "4", sectionId: "org-types", name: "Organization Types" },
+    { key: "5", sectionId: "where", name: "Where I Work" },
+    { key: "6", sectionId: "shelved", name: "Shelved Experiments" },
+    { key: "7", sectionId: "testimonials", name: "Testimonials" },
+    { key: "8", sectionId: "about", name: "About" },
+  ]);
+
+  return (
+    <div ref={swipeRef} className="min-h-screen bg-slate-950 text-slate-50 antialiased">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-slate-800 focus:px-3 focus:py-2"
+      >
+        Skip to content
+      </a>
+
+      <ScrollProgress />
+      <SiteNav />
+
+      <div className="relative mx-auto flex min-h-screen max-w-5xl flex-col px-3 sm:px-4">
+        <main id="main-content" className="flex-1 pt-2 sm:pt-4" role="main">
+          {isBootLoading ? (
+            <div className="animate-pulse">
+              <HeroSkeleton />
+              <CardsSkeleton />
+              <StepsSkeleton />
+              <TwoColumnSkeleton />
+              <StepsSkeleton count={2} />
+              <CardsSkeleton count={3} />
+            </div>
+          ) : (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
+            >
+              <Hero />
+              <RecentBuilds />
+
+              <LazySection>
+                <TypicalProgression />
+              </LazySection>
+
+              <LazySection>
+                <PilotOffer />
+              </LazySection>
+
+              <LazySection>
+                <WhoBenefits />
+              </LazySection>
+
+              <Suspense
+                fallback={<div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
+              >
+                <LazySection>
+                  <OrganizationTypes />
+                </LazySection>
+              </Suspense>
+
+              <Suspense
+                fallback={<div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
+              >
+                <LazySection>
+                  <WhereIWork />
+                </LazySection>
+              </Suspense>
+
+              <Suspense
+                fallback={<div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
+              >
+                <LazySection>
+                  <ShelvedExperiments />
+                </LazySection>
+              </Suspense>
+
+              <LazySection>
+                <AboutMe />
+              </LazySection>
+            </motion.div>
+          )}
+        </main>
+        <SiteFooter />
+      </div>
+
+      <ScrollToTop />
+      <KeyboardShortcutsHelp />
+      <SwipeIndicator />
+    </div>
+  );
+};
+export default Index;
+
+// -----------------------------
+// Sub-Components (optimized & mobile-first)
+// -----------------------------
+
+type FeatureItem = {
+  title: string;
+  desc: string;
+  color: "emerald" | "cyan" | "teal" | "blue";
+  icon: string;
+  example: string;
+};
+
+const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = React.memo(({ item, index }) => {
+  const prefersReducedMotion = useReducedMotion();
+
+  const colorClasses = useMemo(() => {
+    switch (item.color) {
+      case "emerald":
+        return "border-primary/30 from-primary/5";
+      case "cyan":
+        return "border-accent/30 from-accent/5";
+      case "teal":
+        return "border-primary/20 from-primary/5";
+      default:
+        return "border-blue-500/30 from-blue-500/5";
+    }
+  }, [item.color]);
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <motion.button
+          type="button"
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.35, delay: index * 0.06 }}
+          whileHover={prefersReducedMotion ? undefined : { scale: 1.01, y: -1 }}
+          className={cn(
+            "group relative w-full overflow-hidden rounded-md border bg-gradient-to-br to-slate-950/80 p-4 backdrop-blur-sm transition-all",
+            "touch-manipulation active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
+            colorClasses,
+          )}
+          aria-label={`${item.title} – ${item.desc}`}
+        >
+          <div className="relative flex items-start gap-2">
+            <div className="flex-1 min-w-0 text-left">
+              <h4 className="mb-1 text-sm font-semibold text-foreground">{item.title}</h4>
+              <p className="body-base leading-relaxed text-muted-foreground">{item.desc}</p>
+            </div>
+          </div>
+        </motion.button>
+      </TooltipTrigger>
+      <TooltipContent side="top" className="max-w-[280px] bg-slate-900/95 backdrop-blur-sm border-primary/30">
+        <p className="body-sm leading-relaxed text-slate-200">
+          <span className="font-semibold text-primary">Real Example:</span> {item.example}
+        </p>
+      </TooltipContent>
+    </Tooltip>
+  );
+});
+FeatureCardWithTooltip.displayName = "FeatureCardWithTooltip";
+
+const RecentBuilds: React.FC = React.memo(() => {
+  const [projects, setProjects] = useState<
+    Array<{ id: string; title: string; sector: string; summary: string; tag: string }>
+  >([]);
+  const [isLoadingProjects, setIsLoadingProjects] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const mapProjects = useCallback((rows: any[] | null) => {
+    return (rows ?? []).map((p) => ({
+      id: p.slug,
+      title: p.title,
+      sector: p.sector,
+      summary: p.summary,
+      tag: p.tag || "",
+    }));
+  }, []);
+
+  const fetchProjects = useCallback(async () => {
+    try {
+      setIsLoadingProjects(true);
+      const { data, error: fetchError } = await supabase
+        .from("projects")
+        .select("slug, title, sector, summary, tag")
+        .eq("featured", true)
+        .order("display_order", { ascending: true });
+
+      if (fetchError) throw fetchError;
+      setProjects((prev) => {
+        const next = mapProjects(data);
+        // Avoid unnecessary re-renders
+        return shallowArrayEqual(prev, next) ? prev : next;
+      });
+      setError(null);
+    } catch (e) {
+      console.error("Error fetching projects:", e);
+      setError("Failed to load projects");
+    } finally {
+      setIsLoadingProjects(false);
+    }
+  }, [mapProjects]);
+
+  useEffect(() => {
+    fetchProjects();
+  }, [fetchProjects]);
+
+  // Realtime subscription (cleanly)
+  useEffect(() => {
+    const channel = supabase
+      .channel("projects-changes")
+      .on("postgres_changes", { event: "*", schema: "public", table: "projects" }, fetchProjects)
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [fetchProjects]);
+
+  return (
+    <section id="builds" className="py-10 lg:py-16">
+      <div className="mx-auto w-full max-w-5xl px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="space-y-2"
+        >
+          <h2 className="heading-3 text-foreground">Recent Builds</h2>
+          <p className="body-base text-muted-foreground">
+            Small scope, real results—across energy, education, and founder projects.
+          </p>
+        </motion.div>
+
+        {isLoadingProjects ? (
+          <div className="mt-6">
+            <CardsSkeleton />
+          </div>
+        ) : error ? (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-6 rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center"
+            role="alert"
+            aria-live="polite"
+          >
+            <p className="text-sm text-red-300">{error}</p>
+            <button onClick={fetchProjects} className="mt-3 text-xs underline text-red-400 hover:text-red-300">
+              Try again
+            </button>
+          </motion.div>
+        ) : projects.length === 0 ? (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-6 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center"
+          >
+            <p className="text-sm text-slate-400">No projects available yet. Check back soon!</p>
+          </motion.div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mt-6 pb-2"
+          >
+            <CaseStudiesStack caseStudies={projects} />
+          </motion.div>
+        )}
+      </div>
+    </section>
+  );
+});
+RecentBuilds.displayName = "RecentBuilds";
+
+const PilotOffer: React.FC = React.memo(() => {
+  return (
+    <section id="pilot" className="border-t border-slate-900/80 py-10 lg:py-16">
+      <div className="mx-auto w-full max-w-5xl space-y-8 px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="space-y-6"
+        >
+          <h2 className="heading-3 text-foreground">Why a Pilot Partner Instead of Hiring In-House</h2>
+          <ul className="max-w-3xl space-y-4">
+            {[
+              "Hiring in-house makes sense once you know what you're scaling. When you're still in the \"is this even the right thing?\" phase, it's a slow and expensive way to find out.",
+              "Bringing on a full-time senior hire typically means months of recruiting, six-figure commitments, and added overhead—before you even know if the pilot is worth scaling.",
+              "My model is different: You bring a real problem, we design a small, honest experiment, and within a few weeks you have something you can show to leadership, funders, or partners—plus a clearer sense of what to do next.",
+            ].map((text, i) => (
+              <motion.li
+                key={i}
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, delay: i * 0.08 }}
+                className={cn(
+                  "flex items-start gap-2 body-base leading-relaxed",
+                  i === 2 ? "text-foreground font-medium" : "text-muted-foreground",
+                )}
+              >
+                <span className="mt-0.5 text-xs text-primary">•</span>
+                <span>{text}</span>
+              </motion.li>
+            ))}
+          </ul>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.45, delay: 0.1 }}
+          className="space-y-6"
+        >
+          <h3 className="heading-4 text-primary">What This Model Is For</h3>
+          <TooltipProvider delayDuration={160}>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {[
+                {
+                  title: "Early, ambiguous work",
+                  desc: "When the edges are fuzzy and you need to learn by shipping, not by planning.",
+                  color: "emerald",
+                  icon: "🧭",
+                  example:
+                    "AI Sales Copilot: Started with messy CRM exports and unclear goals. Week 1: data flow. Week 2: first dashboard. Week 4: auto-prioritized leads ready for demo.",
+                },
+                {
+                  title: "Complex domains",
+                  desc: "Energy, education, civic systems, compliance—places where policy, people, and tech collide.",
+                  color: "cyan",
+                  icon: "⚡",
+                  example:
+                    "Energy Analytics Pilot: 200+ campus meters, Excel chaos. Built real-time dashboard showing savings opportunities across policy, billing, and operations.",
+                },
+                {
+                  title: "Proof, not promises",
+                  desc: "You need visible movement and credible artifacts, not another strategy deck.",
+                  color: "teal",
+                  icon: "✓",
+                  example:
+                    "EdTech Portal: Education nonprofit needed evidence for funders. 4 weeks: working pilot tracking outcomes. Result: defended funding with real data.",
+                },
+                {
+                  title: "Lean, collaborative teams",
+                  desc: "You're comfortable working in short cycles, reacting to real results, and adjusting quickly.",
+                  color: "blue",
+                  icon: "⚙",
+                  example:
+                    "Founder OS: Solo founder needed operational clarity. Weekly async Looms, quick pivots. Built unified scheduling, CRM, and invoicing—calm founder cockpit.",
+                },
+              ].map((item, i) => (
+                <FeatureCardWithTooltip key={item.title} item={item as any} index={i} />
+              ))}
+            </div>
+          </TooltipProvider>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.45, delay: 0.2 }}
+          className="space-y-4"
+        >
+          <h3 className="heading-4 text-muted-foreground">What This Model Is Not For</h3>
+          <div className="rounded-lg border border-slate-800/70 bg-slate-950/50 p-5">
+            <ul className="body-base space-y-3 text-slate-400">
+              {[
+                "Large, multi-team implementations from day one",
+                'Long-term headcount decisions disguised as "pilots"',
+                "Purely cosmetic work where a static site or brochure would do",
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-2">
+                  <span className="mt-0.5 opacity-50">✕</span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.25 }}
+          className="rounded-lg border border-primary/30 bg-gradient-to-br from-primary/5 to-slate-950/80 p-5 backdrop-blur-sm"
+        >
+          <p className="heading-5 mb-3 text-foreground">Pilot-first, learning-first approach</p>
+          <p className="body-base leading-relaxed text-muted-foreground">
+            Small scope, honest results, and no long-term lock-in until you know what's actually worth scaling.
+          </p>
+        </motion.div>
+      </div>
+    </section>
+  );
+});
+PilotOffer.displayName = "PilotOffer";
+
+const TypicalProgression: React.FC = React.memo(() => {
+  return (
+    <section className="border-t border-slate-900/80 py-10 lg:py-16">
+      <div className="mx-auto w-full max-w-5xl px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="space-y-2"
+        >
+          <h2 className="heading-3 text-foreground">Typical Progression</h2>
+          <p className="body-base text-muted-foreground">Start small, scale when ready—or jump to any stage.</p>
+        </motion.div>
+
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            {
+              title: "1. Pilot",
+              sub: "4 weeks",
+              body: "Ship 1–2 features/week. Demo-ready code. Real builds, not decks.",
+              ring: "emerald",
+            },
+            {
+              title: "2. Proposal",
+              sub: "1–2 weeks",
+              body: "Scope doc, timeline, budget. Grant-ready, stakeholder-approved. RFP support.",
+              ring: "blue",
+            },
+            {
+              title: "3. Build",
+              sub: "2–6 months",
+              body: "Full product delivery. Integrations, testing, documentation. Launch-ready.",
+              ring: "violet",
+            },
+            {
+              title: "4. Retainer",
+              sub: "Ongoing",
+              body: "Monthly support. Bug fixes, features, pivots. Always-on expertise.",
+              ring: "orange",
+            },
+          ].map((step, i) => (
+            <motion.div
+              key={step.title}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: 0.08 * i }}
+              className={cn(
+                "group rounded-lg border-2 p-4 backdrop-blur-sm transition-all",
+                step.ring === "emerald" && "border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20",
+                step.ring === "blue" && "border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20",
+                step.ring === "violet" && "border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20",
+                step.ring === "orange" && "border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20",
+              )}
+            >
+              <div className="mb-2 flex items-center gap-2">
+                <span className="body-base font-bold text-slate-100">{step.title}</span>
+                <span className="body-sm text-slate-200/80">{step.sub}</span>
+              </div>
+              <p className="body-base leading-snug text-slate-200/90">{step.body}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+});
+TypicalProgression.displayName = "TypicalProgression";
+
+const WhoBenefits: React.FC = React.memo(() => {
+  const audiences = useMemo(
+    () => [
+      "Students bringing new ideas to life",
+      "Teachers or nonprofits piloting campus or impact projects",
+      "Boards and governance teams needing clearer dashboards",
+      "Solo founders wanting operational peace of mind",
+      "B2B units innovating on tight timelines",
+    ],
+    [],
+  );
+
+  return (
+    <section id="benefits" className="border-t border-slate-900/80 py-10 lg:py-16">
+      <div className="mx-auto w-full max-w-5xl px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="space-y-2"
+        >
+          <h2 className="heading-3 text-foreground">Who Benefits?</h2>
+          <p className="body-base leading-relaxed text-muted-foreground">
+            This model is for anyone who needs{" "}
+            <span className="font-medium text-primary">tangible progress without hiring overhead</span>.
+          </p>
+        </motion.div>
+
+        <div className="mt-6 grid gap-4 sm:grid-cols-1 md:grid-cols-2">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-5"
+          >
+            <h3 className="heading-5 mb-4 text-primary">Perfect For</h3>
+            <ul className="body-base space-y-3 text-slate-200">
+              {audiences.map((aud) => (
+                <li key={aud} className="flex items-start gap-2">
+                  <span className="mt-0.5 text-primary">✓</span>
+                  {aud}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.15 }}
+            className="space-y-6 rounded-xl border border-slate-800/70 bg-slate-950/50 p-5"
+          >
+            <div>
+              <h3 className="heading-5 mb-3 text-primary">Ideal Fit</h3>
+              <p className="body-base text-slate-200">Weekly feedback, ready to experiment, need clear results</p>
+            </div>
+            <div>
+              <h3 className="heading-5 mb-3 text-slate-400">Not a Fit</h3>
+              <p className="body-base text-slate-400">Big static sites, slow-moving teams, no feedback loop</p>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+});
+WhoBenefits.displayName = "WhoBenefits";
+
+const AboutMe: React.FC = React.memo(() => {
+  return (
+    <section id="about" className="border-t border-slate-900/80 py-10 lg:py-16">
+      <div className="mx-auto w-full max-w-5xl space-y-10 px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="space-y-3"
+        >
+          <h2 className="heading-3 text-foreground">About Me</h2>
+          <motion.p
+            className="body-lg max-w-3xl text-muted-foreground"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            I aim to close the gap between proven innovations and implementation by giving anyone the tools to turn
+            regional data, successful pilots, and stalled legislation into AI-assisted solutions for any sector.
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          className="relative"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          <div className="relative overflow-hidden rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/95 via-slate-900/95 to-slate-950/95 p-5 shadow-2xl backdrop-blur-xl">
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-cyan-500/5" />
+            <div className="relative z-10">
+              <h3 className="heading-4 text-foreground">Why This Matters</h3>
+              <motion.p
+                className="body-sm mt-2 text-muted-foreground"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                Pennsylvania cannot afford another decade of:
+              </motion.p>
+              <ul className="mt-3 space-y-1.5">
+                {[
+                  "Delayed modernization while comparable states advance",
+                  "Legislative gridlock on education and infrastructure",
+                  "Workforce development disconnected from regional needs",
+                  "Civics education that feels irrelevant to students",
+                  "Declining trust in public institutions",
+                ].map((t) => (
+                  <li key={t} className="caption flex items-start gap-2 text-muted-foreground/90">
+                    <span className="mt-1 inline-block h-1 w-1 flex-shrink-0 rounded-full bg-emerald-400/70" />
+                    <span className="flex-1">{t}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-5 border-t border-slate-800/50 pt-4">
+                <p className="body-base font-medium leading-relaxed text-foreground">
+                  This work provides the missing infrastructure for a state with all the necessary components but no
+                  system connecting them.
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+});
+AboutMe.displayName = "AboutMe";
+
+const SiteFooter: React.FC = React.memo(() => {
+  return (
+    <footer className="border-t border-slate-900/80 py-4">
+      <div className="body-sm flex flex-col items-start justify-between gap-2 text-slate-500 sm:flex-row sm:items-center">
+        <div>© {new Date().getFullYear()} AltruisticX AI</div>
+        <div className="flex flex-wrap gap-2">
+          <span>Async · privacy-aware · built for pilots</span>
+        </div>
+      </div>
+    </footer>
+  );
+});
+SiteFooter.displayName = "SiteFooter";
+
+// -----------------------------
+// Utilities
+// -----------------------------
+function safeLocalStorageGet(key: string): string | null {
+  try {
+    return typeof window !== "undefined" ? window.localStorage.getItem(key) : null;
+  } catch {
+    return null;
   }
 }
-
-/** Convenience helper to compose a full card container */
-export function cardContainer(kind: GradientKind, extra = ""): string {
-  return ["group rounded-lg border-2 p-4 backdrop-blur-sm transition-all", getCardGradient(kind), extra]
-    .filter(Boolean)
-    .join(" ");
+function safeLocalStorageSet(key: string, value: string): void {
+  try {
+    if (typeof window !== "undefined") window.localStorage.setItem(key, value);
+  } catch {}
+}
+function shallowArrayEqual<T extends { [k: string]: any }>(a: T[], b: T[]): boolean {
+  if (a === b) return true;
+  if (a.length !== b.length) return false;
+  for (let i = 0; i < a.length; i++) {
+    const aa = a[i];
+    const bb = b[i];
+    if (!aa || !bb) return false;
+    const keys = new Set([...Object.keys(aa), ...Object.keys(bb)]);
+    for (const k of keys) if (aa[k] !== bb[k]) return false;
+  }
+  return true;
 }
