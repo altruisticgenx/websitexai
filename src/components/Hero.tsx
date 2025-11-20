@@ -182,10 +182,27 @@ export function Hero() {
                 whileHover={{ scale: 1.05, borderColor: "hsl(var(--primary) / 0.6)" }}
                 style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
               >
+                {/* Pulsing Ring on Hover */}
+                {activeSector === "energy" && (
+                  <>
+                    <motion.div
+                      className="absolute inset-0 rounded-lg border-2 border-primary"
+                      initial={{ scale: 1, opacity: 0.6 }}
+                      animate={{ scale: [1, 1.5, 2], opacity: [0.6, 0.3, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+                    />
+                    <motion.div
+                      className="absolute inset-0 rounded-lg border-2 border-primary"
+                      initial={{ scale: 1, opacity: 0.6 }}
+                      animate={{ scale: [1, 1.5, 2], opacity: [0.6, 0.3, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut", delay: 0.5 }}
+                    />
+                  </>
+                )}
                 {/* Orbital Particles */}
                 {[...Array(4)].map((_, i) => {
-                  const angle = (i * 90) * (Math.PI / 180); // Convert to radians
-                  const radius = 25; // Orbital radius in pixels
+                  const angle = (i * 90) * (Math.PI / 180);
+                  const radius = 25;
                   return (
                     <motion.div
                       key={i}
@@ -213,7 +230,7 @@ export function Hero() {
                         scale: [0.8, 1.2, 1, 1.2, 0.8],
                       }}
                       transition={{
-                        duration: 4,
+                        duration: activeSector === "energy" ? 2 : 4,
                         repeat: Infinity,
                         ease: "linear",
                         delay: i * 0.25,
@@ -236,10 +253,27 @@ export function Hero() {
                 whileHover={{ scale: 1.05, borderColor: "hsl(var(--accent) / 0.6)" }}
                 style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
               >
+                {/* Pulsing Ring on Hover */}
+                {activeSector === "education" && (
+                  <>
+                    <motion.div
+                      className="absolute inset-0 rounded-lg border-2 border-accent"
+                      initial={{ scale: 1, opacity: 0.6 }}
+                      animate={{ scale: [1, 1.5, 2], opacity: [0.6, 0.3, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+                    />
+                    <motion.div
+                      className="absolute inset-0 rounded-lg border-2 border-accent"
+                      initial={{ scale: 1, opacity: 0.6 }}
+                      animate={{ scale: [1, 1.5, 2], opacity: [0.6, 0.3, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut", delay: 0.5 }}
+                    />
+                  </>
+                )}
                 {/* Orbital Particles */}
                 {[...Array(4)].map((_, i) => {
-                  const angle = (i * 90 + 45) * (Math.PI / 180); // Offset by 45 degrees
-                  const radius = 25; // Orbital radius in pixels
+                  const angle = (i * 90 + 45) * (Math.PI / 180);
+                  const radius = 25;
                   return (
                     <motion.div
                       key={i}
@@ -267,7 +301,7 @@ export function Hero() {
                         scale: [0.9, 1.3, 1.1, 1.3, 0.9],
                       }}
                       transition={{
-                        duration: 5,
+                        duration: activeSector === "education" ? 2.5 : 5,
                         repeat: Infinity,
                         ease: "linear",
                         delay: i * 0.3,
