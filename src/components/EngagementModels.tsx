@@ -15,7 +15,7 @@ interface EngagementModel {
 const engagementModels: EngagementModel[] = [{
   name: "Pilot",
   icon: Zap,
-  description: "$1,150/wk · 4 weeks · Ship Week 1",
+  description: "4 weeks · Ship Week 1",
   pros: "Fast start, real code, low commit",
   bestFor: "Students, founders, first builds",
   color: "from-emerald-500/30 via-teal-500/20 to-cyan-500/30",
