@@ -484,7 +484,7 @@ function TypicalProgression() {
               <span className="caption text-emerald-300/80">4 weeks</span>
             </div>
             <p className="mt-1 body-sm leading-tight text-slate-300">
-              Ship 1–2 features/week. Demo-ready code. Real builds, not decks. $1,150/wk.
+              Ship 1–2 features/week. Demo-ready code. Real builds, not decks.
             </p>
           </motion.div>
 

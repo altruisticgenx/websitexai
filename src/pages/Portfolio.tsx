@@ -26,7 +26,7 @@ const caseStudies = [
     solution:
       "Built an AI-powered dashboard that analyzes email threads, call transcripts, and CRM data to score leads, suggest next actions, and automate follow-up workflows. The system uses natural language processing to detect buying signals and sentiment shifts.",
     marketValue:
-      "Market differentiation: Unlike generic CRMs (Salesforce, HubSpot) requiring months of setup + $2k–5k/seat/yr, this shipped in 6 weeks at $1,150/wk pilot cost. No bloated enterprise features—just AI lead scoring + automated follow-ups. Competitive edge: Real-time sentiment analysis from unstructured email/call data (vs. manual tagging). ROI: Saved 15hrs/week/rep × $75/hr = $58k annual savings for 5-person team. Faster sales cycles (45→28 days) = 60% more deals closed per quarter.",
+      "Market differentiation: Unlike generic CRMs (Salesforce, HubSpot) requiring months of setup + $2k–5k/seat/yr, this shipped in 6 weeks at competitive pilot cost. No bloated enterprise features—just AI lead scoring + automated follow-ups. Competitive edge: Real-time sentiment analysis from unstructured email/call data (vs. manual tagging). ROI: Saved 15hrs/week/rep × $75/hr = $58k annual savings for 5-person team. Faster sales cycles (45→28 days) = 60% more deals closed per quarter.",
     differentiation:
       "Custom-built for their exact workflow (not off-the-shelf). Integrated with existing tools (Gmail, Zoom, existing CRM) without forced migration. AI models fine-tuned on their industry language (B2B SaaS). Mobile-first design for reps in the field. Privacy-first: Data stays in their Supabase instance, not third-party AI vendor.",
     outcomes: [
@@ -67,7 +67,7 @@ const caseStudies = [
     solution:
       "Created a lightweight, opinionated dashboard that combines scheduling (with buffer time rules), contact management, session notes, and invoice tracking. Simple by design—no unnecessary features, just what a solo consultant actually needs daily.",
     marketValue:
-      "Market gap: Solo founders/consultants pay $100–300/mo across 5+ SaaS tools (Calendly $12, Notion $10, HubSpot $50, Stripe Dashboard free but clunky, etc.). This pilot cost $4,600 (4 weeks × $1,150) = 15-month payback vs. tool subscriptions. Differentiation: Zero vendor lock-in (own your data), no per-seat pricing, built for 1-person ops (not scaled-down enterprise tools). Time ROI: 4hrs/wk saved × $150/hr founder rate = $31k/yr value.",
+      "Market gap: Solo founders/consultants pay $100–300/mo across 5+ SaaS tools (Calendly $12, Notion $10, HubSpot $50, Stripe Dashboard free but clunky, etc.). This pilot delivered 15-month payback vs. tool subscriptions. Differentiation: Zero vendor lock-in (own your data), no per-seat pricing, built for 1-person ops (not scaled-down enterprise tools). Time ROI: 4hrs/wk saved × $150/hr founder rate = $31k/yr value.",
     differentiation:
       "Not a 'CRM for teams'—designed for solo operators. Opinionated workflows (e.g., auto-buffer 15min between calls, session prep reminders). Direct Stripe sync (see MRR + upcoming invoices in one view). Calm UI: No notification spam, no gamification, no 'growth hacking' dashboards. Privacy-first: All client data in founder's Supabase instance, not shared with third-party CRM.",
     outcomes: [
@@ -108,7 +108,7 @@ const caseStudies = [
     solution:
       "Built a data pipeline to normalize meter exports and a dashboard to visualize usage patterns, detect anomalies, and calculate savings opportunities. Included building comparison tools and automated monthly reports for facilities leadership.",
     marketValue:
-      "Market context: Enterprise energy management platforms (Schneider EcoStruxure, Siemens Navigator) cost $50k–200k + 12-month implementations. University got pilot in 8 weeks for $9,200 (8 × $1,150). Identified $180k savings = 20× ROI in Year 1. Differentiation: Works with messy legacy data (no meter hardware replacement needed). Custom anomaly detection tuned for academic calendars (vs. generic commercial algorithms). Stakeholder-ready reports for non-technical leadership.",
+      "Market context: Enterprise energy management platforms (Schneider EcoStruxure, Siemens Navigator) cost $50k–200k + 12-month implementations. University got pilot in 8 weeks at competitive cost. Identified $180k savings = 20× ROI in Year 1. Differentiation: Works with messy legacy data (no meter hardware replacement needed). Custom anomaly detection tuned for academic calendars (vs. generic commercial algorithms). Stakeholder-ready reports for non-technical leadership.",
     differentiation:
       "Not a vendor lock-in platform—built on open-source stack (Python + Postgres). Custom pipeline handles 15+ meter data formats (vs. rigid enterprise ETL). Anomaly detection accounts for academic schedules (weekends, breaks, events). Mobile dashboard for facilities staff doing building walkthroughs. Privacy: University owns data (no third-party cloud vendor). Scales from 10→2,000 buildings without rearchitecture.",
     outcomes: [
@@ -149,7 +149,7 @@ const caseStudies = [
     solution:
       "Created a pilot management portal where program managers could log student participation, track milestones, and generate outcome reports. Built-in analytics showed completion rates, demographic breakdowns, and qualitative feedback summaries.",
     marketValue:
-      "Nonprofit context: Risk of losing $500k grant due to slow/incomplete reporting. Commercial edtech platforms (Salesforce Education Cloud, Blackbaud) cost $20k–80k/yr + consultants. This pilot: $5,750 (5 weeks × $1,150). Secured $500k renewal = 87× ROI. Differentiation: Built for outcome reporting (not student management). Funder-ready exports (PDF + CSV with required metrics). Works across schools without per-site licensing.",
+      "Nonprofit context: Risk of losing $500k grant due to slow/incomplete reporting. Commercial edtech platforms (Salesforce Education Cloud, Blackbaud) cost $20k–80k/yr + consultants. This pilot delivered at competitive cost. Secured $500k renewal = 87× ROI. Differentiation: Built for outcome reporting (not student management). Funder-ready exports (PDF + CSV with required metrics). Works across schools without per-site licensing.",
     differentiation:
       "Not a learning management system—focused on program evaluation. Custom metrics aligned with funder requirements (completion rates, demographic equity, qualitative themes). Role-based access (program managers, school admins, grant officers). Privacy-first: Student PII stays in nonprofit's Supabase (FERPA-compliant). Mobile data entry for program managers visiting schools. Automated funder reports (no manual Excel compilation).",
     outcomes: [
