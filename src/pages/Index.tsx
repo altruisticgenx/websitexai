@@ -5,6 +5,7 @@ import { TestimonialsVariant, CaseStudiesStack } from "@/components/ui/animated-
 import { Linkedin } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { LazySection } from "@/components/LazySection";
+import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
 
 // Lazy load heavy components
 const ShelvedExperiments = lazy(() => import("@/components/ShelvedExperiments").then(m => ({ default: m.ShelvedExperiments })));
@@ -15,6 +16,7 @@ const EngagementModels = lazy(() => import("@/components/EngagementModels").then
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
+import { SwipeIndicator } from "@/components/SwipeIndicator";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { cn } from "@/lib/utils";
@@ -30,6 +32,33 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(() => {
     // Check if content was previously loaded
     return !localStorage.getItem('contentLoaded');
+  });
+
+  // Section IDs for navigation
+  const sectionIds = ["builds", "pilot", "benefits", "org-types", "where", "shelved", "about"];
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+
+  // Swipe gesture support for mobile navigation
+  const swipeRef = useSwipeGesture<HTMLDivElement>({
+    onSwipeUp: () => {
+      // Navigate to next section
+      const nextIndex = Math.min(currentSectionIndex + 1, sectionIds.length - 1);
+      if (nextIndex !== currentSectionIndex) {
+        setCurrentSectionIndex(nextIndex);
+        const element = document.getElementById(sectionIds[nextIndex]);
+        element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    },
+    onSwipeDown: () => {
+      // Navigate to previous section
+      const prevIndex = Math.max(currentSectionIndex - 1, 0);
+      if (prevIndex !== currentSectionIndex) {
+        setCurrentSectionIndex(prevIndex);
+        const element = document.getElementById(sectionIds[prevIndex]);
+        element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    },
+    threshold: 80,
   });
 
   // Simulate content loading for first-time visitors
@@ -78,7 +107,7 @@ const Index = () => {
     sectionId: "about",
     name: "About"
   }]);
-  return <div className="min-h-screen bg-slate-950 text-slate-50">
+  return <div ref={swipeRef} className="min-h-screen bg-slate-950 text-slate-50">
       {/* Scroll Progress Bar */}
       <ScrollProgress />
       
@@ -143,6 +172,7 @@ const Index = () => {
       </div>
       <ScrollToTop />
       <KeyboardShortcutsHelp />
+      <SwipeIndicator />
     </div>;
 };
 export default Index;
@@ -175,14 +205,13 @@ function FeatureCardWithTooltip({ item, index }: { item: { title: string; desc: 
               : item.color === 'teal'
               ? 'border-primary/20 bg-gradient-to-br from-primary/5'
               : 'border-blue-500/30 bg-gradient-to-br from-blue-500/5'
-          } to-slate-950/80 p-2 backdrop-blur-sm overflow-hidden transition-all cursor-pointer touch-manipulation active:scale-[0.98]`}
-        >
+          } to-slate-950/80 p-4 min-h-[80px] backdrop-blur-sm overflow-hidden transition-all cursor-pointer touch-manipulation active:scale-[0.98]`}>
           <div className="relative flex items-start gap-2">
             <div className="flex-1 min-w-0">
-              <h4 className="text-xs font-semibold text-foreground">
+              <h4 className="text-sm font-semibold text-foreground mb-1">
                 {item.title}
               </h4>
-              <p className="body-sm text-muted-foreground leading-relaxed mt-0.5">
+              <p className="body-base text-muted-foreground leading-relaxed">
                 {item.desc}
               </p>
             </div>
