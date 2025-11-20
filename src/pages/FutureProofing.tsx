@@ -26,13 +26,6 @@ export default function FutureProofing() {
               >
                 Apply Below
               </a>
-              <a
-                href="/pennsylvania_future_proofing_pilot.pdf"
-                download
-                className="inline-flex items-center rounded-full border border-slate-500 px-5 py-2.5 text-sm font-medium text-slate-100 hover:bg-slate-900/60 transition"
-              >
-                Download Pilot Overview (PDF)
-              </a>
             </div>
 
             <div className="mt-4 flex flex-wrap gap-4 text-xs text-slate-300/80">
