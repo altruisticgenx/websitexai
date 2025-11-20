@@ -272,8 +272,8 @@ function RecentBuilds() {
       supabase.removeChannel(channel);
     };
   }, []);
-  return <section id="builds" className="py-6 md:py-10">
-      <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
+  return <section id="builds" className="py-12 lg:py-20">
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -284,16 +284,16 @@ function RecentBuilds() {
         once: true
       }} transition={{
         duration: 0.5
-      }}>
+      }} className="space-y-3">
           <h2 className="heading-3 text-foreground text-reveal">
             Recent Builds
           </h2>
-          <p className="mt-1 body-base text-muted-foreground text-reveal text-reveal-delay-1">
+          <p className="body-base text-muted-foreground text-reveal text-reveal-delay-1">
             Small scope, real results—across energy, education, and founder projects.
           </p>
         </motion.div>
 
-        {isLoadingProjects ? <div className="mt-6">
+        {isLoadingProjects ? <div className="mt-8">
             <CardsSkeleton />
           </div> : error ? <motion.div initial={{
         opacity: 0,
@@ -332,8 +332,8 @@ function RecentBuilds() {
     </section>;
 }
 function PilotOffer() {
-  return <section id="pilot" className="border-t border-slate-900/80 py-3 md:py-4 gradient-mesh">
-      <div className="mx-auto w-full max-w-5xl px-3 md:px-4 organic-spacing">
+  return <section id="pilot" className="border-t border-slate-900/80 py-12 lg:py-20 gradient-mesh">
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6 space-y-8">
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -344,11 +344,11 @@ function PilotOffer() {
         once: true
       }} transition={{
         duration: 0.5
-      }} className="mb-3 isolated-component">
-          <h2 className="text-sm font-semibold tracking-tight text-foreground sm:text-base text-reveal">
+      }} className="space-y-6 isolated-component">
+          <h2 className="heading-3 text-foreground text-reveal">
             Why a Pilot Partner Instead of Hiring In-House
           </h2>
-          <ul className="mt-2 space-y-1.5 max-w-3xl">
+          <ul className="space-y-4 max-w-3xl">
             {[
               "Hiring in-house makes sense once you know what you're scaling. When you're still in the \"is this even the right thing?\" phase, it's a slow and expensive way to find out.",
               "Bringing on a full-time senior hire typically means months of recruiting, six-figure commitments, and added overhead—before you even know if the pilot is worth scaling.",
@@ -381,12 +381,12 @@ function PilotOffer() {
       }} transition={{
         duration: 0.6,
         delay: 0.1
-      }} className="mb-3">
-          <h3 className="text-xs font-semibold text-primary mb-2 sm:text-sm">
+      }} className="space-y-6">
+          <h3 className="heading-4 text-primary">
             What This Model Is For
           </h3>
           <TooltipProvider delayDuration={200}>
-            <div className="grid gap-1.5 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2">
               {[{
               title: "Early, ambiguous work",
               desc: "When the edges are fuzzy and you need to learn by shipping, not by planning.",
@@ -428,22 +428,22 @@ function PilotOffer() {
       }} transition={{
         duration: 0.6,
         delay: 0.2
-      }} className="mb-3">
-          <h3 className="text-xs font-semibold text-muted-foreground mb-2 sm:text-sm">
+      }} className="space-y-4">
+          <h3 className="heading-4 text-muted-foreground">
             What This Model Is Not For
           </h3>
-          <div className="rounded-md border border-slate-800/70 bg-slate-950/50 p-2">
-            <ul className="space-y-1 body-base text-slate-400">
-              <li className="flex items-start gap-1.5">
-                <span className="opacity-50 mt-0.5 text-xs">✕</span>
+          <div className="rounded-lg border border-slate-800/70 bg-slate-950/50 p-5">
+            <ul className="space-y-3 body-base text-slate-400">
+              <li className="flex items-start gap-2">
+                <span className="opacity-50 mt-0.5">✕</span>
                 <span>Large, multi-team implementations from day one</span>
               </li>
-              <li className="flex items-start gap-1.5">
-                <span className="opacity-50 mt-0.5 text-xs">✕</span>
+              <li className="flex items-start gap-2">
+                <span className="opacity-50 mt-0.5">✕</span>
                 <span>Long-term headcount decisions disguised as "pilots"</span>
               </li>
-              <li className="flex items-start gap-1.5">
-                <span className="opacity-50 mt-0.5 text-xs">✕</span>
+              <li className="flex items-start gap-2">
+                <span className="opacity-50 mt-0.5">✕</span>
                 <span>Purely cosmetic work where a static site or brochure would do</span>
               </li>
             </ul>
@@ -462,8 +462,8 @@ function PilotOffer() {
       }} transition={{
         duration: 0.5,
         delay: 0.3
-      }} className="rounded-md border border-primary/30 bg-gradient-to-br from-primary/5 to-slate-950/80 p-2.5 backdrop-blur-sm">
-          <p className="text-xs text-foreground font-medium mb-1">
+      }} className="rounded-lg border border-primary/30 bg-gradient-to-br from-primary/5 to-slate-950/80 p-5 backdrop-blur-sm">
+          <p className="heading-5 text-foreground mb-3">
             Pilot-first, learning-first approach
           </p>
           <p className="body-base text-muted-foreground leading-relaxed">
@@ -474,8 +474,8 @@ function PilotOffer() {
     </section>;
 }
 function TypicalProgression() {
-  return <section className="border-t border-slate-900/80 py-6 md:py-8">
-      <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
+  return <section className="border-t border-slate-900/80 py-12 lg:py-20">
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -486,16 +486,16 @@ function TypicalProgression() {
         once: true
       }} transition={{
         duration: 0.5
-      }}>
+      }} className="space-y-3">
           <h2 className="heading-3 text-foreground text-reveal">
             Typical Progression
           </h2>
-          <p className="mt-1.5 body-base text-muted-foreground text-reveal text-reveal-delay-1">
+          <p className="body-base text-muted-foreground text-reveal text-reveal-delay-1">
             Start small, scale when ready—or jump to any stage.
           </p>
         </motion.div>
 
-        <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4 fluid-space">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 fluid-space">
           <motion.div initial={{
           opacity: 0,
           scale: 0.95
@@ -507,12 +507,12 @@ function TypicalProgression() {
         }} transition={{
           duration: 0.5,
           delay: 0.1
-        }} className="group rounded-lg border-2 border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] isolated-component preserve-3d">
-            <div className="flex items-center gap-1.5">
-              <span className="body-sm font-bold text-emerald-400">1. Pilot</span>
-              <span className="caption text-emerald-300/80">4 weeks</span>
+        }} className="group rounded-lg border-2 border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 p-4 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] isolated-component preserve-3d">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="body-base font-bold text-emerald-400">1. Pilot</span>
+              <span className="body-sm text-emerald-300/80">4 weeks</span>
             </div>
-            <p className="mt-1 body-sm leading-tight text-slate-300">
+            <p className="body-base leading-snug text-slate-300">
               Ship 1–2 features/week. Demo-ready code. Real builds, not decks.
             </p>
           </motion.div>
@@ -528,12 +528,12 @@ function TypicalProgression() {
         }} transition={{
           duration: 0.5,
           delay: 0.2
-        }} className="group rounded-lg border-2 border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] isolated-component preserve-3d">
-            <div className="flex items-center gap-1.5">
-              <span className="body-sm font-bold text-blue-400">2. Proposal</span>
-              <span className="caption text-blue-300/80">1–2 weeks</span>
+        }} className="group rounded-lg border-2 border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-4 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] isolated-component preserve-3d">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="body-base font-bold text-blue-400">2. Proposal</span>
+              <span className="body-sm text-blue-300/80">1–2 weeks</span>
             </div>
-            <p className="mt-1 body-sm leading-tight text-slate-300">
+            <p className="body-base leading-snug text-slate-300">
               Scope doc, timeline, budget. Grant-ready, stakeholder-approved. RFP support.
             </p>
           </motion.div>
@@ -549,12 +549,12 @@ function TypicalProgression() {
         }} transition={{
           duration: 0.5,
           delay: 0.3
-        }} className="group rounded-lg border-2 border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] isolated-component preserve-3d">
-            <div className="flex items-center gap-1.5">
-              <span className="body-sm font-bold text-violet-400">3. Build</span>
-              <span className="caption text-violet-300/80">2–6 months</span>
+        }} className="group rounded-lg border-2 border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20 p-4 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] isolated-component preserve-3d">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="body-base font-bold text-violet-400">3. Build</span>
+              <span className="body-sm text-violet-300/80">2–6 months</span>
             </div>
-            <p className="mt-1 body-sm leading-tight text-slate-300">
+            <p className="body-base leading-snug text-slate-300">
               Full product delivery. Integrations, testing, documentation. Launch-ready.
             </p>
           </motion.div>
@@ -570,12 +570,12 @@ function TypicalProgression() {
         }} transition={{
           duration: 0.5,
           delay: 0.4
-        }} className="group rounded-lg border-2 border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(249,115,22,0.5)] isolated-component preserve-3d">
-            <div className="flex items-center gap-1.5">
-              <span className="body-sm font-bold text-orange-400">4. Retainer</span>
-              <span className="caption text-orange-300/80">Ongoing</span>
+        }} className="group rounded-lg border-2 border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20 p-4 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(249,115,22,0.5)] isolated-component preserve-3d">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="body-base font-bold text-orange-400">4. Retainer</span>
+              <span className="body-sm text-orange-300/80">Ongoing</span>
             </div>
-            <p className="mt-1 body-sm leading-tight text-slate-300">
+            <p className="body-base leading-snug text-slate-300">
               Monthly support. Bug fixes, features, pivots. Always-on expertise.
             </p>
           </motion.div>
@@ -585,8 +585,8 @@ function TypicalProgression() {
 }
 function WhoBenefits() {
   const audiences = ["Students bringing new ideas to life", "Teachers or nonprofits piloting campus or impact projects", "Boards and governance teams needing clearer dashboards", "Solo founders wanting operational peace of mind", "B2B units innovating on tight timelines"];
-  return <section id="benefits" className="border-t border-slate-900/80 py-6 md:py-8">
-      <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
+  return <section id="benefits" className="border-t border-slate-900/80 py-12 lg:py-20">
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -597,7 +597,7 @@ function WhoBenefits() {
         once: true
       }} transition={{
         duration: 0.5
-      }}>
+      }} className="space-y-3">
           <h2 className="heading-3 text-foreground">
             Who Benefits?
           </h2>
@@ -606,7 +606,7 @@ function WhoBenefits() {
           </p>
         </motion.div>
 
-        <div className="mt-4 grid gap-4 md:grid-cols-2">
+        <div className="mt-8 grid gap-4 sm:grid-cols-1 md:grid-cols-2">
           <motion.div initial={{
           opacity: 0,
           x: -20
@@ -618,11 +618,11 @@ function WhoBenefits() {
         }} transition={{
           duration: 0.5,
           delay: 0.1
-        }} className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-3">
-            <h3 className="label text-primary">
+        }} className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-5">
+            <h3 className="heading-5 text-primary mb-4">
               Perfect For
             </h3>
-            <ul className="mt-2 space-y-1 body-base text-slate-200">
+            <ul className="space-y-3 body-base text-slate-200">
               {audiences.map((audience, i) => <li key={i} className="flex items-start gap-2">
                   <span className="text-primary mt-0.5">✓</span>
                   {audience}
@@ -641,20 +641,20 @@ function WhoBenefits() {
         }} transition={{
           duration: 0.5,
           delay: 0.2
-        }} className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-3">
-            <div className="mb-3">
-              <h3 className="label text-primary">
+        }} className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-5 space-y-6">
+            <div>
+              <h3 className="heading-5 text-primary mb-3">
                 Ideal Fit
               </h3>
-              <p className="mt-1 body-base text-slate-200">
+              <p className="body-base text-slate-200">
                 Weekly feedback, ready to experiment, need clear results
               </p>
             </div>
             <div>
-              <h3 className="label text-slate-400">
+              <h3 className="heading-5 text-slate-400 mb-3">
                 Not a Fit
               </h3>
-              <p className="mt-1 body-base text-slate-400">
+              <p className="body-base text-slate-400">
                 Big static sites, slow-moving teams, no feedback loop
               </p>
             </div>
@@ -665,21 +665,21 @@ function WhoBenefits() {
 }
 function AboutMe() {
   return (
-    <section id="about" className="border-t border-slate-900/80 py-6 md:py-8 gradient-mesh">
-      <div className="mx-auto w-full max-w-5xl px-3 md:px-4 organic-spacing">
+    <section id="about" className="border-t border-slate-900/80 py-12 lg:py-20 gradient-mesh">
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6 space-y-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="space-y-2"
+          className="space-y-4"
         >
           <h2 className="heading-3 text-foreground text-reveal">
             About Me
           </h2>
           <motion.p
-            className="body-base text-muted-foreground max-w-3xl text-reveal text-reveal-delay-1"
+            className="body-lg text-muted-foreground max-w-3xl text-reveal text-reveal-delay-1"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -691,13 +691,12 @@ function AboutMe() {
 
         {/* Why This Matters Section - 3D Glowing Card */}
         <motion.div
-          className="relative mt-6 group perspective-1000"
+          className="relative group perspective-1000"
           initial={{ opacity: 0, y: 30, rotateX: -10 }}
           whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2, type: "spring", bounce: 0.3 }}
-          whileHover={{ 
-            scale: 1.02,
+          whileHover={{
             rotateX: 2,
             rotateY: -2,
             transition: { duration: 0.3 }
@@ -708,7 +707,7 @@ function AboutMe() {
           <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 via-cyan-500 to-emerald-500 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500 animate-pulse" />
           
           {/* Main card */}
-          <div className="relative rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/95 via-slate-900/95 to-slate-950/95 backdrop-blur-xl p-4 md:p-5 shadow-2xl overflow-hidden">
+          <div className="relative rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/95 via-slate-900/95 to-slate-950/95 backdrop-blur-xl p-5 md:p-6 shadow-2xl overflow-hidden">
             {/* Animated gradient overlay */}
             <motion.div 
               className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
