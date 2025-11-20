@@ -148,9 +148,9 @@ export function SiteNav() {
             
           </div>
 
-          {/* Mobile Menu Button */}
-          <button ref={mobileMenuButtonRef} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden inline-flex items-center justify-center rounded-md p-1.5 text-foreground hover:bg-accent hover:text-accent-foreground transition-colors" aria-label="Toggle mobile menu" aria-expanded={isMobileMenuOpen} aria-controls="mobile-menu">
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
+          {/* Mobile Menu Button - Touch-friendly size (min 44x44px) */}
+          <button ref={mobileMenuButtonRef} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden inline-flex items-center justify-center rounded-md min-w-[44px] min-h-[44px] p-3 text-foreground hover:bg-accent hover:text-accent-foreground transition-colors touch-manipulation" aria-label="Toggle mobile menu" aria-expanded={isMobileMenuOpen} aria-controls="mobile-menu">
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
               {isMobileMenuOpen ? <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />}
             </svg>
           </button>
@@ -159,15 +159,15 @@ export function SiteNav() {
         {/* Mobile Menu */}
         {isMobileMenuOpen && <div ref={mobileMenuRef} id="mobile-menu" className="md:hidden border-t border-border/40 py-3 animate-in slide-in-from-top-2 duration-200" role="navigation" aria-label="Mobile navigation">
             <div className="space-y-0.5">
-              <a href="#" onClick={handleNavClick} aria-label="Navigate to home section" aria-current={activeSection === "" ? "page" : undefined} className={cn("block rounded-md px-3 py-1.5 body-sm lowercase transition-colors", activeSection === "" ? "text-primary bg-primary/10" : "text-foreground hover:text-primary hover:bg-accent/50")}>
+              <a href="#" onClick={handleNavClick} aria-label="Navigate to home section" aria-current={activeSection === "" ? "page" : undefined} className={cn("block rounded-md px-4 py-3 min-h-[44px] flex items-center body-sm lowercase transition-colors touch-manipulation", activeSection === "" ? "text-primary bg-primary/10" : "text-foreground hover:text-primary hover:bg-accent/50")}>
                 home
               </a>
 
-              <a href="/portfolio" aria-label="View portfolio lab" className="block rounded-md px-3 py-1.5 body-sm lowercase text-foreground transition-colors hover:text-primary hover:bg-accent/50">
+              <a href="/portfolio" aria-label="View portfolio lab" className="block rounded-md px-4 py-3 min-h-[44px] flex items-center body-sm lowercase text-foreground transition-colors hover:text-primary hover:bg-accent/50 touch-manipulation">
                 lab
               </a>
 
-              <a href="https://futurexedu.lovable.app" target="_blank" rel="noopener noreferrer" aria-label="View 2026 snapshot (opens in new tab)" className="block rounded-md px-3 py-1.5 body-sm lowercase text-foreground transition-colors hover:text-primary hover:bg-accent/50">
+              <a href="https://futurexedu.lovable.app" target="_blank" rel="noopener noreferrer" aria-label="View 2026 snapshot (opens in new tab)" className="block rounded-md px-4 py-3 min-h-[44px] flex items-center body-sm lowercase text-foreground transition-colors hover:text-primary hover:bg-accent/50 touch-manipulation">
                 2026 snapshot
               </a>
 
@@ -175,13 +175,13 @@ export function SiteNav() {
                 <div className="overline text-muted-foreground mb-1.5">
                   Work
                 </div>
-                <a href="#pilot" onClick={handleNavClick} aria-label="Navigate to 4-week pilots section" className={cn("block rounded-md px-2 py-1.5 body-xs transition-colors", activeSection === "pilot" ? "text-primary bg-primary/10 font-medium" : "text-foreground hover:text-primary hover:bg-accent/50")}>
+                <a href="#pilot" onClick={handleNavClick} aria-label="Navigate to 4-week pilots section" className={cn("block rounded-md px-3 py-2.5 min-h-[44px] flex items-center body-xs transition-colors touch-manipulation", activeSection === "pilot" ? "text-primary bg-primary/10 font-medium" : "text-foreground hover:text-primary hover:bg-accent/50")}>
                   4-week pilots
                 </a>
-                <a href="#builds" onClick={handleNavClick} aria-label="Navigate to recent builds section" className={cn("block rounded-md px-2 py-1.5 body-xs transition-colors", activeSection === "builds" ? "text-primary bg-primary/10 font-medium" : "text-foreground hover:text-primary hover:bg-accent/50")}>
+                <a href="#builds" onClick={handleNavClick} aria-label="Navigate to recent builds section" className={cn("block rounded-md px-3 py-2.5 min-h-[44px] flex items-center body-xs transition-colors touch-manipulation", activeSection === "builds" ? "text-primary bg-primary/10 font-medium" : "text-foreground hover:text-primary hover:bg-accent/50")}>
                   Recent builds
                 </a>
-                <a href="#how" onClick={handleNavClick} aria-label="Navigate to how it works section" className={cn("block rounded-md px-2 py-1.5 body-xs transition-colors", activeSection === "how" ? "text-primary bg-primary/10 font-medium" : "text-foreground hover:text-primary hover:bg-accent/50")}>
+                <a href="#how" onClick={handleNavClick} aria-label="Navigate to how it works section" className={cn("block rounded-md px-3 py-2.5 min-h-[44px] flex items-center body-xs transition-colors touch-manipulation", activeSection === "how" ? "text-primary bg-primary/10 font-medium" : "text-foreground hover:text-primary hover:bg-accent/50")}>
                   How it works
                 </a>
               </div>
@@ -190,15 +190,15 @@ export function SiteNav() {
                 <div className="overline text-muted-foreground mb-1.5">
                   Solutions
                 </div>
-                <a href="/solutions/future-proofing" onClick={() => setIsMobileMenuOpen(false)} aria-label="Future proofing solutions" className="block rounded-md px-2 py-1.5 body-xs transition-colors text-foreground hover:text-primary hover:bg-accent/50">
+                <a href="/solutions/future-proofing" onClick={() => setIsMobileMenuOpen(false)} aria-label="Future proofing solutions" className="block rounded-md px-3 py-2.5 min-h-[44px] flex items-center body-xs transition-colors text-foreground hover:text-primary hover:bg-accent/50 touch-manipulation">
                   Future proofing
                 </a>
-                <a href="https://docs.google.com/document/d/150vF2RNZe395m3TTrq3zQTDGjFxsvfuM4CxNvqiRoss/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)} aria-label="Our mission (opens in new tab)" className="block rounded-md px-2 py-1.5 body-xs transition-colors text-foreground hover:text-primary hover:bg-accent/50">
+                <a href="https://docs.google.com/document/d/150vF2RNZe395m3TTrq3zQTDGjFxsvfuM4CxNvqiRoss/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)} aria-label="Our mission (opens in new tab)" className="block rounded-md px-3 py-2.5 min-h-[44px] flex items-center body-xs transition-colors text-foreground hover:text-primary hover:bg-accent/50 touch-manipulation">
                   Our mission
                 </a>
               </div>
 
-              <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" aria-label="Book a 30-minute introduction call (opens in new tab)" className="mt-3 block rounded-full bg-primary px-3 py-1.5 text-center body-sm text-primary-foreground hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
+              <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" aria-label="Book a 30-minute introduction call (opens in new tab)" className="mt-4 block rounded-full bg-primary px-5 py-3 min-h-[48px] flex items-center justify-center text-center body-base font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20 touch-manipulation">
                 Book 30-min Intro
               </a>
             </div>

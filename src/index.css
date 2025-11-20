@@ -80,6 +80,32 @@ All colors MUST be HSL.
     @apply sm:text-xs;
   }
   
+  /* Touch-friendly utilities */
+  .touch-target {
+    @apply min-w-[44px] min-h-[44px];
+  }
+  
+  .touch-target-lg {
+    @apply min-w-[48px] min-h-[48px];
+  }
+  
+  /* Touch manipulation for better mobile responsiveness */
+  .touch-manipulation {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Ensure all buttons and links meet minimum touch target size */
+  button, a[role="button"], [role="button"] {
+    @apply touch-manipulation;
+  }
+  
+  @media (max-width: 768px) {
+    button, a[role="button"], [role="button"] {
+      @apply min-h-[44px];
+    }
+  }
+  
   .body-xs {
     @apply text-[9px] leading-snug;
     @apply sm:text-[10px];
