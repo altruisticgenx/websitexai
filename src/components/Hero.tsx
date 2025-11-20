@@ -45,9 +45,11 @@ export function Hero() {
       observer.observe(ref.current);
     }
 
+    const currentRef = ref.current;
+    
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, [shouldRender3D]);
@@ -73,10 +75,10 @@ export function Hero() {
       clearInterval(typingInterval);
       clearInterval(cursorInterval);
     };
-  }, []);
+  }, [fullText]);
 
   return (
-    <section ref={ref} id="home" className="relative py-8 md:py-12 overflow-hidden bg-slate-950 gradient-mesh">
+    <section ref={ref} id="home" className="relative py-8 md:py-12 overflow-hidden bg-background gradient-mesh">
       {/* 3D Animated Background - Lazy Loaded */}
       {shouldRender3D && <Hero3DBackground />}
       
@@ -85,7 +87,7 @@ export function Hero() {
         {[...Array(10)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-px bg-gradient-to-b from-transparent via-emerald-500 to-transparent"
+            className="absolute w-px bg-gradient-to-b from-transparent via-primary to-transparent"
             style={{
               left: `${i * 10}%`,
               height: '200px',
@@ -105,7 +107,7 @@ export function Hero() {
       {/* Scanlines */}
       <div className="absolute inset-0 pointer-events-none opacity-5">
         <div 
-          className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/20 to-transparent animate-pulse"
+          className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/20 to-transparent animate-pulse"
           style={{
             backgroundSize: '100% 4px',
             backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, hsl(var(--primary) / 0.1) 2px, hsl(var(--primary) / 0.1) 4px)'
@@ -126,13 +128,13 @@ export function Hero() {
           >
             {/* Tagline with Animated Dot */}
             <motion.div
-              className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/5 px-3 py-1 caption font-mono text-emerald-100 text-reveal"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 caption font-mono text-primary-foreground text-reveal"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
               <motion.span
-                className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400"
+                className="inline-flex h-1.5 w-1.5 rounded-full bg-primary"
                 animate={{ opacity: [1, 0.5, 1], scale: [1, 1.2, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
@@ -147,16 +149,16 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 0.5 }}
             >
               <span className="relative inline-block">
-                <span className="relative z-10 bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+                <span className="relative z-10 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
                   {displayedText}
                   <motion.span
-                    className="inline-block w-[0.6em] h-[1em] bg-emerald-400 ml-1"
+                    className="inline-block w-[0.6em] h-[1em] bg-primary ml-1"
                     animate={{ opacity: showCursor ? 1 : 0 }}
                     transition={{ duration: 0 }}
                   />
                 </span>
                 <motion.span
-                  className="absolute inset-0 bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent blur-sm"
+                  className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent blur-sm"
                   animate={{ opacity: [0.5, 0.8, 0.5] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 >
@@ -174,14 +176,14 @@ export function Hero() {
             >
               <span className="text-muted-foreground">Focus:</span>
               <motion.button
-                className="relative px-3 py-1.5 rounded-lg border-2 border-emerald-400/40 bg-slate-900/60 backdrop-blur-sm text-emerald-100 overflow-hidden group transition-all"
+                className="relative px-3 py-1.5 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm text-foreground overflow-hidden group transition-all"
                 onMouseEnter={() => setActiveSector("energy")}
                 onMouseLeave={() => setActiveSector(null)}
                 whileHover={{ scale: 1.05, borderColor: "hsl(var(--primary) / 0.6)" }}
                 style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
               >
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/20 to-emerald-500/0"
+                  className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0"
                   animate={{ x: ['-200%', '200%'] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                 />
@@ -189,14 +191,14 @@ export function Hero() {
               </motion.button>
               
               <motion.button
-                className="relative px-3 py-1.5 rounded-lg border-2 border-cyan-400/40 bg-slate-900/60 backdrop-blur-sm text-cyan-100 overflow-hidden group transition-all"
+                className="relative px-3 py-1.5 rounded-lg border-2 border-accent/40 bg-card/60 backdrop-blur-sm text-foreground overflow-hidden group transition-all"
                 onMouseEnter={() => setActiveSector("education")}
                 onMouseLeave={() => setActiveSector(null)}
-                whileHover={{ scale: 1.05, borderColor: "hsl(200 100% 60% / 0.6)" }}
+                whileHover={{ scale: 1.05, borderColor: "hsl(var(--accent) / 0.6)" }}
                 style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
               >
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-cyan-400/20 to-cyan-400/0"
+                  className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/20 to-accent/0"
                   animate={{ x: ['-200%', '200%'] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                 />
@@ -212,7 +214,7 @@ export function Hero() {
             >
               {activeSector === "energy" && (
                 <motion.p
-                  className="caption text-emerald-300/90 font-mono"
+                  className="caption text-primary/90 font-mono"
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 10 }}
@@ -223,7 +225,7 @@ export function Hero() {
               )}
               {activeSector === "education" && (
                 <motion.p
-                  className="caption text-cyan-300/90 font-mono"
+                  className="caption text-accent/90 font-mono"
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 10 }}
@@ -254,7 +256,7 @@ export function Hero() {
                 href="https://scheduler.zoom.us/altruistic-xai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative inline-flex items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 via-emerald-600 to-cyan-600 px-3 py-1.5 caption font-mono text-slate-950 font-semibold overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.5)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.5)] active:translate-y-[2px] transition-all"
+                className="relative inline-flex items-center justify-center rounded-lg bg-gradient-to-br from-primary via-primary to-accent px-3 py-1.5 caption font-mono text-primary-foreground font-semibold overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.5)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.5)] active:translate-y-[2px] transition-all"
                 whileHover={{
                   scale: 1.03,
                   rotateX: -5,
@@ -275,7 +277,7 @@ export function Hero() {
               
               <motion.a
                 href="mailto:altruisticxai@gmail.com"
-                className="relative inline-flex items-center justify-center gap-1.5 rounded-lg border-2 border-emerald-400/40 bg-slate-900/60 backdrop-blur-sm px-3 py-1.5 caption font-mono text-emerald-100 overflow-hidden group shadow-[0_3px_0_0_hsl(var(--primary)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--primary)/0.3)] active:translate-y-[2px] transition-all"
+                className="relative inline-flex items-center justify-center gap-1.5 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm px-3 py-1.5 caption font-mono text-foreground overflow-hidden group shadow-[0_3px_0_0_hsl(var(--primary)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--primary)/0.3)] active:translate-y-[2px] transition-all"
                 whileHover={{
                   scale: 1.03,
                   rotateX: -5,
@@ -287,11 +289,11 @@ export function Hero() {
                 style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
               >
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/20 to-emerald-500/0"
+                  className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0"
                   animate={{ x: ['-200%', '200%'] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/10 to-transparent rounded-lg" />
+                <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent rounded-lg" />
                 <Mail className="h-2.5 w-2.5 relative z-10" />
                 <span className="relative z-10">altruisticxai@gmail.com</span>
               </motion.a>
@@ -300,23 +302,23 @@ export function Hero() {
                 href="https://www.linkedin.com/in/ik11/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative inline-flex items-center justify-center gap-1.5 rounded-lg border-2 border-sky-400/40 bg-slate-900/60 backdrop-blur-sm px-3 py-1.5 caption font-mono text-sky-100 overflow-hidden group shadow-[0_3px_0_0_hsl(210_100%_60%/0.3)] active:shadow-[0_1px_0_0_hsl(210_100%_60%/0.3)] active:translate-y-[2px] transition-all"
+                className="relative inline-flex items-center justify-center gap-1.5 rounded-lg border-2 border-accent/40 bg-card/60 backdrop-blur-sm px-3 py-1.5 caption font-mono text-foreground overflow-hidden group shadow-[0_3px_0_0_hsl(var(--accent)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--accent)/0.3)] active:translate-y-[2px] transition-all"
                 whileHover={{
                   scale: 1.03,
                   rotateX: -5,
                   rotateY: -5,
-                  borderColor: "hsl(210 100% 60% / 0.6)",
-                  boxShadow: "0 5px 0 0 hsl(210 100% 60% / 0.3), 0 6px 15px -3px hsl(210 100% 60% / 0.3)"
+                  borderColor: "hsl(var(--accent) / 0.6)",
+                  boxShadow: "0 5px 0 0 hsl(var(--accent) / 0.3), 0 6px 15px -3px hsl(var(--accent) / 0.3)"
                 }}
                 whileTap={{ scale: 0.97, translateY: 2 }}
                 style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
               >
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-sky-400/0 via-sky-400/20 to-sky-400/0"
+                  className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/20 to-accent/0"
                   animate={{ x: ['-200%', '200%'] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/10 to-transparent rounded-lg" />
+                <div className="absolute inset-0 bg-gradient-to-b from-accent/10 to-transparent rounded-lg" />
                 <Linkedin className="h-2.5 w-2.5 relative z-10" />
                 <span className="relative z-10">LinkedIn</span>
               </motion.a>
