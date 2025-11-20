@@ -3,6 +3,13 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Linkedin, Mail } from "lucide-react";
 import { Hero3DBackground } from "./Hero3D";
 
+interface TrailParticle {
+  id: number;
+  x: number;
+  y: number;
+  timestamp: number;
+}
+
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -24,6 +31,10 @@ export function Hero() {
   
   // Sector switcher state
   const [activeSector, setActiveSector] = useState<"energy" | "education" | null>(null);
+  
+  // Mouse trail particles state
+  const [trailParticles, setTrailParticles] = useState<TrailParticle[]>([]);
+  const particleIdRef = useRef(0);
   
   // Intersection Observer for lazy loading 3D background
   useEffect(() => {
@@ -77,8 +88,72 @@ export function Hero() {
     };
   }, [fullText]);
 
+  // Handle mouse movement for trail effect
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (!ref.current) return;
+    
+    const rect = ref.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const newParticle: TrailParticle = {
+      id: particleIdRef.current++,
+      x,
+      y,
+      timestamp: Date.now(),
+    };
+    
+    setTrailParticles(prev => [...prev, newParticle]);
+  };
+
+  // Clean up old particles
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = Date.now();
+      setTrailParticles(prev => 
+        prev.filter(particle => now - particle.timestamp < 1000)
+      );
+    }, 100);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section ref={ref} id="home" className="relative py-8 md:py-12 overflow-hidden bg-background gradient-mesh">
+    <section 
+      ref={ref} 
+      id="home" 
+      className="relative py-8 md:py-12 overflow-hidden bg-background gradient-mesh"
+      onMouseMove={handleMouseMove}
+    >
+      {/* Mouse Trail Particles */}
+      {trailParticles.map((particle) => {
+        const age = Date.now() - particle.timestamp;
+        const lifespan = 1000; // 1 second
+        const progress = age / lifespan;
+        
+        return (
+          <motion.div
+            key={particle.id}
+            className="absolute w-2 h-2 rounded-full pointer-events-none"
+            style={{
+              left: particle.x,
+              top: particle.y,
+              background: `radial-gradient(circle, hsl(var(--primary) / ${1 - progress}), transparent)`,
+              boxShadow: `0 0 ${8 * (1 - progress)}px ${4 * (1 - progress)}px hsl(var(--primary) / ${0.6 * (1 - progress)})`,
+            }}
+            initial={{ scale: 0, opacity: 1 }}
+            animate={{ 
+              scale: [0, 1.5, 0],
+              opacity: [1, 0.8, 0],
+            }}
+            transition={{ 
+              duration: 1,
+              ease: "easeOut",
+            }}
+          />
+        );
+      })}
+      
       {/* 3D Animated Background - Lazy Loaded */}
       {shouldRender3D && <Hero3DBackground />}
       
