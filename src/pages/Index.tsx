@@ -243,7 +243,7 @@ function RecentBuilds() {
       supabase.removeChannel(channel);
     };
   }, []);
-  return <section id="builds" className="py-6 md:py-10 rainbow-gradient-overlay">
+  return <section id="builds" className="py-6 md:py-10">
       <div className="mx-auto w-full max-w-5xl px-3 md:px-4">
         <motion.div initial={{
         opacity: 0,
@@ -303,11 +303,8 @@ function RecentBuilds() {
     </section>;
 }
 function PilotOffer() {
-  const [isForOpen, setIsForOpen] = useState(false);
-  const [isNotForOpen, setIsNotForOpen] = useState(false);
-
-  return <section id="pilot" className="border-t border-slate-900/80 py-4 md:py-6 rainbow-mesh">
-      <div className="mx-auto w-full max-w-4xl px-4 md:px-6">
+  return <section id="pilot" className="border-t border-slate-900/80 py-3 md:py-4 gradient-mesh">
+      <div className="mx-auto w-full max-w-5xl px-3 md:px-4 organic-spacing">
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -318,11 +315,11 @@ function PilotOffer() {
         once: true
       }} transition={{
         duration: 0.5
-      }} className="mb-4">
-          <h2 className="text-lg font-bold tracking-tight text-emerald-300 sm:text-xl md:text-2xl">
+      }} className="mb-3 isolated-component">
+          <h2 className="text-sm font-semibold tracking-tight text-foreground sm:text-base text-reveal">
             Why a Pilot Partner Instead of Hiring In-House
           </h2>
-          <ul className="mt-3 space-y-2 max-w-3xl text-sm md:text-base">
+          <ul className="mt-2 space-y-1.5 max-w-3xl">
             {[
               "Hiring in-house makes sense once you know what you're scaling. When you're still in the \"is this even the right thing?\" phase, it's a slow and expensive way to find out.",
               "Bringing on a full-time senior hire typically means months of recruiting, six-figure commitments, and added overhead—before you even know if the pilot is worth scaling.",
@@ -334,16 +331,16 @@ function PilotOffer() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                className={`flex items-start gap-2 leading-relaxed ${i === 2 ? 'text-slate-100 font-semibold' : 'text-slate-300'}`}
+                className={`flex items-start gap-2 body-base leading-relaxed ${i === 2 ? 'text-foreground font-medium' : 'text-muted-foreground'}`}
               >
-                <span className="text-emerald-400 mt-0.5 text-sm">•</span>
+                <span className="text-primary mt-0.5 text-xs">•</span>
                 <span>{text}</span>
               </motion.li>
             ))}
           </ul>
         </motion.div>
 
-        {/* What This Model Is For - Dropdown */}
+        {/* What This Model Is For */}
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -356,65 +353,41 @@ function PilotOffer() {
         duration: 0.6,
         delay: 0.1
       }} className="mb-3">
-          <button
-            onClick={() => setIsForOpen(!isForOpen)}
-            className="w-full flex items-center justify-between rounded-lg border border-emerald-400/40 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 px-4 py-3 text-left transition-all hover:border-emerald-400/60 hover:from-emerald-500/20 hover:to-teal-500/20"
-          >
-            <h3 className="text-sm font-bold text-emerald-300 sm:text-base">
-              What This Model Is For
-            </h3>
-            <svg
-              className={`h-5 w-5 text-emerald-400 transition-transform ${isForOpen ? 'rotate-180' : ''}`}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          
-          {isForOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="mt-3"
-            >
-              <TooltipProvider delayDuration={200}>
-                <div className="grid gap-2 sm:grid-cols-2">
-                  {[{
-                  title: "Early, ambiguous work",
-                  desc: "When the edges are fuzzy and you need to learn by shipping, not by planning.",
-                  color: "emerald",
-                  icon: "🧭",
-                  example: "AI Sales Copilot: Started with messy CRM exports and unclear goals. Week 1: data flow. Week 2: first dashboard. Week 4: auto-prioritized leads ready for demo."
-                }, {
-                  title: "Complex domains",
-                  desc: "Energy, education, civic systems, compliance—places where policy, people, and tech collide.",
-                  color: "cyan",
-                  icon: "⚡",
-                  example: "Energy Analytics Pilot: 200+ campus meters, Excel chaos. Built real-time dashboard showing savings opportunities across policy, billing, and operations."
-                }, {
-                  title: "Proof, not promises",
-                  desc: "You need visible movement and credible artifacts, not another strategy deck.",
-                  color: "teal",
-                  icon: "✓",
-                  example: "EdTech Portal: Education nonprofit needed evidence for funders. 4 weeks: working pilot tracking outcomes. Result: defended funding with real data."
-                }, {
-                  title: "Lean, collaborative teams",
-                  desc: "You're comfortable working in short cycles, reacting to real results, and adjusting quickly.",
-                  color: "blue",
-                  icon: "⚙",
-                  example: "Founder OS: Solo founder needed operational clarity. Weekly async Looms, quick pivots. Built unified scheduling, CRM, and invoicing—calm founder cockpit."
-                }].map((item, i) => <FeatureCardWithTooltip key={i} item={item} index={i} />)}
-                </div>
-              </TooltipProvider>
-            </motion.div>
-          )}
+          <h3 className="text-xs font-semibold text-primary mb-2 sm:text-sm">
+            What This Model Is For
+          </h3>
+          <TooltipProvider delayDuration={200}>
+            <div className="grid gap-1.5 sm:grid-cols-2">
+              {[{
+              title: "Early, ambiguous work",
+              desc: "When the edges are fuzzy and you need to learn by shipping, not by planning.",
+              color: "emerald",
+              icon: "🧭",
+              example: "AI Sales Copilot: Started with messy CRM exports and unclear goals. Week 1: data flow. Week 2: first dashboard. Week 4: auto-prioritized leads ready for demo."
+            }, {
+              title: "Complex domains",
+              desc: "Energy, education, civic systems, compliance—places where policy, people, and tech collide.",
+              color: "cyan",
+              icon: "⚡",
+              example: "Energy Analytics Pilot: 200+ campus meters, Excel chaos. Built real-time dashboard showing savings opportunities across policy, billing, and operations."
+            }, {
+              title: "Proof, not promises",
+              desc: "You need visible movement and credible artifacts, not another strategy deck.",
+              color: "teal",
+              icon: "✓",
+              example: "EdTech Portal: Education nonprofit needed evidence for funders. 4 weeks: working pilot tracking outcomes. Result: defended funding with real data."
+            }, {
+              title: "Lean, collaborative teams",
+              desc: "You're comfortable working in short cycles, reacting to real results, and adjusting quickly.",
+              color: "blue",
+              icon: "⚙",
+              example: "Founder OS: Solo founder needed operational clarity. Weekly async Looms, quick pivots. Built unified scheduling, CRM, and invoicing—calm founder cockpit."
+            }].map((item, i) => <FeatureCardWithTooltip key={i} item={item} index={i} />)}
+            </div>
+          </TooltipProvider>
         </motion.div>
 
-        {/* What This Model Is Not For - Dropdown */}
+        {/* What This Model Is Not For */}
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -426,50 +399,26 @@ function PilotOffer() {
       }} transition={{
         duration: 0.6,
         delay: 0.2
-      }} className="mb-4">
-          <button
-            onClick={() => setIsNotForOpen(!isNotForOpen)}
-            className="w-full flex items-center justify-between rounded-lg border border-slate-700/60 bg-slate-800/30 px-4 py-3 text-left transition-all hover:border-slate-600/80 hover:bg-slate-800/50"
-          >
-            <h3 className="text-sm font-bold text-slate-300 sm:text-base">
-              What This Model Is Not For
-            </h3>
-            <svg
-              className={`h-5 w-5 text-slate-400 transition-transform ${isNotForOpen ? 'rotate-180' : ''}`}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          
-          {isNotForOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="mt-3"
-            >
-              <div className="rounded-lg border border-slate-800/70 bg-slate-950/50 p-4">
-                <ul className="space-y-2 text-sm text-slate-300 md:text-base">
-                  <li className="flex items-start gap-2">
-                    <span className="text-slate-500 mt-0.5">✕</span>
-                    <span>Large, multi-team implementations from day one</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-slate-500 mt-0.5">✕</span>
-                    <span>Long-term headcount decisions disguised as "pilots"</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-slate-500 mt-0.5">✕</span>
-                    <span>Purely cosmetic work where a static site or brochure would do</span>
-                  </li>
-                </ul>
-              </div>
-            </motion.div>
-          )}
+      }} className="mb-3">
+          <h3 className="text-xs font-semibold text-muted-foreground mb-2 sm:text-sm">
+            What This Model Is Not For
+          </h3>
+          <div className="rounded-md border border-slate-800/70 bg-slate-950/50 p-2">
+            <ul className="space-y-1 body-base text-slate-400">
+              <li className="flex items-start gap-1.5">
+                <span className="opacity-50 mt-0.5 text-xs">✕</span>
+                <span>Large, multi-team implementations from day one</span>
+              </li>
+              <li className="flex items-start gap-1.5">
+                <span className="opacity-50 mt-0.5 text-xs">✕</span>
+                <span>Long-term headcount decisions disguised as "pilots"</span>
+              </li>
+              <li className="flex items-start gap-1.5">
+                <span className="opacity-50 mt-0.5 text-xs">✕</span>
+                <span>Purely cosmetic work where a static site or brochure would do</span>
+              </li>
+            </ul>
+          </div>
         </motion.div>
 
         {/* Bottom CTA */}
@@ -484,11 +433,11 @@ function PilotOffer() {
       }} transition={{
         duration: 0.5,
         delay: 0.3
-      }} className="rounded-lg border border-emerald-400/30 bg-gradient-to-br from-emerald-500/10 to-slate-950/80 p-4 backdrop-blur-sm">
-          <p className="text-sm font-bold text-emerald-200 mb-2 sm:text-base">
+      }} className="rounded-md border border-primary/30 bg-gradient-to-br from-primary/5 to-slate-950/80 p-2.5 backdrop-blur-sm">
+          <p className="text-xs text-foreground font-medium mb-1">
             Pilot-first, learning-first approach
           </p>
-          <p className="text-sm text-slate-200 leading-relaxed md:text-base">
+          <p className="body-base text-muted-foreground leading-relaxed">
             Small scope, honest results, and no long-term lock-in until you know what's actually worth scaling.
           </p>
         </motion.div>
@@ -529,7 +478,7 @@ function TypicalProgression() {
         }} transition={{
           duration: 0.5,
           delay: 0.1
-        }} className="group rounded-lg border-2 border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] isolated-component preserve-3d rainbow-border">
+        }} className="group rounded-lg border-2 border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] isolated-component preserve-3d">
             <div className="flex items-center gap-1.5">
               <span className="body-sm font-bold text-emerald-400">1. Pilot</span>
               <span className="caption text-emerald-300/80">4 weeks</span>
@@ -550,7 +499,7 @@ function TypicalProgression() {
         }} transition={{
           duration: 0.5,
           delay: 0.2
-        }} className="group rounded-lg border-2 border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] isolated-component preserve-3d rainbow-border">
+        }} className="group rounded-lg border-2 border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] isolated-component preserve-3d">
             <div className="flex items-center gap-1.5">
               <span className="body-sm font-bold text-blue-400">2. Proposal</span>
               <span className="caption text-blue-300/80">1–2 weeks</span>
@@ -571,7 +520,7 @@ function TypicalProgression() {
         }} transition={{
           duration: 0.5,
           delay: 0.3
-        }} className="group rounded-lg border-2 border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] isolated-component preserve-3d rainbow-border">
+        }} className="group rounded-lg border-2 border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] isolated-component preserve-3d">
             <div className="flex items-center gap-1.5">
               <span className="body-sm font-bold text-violet-400">3. Build</span>
               <span className="caption text-violet-300/80">2–6 months</span>
@@ -592,7 +541,7 @@ function TypicalProgression() {
         }} transition={{
           duration: 0.5,
           delay: 0.4
-        }} className="group rounded-lg border-2 border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(249,115,22,0.5)] isolated-component preserve-3d rainbow-border">
+        }} className="group rounded-lg border-2 border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20 p-2.5 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(249,115,22,0.5)] isolated-component preserve-3d">
             <div className="flex items-center gap-1.5">
               <span className="body-sm font-bold text-orange-400">4. Retainer</span>
               <span className="caption text-orange-300/80">Ongoing</span>
@@ -687,7 +636,7 @@ function WhoBenefits() {
 }
 function AboutMe() {
   return (
-    <section id="about" className="border-t border-slate-900/80 py-6 md:py-8 rainbow-mesh">
+    <section id="about" className="border-t border-slate-900/80 py-6 md:py-8 gradient-mesh">
       <div className="mx-auto w-full max-w-5xl px-3 md:px-4 organic-spacing">
         {/* Header */}
         <motion.div
@@ -727,7 +676,7 @@ function AboutMe() {
           style={{ transformStyle: "preserve-3d" }}
         >
           {/* Glow effect background */}
-          <div className="absolute -inset-0.5 rainbow-gradient-bg rounded-2xl opacity-0 group-hover:opacity-40 blur-lg transition-all duration-500" />
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 via-cyan-500 to-emerald-500 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500 animate-pulse" />
           
           {/* Main card */}
           <div className="relative rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/95 via-slate-900/95 to-slate-950/95 backdrop-blur-xl p-4 md:p-5 shadow-2xl overflow-hidden">
