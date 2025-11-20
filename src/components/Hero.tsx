@@ -546,9 +546,9 @@ export function Hero() {
               )}
             </motion.div>
 
-            {/* CTA Buttons - Compact 3D Style */}
+            {/* CTA Buttons - Compact 3D Style with full-width on mobile */}
             <motion.div
-              className="mt-4 flex flex-col gap-2 body-xs sm:flex-row sm:items-center"
+              className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
@@ -557,7 +557,7 @@ export function Hero() {
                 href="https://scheduler.zoom.us/altruistic-xai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative inline-flex items-center justify-center rounded-lg bg-gradient-to-br from-primary via-primary to-accent px-3 py-1.5 caption font-mono text-primary-foreground font-semibold overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.5)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.5)] active:translate-y-[2px] transition-all"
+                className="relative inline-flex w-full sm:w-auto items-center justify-center rounded-lg bg-gradient-to-br from-primary via-primary to-accent px-5 py-3 body-base font-mono text-primary-foreground font-semibold overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.5)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.5)] active:translate-y-[2px] transition-all"
                 whileHover={{
                   scale: 1.03,
                   rotateX: -5,
@@ -578,7 +578,7 @@ export function Hero() {
               
               <motion.a
                 href="mailto:altruisticxai@gmail.com"
-                className="relative inline-flex items-center justify-center gap-1.5 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm px-3 py-1.5 caption font-mono text-foreground overflow-hidden group shadow-[0_3px_0_0_hsl(var(--primary)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--primary)/0.3)] active:translate-y-[2px] transition-all"
+                className="relative inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm px-5 py-3 body-base font-mono text-foreground overflow-hidden group shadow-[0_3px_0_0_hsl(var(--primary)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--primary)/0.3)] active:translate-y-[2px] transition-all"
                 whileHover={{
                   scale: 1.03,
                   rotateX: -5,
@@ -595,7 +595,7 @@ export function Hero() {
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent rounded-lg" />
-                <Mail className="h-2.5 w-2.5 relative z-10" />
+                <Mail className="h-3 w-3 relative z-10" />
                 <span className="relative z-10">altruisticxai@gmail.com</span>
               </motion.a>
               
@@ -603,7 +603,7 @@ export function Hero() {
                 href="https://www.linkedin.com/in/ik11/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative inline-flex items-center justify-center gap-1.5 rounded-lg border-2 border-accent/40 bg-card/60 backdrop-blur-sm px-3 py-1.5 caption font-mono text-foreground overflow-hidden group shadow-[0_3px_0_0_hsl(var(--accent)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--accent)/0.3)] active:translate-y-[2px] transition-all"
+                className="relative inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border-2 border-accent/40 bg-card/60 backdrop-blur-sm px-5 py-3 body-base font-mono text-foreground overflow-hidden group shadow-[0_3px_0_0_hsl(var(--accent)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--accent)/0.3)] active:translate-y-[2px] transition-all"
                 whileHover={{
                   scale: 1.03,
                   rotateX: -5,
@@ -620,7 +620,7 @@ export function Hero() {
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-accent/10 to-transparent rounded-lg" />
-                <Linkedin className="h-2.5 w-2.5 relative z-10" />
+                <Linkedin className="h-3 w-3 relative z-10" />
                 <span className="relative z-10">LinkedIn</span>
               </motion.a>
             </motion.div>
