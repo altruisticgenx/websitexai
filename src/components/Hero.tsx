@@ -182,6 +182,20 @@ export function Hero() {
                 whileHover={{ scale: 1.05, borderColor: "hsl(var(--primary) / 0.6)" }}
                 style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
               >
+                {/* Glowing Halo Effect - Behind button */}
+                <motion.div
+                  className="absolute inset-0 rounded-lg bg-primary blur-xl -z-10"
+                  animate={{
+                    opacity: activeSector === "energy" ? [0.3, 0.6, 0.3] : 0.1,
+                    scale: activeSector === "energy" ? [1.2, 1.5, 1.2] : 1,
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+                
                 {/* Pulsing Ring on Hover */}
                 {activeSector === "energy" && (
                   <>
@@ -253,6 +267,20 @@ export function Hero() {
                 whileHover={{ scale: 1.05, borderColor: "hsl(var(--accent) / 0.6)" }}
                 style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
               >
+                {/* Glowing Halo Effect - Behind button */}
+                <motion.div
+                  className="absolute inset-0 rounded-lg bg-accent blur-xl -z-10"
+                  animate={{
+                    opacity: activeSector === "education" ? [0.3, 0.6, 0.3] : 0.1,
+                    scale: activeSector === "education" ? [1.2, 1.5, 1.2] : 1,
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+                
                 {/* Pulsing Ring on Hover */}
                 {activeSector === "education" && (
                   <>
