@@ -18,9 +18,12 @@ export function Hero() {
   const [shouldRender3D, setShouldRender3D] = useState(false);
 
   // Typing animation state
-  const fullText = "Build, Learn, Lead—on Your Terms";
+  const fullText = "Local-First AI for Schools & Energy Systems";
   const [displayedText, setDisplayedText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
+  
+  // Sector switcher state
+  const [activeSector, setActiveSector] = useState<"energy" | "education" | null>(null);
   
   // Intersection Observer for lazy loading 3D background
   useEffect(() => {
@@ -162,15 +165,83 @@ export function Hero() {
               </span>
             </motion.h1>
 
-            {/* Supporting Text */}
-            <motion.p
-              className="mt-2.5 max-w-xl body-base text-muted-foreground text-reveal text-reveal-delay-2"
+            {/* Sector Tag Switcher */}
+            <motion.div
+              className="mt-3 flex flex-wrap gap-2 items-center caption"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              For students, teachers, founders, and B2B or civic teams, I offer hands-on AI/product execution without the headcount drama. We pick one concrete problem, turn it into a small backlog, and in 4 weeks you get: a live prototype, clear documentation, and a simple decision—scale it, tweak it, or archive it.
-            </motion.p>
+              <span className="text-muted-foreground">Focus:</span>
+              <motion.button
+                className="relative px-3 py-1.5 rounded-lg border-2 border-emerald-400/40 bg-slate-900/60 backdrop-blur-sm text-emerald-100 overflow-hidden group transition-all"
+                onMouseEnter={() => setActiveSector("energy")}
+                onMouseLeave={() => setActiveSector(null)}
+                whileHover={{ scale: 1.05, borderColor: "hsl(var(--primary) / 0.6)" }}
+                style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
+              >
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/20 to-emerald-500/0"
+                  animate={{ x: ['-200%', '200%'] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                />
+                <span className="relative z-10 font-mono">Energy</span>
+              </motion.button>
+              
+              <motion.button
+                className="relative px-3 py-1.5 rounded-lg border-2 border-cyan-400/40 bg-slate-900/60 backdrop-blur-sm text-cyan-100 overflow-hidden group transition-all"
+                onMouseEnter={() => setActiveSector("education")}
+                onMouseLeave={() => setActiveSector(null)}
+                whileHover={{ scale: 1.05, borderColor: "hsl(200 100% 60% / 0.6)" }}
+                style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
+              >
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-cyan-400/20 to-cyan-400/0"
+                  animate={{ x: ['-200%', '200%'] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                />
+                <span className="relative z-10 font-mono">Education</span>
+              </motion.button>
+            </motion.div>
+
+            {/* Dynamic Sector Description */}
+            <motion.div
+              className="mt-2 min-h-[60px]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
+              {activeSector === "energy" && (
+                <motion.p
+                  className="caption text-emerald-300/90 font-mono"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  → Grid optimization · Demand forecasting · Utility analytics
+                </motion.p>
+              )}
+              {activeSector === "education" && (
+                <motion.p
+                  className="caption text-cyan-300/90 font-mono"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  → Personalized learning · Student privacy · Civic education
+                </motion.p>
+              )}
+              {!activeSector && (
+                <motion.p
+                  className="max-w-xl body-base text-muted-foreground"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                >
+                  Privacy-first prototypes that help educators personalize learning and utilities optimize grids—without sending your data to Big Tech clouds.
+                </motion.p>
+              )}
+            </motion.div>
 
             {/* CTA Buttons - Compact 3D Style */}
             <motion.div
