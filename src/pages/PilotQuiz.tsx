@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, ArrowLeft, CheckCircle, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle, Sparkles, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import { SiteNav } from "@/components/SiteNav";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 interface Question {
   id: string;
@@ -266,9 +269,13 @@ const PILOT_DATABASE = [
 
 const PilotQuiz: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
+  const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [showResults, setShowResults] = useState(false);
+  const [email, setEmail] = useState("");
+  const [isSubmittingEmail, setIsSubmittingEmail] = useState(false);
+  const [emailSubmitted, setEmailSubmitted] = useState(false);
 
   const currentQuestion = QUIZ_QUESTIONS[currentStep];
   const isLastQuestion = currentStep === QUIZ_QUESTIONS.length - 1;
@@ -357,6 +364,67 @@ const PilotQuiz: React.FC = () => {
 
     // Sort by score and return top 3
     return scoredPilots.sort((a, b) => b.score - a.score).slice(0, 3);
+  };
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast({
+        title: "Invalid email",
+        description: "Please enter a valid email address",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmittingEmail(true);
+
+    try {
+      // Insert quiz submission
+      const { data: submission, error: insertError } = await supabase
+        .from("pilot_quiz_submissions")
+        .insert({
+          email,
+          answers,
+          recommendations: recommendations.map(r => ({
+            pilotId: r.pilotId,
+            title: r.title,
+            domain: r.domain,
+            reason: r.reason,
+            link: r.link,
+          })),
+        })
+        .select()
+        .single();
+
+      if (insertError) throw insertError;
+
+      // Trigger email send
+      const { error: emailError } = await supabase.functions.invoke(
+        "send-quiz-recommendations",
+        {
+          body: { submissionId: submission.id },
+        }
+      );
+
+      if (emailError) throw emailError;
+
+      setEmailSubmitted(true);
+      toast({
+        title: "Success!",
+        description: "Your recommendations have been sent to your inbox",
+      });
+    } catch (error: any) {
+      console.error("Error submitting email:", error);
+      toast({
+        title: "Error",
+        description: error.message || "Failed to send recommendations. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmittingEmail(false);
+    }
   };
 
   const recommendations = showResults ? getRecommendations() : [];
@@ -517,6 +585,50 @@ const PilotQuiz: React.FC = () => {
                       </motion.div>
                     ))}
                   </div>
+
+                  {/* Email Capture */}
+                  {!emailSubmitted ? (
+                    <Card className="mb-8 border-2 border-primary/20">
+                      <CardHeader>
+                        <div className="flex items-center gap-2 mb-2">
+                          <Mail className="h-5 w-5 text-primary" />
+                          <CardTitle className="heading-4">Get Your Recommendations via Email</CardTitle>
+                        </div>
+                        <CardDescription>
+                          Enter your email to receive these recommendations plus a follow-up from our team
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3">
+                          <Input
+                            type="email"
+                            placeholder="your@email.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            className="flex-1"
+                          />
+                          <Button type="submit" disabled={isSubmittingEmail} className="sm:w-auto w-full">
+                            {isSubmittingEmail ? "Sending..." : "Send to Inbox"}
+                          </Button>
+                        </form>
+                      </CardContent>
+                    </Card>
+                  ) : (
+                    <Card className="mb-8 border-2 border-primary bg-primary/5">
+                      <CardContent className="pt-6">
+                        <div className="flex items-center gap-3">
+                          <CheckCircle className="h-6 w-6 text-primary" />
+                          <div>
+                            <p className="font-medium text-foreground">Recommendations sent!</p>
+                            <p className="text-sm text-muted-foreground">
+                              Check your inbox at {email} for your personalized pilot recommendations
+                            </p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
 
                   {/* Actions */}
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
