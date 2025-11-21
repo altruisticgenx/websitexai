@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState, Suspense, lazy } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { CaseStudiesStack } from "@/components/ui/animated-cards-stack";
+import { PilotCard } from "@/components/PilotCard";
 import { Hero } from "@/components/Hero";
 import { LazySection } from "@/components/LazySection";
 import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
@@ -21,6 +22,7 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { SwipeIndicator } from "@/components/SwipeIndicator";
+import { TableOfContents } from "@/components/TableOfContents";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
@@ -165,6 +167,7 @@ const Index: React.FC = () => {
       <ScrollToTop />
       <KeyboardShortcutsHelp />
       <SwipeIndicator />
+      <TableOfContents />
     </div>
   );
 };
@@ -299,9 +302,9 @@ const RecentBuilds: React.FC = React.memo(() => {
           transition={{ duration: 0.4 }}
           className="space-y-2"
         >
-          <h2 className="heading-3 text-foreground">Recent Builds</h2>
-          <p className="body-base text-muted-foreground">
-            Small scope, real results—across energy, education, and founder projects.
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">Recent Builds</h2>
+          <p className="text-sm sm:text-base text-muted-foreground">
+            Real pilots with real outcomes. See what gets shipped in 2–6 weeks.
           </p>
         </motion.div>
 
@@ -336,9 +339,19 @@ const RecentBuilds: React.FC = React.memo(() => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-6 pb-2"
+            className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
           >
-            <CaseStudiesStack caseStudies={projects} />
+            {projects.map((project, idx) => (
+              <PilotCard
+                key={project.id}
+                id={project.id}
+                title={project.title}
+                sector={project.sector}
+                summary={project.summary}
+                tag={project.tag}
+                index={idx}
+              />
+            ))}
           </motion.div>
         )}
       </div>
@@ -392,44 +405,44 @@ const PilotOffer: React.FC = React.memo(() => {
         >
           <h3 className="heading-4 text-primary">What This Model Is For</h3>
           <TooltipProvider delayDuration={160}>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {[
-                {
-                  title: "Early, ambiguous work",
-                  desc: "When the edges are fuzzy and you need to learn by shipping, not by planning.",
-                  color: "emerald",
-                  icon: "🧭",
-                  example:
-                    "AI Sales Copilot: Started with messy CRM exports and unclear goals. Week 1: data flow. Week 2: first dashboard. Week 4: auto-prioritized leads ready for demo.",
-                },
-                {
-                  title: "Complex domains",
-                  desc: "Energy, education, civic systems, compliance—places where policy, people, and tech collide.",
-                  color: "cyan",
-                  icon: "⚡",
-                  example:
-                    "Energy Analytics Pilot: 200+ campus meters, Excel chaos. Built real-time dashboard showing savings opportunities across policy, billing, and operations.",
-                },
-                {
-                  title: "Proof, not promises",
-                  desc: "You need visible movement and credible artifacts, not another strategy deck.",
-                  color: "teal",
-                  icon: "✓",
-                  example:
-                    "EdTech Portal: Education nonprofit needed evidence for funders. 4 weeks: working pilot tracking outcomes. Result: defended funding with real data.",
-                },
-                {
-                  title: "Lean, collaborative teams",
-                  desc: "You're comfortable working in short cycles, reacting to real results, and adjusting quickly.",
-                  color: "blue",
-                  icon: "⚙",
-                  example:
-                    "Founder OS: Solo founder needed operational clarity. Weekly async Looms, quick pivots. Built unified scheduling, CRM, and invoicing—calm founder cockpit.",
-                },
-              ].map((item, i) => (
-                <FeatureCardWithTooltip key={item.title} item={item as any} index={i} />
-              ))}
-            </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {[
+              {
+                title: "Early, ambiguous work",
+                desc: "When the edges are fuzzy and you need to learn by shipping, not by planning.",
+                color: "emerald",
+                icon: "🧭",
+                example:
+                  "AI Sales Copilot: Started with messy CRM exports and unclear goals. Week 1: data flow. Week 2: first dashboard. Week 4: auto-prioritized leads ready for demo.",
+              },
+              {
+                title: "Complex domains",
+                desc: "Energy, education, civic systems, compliance—places where policy, people, and tech collide.",
+                color: "cyan",
+                icon: "⚡",
+                example:
+                  "Energy Analytics Pilot: 200+ campus meters, Excel chaos. Built real-time dashboard showing savings opportunities across policy, billing, and operations.",
+              },
+              {
+                title: "Proof, not promises",
+                desc: "You need visible movement and credible artifacts, not another strategy deck.",
+                color: "teal",
+                icon: "✓",
+                example:
+                  "EdTech Portal: Education nonprofit needed evidence for funders. 4 weeks: working pilot tracking outcomes. Result: defended funding with real data.",
+              },
+              {
+                title: "Lean, collaborative teams",
+                desc: "You're comfortable working in short cycles, reacting to real results, and adjusting quickly.",
+                color: "blue",
+                icon: "⚙",
+                example:
+                  "Founder OS: Solo founder needed operational clarity. Weekly async Looms, quick pivots. Built unified scheduling, CRM, and invoicing—calm founder cockpit.",
+              },
+            ].map((item, i) => (
+              <FeatureCardWithTooltip key={item.title} item={item as any} index={i} />
+            ))}
+          </div>
           </TooltipProvider>
         </motion.div>
 
