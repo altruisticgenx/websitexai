@@ -282,7 +282,7 @@ export default function Portfolio() {
                 <h3 className="text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-400">
                   Key Outcomes
                 </h3>
-                <ul className="mt-2 grid gap-1.5 sm:grid-cols-2">
+                <ul className="mt-2 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
                   {study.outcomes.map((outcome, i) => (
                     <li
                       key={i}

@@ -32,7 +32,7 @@ export function CardsSkeleton({ count = 4 }: { count?: number }) {
         <Skeleton className="h-8 w-64" />
         <Skeleton className="h-16 w-full max-w-xl" />
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {Array.from({ length: count }).map((_, i) => (
           <div key={i} className="rounded-2xl border border-slate-800/70 bg-slate-900/70 p-4 space-y-3">
             <Skeleton className="h-4 w-32" />
@@ -56,7 +56,7 @@ export function StepsSkeleton({ count = 3 }: { count?: number }) {
         <Skeleton className="h-8 w-64" />
         <Skeleton className="h-12 w-full max-w-xl" />
       </div>
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {Array.from({ length: count }).map((_, i) => (
           <div key={i} className="rounded-2xl border border-slate-800/70 bg-slate-950/50 p-4 space-y-3">
             <Skeleton className="h-4 w-16" />

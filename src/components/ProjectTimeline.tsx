@@ -179,7 +179,7 @@ export function ProjectTimeline({ phases, duration }: ProjectTimelineProps) {
           </div>
 
           {/* Quick stats */}
-          <div className="mt-4 grid grid-cols-3 gap-3">
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
             <div className="rounded-lg bg-slate-900/50 p-2.5 text-center">
               <div className="text-xs text-slate-400">Total Duration</div>
               <div className="mt-1 text-sm font-semibold text-emerald-300">

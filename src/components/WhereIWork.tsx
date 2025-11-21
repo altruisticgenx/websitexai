@@ -36,7 +36,7 @@ export function WhereIWork() {
         </p>
       </motion.div>
 
-      <div className="mt-4 grid gap-2.5 sm:grid-cols-3">
+      <div className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-3">
         {locations.map((loc, index) => {
           const Icon = loc.icon;
           return (

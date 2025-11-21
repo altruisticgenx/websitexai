@@ -277,7 +277,7 @@ const CaseStudyDetail = () => {
             className="mt-8 scroll-mt-20"
           >
             <h2 className="heading-3 text-slate-50">Key Outcomes</h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
               {caseStudy.outcomes.map((outcome, index) => (
                 <div
                   key={index}
