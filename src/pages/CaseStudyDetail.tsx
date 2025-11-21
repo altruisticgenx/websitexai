@@ -204,7 +204,7 @@ const CaseStudyDetail = () => {
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-400/10 px-3 py-1 body-xs font-medium text-blue-300">
               {caseStudy.sector}
             </div>
-            <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-50 tracking-tight">
+            <h1 className="mt-4 text-2xl font-bold text-slate-50 tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
               {caseStudy.title}
             </h1>
             <p className="mt-3 body-base text-slate-300">{caseStudy.tagline}</p>
@@ -248,7 +248,7 @@ const CaseStudyDetail = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="mt-8 scroll-mt-20"
           >
-            <h2 className="heading-3 text-slate-50">The Challenge</h2>
+            <h2 className="text-lg font-semibold text-slate-50 sm:text-xl lg:text-2xl">The Challenge</h2>
             <p className="mt-3 body-base leading-relaxed text-slate-300">
               {caseStudy.challenge}
             </p>
@@ -262,7 +262,7 @@ const CaseStudyDetail = () => {
             transition={{ duration: 0.5, delay: 0.5 }}
             className="mt-8 scroll-mt-20"
           >
-            <h2 className="heading-3 text-slate-50">The Solution</h2>
+            <h2 className="text-lg font-semibold text-slate-50 sm:text-xl lg:text-2xl">The Solution</h2>
             <p className="mt-3 body-base leading-relaxed text-slate-300">
               {caseStudy.solution}
             </p>
@@ -276,7 +276,7 @@ const CaseStudyDetail = () => {
             transition={{ duration: 0.5, delay: 0.6 }}
             className="mt-8 scroll-mt-20"
           >
-            <h2 className="heading-3 text-slate-50">Key Outcomes</h2>
+            <h2 className="text-lg font-semibold text-slate-50 sm:text-xl lg:text-2xl">Key Outcomes</h2>
             <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
               {caseStudy.outcomes.map((outcome, index) => (
                 <div
@@ -298,7 +298,7 @@ const CaseStudyDetail = () => {
             transition={{ duration: 0.5, delay: 0.7 }}
             className="mt-8 scroll-mt-20"
           >
-            <h2 className="heading-3 text-slate-50">Project Timeline</h2>
+            <h2 className="text-lg font-semibold text-slate-50 sm:text-xl lg:text-2xl">Project Timeline</h2>
             <ProjectTimeline phases={caseStudy.phases} duration={caseStudy.duration} />
           </motion.section>
 
@@ -310,7 +310,7 @@ const CaseStudyDetail = () => {
             transition={{ duration: 0.5, delay: 0.8 }}
             className="mt-8 scroll-mt-20"
           >
-            <h2 className="heading-3 text-slate-50">Technologies</h2>
+            <h2 className="text-lg font-semibold text-slate-50 sm:text-xl lg:text-2xl">Technologies</h2>
             <div className="mt-4 flex flex-wrap gap-2">
               {caseStudy.technologies.map((tech, index) => (
                 <span
@@ -330,7 +330,7 @@ const CaseStudyDetail = () => {
             transition={{ duration: 0.5, delay: 0.9 }}
             className="mt-12 mb-8 rounded-lg border border-primary/20 bg-primary/5 p-6 text-center"
           >
-            <h3 className="heading-4 text-slate-50">Ready to start your pilot?</h3>
+            <h3 className="text-base font-semibold text-slate-50 sm:text-lg">Ready to start your pilot?</h3>
             <p className="mt-2 body-sm text-slate-300">
               Book a 30-min intro to discuss your project and see if it's a fit.
             </p>

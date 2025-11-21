@@ -300,7 +300,7 @@ const RecentBuilds: React.FC = React.memo(() => {
           transition={{ duration: 0.4 }}
           className="space-y-2"
         >
-          <h2 className="heading-3 text-foreground">Recent Builds</h2>
+          <h2 className="text-lg font-semibold text-foreground sm:text-xl lg:text-2xl">Recent Builds</h2>
           <p className="body-base text-muted-foreground">
             Small scope, real results—across energy, education, and founder projects.
           </p>
@@ -359,7 +359,7 @@ const PilotOffer: React.FC = React.memo(() => {
           transition={{ duration: 0.4 }}
           className="space-y-6"
         >
-          <h2 className="heading-3 text-foreground">Why a Pilot Partner Instead of Hiring In-House</h2>
+          <h2 className="text-lg font-semibold text-foreground sm:text-xl lg:text-2xl">Why a Pilot Partner Instead of Hiring In-House</h2>
           <ul className="max-w-3xl space-y-4">
             {[
               "Hiring in-house makes sense once you know what you're scaling. When you're still in the \"is this even the right thing?\" phase, it's a slow and expensive way to find out.",
@@ -391,7 +391,7 @@ const PilotOffer: React.FC = React.memo(() => {
           transition={{ duration: 0.45, delay: 0.1 }}
           className="space-y-6"
         >
-          <h3 className="heading-4 text-primary">What This Model Is For</h3>
+          <h3 className="text-base font-semibold text-primary sm:text-lg">What This Model Is For</h3>
           <TooltipProvider delayDuration={160}>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {[
@@ -441,7 +441,7 @@ const PilotOffer: React.FC = React.memo(() => {
           transition={{ duration: 0.45, delay: 0.2 }}
           className="space-y-4"
         >
-          <h3 className="heading-4 text-muted-foreground">What This Model Is Not For</h3>
+          <h3 className="text-base font-semibold text-muted-foreground sm:text-lg">What This Model Is Not For</h3>
           <div className="rounded-lg border border-slate-800/70 bg-slate-950/50 p-5">
             <ul className="body-base space-y-3 text-slate-400">
               {[
@@ -465,7 +465,7 @@ const PilotOffer: React.FC = React.memo(() => {
           transition={{ duration: 0.4, delay: 0.25 }}
           className="rounded-lg border border-primary/30 bg-gradient-to-br from-primary/5 to-slate-950/80 p-5 backdrop-blur-sm"
         >
-          <p className="heading-5 mb-3 text-foreground">Pilot-first, learning-first approach</p>
+          <p className="text-sm font-semibold mb-3 text-foreground sm:text-base">Pilot-first, learning-first approach</p>
           <p className="body-base leading-relaxed text-muted-foreground">
             Small scope, honest results, and no long-term lock-in until you know what's actually worth scaling.
           </p>
@@ -487,7 +487,7 @@ const TypicalProgression: React.FC = React.memo(() => {
           transition={{ duration: 0.4 }}
           className="space-y-2"
         >
-          <h2 className="heading-3 text-foreground">Typical Progression</h2>
+          <h2 className="text-lg font-semibold text-foreground sm:text-xl lg:text-2xl">Typical Progression</h2>
           <p className="body-base text-muted-foreground">Start small, scale when ready—or jump to any stage.</p>
         </motion.div>
 
@@ -568,7 +568,7 @@ const WhoBenefits: React.FC = React.memo(() => {
           transition={{ duration: 0.4 }}
           className="space-y-2"
         >
-          <h2 className="heading-3 text-foreground">Who Benefits?</h2>
+          <h2 className="text-lg font-semibold text-foreground sm:text-xl lg:text-2xl">Who Benefits?</h2>
           <p className="body-base leading-relaxed text-muted-foreground">
             This model is for anyone who needs{" "}
             <span className="font-medium text-primary">tangible progress without hiring overhead</span>.
@@ -583,7 +583,7 @@ const WhoBenefits: React.FC = React.memo(() => {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-5"
           >
-            <h3 className="heading-5 mb-4 text-primary">Perfect For</h3>
+            <h3 className="text-sm font-semibold mb-4 text-primary sm:text-base">Perfect For</h3>
             <ul className="body-base space-y-3 text-slate-200">
               {audiences.map((aud) => (
                 <li key={aud} className="flex items-start gap-2">
@@ -602,11 +602,11 @@ const WhoBenefits: React.FC = React.memo(() => {
             className="space-y-6 rounded-xl border border-slate-800/70 bg-slate-950/50 p-5"
           >
             <div>
-              <h3 className="heading-5 mb-3 text-primary">Ideal Fit</h3>
+              <h3 className="text-sm font-semibold mb-3 text-primary sm:text-base">Ideal Fit</h3>
               <p className="body-base text-slate-200">Weekly feedback, ready to experiment, need clear results</p>
             </div>
             <div>
-              <h3 className="heading-5 mb-3 text-slate-400">Not a Fit</h3>
+              <h3 className="text-sm font-semibold mb-3 text-slate-400 sm:text-base">Not a Fit</h3>
               <p className="body-base text-slate-400">Big static sites, slow-moving teams, no feedback loop</p>
             </div>
           </motion.div>
@@ -628,7 +628,7 @@ const AboutMe: React.FC = React.memo(() => {
           transition={{ duration: 0.5 }}
           className="space-y-3"
         >
-          <h2 className="heading-3 text-foreground">About Me</h2>
+          <h2 className="text-lg font-semibold text-foreground sm:text-xl lg:text-2xl">About Me</h2>
           <motion.p
             className="body-lg max-w-3xl text-muted-foreground"
             initial={{ opacity: 0, y: 10 }}
@@ -651,7 +651,7 @@ const AboutMe: React.FC = React.memo(() => {
           <div className="relative overflow-hidden rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/95 via-slate-900/95 to-slate-950/95 p-5 shadow-2xl backdrop-blur-xl">
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-cyan-500/5" />
             <div className="relative z-10">
-              <h3 className="heading-4 text-foreground">Why This Matters</h3>
+              <h3 className="text-base font-semibold text-foreground sm:text-lg">Why This Matters</h3>
               <motion.p
                 className="body-sm mt-2 text-muted-foreground"
                 initial={{ opacity: 0, y: 10 }}

@@ -50,7 +50,7 @@ export const OrganizationTypes = memo(() => {
     }} transition={{
       duration: 0.5
     }} className="max-w-4xl">
-        <h2 className="heading-3">
+        <h2 className="text-lg font-semibold sm:text-xl lg:text-2xl">
           Organization Types
         </h2>
         

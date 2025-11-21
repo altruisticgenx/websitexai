@@ -57,7 +57,7 @@ export function PilotCard({
                 {whoFor}
               </span>
             </div>
-            <h3 className="heading-5 text-foreground line-clamp-2">{title}</h3>
+            <h3 className="text-sm font-semibold text-foreground line-clamp-2 sm:text-base">{title}</h3>
             <p className="body-xs text-muted-foreground mt-1">{sector}</p>
           </div>
           {tag && (

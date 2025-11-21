@@ -25,7 +25,7 @@ export default function FutureProofing() {
             <p className="text-xs font-semibold tracking-[0.2em] text-accent uppercase">
               2025–2026 Pennsylvania Pilot
             </p>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight">
+            <h1 className="text-2xl font-semibold leading-tight sm:text-3xl md:text-4xl lg:text-5xl">
               Future-Proofing Pennsylvania Students
             </h1>
             <p className="text-base sm:text-lg text-foreground/90">
@@ -62,7 +62,7 @@ export default function FutureProofing() {
         <div className="mx-auto max-w-6xl px-4 py-12 lg:py-16">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
             <div className="space-y-4">
-              <h2 className="text-2xl font-semibold">
+              <h2 className="text-xl font-semibold sm:text-2xl">
                 Pennsylvania is stuck between innovation and reality.
               </h2>
               <p className="text-foreground/90">
@@ -85,7 +85,7 @@ export default function FutureProofing() {
                 <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                   Legislative Congestion
                 </p>
-                <p className="mt-2 text-3xl font-semibold text-accent">
+                <p className="mt-2 text-2xl font-semibold text-accent sm:text-3xl">
                   80%+
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">
@@ -97,7 +97,7 @@ export default function FutureProofing() {
                 <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                   Fragmented Districts
                 </p>
-                <p className="mt-2 text-3xl font-semibold text-primary">
+                <p className="mt-2 text-2xl font-semibold text-primary sm:text-3xl">
                   500+
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">
@@ -126,7 +126,7 @@ export default function FutureProofing() {
       <section className="border-b border-border bg-background">
         <div className="mx-auto max-w-6xl px-4 py-12 lg:py-16 space-y-8">
           <div className="max-w-3xl space-y-3">
-            <h2 className="text-2xl font-semibold">
+            <h2 className="text-xl font-semibold sm:text-2xl">
               A policy-to-practice civic lab for Pennsylvania.
             </h2>
             <p className="text-foreground/90">
@@ -173,7 +173,7 @@ export default function FutureProofing() {
       <section className="border-b border-border">
         <div className="mx-auto max-w-6xl px-4 py-12 lg:py-16 space-y-6">
           <div className="max-w-3xl space-y-2">
-            <h2 className="text-2xl font-semibold">
+            <h2 className="text-xl font-semibold sm:text-2xl">
               2–6 weeks. Real data. Real bills. Real student work.
             </h2>
             <p className="text-foreground/90">
@@ -230,7 +230,7 @@ export default function FutureProofing() {
       {/* Outcomes */}
       <section className="border-b border-border bg-background">
         <div className="mx-auto max-w-6xl px-4 py-12 lg:py-16 space-y-8">
-          <h2 className="text-2xl font-semibold">What districts gain.</h2>
+          <h2 className="text-xl font-semibold sm:text-2xl">What districts gain.</h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 text-xs">
             <div className="space-y-2 rounded-2xl border border-border bg-card/60 p-4">
               <h3 className="text-sm font-semibold text-foreground">
@@ -277,7 +277,7 @@ export default function FutureProofing() {
       <section id="apply" className="border-b border-border">
         <div className="mx-auto max-w-6xl px-4 py-12 lg:py-16 space-y-6">
           <div className="max-w-3xl space-y-3">
-            <h2 className="text-2xl font-semibold">
+            <h2 className="text-xl font-semibold sm:text-2xl">
               Bring the Future-Proofing Pilot to your district.
             </h2>
             <p className="text-foreground/90">

@@ -198,7 +198,7 @@ export default function Portfolio() {
             <ArrowLeft className="h-4 w-4" />
             Back to home
           </Link>
-          <h1 className="mt-6 text-3xl font-semibold sm:text-4xl md:text-5xl">
+          <h1 className="mt-6 text-2xl font-semibold sm:text-3xl md:text-4xl lg:text-5xl">
             Portfolio & Case Studies
           </h1>
           <p className="mt-3 max-w-2xl text-base text-slate-300">
@@ -332,7 +332,7 @@ export default function Portfolio() {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="mt-16 rounded-3xl border border-emerald-400/30 bg-emerald-400/5 p-8 text-center"
         >
-          <h2 className="text-2xl font-semibold">Ready to start your pilot?</h2>
+          <h2 className="text-xl font-semibold sm:text-2xl">Ready to start your pilot?</h2>
           <p className="mt-2 text-sm text-slate-300">
             Let's ship something meaningful in 4 weeks. No long-term lock-in,
             just consistent weekly progress.
