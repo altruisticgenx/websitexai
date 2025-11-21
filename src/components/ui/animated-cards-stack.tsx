@@ -478,7 +478,7 @@ export const CaseStudiesStack = ({
 
   return (
     <div 
-      className="relative h-[180px] w-full sm:h-[200px] md:h-[240px] touch-pan-y select-none"
+      className="group/container relative h-[180px] w-full sm:h-[200px] md:h-[240px] touch-pan-y select-none"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -492,23 +492,42 @@ export const CaseStudiesStack = ({
           <motion.a
             key={study.id}
             href={`/case-study/${study.id}`}
-            className={`absolute inset-0 mx-auto flex w-full max-w-lg cursor-pointer flex-col justify-between rounded-xl border bg-gradient-to-br ${gradientClass} p-3 shadow-2xl backdrop-blur-md transition-colors min-h-[44px] active:scale-[0.98] sm:p-4 md:rounded-2xl md:p-4`}
+            className={cn(
+              "absolute left-1/2 mx-auto flex w-[85%] max-w-md flex-col justify-between rounded-xl border-[3px] p-4 backdrop-blur-sm sm:w-[80%] sm:max-w-lg sm:p-5 md:w-[70%]",
+              "bg-gradient-to-br",
+              gradientClass,
+              "group/card relative overflow-hidden outline outline-[3px] outline-background outline-offset-[3px]",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+              "touch-target",
+              "transition-all duration-300 ease-out cursor-pointer",
+              // Mix blend mode and filter effects
+              "mix-blend-multiply active:scale-[0.98]"
+            )}
             style={{
               transformOrigin: "center center",
               backfaceVisibility: "hidden",
               WebkitBackfaceVisibility: "hidden",
               transform: "translateZ(0)",
-              willChange: "transform, opacity",
+              willChange: "transform, opacity, filter, box-shadow",
+              filter: hoveredIndex === index ? 'none' : 'grayscale(100%) sepia(5%)',
+              mixBlendMode: hoveredIndex === index ? 'normal' : 'multiply',
+              boxShadow: hoveredIndex === index 
+                ? `0 0 120px 0 hsl(var(--primary) / 0.5)` 
+                : `0 0 24px 0 hsl(var(--background) / 0.3)`,
             }}
             initial={false}
             animate={{
-              top: index * -6,
-              scale: 1 - index * 0.04,
-              zIndex: caseStudies.length - index,
-              opacity: index === 0 ? 1 : index === 1 ? 0.75 : index === 2 ? 0.4 : 0,
+              x: "-50%",
+              y: index * -6,
+              scale: hoveredIndex === index ? 1 : 1 - index * 0.04,
+              rotate: hoveredIndex === index ? 0 : (isTop ? 0 : index % 2 === 0 ? -3 : 3),
+              zIndex: hoveredIndex === index ? 100 : caseStudies.length - index,
+              opacity: hoveredIndex !== null && hoveredIndex !== index 
+                ? 0.3 
+                : (index === 0 ? 1 : index === 1 ? 0.75 : index === 2 ? 0.4 : 0),
             }}
             whileHover={isTop ? {
-              scale: 1.03,
+              scale: 1,
               y: -8,
               rotateX: -2,
               rotateY: 1,
@@ -524,11 +543,13 @@ export const CaseStudiesStack = ({
               }
             } : {}}
             transition={{
-              duration: 0.4,
-              ease: [0.23, 1, 0.32, 1],
+              duration: hoveredIndex === index ? 0.3 : 0.4,
+              ease: [0.25, 0.1, 0.25, 1],
             }}
-            onMouseEnter={() => isTop && setHoveredIndex(index)}
+            onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
+            onFocus={() => setHoveredIndex(index)}
+            onBlur={() => setHoveredIndex(null)}
           >
             <div className="space-y-1.5 sm:space-y-2">
               <div 
