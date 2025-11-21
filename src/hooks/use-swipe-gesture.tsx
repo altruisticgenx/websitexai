@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useHapticFeedback } from './use-haptic-feedback';
 
 interface SwipeGestureOptions {
   onSwipeLeft?: () => void;
@@ -17,6 +18,7 @@ export function useSwipeGesture<T extends HTMLElement>({
 }: SwipeGestureOptions) {
   const elementRef = useRef<T>(null);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const { trigger } = useHapticFeedback();
 
   useEffect(() => {
     const element = elementRef.current;
@@ -44,6 +46,7 @@ export function useSwipeGesture<T extends HTMLElement>({
       if (absX > absY) {
         // Horizontal swipe
         if (absX > threshold) {
+          trigger('medium');
           if (deltaX > 0) {
             onSwipeRight?.();
           } else {
@@ -53,6 +56,7 @@ export function useSwipeGesture<T extends HTMLElement>({
       } else {
         // Vertical swipe
         if (absY > threshold) {
+          trigger('medium');
           if (deltaY > 0) {
             onSwipeDown?.();
           } else {
@@ -71,7 +75,7 @@ export function useSwipeGesture<T extends HTMLElement>({
       element.removeEventListener('touchstart', handleTouchStart);
       element.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [onSwipeLeft, onSwipeRight, onSwipeUp, onSwipeDown, threshold]);
+  }, [onSwipeLeft, onSwipeRight, onSwipeUp, onSwipeDown, threshold, trigger]);
 
   return elementRef;
 }
