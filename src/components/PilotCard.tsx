@@ -3,7 +3,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { SpotlightCard } from "./SpotlightCard";
-
 interface PilotCardProps {
   id: string;
   title: string;
@@ -17,7 +16,6 @@ interface PilotCardProps {
   className?: string;
   shouldLoadImage?: boolean; // New prop for lazy loading control
 }
-
 export function PilotCard({
   id,
   title,
@@ -29,46 +27,37 @@ export function PilotCard({
   tag,
   imageUrl,
   className,
-  shouldLoadImage = true,
+  shouldLoadImage = true
 }: PilotCardProps) {
   const reduce = useReducedMotion();
-
-  return (
-    <Link to={`/case-study/${id}`} className="block w-full h-full">
+  return <Link to={`/case-study/${id}`} className="block w-full h-full">
       <SpotlightCard className={cn("h-full flex flex-col", className)}>
-        <motion.article
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduce ? 0 : 0.35 }}
-          className="relative w-full h-full flex flex-col overflow-hidden"
-        >
+        <motion.article initial={{
+        opacity: 0,
+        y: 12
+      }} animate={{
+        opacity: 1,
+        y: 0
+      }} transition={{
+        duration: reduce ? 0 : 0.35
+      }} className="relative w-full h-full flex flex-col overflow-hidden">
           {/* Image header - Mobile-first sizing */}
           <div className="relative h-32 xs:h-36 sm:h-40 w-full overflow-hidden flex-shrink-0">
-            {imageUrl && shouldLoadImage ? (
-              <img
-                src={imageUrl}
-                alt={`${title} preview`}
-                className="h-full w-full object-cover"
-                loading="lazy"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-            ) : null}
+            {imageUrl && shouldLoadImage ? <img src={imageUrl} alt={`${title} preview`} className="h-full w-full object-cover" loading="lazy" onError={e => {
+            e.currentTarget.style.display = 'none';
+          }} /> : null}
             {/* Gradient overlay/fallback */}
             <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/50 to-transparent" />
+            <div className="pointer-events-none\n    absolute\n    inset-x-0\n    bottom-0\n    h-1/2\n    rounded-2xl\n    bg-gradient-to-t\n    from-slate-950/95\n    via-slate-950/60\n    to-transparent\n    sm:inset-0\n    sm:h-full" />
 
             {/* Sector pill */}
             <div className="absolute left-2 top-2 rounded-full bg-black/70 backdrop-blur-sm px-2 py-0.5 text-[9px] sm:text-[10px] text-slate-200 ring-1 ring-white/10 font-medium">
               {sector}
             </div>
 
-            {tag && (
-              <div className="absolute right-2 top-2 rounded-full bg-primary/20 backdrop-blur-sm px-2 py-0.5 text-[9px] sm:text-[10px] text-primary ring-1 ring-primary/30 font-medium">
+            {tag && <div className="absolute right-2 top-2 rounded-full bg-primary/20 backdrop-blur-sm px-2 py-0.5 text-[9px] sm:text-[10px] text-primary ring-1 ring-primary/30 font-medium">
                 {tag}
-              </div>
-            )}
+              </div>}
           </div>
 
           {/* Body - Mobile-first padding and spacing */}
@@ -100,22 +89,12 @@ export function PilotCard({
 
             {/* Footer CTA */}
             <div className="mt-auto pt-1">
-              <div
-                className={cn(
-                  "w-full rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-center",
-                  "text-[10px] xs:text-[11px] sm:text-xs font-semibold text-primary",
-                  "hover:bg-primary/20 hover:border-primary/50 active:scale-[0.98] transition-all duration-200",
-                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
-                )}
-                role="button"
-                aria-label={`Open case study for ${title}`}
-              >
+              <div className={cn("w-full rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-center", "text-[10px] xs:text-[11px] sm:text-xs font-semibold text-primary", "hover:bg-primary/20 hover:border-primary/50 active:scale-[0.98] transition-all duration-200", "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50")} role="button" aria-label={`Open case study for ${title}`}>
                 View case study →
               </div>
             </div>
           </div>
         </motion.article>
       </SpotlightCard>
-    </Link>
-  );
+    </Link>;
 }
