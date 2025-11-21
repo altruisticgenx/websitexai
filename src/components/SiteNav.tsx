@@ -6,21 +6,15 @@ import { useFocusTrap } from "@/hooks/use-focus-trap";
 import { useHapticFeedback } from "@/hooks/use-haptic-feedback";
 import { Menu, X } from "lucide-react";
 import { prefetchPortfolio, prefetchFutureProofing } from "@/utils/routePrefetch";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 export function SiteNav() {
   const activeSection = useActiveSection(["", "pilot", "builds", "how", "where"]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const mobileMenuRef = useFocusTrap<HTMLDivElement>(isMobileMenuOpen);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
-  const { trigger } = useHapticFeedback();
-  
+  const {
+    trigger
+  } = useHapticFeedback();
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     trigger('light');
@@ -82,8 +76,8 @@ export function SiteNav() {
         <div className="flex h-14 sm:h-16 items-center justify-between">
           {/* Logo/Brand */}
           <a href="#" onClick={handleNavClick} className="flex flex-col transition-colors hover:text-primary">
-            <span className="body-xs font-semibold uppercase tracking-wider text-primary">
-              AltruisticX AI
+            <span className="body-xs font-semibold uppercase tracking-wider text-primary text-xs">
+              AltruisticXAI 
             </span>
           </a>
 
@@ -92,16 +86,7 @@ export function SiteNav() {
             <NavigationMenuList className="gap-1">
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
-                  <a 
-                    href="#" 
-                    onClick={handleNavClick} 
-                    aria-label="Navigate to home section" 
-                    aria-current={activeSection === "" ? "page" : undefined} 
-                    className={cn(
-                      "inline-flex items-center justify-center rounded-md px-3 py-2 body-xs lowercase tracking-wide transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50",
-                      activeSection === "" ? "text-primary bg-primary/10" : "text-foreground"
-                    )}
-                  >
+                  <a href="#" onClick={handleNavClick} aria-label="Navigate to home section" aria-current={activeSection === "" ? "page" : undefined} className={cn("inline-flex items-center justify-center rounded-md px-3 py-2 body-xs lowercase tracking-wide transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50", activeSection === "" ? "text-primary bg-primary/10" : "text-foreground")}>
                     home
                   </a>
                 </NavigationMenuLink>
@@ -109,13 +94,7 @@ export function SiteNav() {
 
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
-                  <Link 
-                    to="/portfolio" 
-                    aria-label="View portfolio lab" 
-                    className="inline-flex items-center justify-center rounded-md px-3 py-2 body-xs lowercase tracking-wide text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none"
-                    onMouseEnter={prefetchPortfolio}
-                    onFocus={prefetchPortfolio}
-                  >
+                  <Link to="/portfolio" aria-label="View portfolio lab" className="inline-flex items-center justify-center rounded-md px-3 py-2 body-xs lowercase tracking-wide text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none" onMouseEnter={prefetchPortfolio} onFocus={prefetchPortfolio}>
                     lab
                   </Link>
                 </NavigationMenuLink>
@@ -123,13 +102,7 @@ export function SiteNav() {
 
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
-                  <a 
-                    href="https://futurexedu.lovable.app" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    aria-label="View 2026 snapshot (opens in new tab)" 
-                    className="inline-flex items-center justify-center rounded-md px-3 py-2 body-xs lowercase tracking-wide text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none"
-                  >
+                  <a href="https://futurexedu.lovable.app" target="_blank" rel="noopener noreferrer" aria-label="View 2026 snapshot (opens in new tab)" className="inline-flex items-center justify-center rounded-md px-3 py-2 body-xs lowercase tracking-wide text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none">
                     2026 snapshot
                   </a>
                 </NavigationMenuLink>
@@ -137,27 +110,14 @@ export function SiteNav() {
 
               {/* Work Dropdown */}
               <NavigationMenuItem>
-                <NavigationMenuTrigger 
-                  className={cn(
-                    "body-xs lowercase tracking-wide",
-                    isWorkActive ? "text-primary bg-primary/10" : ""
-                  )}
-                >
+                <NavigationMenuTrigger className={cn("body-xs lowercase tracking-wide", isWorkActive ? "text-primary bg-primary/10" : "")}>
                   work
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[280px] gap-1 p-2">
                     <li>
                       <NavigationMenuLink asChild>
-                        <a 
-                          href="#pilot" 
-                          onClick={handleNavClick} 
-                          aria-label="Navigate to 4-week pilots section"
-                          className={cn(
-                            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                            activeSection === "pilot" ? "bg-primary/10 text-primary" : ""
-                          )}
-                        >
+                        <a href="#pilot" onClick={handleNavClick} aria-label="Navigate to 4-week pilots section" className={cn("block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground", activeSection === "pilot" ? "bg-primary/10 text-primary" : "")}>
                           <div className="body-sm font-medium leading-none">4-week pilots</div>
                           <p className="micro text-muted-foreground mt-1">
                             Pilot partner model
@@ -167,15 +127,7 @@ export function SiteNav() {
                     </li>
                     <li>
                       <NavigationMenuLink asChild>
-                        <a 
-                          href="#builds" 
-                          onClick={handleNavClick} 
-                          aria-label="Navigate to recent builds section"
-                          className={cn(
-                            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                            activeSection === "builds" ? "bg-primary/10 text-primary" : ""
-                          )}
-                        >
+                        <a href="#builds" onClick={handleNavClick} aria-label="Navigate to recent builds section" className={cn("block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground", activeSection === "builds" ? "bg-primary/10 text-primary" : "")}>
                           <div className="body-sm font-medium leading-none">Recent builds</div>
                           <p className="micro text-muted-foreground mt-1">
                             See what's been shipped
@@ -196,13 +148,7 @@ export function SiteNav() {
                   <ul className="grid w-[280px] gap-1 p-2">
                     <li>
                       <NavigationMenuLink asChild>
-                        <Link 
-                          to="/solutions/future-proofing" 
-                          aria-label="Future proofing solutions" 
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                          onMouseEnter={prefetchFutureProofing}
-                          onFocus={prefetchFutureProofing}
-                        >
+                        <Link to="/solutions/future-proofing" aria-label="Future proofing solutions" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground" onMouseEnter={prefetchFutureProofing} onFocus={prefetchFutureProofing}>
                           <div className="body-sm font-medium leading-none">Future proofing</div>
                           <p className="micro text-muted-foreground mt-1">
                             4-week pilot for schools
@@ -212,13 +158,7 @@ export function SiteNav() {
                     </li>
                     <li>
                       <NavigationMenuLink asChild>
-                        <a 
-                          href="https://docs.google.com/document/d/150vF2RNZe395m3TTrq3zQTDGjFxsvfuM4CxNvqiRoss/edit?usp=drivesdk" 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          aria-label="Our mission (opens in new tab)" 
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                        >
+                        <a href="https://docs.google.com/document/d/150vF2RNZe395m3TTrq3zQTDGjFxsvfuM4CxNvqiRoss/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer" aria-label="Our mission (opens in new tab)" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                           <div className="body-sm font-medium leading-none">Our mission</div>
                           <p className="micro text-muted-foreground mt-1">
                             Learn about our purpose
@@ -233,25 +173,12 @@ export function SiteNav() {
           </NavigationMenu>
 
           {/* CTA Button */}
-          <a 
-            href="https://scheduler.zoom.us/altruistic-xai" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            aria-label="Let's talk - schedule a brief intro call (opens in new tab)" 
-            className="hidden md:flex ml-2 rounded-full bg-primary px-4 py-2 min-h-[44px] items-center body-xs font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-md shadow-primary/20"
-          >
+          <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" aria-label="Let's talk - schedule a brief intro call (opens in new tab)" className="hidden md:flex ml-2 rounded-full bg-primary px-4 py-2 min-h-[44px] items-center body-xs font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-md shadow-primary/20">
             Let's talk
           </a>
 
           {/* Mobile Menu Button - Touch-friendly size (min 44x44px) */}
-          <button 
-            ref={mobileMenuButtonRef} 
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-            className="md:hidden inline-flex items-center justify-center rounded-md min-w-[44px] min-h-[44px] p-3 text-foreground hover:bg-accent hover:text-accent-foreground transition-colors touch-manipulation" 
-            aria-label="Toggle mobile menu" 
-            aria-expanded={isMobileMenuOpen} 
-            aria-controls="mobile-menu"
-          >
+          <button ref={mobileMenuButtonRef} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden inline-flex items-center justify-center rounded-md min-w-[44px] min-h-[44px] p-3 text-foreground hover:bg-accent hover:text-accent-foreground transition-colors touch-manipulation" aria-label="Toggle mobile menu" aria-expanded={isMobileMenuOpen} aria-controls="mobile-menu">
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
@@ -263,14 +190,7 @@ export function SiteNav() {
                 home
               </a>
 
-              <Link 
-                to="/portfolio" 
-                aria-label="View portfolio lab" 
-                className="block rounded-md px-4 py-3 min-h-[44px] flex items-center body-sm lowercase text-foreground transition-colors hover:text-primary hover:bg-accent/50 touch-manipulation"
-                onClick={() => setIsMobileMenuOpen(false)}
-                onMouseEnter={prefetchPortfolio}
-                onFocus={prefetchPortfolio}
-              >
+              <Link to="/portfolio" aria-label="View portfolio lab" className="block rounded-md px-4 py-3 min-h-[44px] flex items-center body-sm lowercase text-foreground transition-colors hover:text-primary hover:bg-accent/50 touch-manipulation" onClick={() => setIsMobileMenuOpen(false)} onMouseEnter={prefetchPortfolio} onFocus={prefetchPortfolio}>
                 lab
               </Link>
 
@@ -297,14 +217,7 @@ export function SiteNav() {
                 <div className="overline text-muted-foreground mb-1.5">
                   Solutions
                 </div>
-                <Link 
-                  to="/solutions/future-proofing" 
-                  onClick={() => setIsMobileMenuOpen(false)} 
-                  aria-label="Future proofing solutions" 
-                  className="block rounded-md px-3 py-2.5 min-h-[44px] flex items-center body-xs transition-colors text-foreground hover:text-primary hover:bg-accent/50 touch-manipulation"
-                  onMouseEnter={prefetchFutureProofing}
-                  onFocus={prefetchFutureProofing}
-                >
+                <Link to="/solutions/future-proofing" onClick={() => setIsMobileMenuOpen(false)} aria-label="Future proofing solutions" className="block rounded-md px-3 py-2.5 min-h-[44px] flex items-center body-xs transition-colors text-foreground hover:text-primary hover:bg-accent/50 touch-manipulation" onMouseEnter={prefetchFutureProofing} onFocus={prefetchFutureProofing}>
                   Future proofing
                 </Link>
                 <a href="https://docs.google.com/document/d/150vF2RNZe395m3TTrq3zQTDGjFxsvfuM4CxNvqiRoss/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)} aria-label="Our mission (opens in new tab)" className="block rounded-md px-3 py-2.5 min-h-[44px] flex items-center body-xs transition-colors text-foreground hover:text-primary hover:bg-accent/50 touch-manipulation">
