@@ -71,7 +71,7 @@ export const OrganizationTypes = memo(() => {
         }} transition={{
           duration: 0.5,
           delay: index * 0.1
-        }} className="relative rounded-none">
+        }} className="relative">
               <motion.button onClick={() => toggleOrg(org.name)} whileHover={{
             y: -4,
             scale: 1.02
@@ -109,7 +109,7 @@ export const OrganizationTypes = memo(() => {
               y: -10
             }} transition={{
               duration: 0.3
-            }} className="absolute left-0 right-0 top-full z-[60] mt-2">
+            }} className="absolute left-0 right-0 top-full z-50 mt-2">
                     <div className={`rounded-xl border border-border/50 bg-background/95 backdrop-blur-sm p-3 shadow-xl ${'bg-gradient-to-br ' + org.gradient}`}>
                       <p className="caption leading-relaxed text-muted-foreground">
                         {org.description.split('**').map((part, i) => i % 2 === 1 ? <strong key={i} className="font-semibold text-foreground">{part}</strong> : <span key={i}>{part}</span>)}

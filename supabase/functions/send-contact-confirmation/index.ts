@@ -4,20 +4,10 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.81.1";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
-// Allowed origins for CORS
-const allowedOrigins = [
-  "https://altruisticxai.com",
-  "https://www.altruisticxai.com",
-  "https://6f307c2b-f211-4fd3-87c3-2ca60ca7887a.lovableproject.com", // Lovable preview
-];
-
-const getCorsHeaders = (origin: string | null) => {
-  const allowedOrigin = origin && allowedOrigins.includes(origin) ? origin : allowedOrigins[0];
-  return {
-    "Access-Control-Allow-Origin": allowedOrigin,
-    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-    "Access-Control-Allow-Credentials": "true",
-  };
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
 };
 
 interface ContactConfirmationRequest {
@@ -27,98 +17,12 @@ interface ContactConfirmationRequest {
 // Rate limiting configuration
 const RATE_LIMIT_MAX = 5; // Maximum requests per window
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour in milliseconds
-const ADMIN_EMAIL = "altruisticxai@gmail.com"; // Admin notification email
-const SUSPICIOUS_THRESHOLD = 3; // Number of rate limit violations before alert
 
 // Helper to get client IP
 const getClientIP = (req: Request): string => {
   return req.headers.get("x-forwarded-for")?.split(",")[0].trim() || 
          req.headers.get("x-real-ip") || 
          "unknown";
-};
-
-// Helper to send admin alert emails
-const sendAdminAlert = async (
-  alertType: "rate_limit" | "suspicious_activity",
-  details: {
-    ipAddress: string;
-    requestCount?: number;
-    endpoint: string;
-    timestamp: Date;
-    additionalInfo?: string;
-  }
-): Promise<void> => {
-  try {
-    const subject = alertType === "rate_limit" 
-      ? "⚠️ Rate Limit Exceeded - AltruisticX AI"
-      : "🚨 Suspicious Activity Detected - AltruisticX AI";
-
-    const html = `
-      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h1 style="color: #dc2626; font-size: 24px; margin-bottom: 20px;">
-          ${alertType === "rate_limit" ? "Rate Limit Exceeded" : "Suspicious Activity Detected"}
-        </h1>
-        
-        <div style="background: #fef2f2; border-left: 4px solid #dc2626; padding: 16px; margin: 24px 0; border-radius: 4px;">
-          <p style="color: #991b1b; font-size: 14px; margin: 0; font-weight: 600;">
-            Security Alert - Immediate Attention Required
-          </p>
-        </div>
-
-        <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
-          <tr style="border-bottom: 1px solid #e5e7eb;">
-            <td style="padding: 12px 0; font-weight: 600; color: #374151;">IP Address:</td>
-            <td style="padding: 12px 0; color: #6b7280;">${details.ipAddress}</td>
-          </tr>
-          <tr style="border-bottom: 1px solid #e5e7eb;">
-            <td style="padding: 12px 0; font-weight: 600; color: #374151;">Endpoint:</td>
-            <td style="padding: 12px 0; color: #6b7280;">${details.endpoint}</td>
-          </tr>
-          ${details.requestCount ? `
-          <tr style="border-bottom: 1px solid #e5e7eb;">
-            <td style="padding: 12px 0; font-weight: 600; color: #374151;">Request Count:</td>
-            <td style="padding: 12px 0; color: #6b7280;">${details.requestCount}</td>
-          </tr>
-          ` : ''}
-          <tr style="border-bottom: 1px solid #e5e7eb;">
-            <td style="padding: 12px 0; font-weight: 600; color: #374151;">Timestamp:</td>
-            <td style="padding: 12px 0; color: #6b7280;">${details.timestamp.toISOString()}</td>
-          </tr>
-          ${details.additionalInfo ? `
-          <tr>
-            <td style="padding: 12px 0; font-weight: 600; color: #374151;">Additional Info:</td>
-            <td style="padding: 12px 0; color: #6b7280;">${details.additionalInfo}</td>
-          </tr>
-          ` : ''}
-        </table>
-
-        <p style="color: #374151; font-size: 14px; line-height: 1.6;">
-          ${alertType === "rate_limit" 
-            ? `This IP has exceeded the rate limit of ${RATE_LIMIT_MAX} requests per hour.`
-            : "Multiple rate limit violations detected from this IP. Possible automated attack or abuse."
-          }
-        </p>
-
-        <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 32px 0;">
-        
-        <p style="color: #94a3b8; font-size: 12px; line-height: 1.5;">
-          This is an automated security alert from AltruisticX AI monitoring system.
-        </p>
-      </div>
-    `;
-
-    await resend.emails.send({
-      from: "AltruisticX Security <onboarding@resend.dev>",
-      to: [ADMIN_EMAIL],
-      subject,
-      html,
-    });
-
-    console.log(`Admin alert sent: ${alertType} for IP ${details.ipAddress}`);
-  } catch (error) {
-    console.error("Failed to send admin alert:", error);
-    // Don't throw - we don't want email failures to break the main function
-  }
 };
 
 // Helper to check rate limit
@@ -171,28 +75,6 @@ const checkRateLimit = async (supabase: any, ipAddress: string): Promise<{ allow
   if (existing.request_count >= RATE_LIMIT_MAX) {
     const resetTime = new Date(existingWindowStart.getTime() + RATE_LIMIT_WINDOW_MS);
     const minutesUntilReset = Math.ceil((resetTime.getTime() - now.getTime()) / 60000);
-    
-    // Send alert on first violation
-    if (existing.request_count === RATE_LIMIT_MAX) {
-      await sendAdminAlert("rate_limit", {
-        ipAddress,
-        requestCount: existing.request_count,
-        endpoint,
-        timestamp: now,
-      });
-    }
-    
-    // Check for suspicious activity (repeated violations)
-    if (existing.request_count >= RATE_LIMIT_MAX + SUSPICIOUS_THRESHOLD) {
-      await sendAdminAlert("suspicious_activity", {
-        ipAddress,
-        requestCount: existing.request_count,
-        endpoint,
-        timestamp: now,
-        additionalInfo: `IP has made ${existing.request_count} attempts despite rate limiting. Possible automated attack.`,
-      });
-    }
-    
     return { 
       allowed: false, 
       message: `Rate limit exceeded. Maximum ${RATE_LIMIT_MAX} emails per hour. Please try again in ${minutesUntilReset} minutes.` 
@@ -211,9 +93,6 @@ const checkRateLimit = async (supabase: any, ipAddress: string): Promise<{ allow
 };
 
 const handler = async (req: Request): Promise<Response> => {
-  const origin = req.headers.get("origin");
-  const corsHeaders = getCorsHeaders(origin);
-  
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
