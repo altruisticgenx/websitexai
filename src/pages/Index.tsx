@@ -123,6 +123,23 @@ const Index: React.FC = () => {
               <SocialProof />
               <RecentBuilds />
 
+              <Section spacing="normal">
+                <div className="w-full rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm shadow-lg p-4 sm:p-6">
+                  <video
+                    className="w-full rounded-xl"
+                    controls
+                    preload="metadata"
+                    aria-label="Product demo video"
+                  >
+                    <source
+                      src="https://cdn.midjourney.com/video/cb84f296-92a0-4a37-a0e3-1c9c95299488/0.mp4"
+                      type="video/mp4"
+                    />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </Section>
+
               <LazySection minHeight={380}>
                 <TypicalProgression />
               </LazySection>
