@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { ArrowLeft, Calendar, CheckCircle2, Code } from "lucide-react";
 import { ProjectTimeline } from "@/components/ProjectTimeline";
 import { InPageTOC } from "@/components/InPageTOC";
+import { CaseStudyDetailSkeleton } from "@/components/skeletons/SectionSkeleton";
 
 // --- Case Study Data (shared) ---
 export const caseStudiesData = [{
@@ -117,9 +118,25 @@ const CaseStudyDetail = () => {
   } = useParams<{
     id: string;
   }>();
+  const [isLoading, setIsLoading] = useState(true);
+  
   const caseStudy = caseStudiesData.find(study => study.id === id);
+  
+  useEffect(() => {
+    // Simulate loading for better UX
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+    
+    return () => clearTimeout(timer);
+  }, [id]);
+  
   if (!caseStudy) {
     return <Navigate to="/portfolio" replace />;
+  }
+  
+  if (isLoading) {
+    return <CaseStudyDetailSkeleton />;
   }
   const tocItems = [{
     id: "summary",
