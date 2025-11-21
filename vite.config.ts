@@ -16,14 +16,10 @@ export default defineConfig(({ mode }) => ({
     },
     dedupe: [
       // Core React
-      "react",
+      "react", 
       "react-dom",
       // Animation libraries that depend on React
       "framer-motion",
-      // Canvas animation libraries
-      "uvcanvas",
-      // Form libraries that depend on React
-      "react-hook-form",
       // Three.js React wrappers
       "@react-three/fiber",
       "@react-three/drei",
@@ -39,23 +35,6 @@ export default defineConfig(({ mode }) => ({
       "@radix-ui/react-tabs",
       "@radix-ui/react-select",
       "@radix-ui/react-scroll-area",
-      "@radix-ui/react-alert-dialog",
-      "@radix-ui/react-aspect-ratio",
-      "@radix-ui/react-avatar",
-      "@radix-ui/react-checkbox",
-      "@radix-ui/react-collapsible",
-      "@radix-ui/react-context-menu",
-      "@radix-ui/react-hover-card",
-      "@radix-ui/react-label",
-      "@radix-ui/react-menubar",
-      "@radix-ui/react-progress",
-      "@radix-ui/react-radio-group",
-      "@radix-ui/react-separator",
-      "@radix-ui/react-slider",
-      "@radix-ui/react-switch",
-      "@radix-ui/react-toast",
-      "@radix-ui/react-toggle",
-      "@radix-ui/react-toggle-group",
     ],
   },
 }));
