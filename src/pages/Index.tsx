@@ -1,855 +1,867 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState, Suspense, lazy } from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { CaseStudiesStack } from "@/components/ui/animated-cards-stack";
-import { PilotCard } from "@/components/PilotCard";
+import React, { useState, useEffect, Suspense, lazy } from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { TestimonialsVariant, CaseStudiesStack } from "@/components/ui/animated-cards-stack";
+import { Linkedin } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { LazySection } from "@/components/LazySection";
 import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
 
-// Lazy load heavier, below-the-fold sections
-const ShelvedExperiments = lazy(() =>
-  import("@/components/ShelvedExperiments").then((m) => ({ default: m.ShelvedExperiments })),
-);
-const WhereIWork = lazy(() => import("@/components/WhereIWork").then((m) => ({ default: m.WhereIWork })));
-const OrganizationTypes = lazy(() =>
-  import("@/components/OrganizationTypes").then((m) => ({ default: m.OrganizationTypes })),
-);
-const EngagementModels = lazy(() =>
-  import("@/components/EngagementModels").then((m) => ({ default: m.EngagementModels })),
-);
+// Lazy load heavy components
+const ShelvedExperiments = lazy(() => import("@/components/ShelvedExperiments").then(m => ({ default: m.ShelvedExperiments })));
+const WhereIWork = lazy(() => import("@/components/WhereIWork").then(m => ({ default: m.WhereIWork })));
+const OrganizationTypes = lazy(() => import("@/components/OrganizationTypes").then(m => ({ default: m.OrganizationTypes })));
+const EngagementModels = lazy(() => import("@/components/EngagementModels").then(m => ({ default: m.EngagementModels })));
 
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { SwipeIndicator } from "@/components/SwipeIndicator";
+import { useActiveSection } from "@/hooks/use-active-section";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
-import { useHapticFeedback } from "@/hooks/use-haptic-feedback";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteNav } from "@/components/SiteNav";
 import { HeroSkeleton, CardsSkeleton, StepsSkeleton, TwoColumnSkeleton } from "@/components/skeletons/SectionSkeleton";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
-// -----------------------------
-// Main Page Component
-// -----------------------------
-const Index: React.FC = () => {
-  const prefersReducedMotion = useReducedMotion();
+// --- Data Definitions ---
 
-  // Avoid flicker on first paint; hydrate with a tiny stored flag
-  const [isBootLoading, setBootLoading] = useState(() => !safeLocalStorageGet("contentLoaded"));
-
-  // Keep stable ref of section ids for swipe/keyboard nav
-  const sectionIdsRef = useRef<string[]>(["builds", "pilot", "benefits", "org-types", "where", "shelved", "about"]);
-  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
-
-  // Simulate initial load once for first-time visitors
-  useEffect(() => {
-    if (!safeLocalStorageGet("contentLoaded")) {
-      const t = window.setTimeout(() => {
-        setBootLoading(false);
-        safeLocalStorageSet("contentLoaded", "true");
-      }, 700); // faster perceived load, mobile-first
-      return () => window.clearTimeout(t);
-    }
-    setBootLoading(false);
-  }, []);
-
-  // Swipe gesture support (mobile-first)
-  const swipeRef = useSwipeGesture<HTMLDivElement>({
-    onSwipeUp: () => navigateSection(1),
-    onSwipeDown: () => navigateSection(-1),
-    threshold: 72,
+// --- Main Page Component ---
+const Index = () => {
+  const [isLoading, setIsLoading] = useState(() => {
+    // Check if content was previously loaded
+    return !localStorage.getItem('contentLoaded');
   });
 
-  const navigateSection = useCallback(
-    (delta: number) => {
-      const ids = sectionIdsRef.current;
-      const next = Math.max(0, Math.min(ids.length - 1, currentSectionIndex + delta));
-      if (next !== currentSectionIndex) {
-        setCurrentSectionIndex(next);
-        const el = document.getElementById(ids[next]);
-        el?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+  // Section IDs for navigation
+  const sectionIds = ["builds", "pilot", "benefits", "org-types", "where", "shelved", "about"];
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+
+  // Swipe gesture support for mobile navigation
+  const swipeRef = useSwipeGesture<HTMLDivElement>({
+    onSwipeUp: () => {
+      // Navigate to next section
+      const nextIndex = Math.min(currentSectionIndex + 1, sectionIds.length - 1);
+      if (nextIndex !== currentSectionIndex) {
+        setCurrentSectionIndex(nextIndex);
+        const element = document.getElementById(sectionIds[nextIndex]);
+        element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     },
-    [currentSectionIndex, prefersReducedMotion],
-  );
+    onSwipeDown: () => {
+      // Navigate to previous section
+      const prevIndex = Math.max(currentSectionIndex - 1, 0);
+      if (prevIndex !== currentSectionIndex) {
+        setCurrentSectionIndex(prevIndex);
+        const element = document.getElementById(sectionIds[prevIndex]);
+        element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    },
+    threshold: 80,
+  });
 
-  // Keyboard quick-jumps (1..8)
-  useKeyboardNavigation([
-    { key: "1", sectionId: "builds", name: "Builds" },
-    { key: "2", sectionId: "pilot", name: "4-Week Pilot" },
-    { key: "3", sectionId: "benefits", name: "Who Benefits" },
-    { key: "4", sectionId: "org-types", name: "Organization Types" },
-    { key: "5", sectionId: "where", name: "Where I Work" },
-    { key: "6", sectionId: "shelved", name: "Shelved Experiments" },
-    { key: "7", sectionId: "testimonials", name: "Testimonials" },
-    { key: "8", sectionId: "about", name: "About" },
-  ]);
+  // Simulate content loading for first-time visitors
+  useEffect(() => {
+    const hasLoadedBefore = localStorage.getItem('contentLoaded');
+    if (!hasLoadedBefore) {
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+        localStorage.setItem('contentLoaded', 'true');
+      }, 1200);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
-  return (
-    <div ref={swipeRef} className="min-h-screen bg-slate-950 text-slate-50 antialiased">
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-slate-800 focus:px-3 focus:py-2"
-      >
-        Skip to content
-      </a>
-
+  // Setup keyboard navigation
+  useKeyboardNavigation([{
+    key: "1",
+    sectionId: "builds",
+    name: "Builds"
+  }, {
+    key: "2",
+    sectionId: "pilot",
+    name: "4-Week Pilot"
+  }, {
+    key: "3",
+    sectionId: "benefits",
+    name: "Who Benefits"
+  }, {
+    key: "4",
+    sectionId: "org-types",
+    name: "Organization Types"
+  }, {
+    key: "5",
+    sectionId: "where",
+    name: "Where I Work"
+  }, {
+    key: "6",
+    sectionId: "shelved",
+    name: "Shelved Experiments"
+  }, {
+    key: "7",
+    sectionId: "testimonials",
+    name: "Testimonials"
+  }, {
+    key: "8",
+    sectionId: "about",
+    name: "About"
+  }]);
+  return <div ref={swipeRef} className="min-h-screen bg-slate-950 text-slate-50">
+      {/* Scroll Progress Bar */}
       <ScrollProgress />
+      
+      {/* Sticky Navigation */}
       <SiteNav />
-
+      
       <div className="relative mx-auto flex min-h-screen max-w-5xl flex-col px-3 sm:px-4">
         <main id="main-content" className="flex-1 pt-2 sm:pt-4" role="main">
-          {isBootLoading ? (
-            <div className="animate-pulse">
+          {isLoading ? <div className="animate-pulse">
               <HeroSkeleton />
               <CardsSkeleton />
               <StepsSkeleton />
               <TwoColumnSkeleton />
               <StepsSkeleton count={2} />
               <CardsSkeleton count={3} />
-            </div>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
-            >
+            </div> : <motion.div initial={{
+          opacity: 0
+        }} animate={{
+          opacity: 1
+        }} transition={{
+          duration: 0.5
+        }}>
               <Hero />
               <RecentBuilds />
-
+              
               <LazySection>
                 <TypicalProgression />
               </LazySection>
-
+              
               <LazySection>
                 <PilotOffer />
               </LazySection>
-
+              
               <LazySection>
                 <WhoBenefits />
               </LazySection>
-
-              <Suspense
-                fallback={<div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
-              >
+              
+              <Suspense fallback={<div className="animate-pulse h-64 bg-slate-900/60 rounded-2xl" />}>
                 <LazySection>
                   <OrganizationTypes />
                 </LazySection>
               </Suspense>
-
-              <Suspense
-                fallback={<div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
-              >
+              
+              <Suspense fallback={<div className="animate-pulse h-64 bg-slate-900/60 rounded-2xl" />}>
                 <LazySection>
                   <WhereIWork />
                 </LazySection>
               </Suspense>
-
-              <Suspense
-                fallback={<div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
-              >
+              
+              <Suspense fallback={<div className="animate-pulse h-64 bg-slate-900/60 rounded-2xl" />}>
                 <LazySection>
                   <ShelvedExperiments />
                 </LazySection>
               </Suspense>
-
+              
               <LazySection>
                 <AboutMe />
               </LazySection>
-            </motion.div>
-          )}
+            </motion.div>}
         </main>
         <SiteFooter />
       </div>
-
       <ScrollToTop />
       <KeyboardShortcutsHelp />
       <SwipeIndicator />
-    </div>
-  );
+    </div>;
 };
 export default Index;
 
-// -----------------------------
-// Sub-Components (optimized & mobile-first)
-// -----------------------------
+// --- Sub-Components ---
 
-type FeatureItem = {
-  title: string;
-  desc: string;
-  color: "emerald" | "cyan" | "teal" | "blue";
-  icon: string;
-  example: string;
-};
-
-const FeatureCardCollapsible: React.FC<{ item: FeatureItem; index: number }> = React.memo(({ item, index }) => {
-  const prefersReducedMotion = useReducedMotion();
+function FeatureCardWithTooltip({ item, index }: { item: { title: string; desc: string; color: string; icon: string; example: string }; index: number }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { trigger: triggerHaptic } = useHapticFeedback();
 
-  const colorClasses = useMemo(() => {
-    switch (item.color) {
-      case "emerald":
-        return "border-primary/30 from-primary/5";
-      case "cyan":
-        return "border-accent/30 from-accent/5";
-      case "teal":
-        return "border-primary/20 from-primary/5";
-      default:
-        return "border-blue-500/30 from-blue-500/5";
-    }
-  }, [item.color]);
-
-  const handleToggle = useCallback(() => {
-    setIsOpen((prev) => {
-      if (!prev) {
-        triggerHaptic("light");
-      }
-      return !prev;
-    });
-  }, [triggerHaptic]);
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.98 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: prefersReducedMotion ? 0 : 0.35, delay: index * 0.06 }}
-      className={cn(
-        "group relative w-full overflow-hidden rounded-md border bg-gradient-to-br to-background backdrop-blur-sm",
-        colorClasses,
-      )}
-    >
-      <button
-        type="button"
-        onClick={handleToggle}
-        className={cn(
-          "w-full p-2.5 sm:p-3 text-left transition-all touch-manipulation",
-          "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 min-h-[44px]",
-          isOpen && "pb-2"
-        )}
-        aria-expanded={isOpen}
-        aria-label={`${item.title} – ${item.desc}. Tap to expand.`}
-      >
-        <div className="flex items-start gap-2">
-          <div className="flex-1 min-w-0">
-            <h4 className="mb-0.5 text-[11px] font-semibold text-foreground sm:text-xs">{item.title}</h4>
-            <p className="text-[9px] leading-relaxed text-muted-foreground sm:text-[10px]">{item.desc}</p>
-          </div>
-          <span 
-            className={cn(
-              "flex-shrink-0 text-xs text-muted-foreground/60 transition-transform",
-              isOpen && "rotate-180"
-            )} 
-            aria-hidden="true"
-          >
-            ▼
-          </span>
-        </div>
-      </button>
-      
-      {isOpen && (
+    <Tooltip open={isOpen} onOpenChange={setIsOpen}>
+      <TooltipTrigger asChild>
         <motion.div
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: "auto", opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="overflow-hidden"
-        >
-          <div className="px-2.5 pb-2.5 pt-1 sm:px-3 sm:pb-3 border-t border-border/30 bg-background/50">
-            <p className="text-[9px] leading-relaxed text-muted-foreground sm:text-[10px]">
-              <span className="font-semibold text-primary">Real Example:</span> {item.example}
-            </p>
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: index * 0.08 }}
+          whileHover={{ scale: 1.01, y: -1 }}
+          onClick={handleClick}
+          onTouchStart={handleClick}
+          className={`group relative rounded-md border ${
+            item.color === 'emerald'
+              ? 'border-primary/30 bg-gradient-to-br from-primary/5'
+              : item.color === 'cyan'
+              ? 'border-accent/30 bg-gradient-to-br from-accent/5'
+              : item.color === 'teal'
+              ? 'border-primary/20 bg-gradient-to-br from-primary/5'
+              : 'border-blue-500/30 bg-gradient-to-br from-blue-500/5'
+          } to-slate-950/80 p-4 min-h-[80px] backdrop-blur-sm overflow-hidden transition-all cursor-pointer touch-manipulation active:scale-[0.98]`}>
+          <div className="relative flex items-start gap-2">
+            <div className="flex-1 min-w-0">
+              <h4 className="text-sm font-semibold text-foreground mb-1">
+                {item.title}
+              </h4>
+              <p className="body-base text-muted-foreground leading-relaxed">
+                {item.desc}
+              </p>
+            </div>
           </div>
         </motion.div>
-      )}
-    </motion.div>
+      </TooltipTrigger>
+      <TooltipContent side="top" className="max-w-[280px] bg-slate-900/95 border-primary/30 backdrop-blur-sm">
+        <p className="body-sm text-slate-200 leading-relaxed">
+          <span className="font-semibold text-primary">Real Example:</span> {item.example}
+        </p>
+      </TooltipContent>
+    </Tooltip>
   );
-});
-FeatureCardCollapsible.displayName = "FeatureCardCollapsible";
+}
 
-const RecentBuilds: React.FC = React.memo(() => {
-  const [projects, setProjects] = useState<
-    Array<{ id: string; title: string; sector: string; summary: string; tag: string }>
-  >([]);
+function RecentBuilds() {
+  const [projects, setProjects] = useState<Array<{
+    id: string;
+    title: string;
+    sector: string;
+    summary: string;
+    tag: string;
+  }>>([]);
   const [isLoadingProjects, setIsLoadingProjects] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setIsLoadingProjects(true);
+        const {
+          data,
+          error: fetchError
+        } = await supabase.from('projects').select('slug, title, sector, summary, tag').eq('featured', true).order('display_order', {
+          ascending: true
+        });
+        if (fetchError) throw fetchError;
 
-  const mapProjects = useCallback((rows: any[] | null) => {
-    return (rows ?? []).map((p) => ({
-      id: p.slug,
-      title: p.title,
-      sector: p.sector,
-      summary: p.summary,
-      tag: p.tag || "",
-    }));
+        // Transform database data to match component expectations
+        const formattedProjects = (data || []).map(project => ({
+          id: project.slug,
+          title: project.title,
+          sector: project.sector,
+          summary: project.summary,
+          tag: project.tag || ''
+        }));
+        setProjects(formattedProjects);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching projects:', err);
+        setError('Failed to load projects');
+      } finally {
+        setIsLoadingProjects(false);
+      }
+    };
+    fetchProjects();
   }, []);
 
-  const fetchProjects = useCallback(async () => {
-    try {
-      setIsLoadingProjects(true);
-      const { data, error: fetchError } = await supabase
-        .from("projects")
-        .select("slug, title, sector, summary, tag")
-        .eq("featured", true)
-        .order("display_order", { ascending: true });
-
-      if (fetchError) throw fetchError;
-      setProjects((prev) => {
-        const next = mapProjects(data);
-        // Avoid unnecessary re-renders
-        return shallowArrayEqual(prev, next) ? prev : next;
-      });
-      setError(null);
-    } catch (e) {
-      console.error("Error fetching projects:", e);
-      setError("Failed to load projects");
-    } finally {
-      setIsLoadingProjects(false);
-    }
-  }, [mapProjects]);
-
+  // Realtime subscription for projects
   useEffect(() => {
-    fetchProjects();
-  }, [fetchProjects]);
-
-  // Realtime subscription (cleanly)
-  useEffect(() => {
-    const channel = supabase
-      .channel("projects-changes")
-      .on("postgres_changes", { event: "*", schema: "public", table: "projects" }, fetchProjects)
-      .subscribe();
+    const channel = supabase.channel('projects-changes').on('postgres_changes', {
+      event: '*',
+      schema: 'public',
+      table: 'projects'
+    }, async () => {
+      // Refetch projects when any change occurs
+      try {
+        const {
+          data,
+          error: fetchError
+        } = await supabase.from('projects').select('slug, title, sector, summary, tag').eq('featured', true).order('display_order', {
+          ascending: true
+        });
+        if (fetchError) throw fetchError;
+        const formattedProjects = (data || []).map(project => ({
+          id: project.slug,
+          title: project.title,
+          sector: project.sector,
+          summary: project.summary,
+          tag: project.tag || ''
+        }));
+        setProjects(formattedProjects);
+      } catch (err) {
+        console.error('Error refreshing projects:', err);
+      }
+    }).subscribe();
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [fetchProjects]);
-
-  return (
-    <section id="builds" className="py-10 lg:py-16">
-      <div className="mx-auto w-full max-w-5xl px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="space-y-2"
-        >
-          <h2 className="text-lg font-semibold text-foreground sm:text-xl lg:text-2xl">Recent Builds</h2>
-          <p className="body-base text-muted-foreground">
+  }, []);
+  return <section id="builds" className="py-12 lg:py-20">
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5
+      }} className="space-y-3">
+          <h2 className="heading-3 text-foreground text-reveal">
+            Recent Builds
+          </h2>
+          <p className="body-base text-muted-foreground text-reveal text-reveal-delay-1">
             Small scope, real results—across energy, education, and founder projects.
           </p>
         </motion.div>
 
-        {isLoadingProjects ? (
-          <div className="mt-6">
+        {isLoadingProjects ? <div className="mt-8">
             <CardsSkeleton />
-          </div>
-        ) : error ? (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-6 rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center"
-            role="alert"
-            aria-live="polite"
-          >
+          </div> : error ? <motion.div initial={{
+        opacity: 0,
+        y: 30
+      }} animate={{
+        opacity: 1,
+        y: 0
+      }} className="mt-6 rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center">
             <p className="text-sm text-red-300">{error}</p>
-            <button onClick={fetchProjects} className="mt-3 text-xs underline text-red-400 hover:text-red-300">
+            <button onClick={() => window.location.reload()} className="mt-3 text-xs text-red-400 hover:text-red-300 underline">
               Try again
             </button>
-          </motion.div>
-        ) : projects.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-6 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center"
-          >
+          </motion.div> : projects.length === 0 ? <motion.div initial={{
+        opacity: 0,
+        y: 30
+      }} animate={{
+        opacity: 1,
+        y: 0
+      }} className="mt-6 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center">
             <p className="text-sm text-slate-400">No projects available yet. Check back soon!</p>
-          </motion.div>
-        ) : (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-6 pb-2"
-          >
+          </motion.div> : <motion.div initial={{
+        opacity: 0,
+        y: 30
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.6,
+        delay: 0.2
+      }} className="mt-6 horizontal-scroll pb-2">
             <CaseStudiesStack caseStudies={projects} />
-          </motion.div>
-        )}
+          </motion.div>}
       </div>
-    </section>
-  );
-});
-RecentBuilds.displayName = "RecentBuilds";
-
-const PilotOffer: React.FC = React.memo(() => {
-  return (
-    <section id="pilot" className="border-t border-border/80 py-6 sm:py-8 lg:py-12">
-      <div className="mx-auto w-full max-w-5xl space-y-5 sm:space-y-6 px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="space-y-3 sm:space-y-4"
-        >
-          <h2 className="text-sm font-semibold text-foreground sm:text-base lg:text-lg">Why a Pilot Partner Instead of Hiring In-House</h2>
-          <ul className="max-w-3xl space-y-2 sm:space-y-3">
+    </section>;
+}
+function PilotOffer() {
+  return <section id="pilot" className="border-t border-slate-900/80 py-12 lg:py-20 gradient-mesh">
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6 space-y-8">
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5
+      }} className="space-y-6 isolated-component">
+          <h2 className="heading-3 text-foreground text-reveal">
+            Why a Pilot Partner Instead of Hiring In-House
+          </h2>
+          <ul className="space-y-4 max-w-3xl">
             {[
               "Hiring in-house makes sense once you know what you're scaling. When you're still in the \"is this even the right thing?\" phase, it's a slow and expensive way to find out.",
               "Bringing on a full-time senior hire typically means months of recruiting, six-figure commitments, and added overhead—before you even know if the pilot is worth scaling.",
-              "My model is different: You bring a real problem, we design a small, honest experiment, and within a few weeks you have something you can show to leadership, funders, or partners—plus a clearer sense of what to do next.",
+              "My model is different: You bring a real problem, we design a small, honest experiment, and within a few weeks you have something you can show to leadership, funders, or partners—plus a clearer sense of what to do next."
             ].map((text, i) => (
               <motion.li
                 key={i}
                 initial={{ opacity: 0, x: -10 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: i * 0.08 }}
-                className={cn(
-                  "flex items-start gap-2 text-[9px] leading-relaxed sm:text-[10px]",
-                  i === 2 ? "text-foreground font-medium" : "text-muted-foreground",
-                )}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className={`flex items-start gap-2 body-base leading-relaxed ${i === 2 ? 'text-foreground font-medium' : 'text-muted-foreground'}`}
               >
-                <span className="mt-0.5 text-xs text-primary">•</span>
+                <span className="text-primary mt-0.5 text-xs">•</span>
                 <span>{text}</span>
               </motion.li>
             ))}
           </ul>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.45, delay: 0.1 }}
-          className="space-y-3 sm:space-y-4"
-        >
-          <h3 className="text-xs font-semibold text-primary sm:text-sm">What This Model Is For</h3>
-          <p className="text-[9px] text-muted-foreground sm:text-[10px]">Tap to expand and see examples</p>
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3">
-            {[
-              {
-                title: "Early, ambiguous work",
-                desc: "When edges are fuzzy and you learn by shipping.",
-                color: "emerald",
-                icon: "🧭",
-                example:
-                  "AI Sales Copilot: Started with messy CRM exports and unclear goals. Week 1: data flow. Week 2: first dashboard. Week 4: auto-prioritized leads ready for demo.",
-              },
-              {
-                title: "Complex domains",
-                desc: "Energy, education, civic—where policy, people, tech collide.",
-                color: "cyan",
-                icon: "⚡",
-                example:
-                  "Energy Analytics Pilot: 200+ campus meters, Excel chaos. Built real-time dashboard showing savings opportunities across policy, billing, and operations.",
-              },
-              {
-                title: "Proof, not promises",
-                desc: "Visible movement and credible artifacts, not strategy decks.",
-                color: "teal",
-                icon: "✓",
-                example:
-                  "EdTech Portal: Education nonprofit needed evidence for funders. 4 weeks: working pilot tracking outcomes. Result: defended funding with real data.",
-              },
-              {
-                title: "Lean, collaborative teams",
-                desc: "Short cycles, reacting to results, adjusting quickly.",
-                color: "blue",
-                icon: "⚙",
-                example:
-                  "Founder OS: Solo founder needed operational clarity. Weekly async Looms, quick pivots. Built unified scheduling, CRM, and invoicing—calm founder cockpit.",
-              },
-            ].map((item, i) => (
-              <FeatureCardCollapsible key={item.title} item={item as any} index={i} />
-            ))}
-          </div>
+        {/* What This Model Is For */}
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.6,
+        delay: 0.1
+      }} className="space-y-6">
+          <h3 className="heading-4 text-primary">
+            What This Model Is For
+          </h3>
+          <TooltipProvider delayDuration={200}>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {[{
+              title: "Early, ambiguous work",
+              desc: "When the edges are fuzzy and you need to learn by shipping, not by planning.",
+              color: "emerald",
+              icon: "🧭",
+              example: "AI Sales Copilot: Started with messy CRM exports and unclear goals. Week 1: data flow. Week 2: first dashboard. Week 4: auto-prioritized leads ready for demo."
+            }, {
+              title: "Complex domains",
+              desc: "Energy, education, civic systems, compliance—places where policy, people, and tech collide.",
+              color: "cyan",
+              icon: "⚡",
+              example: "Energy Analytics Pilot: 200+ campus meters, Excel chaos. Built real-time dashboard showing savings opportunities across policy, billing, and operations."
+            }, {
+              title: "Proof, not promises",
+              desc: "You need visible movement and credible artifacts, not another strategy deck.",
+              color: "teal",
+              icon: "✓",
+              example: "EdTech Portal: Education nonprofit needed evidence for funders. 4 weeks: working pilot tracking outcomes. Result: defended funding with real data."
+            }, {
+              title: "Lean, collaborative teams",
+              desc: "You're comfortable working in short cycles, reacting to real results, and adjusting quickly.",
+              color: "blue",
+              icon: "⚙",
+              example: "Founder OS: Solo founder needed operational clarity. Weekly async Looms, quick pivots. Built unified scheduling, CRM, and invoicing—calm founder cockpit."
+            }].map((item, i) => <FeatureCardWithTooltip key={i} item={item} index={i} />)}
+            </div>
+          </TooltipProvider>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.45, delay: 0.2 }}
-          className="space-y-2 sm:space-y-3"
-        >
-          <h3 className="text-xs font-semibold text-muted-foreground sm:text-sm">What This Model Is Not For</h3>
-          <div className="rounded-lg border border-border/70 bg-background/50 p-3 sm:p-4">
-            <ul className="space-y-2 text-muted-foreground">
-              {[
-                "Large, multi-team implementations from day one",
-                'Long-term headcount decisions disguised as "pilots"',
-                "Purely cosmetic work where a static site or brochure would do",
-              ].map((t) => (
-                <li key={t} className="flex items-start gap-2 text-[9px] sm:text-[10px]">
-                  <span className="mt-0.5 opacity-50">✕</span>
-                  <span>{t}</span>
-                </li>
-              ))}
+        {/* What This Model Is Not For */}
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.6,
+        delay: 0.2
+      }} className="space-y-4">
+          <h3 className="heading-4 text-muted-foreground">
+            What This Model Is Not For
+          </h3>
+          <div className="rounded-lg border border-slate-800/70 bg-slate-950/50 p-5">
+            <ul className="space-y-3 body-base text-slate-400">
+              <li className="flex items-start gap-2">
+                <span className="opacity-50 mt-0.5">✕</span>
+                <span>Large, multi-team implementations from day one</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="opacity-50 mt-0.5">✕</span>
+                <span>Long-term headcount decisions disguised as "pilots"</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="opacity-50 mt-0.5">✕</span>
+                <span>Purely cosmetic work where a static site or brochure would do</span>
+              </li>
             </ul>
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.25 }}
-          className="rounded-lg border border-primary/30 bg-gradient-to-br from-primary/5 to-background/80 p-3 sm:p-4 backdrop-blur-sm"
-        >
-          <p className="text-[10px] font-semibold mb-2 text-foreground sm:text-xs">Pilot-first, learning-first approach</p>
-          <p className="text-[9px] leading-relaxed text-muted-foreground sm:text-[10px]">
+        {/* Bottom CTA */}
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5,
+        delay: 0.3
+      }} className="rounded-lg border border-primary/30 bg-gradient-to-br from-primary/5 to-slate-950/80 p-5 backdrop-blur-sm">
+          <p className="heading-5 text-foreground mb-3">
+            Pilot-first, learning-first approach
+          </p>
+          <p className="body-base text-muted-foreground leading-relaxed">
             Small scope, honest results, and no long-term lock-in until you know what's actually worth scaling.
           </p>
         </motion.div>
       </div>
-    </section>
-  );
-});
-PilotOffer.displayName = "PilotOffer";
-
-const ProgressionCard: React.FC<{
-  step: {
-    title: string;
-    sub: string;
-    body: string;
-    ring: string;
-    cost: string;
-    outcome: string;
-  };
-  index: number;
-  prefersReducedMotion: boolean;
-}> = React.memo(({ step, index, prefersReducedMotion }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const { trigger } = useHapticFeedback();
-
-  const handleToggle = useCallback(() => {
-    setIsHovered((prev) => {
-      if (!prev) {
-        trigger("light");
-      }
-      return !prev;
-    });
-  }, [trigger]);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-30px" }}
-      transition={{ 
-        duration: prefersReducedMotion ? 0 : 0.3, 
-        delay: prefersReducedMotion ? 0 : 0.05 * index 
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={handleToggle}
-      className={cn(
-        "group relative rounded-md border p-2 sm:p-2.5 backdrop-blur-sm transition-all touch-manipulation cursor-pointer overflow-hidden",
-        "min-h-[80px] sm:min-h-[90px]",
-        step.ring === "emerald" && "border-emerald-500/40 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 hover:border-emerald-500/60",
-        step.ring === "blue" && "border-blue-500/40 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 hover:border-blue-500/60",
-        step.ring === "violet" && "border-violet-500/40 bg-gradient-to-br from-violet-500/10 to-purple-500/10 hover:border-violet-500/60",
-        step.ring === "orange" && "border-orange-500/40 bg-gradient-to-br from-orange-500/10 to-amber-500/10 hover:border-orange-500/60",
-      )}
-    >
-      {/* Default Content */}
-      <motion.div
-        animate={{ opacity: isHovered ? 0 : 1 }}
-        transition={{ duration: 0.2 }}
-        className="pointer-events-none"
-      >
-        <div className="mb-1 flex flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-1.5">
-          <span className="text-[10px] font-bold text-foreground sm:text-[11px]">{step.title}</span>
-          <span className="text-[8px] text-muted-foreground sm:text-[9px]">{step.sub}</span>
-        </div>
-        <p className="text-[8px] leading-snug text-muted-foreground sm:text-[9px]">{step.body}</p>
-      </motion.div>
-
-      {/* Hover/Tap Content */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isHovered ? 1 : 0 }}
-        transition={{ duration: 0.2 }}
-        className={cn(
-          "absolute inset-0 p-2 sm:p-2.5 flex flex-col justify-center pointer-events-none",
-          step.ring === "emerald" && "bg-gradient-to-br from-emerald-500/30 to-teal-500/30",
-          step.ring === "blue" && "bg-gradient-to-br from-blue-500/30 to-indigo-500/30",
-          step.ring === "violet" && "bg-gradient-to-br from-violet-500/30 to-purple-500/30",
-          step.ring === "orange" && "bg-gradient-to-br from-orange-500/30 to-amber-500/30",
-        )}
-      >
-        <div className="space-y-1.5">
-          <div>
-            <p className="text-[7px] font-semibold text-primary uppercase tracking-wide sm:text-[8px]">Est. Range</p>
-            <p className="text-[9px] font-bold text-foreground sm:text-[10px]">{step.cost}</p>
-          </div>
-          <div>
-            <p className="text-[7px] font-semibold text-primary uppercase tracking-wide sm:text-[8px]">Typical Outcome</p>
-            <p className="text-[8px] leading-tight text-foreground sm:text-[9px]">{step.outcome}</p>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Tap indicator for mobile */}
-      <div className="absolute top-1 right-1 text-[8px] text-muted-foreground/50 sm:hidden">
-        {isHovered ? "✕" : "?"}
-      </div>
-    </motion.div>
-  );
-});
-ProgressionCard.displayName = "ProgressionCard";
-
-const TypicalProgression: React.FC = React.memo(() => {
-  const prefersReducedMotion = useReducedMotion();
-  
-  return (
-    <section className="border-t border-border/80 py-6 sm:py-8 lg:py-10">
-      <div className="mx-auto w-full max-w-5xl px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.3 }}
-          className="space-y-1 sm:space-y-1.5"
-        >
-          <h2 className="text-sm font-semibold text-foreground sm:text-base lg:text-lg">Typical Progression</h2>
-          <p className="text-[9px] text-muted-foreground sm:text-[10px]">Start small, scale when ready—or jump to any stage. <span className="sm:hidden">(Tap cards for details)</span></p>
-        </motion.div>
-
-        <div className="mt-3 sm:mt-4 grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
-          {[
-            {
-              title: "1. Pilot",
-              sub: "4 weeks",
-              body: "Ship 1–2 features/week. Demo-ready code. Real builds, not decks.",
-              ring: "emerald",
-              cost: "$8k–$15k",
-              outcome: "Demo-ready tool + clarity on next steps",
-            },
-            {
-              title: "2. Proposal",
-              sub: "1–2 weeks",
-              body: "Scope doc, timeline, budget. Grant-ready, stakeholder-approved. RFP support.",
-              ring: "blue",
-              cost: "$2k–$4k",
-              outcome: "Fundable proposal + RFP-ready documentation",
-            },
-            {
-              title: "3. Build",
-              sub: "2–6 months",
-              body: "Full product delivery. Integrations, testing, documentation. Launch-ready.",
-              ring: "violet",
-              cost: "$25k–$80k+",
-              outcome: "Production system + user training + handoff docs",
-            },
-            {
-              title: "4. Retainer",
-              sub: "Ongoing",
-              body: "Monthly support. Bug fixes, features, pivots. Always-on expertise.",
-              ring: "orange",
-              cost: "$3k–$8k/mo",
-              outcome: "Continuous improvements + fast response times",
-            },
-          ].map((step, i) => (
-            <ProgressionCard 
-              key={step.title} 
-              step={step} 
-              index={i} 
-              prefersReducedMotion={prefersReducedMotion}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-});
-TypicalProgression.displayName = "TypicalProgression";
-
-const WhoBenefits: React.FC = React.memo(() => {
-  const audiences = useMemo(
-    () => [
-      "Students bringing new ideas to life",
-      "Teachers or nonprofits piloting campus or impact projects",
-      "Boards and governance teams needing clearer dashboards",
-      "Solo founders wanting operational peace of mind",
-      "B2B units innovating on tight timelines",
-    ],
-    [],
-  );
-
-  return (
-    <section id="benefits" className="border-t border-slate-900/80 py-10 lg:py-16">
-      <div className="mx-auto w-full max-w-5xl px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="space-y-2"
-        >
-          <h2 className="text-lg font-semibold text-foreground sm:text-xl lg:text-2xl">Who Benefits?</h2>
-          <p className="body-base leading-relaxed text-muted-foreground">
-            This model is for anyone who needs{" "}
-            <span className="font-medium text-primary">tangible progress without hiring overhead</span>.
+    </section>;
+}
+function TypicalProgression() {
+  return <section className="border-t border-slate-900/80 py-12 lg:py-20">
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5
+      }} className="space-y-3">
+          <h2 className="heading-3 text-foreground text-reveal">
+            Typical Progression
+          </h2>
+          <p className="body-base text-muted-foreground text-reveal text-reveal-delay-1">
+            Start small, scale when ready—or jump to any stage.
           </p>
         </motion.div>
 
-        <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-            className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-5"
-          >
-            <h3 className="text-sm font-semibold mb-4 text-primary sm:text-base">Perfect For</h3>
-            <ul className="body-base space-y-3 text-slate-200">
-              {audiences.map((aud) => (
-                <li key={aud} className="flex items-start gap-2">
-                  <span className="mt-0.5 text-primary">✓</span>
-                  {aud}
-                </li>
-              ))}
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 fluid-space">
+          <motion.div initial={{
+          opacity: 0,
+          scale: 0.95
+        }} whileInView={{
+          opacity: 1,
+          scale: 1
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5,
+          delay: 0.1
+        }} className="group rounded-lg border-2 border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 p-4 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] isolated-component preserve-3d">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="body-base font-bold text-emerald-400">1. Pilot</span>
+              <span className="body-sm text-emerald-300/80">4 weeks</span>
+            </div>
+            <p className="body-base leading-snug text-slate-300">
+              Ship 1–2 features/week. Demo-ready code. Real builds, not decks.
+            </p>
+          </motion.div>
+
+          <motion.div initial={{
+          opacity: 0,
+          scale: 0.95
+        }} whileInView={{
+          opacity: 1,
+          scale: 1
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5,
+          delay: 0.2
+        }} className="group rounded-lg border-2 border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-4 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] isolated-component preserve-3d">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="body-base font-bold text-blue-400">2. Proposal</span>
+              <span className="body-sm text-blue-300/80">1–2 weeks</span>
+            </div>
+            <p className="body-base leading-snug text-slate-300">
+              Scope doc, timeline, budget. Grant-ready, stakeholder-approved. RFP support.
+            </p>
+          </motion.div>
+
+          <motion.div initial={{
+          opacity: 0,
+          scale: 0.95
+        }} whileInView={{
+          opacity: 1,
+          scale: 1
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5,
+          delay: 0.3
+        }} className="group rounded-lg border-2 border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20 p-4 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] isolated-component preserve-3d">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="body-base font-bold text-violet-400">3. Build</span>
+              <span className="body-sm text-violet-300/80">2–6 months</span>
+            </div>
+            <p className="body-base leading-snug text-slate-300">
+              Full product delivery. Integrations, testing, documentation. Launch-ready.
+            </p>
+          </motion.div>
+
+          <motion.div initial={{
+          opacity: 0,
+          scale: 0.95
+        }} whileInView={{
+          opacity: 1,
+          scale: 1
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5,
+          delay: 0.4
+        }} className="group rounded-lg border-2 border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20 p-4 backdrop-blur-sm transition-all hover:shadow-[0_0_20px_rgba(249,115,22,0.5)] isolated-component preserve-3d">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="body-base font-bold text-orange-400">4. Retainer</span>
+              <span className="body-sm text-orange-300/80">Ongoing</span>
+            </div>
+            <p className="body-base leading-snug text-slate-300">
+              Monthly support. Bug fixes, features, pivots. Always-on expertise.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </section>;
+}
+function WhoBenefits() {
+  const audiences = ["Students bringing new ideas to life", "Teachers or nonprofits piloting campus or impact projects", "Boards and governance teams needing clearer dashboards", "Solo founders wanting operational peace of mind", "B2B units innovating on tight timelines"];
+  return <section id="benefits" className="border-t border-slate-900/80 py-12 lg:py-20">
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5
+      }} className="space-y-3">
+          <h2 className="heading-3 text-foreground">
+            Who Benefits?
+          </h2>
+          <p className="mt-1.5 max-w-2xl body-base leading-relaxed text-muted-foreground">
+            This model is for anyone who needs <span className="text-primary font-medium">tangible progress without hiring overhead</span>.
+          </p>
+        </motion.div>
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-1 md:grid-cols-2">
+          <motion.div initial={{
+          opacity: 0,
+          x: -20
+        }} whileInView={{
+          opacity: 1,
+          x: 0
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5,
+          delay: 0.1
+        }} className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-5">
+            <h3 className="heading-5 text-primary mb-4">
+              Perfect For
+            </h3>
+            <ul className="space-y-3 body-base text-slate-200">
+              {audiences.map((audience, i) => <li key={i} className="flex items-start gap-2">
+                  <span className="text-primary mt-0.5">✓</span>
+                  {audience}
+                </li>)}
             </ul>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.15 }}
-            className="space-y-6 rounded-xl border border-slate-800/70 bg-slate-950/50 p-5"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          x: 20
+        }} whileInView={{
+          opacity: 1,
+          x: 0
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5,
+          delay: 0.2
+        }} className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-5 space-y-6">
             <div>
-              <h3 className="text-sm font-semibold mb-3 text-primary sm:text-base">Ideal Fit</h3>
-              <p className="body-base text-slate-200">Weekly feedback, ready to experiment, need clear results</p>
+              <h3 className="heading-5 text-primary mb-3">
+                Ideal Fit
+              </h3>
+              <p className="body-base text-slate-200">
+                Weekly feedback, ready to experiment, need clear results
+              </p>
             </div>
             <div>
-              <h3 className="text-sm font-semibold mb-3 text-slate-400 sm:text-base">Not a Fit</h3>
-              <p className="body-base text-slate-400">Big static sites, slow-moving teams, no feedback loop</p>
+              <h3 className="heading-5 text-slate-400 mb-3">
+                Not a Fit
+              </h3>
+              <p className="body-base text-slate-400">
+                Big static sites, slow-moving teams, no feedback loop
+              </p>
             </div>
           </motion.div>
         </div>
       </div>
-    </section>
-  );
-});
-WhoBenefits.displayName = "WhoBenefits";
-
-const AboutMe: React.FC = React.memo(() => {
+    </section>;
+}
+function AboutMe() {
   return (
-    <section id="about" className="border-t border-slate-900/80 py-10 lg:py-16">
-      <div className="mx-auto w-full max-w-5xl space-y-10 px-4">
+    <section id="about" className="border-t border-slate-900/80 py-12 lg:py-20 gradient-mesh">
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6 space-y-12">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="space-y-3"
+          transition={{ duration: 0.6 }}
+          className="space-y-4"
         >
-          <h2 className="text-lg font-semibold text-foreground sm:text-xl lg:text-2xl">About Me</h2>
+          <h2 className="heading-3 text-foreground text-reveal">
+            About Me
+          </h2>
           <motion.p
-            className="body-lg max-w-3xl text-muted-foreground"
+            className="body-lg text-muted-foreground max-w-3xl text-reveal text-reveal-delay-1"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
           >
-            I aim to close the gap between proven innovations and implementation by giving anyone the tools to turn
-            regional data, successful pilots, and stalled legislation into AI-assisted solutions for any sector.
+            I aim to close the gap between proven innovations and implementation by giving anyone the tools to turn regional data, successful pilots, and stalled legislation into AI-assisted solutions for any sector.
           </motion.p>
         </motion.div>
 
+        {/* Why This Matters Section - 3D Glowing Card */}
         <motion.div
-          className="relative"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          className="relative group perspective-1000"
+          initial={{ opacity: 0, y: 30, rotateX: -10 }}
+          whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.8, delay: 0.2, type: "spring", bounce: 0.3 }}
+          whileHover={{
+            rotateX: 2,
+            rotateY: -2,
+            transition: { duration: 0.3 }
+          }}
+          style={{ transformStyle: "preserve-3d" }}
         >
-          <div className="relative overflow-hidden rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/95 via-slate-900/95 to-slate-950/95 p-5 shadow-2xl backdrop-blur-xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-cyan-500/5" />
+          {/* Glow effect background */}
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 via-cyan-500 to-emerald-500 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500 animate-pulse" />
+          
+          {/* Main card */}
+          <div className="relative rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/95 via-slate-900/95 to-slate-950/95 backdrop-blur-xl p-5 md:p-6 shadow-2xl overflow-hidden">
+            {/* Animated gradient overlay */}
+            <motion.div 
+              className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              animate={{
+                backgroundPosition: ['0% 0%', '100% 100%'],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            />
+            
+            {/* Scanning line effect */}
+            <motion.div 
+              className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"
+              animate={{
+                top: ['-100%', '200%']
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+            
             <div className="relative z-10">
-              <h3 className="text-base font-semibold text-foreground sm:text-lg">Why This Matters</h3>
+              <h3 className="heading-4 text-foreground flex items-center gap-2">
+                <motion.span
+                  className="inline-block w-2 h-2 rounded-full bg-emerald-400"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [1, 0.5, 1]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity
+                  }}
+                />
+                Why This Matters
+              </h3>
+              
               <motion.p
-                className="body-sm mt-2 text-muted-foreground"
+                className="mt-2 body-sm text-muted-foreground"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
               >
                 Pennsylvania cannot afford another decade of:
               </motion.p>
+              
               <ul className="mt-3 space-y-1.5">
                 {[
                   "Delayed modernization while comparable states advance",
                   "Legislative gridlock on education and infrastructure",
                   "Workforce development disconnected from regional needs",
                   "Civics education that feels irrelevant to students",
-                  "Declining trust in public institutions",
-                ].map((t) => (
-                  <li key={t} className="caption flex items-start gap-2 text-muted-foreground/90">
-                    <span className="mt-1 inline-block h-1 w-1 flex-shrink-0 rounded-full bg-emerald-400/70" />
-                    <span className="flex-1">{t}</span>
-                  </li>
+                  "Declining trust in public institutions"
+                ].map((item, index) => (
+                  <motion.li
+                    key={index}
+                    className="flex items-start gap-2 caption text-muted-foreground/90 group/item"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      duration: 0.5, 
+                      delay: 0.4 + index * 0.08,
+                      type: "spring",
+                      stiffness: 100
+                    }}
+                    whileHover={{
+                      x: 4,
+                      transition: { duration: 0.2 }
+                    }}
+                  >
+                    <motion.span 
+                      className="inline-block w-1 h-1 mt-1 rounded-full bg-emerald-400/70 flex-shrink-0"
+                      whileHover={{ 
+                        scale: 1.5,
+                        backgroundColor: "rgb(52, 211, 153)"
+                      }}
+                      animate={{
+                        scale: [1, 1.1, 1],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: index * 0.2
+                      }}
+                    />
+                    <span className="flex-1 group-hover/item:text-muted-foreground transition-colors">{item}</span>
+                  </motion.li>
                 ))}
               </ul>
-              <div className="mt-5 border-t border-slate-800/50 pt-4">
-                <p className="body-base font-medium leading-relaxed text-foreground">
-                  This work provides the missing infrastructure for a state with all the necessary components but no
-                  system connecting them.
+
+              <motion.div
+                className="mt-5 pt-4 border-t border-slate-800/50"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.9 }}
+              >
+                <p className="body-base text-foreground leading-relaxed font-medium">
+                  This work provides the missing infrastructure for a state with all the necessary components but no system connecting them.
                 </p>
-              </div>
+              </motion.div>
             </div>
+            
+            {/* Corner accent */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-500/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </div>
         </motion.div>
       </div>
     </section>
   );
-});
-AboutMe.displayName = "AboutMe";
-
-const SiteFooter: React.FC = React.memo(() => {
-  return (
-    <footer className="border-t border-slate-900/80 py-4">
-      <div className="body-sm flex flex-col items-start justify-between gap-2 text-slate-500 sm:flex-row sm:items-center">
+}
+function SiteFooter() {
+  return <footer className="border-t border-slate-900/80 py-4">
+      <div className="flex flex-col items-start justify-between gap-2 body-sm text-slate-500 sm:flex-row sm:items-center">
         <div>© {new Date().getFullYear()} AltruisticX AI</div>
         <div className="flex flex-wrap gap-2">
           <span>Async · privacy-aware · built for pilots</span>
         </div>
       </div>
-    </footer>
-  );
-});
-SiteFooter.displayName = "SiteFooter";
-
-// -----------------------------
-// Utilities
-// -----------------------------
-function safeLocalStorageGet(key: string): string | null {
-  try {
-    return typeof window !== "undefined" ? window.localStorage.getItem(key) : null;
-  } catch {
-    return null;
-  }
-}
-function safeLocalStorageSet(key: string, value: string): void {
-  try {
-    if (typeof window !== "undefined") window.localStorage.setItem(key, value);
-  } catch {}
-}
-function shallowArrayEqual<T extends { [k: string]: any }>(a: T[], b: T[]): boolean {
-  if (a === b) return true;
-  if (a.length !== b.length) return false;
-  for (let i = 0; i < a.length; i++) {
-    const aa = a[i];
-    const bb = b[i];
-    if (!aa || !bb) return false;
-    const keys = new Set([...Object.keys(aa), ...Object.keys(bb)]);
-    for (const k of keys) if (aa[k] !== bb[k]) return false;
-  }
-  return true;
+    </footer>;
 }

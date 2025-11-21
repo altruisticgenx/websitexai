@@ -71,7 +71,7 @@ export function UniqueIntegrations() {
         transition={{ duration: 0.5 }}
         className="mb-8"
       >
-        <h2 className="text-xl font-semibold sm:text-2xl lg:text-3xl">
+        <h2 className="text-2xl font-semibold sm:text-3xl">
           Unique AI Integrations for Modern Teams
         </h2>
         <p className="mt-3 max-w-3xl text-base text-slate-300">
@@ -81,7 +81,7 @@ export function UniqueIntegrations() {
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {integrations.map((integration, index) => {
           const Icon = integration.icon;
           return (

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { toast } from "@/hooks/use-toast";
-import { useHapticFeedback } from "@/hooks/use-haptic-feedback";
 
 interface NavigationSection {
   key: string;
@@ -9,14 +8,11 @@ interface NavigationSection {
 }
 
 export function useKeyboardNavigation(sections: NavigationSection[]) {
-  const { trigger } = useHapticFeedback();
-  
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       // Home key - scroll to top
       if (e.key === "Home") {
         e.preventDefault();
-        trigger('medium');
         window.scrollTo({ top: 0, behavior: "smooth" });
         toast({
           title: "Navigated to top",
@@ -28,7 +24,6 @@ export function useKeyboardNavigation(sections: NavigationSection[]) {
       // End key - scroll to bottom
       if (e.key === "End") {
         e.preventDefault();
-        trigger('medium');
         window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
         toast({
           title: "Navigated to bottom",
@@ -41,7 +36,6 @@ export function useKeyboardNavigation(sections: NavigationSection[]) {
       const keyNum = parseInt(e.key);
       if (!isNaN(keyNum) && keyNum >= 1 && keyNum <= sections.length) {
         e.preventDefault();
-        trigger('medium');
         const section = sections[keyNum - 1];
         const element = document.getElementById(section.sectionId);
         
@@ -82,5 +76,5 @@ export function useKeyboardNavigation(sections: NavigationSection[]) {
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [sections, trigger]);
+  }, [sections]);
 }

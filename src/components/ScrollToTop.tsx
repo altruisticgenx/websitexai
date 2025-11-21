@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUp } from "lucide-react";
-import { useHapticFeedback } from "@/hooks/use-haptic-feedback";
 
 export function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
-  const { trigger } = useHapticFeedback();
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -24,7 +22,6 @@ export function ScrollToTop() {
   }, []);
 
   const scrollToTop = () => {
-    trigger('medium');
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -40,7 +37,7 @@ export function ScrollToTop() {
           exit={{ opacity: 0, scale: 0.8, y: 20 }}
           transition={{ duration: 0.2 }}
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-30 rounded-full border border-primary/60 bg-primary/10 backdrop-blur-sm p-3 min-h-[56px] min-w-[56px] text-primary shadow-lg hover:bg-primary/20 hover:scale-110 transition-all duration-200 flex items-center justify-center"
+          className="fixed bottom-6 right-6 z-30 rounded-full border border-primary/60 bg-primary/10 backdrop-blur-sm p-3 text-primary shadow-lg hover:bg-primary/20 hover:scale-110 transition-all duration-200"
           aria-label="Scroll to top"
         >
           <ArrowUp size={20} strokeWidth={2.5} />

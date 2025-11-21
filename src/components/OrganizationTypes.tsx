@@ -38,7 +38,7 @@ export const OrganizationTypes = memo(() => {
   const toggleOrg = (orgName: string) => {
     setExpandedOrg(expandedOrg === orgName ? null : orgName);
   };
-  return <section id="org-types" className="py-4 sm:py-6 lg:py-8">
+  return <section id="org-types" className="py-6 sm:py-8">
       <motion.div initial={{
       opacity: 0,
       y: 20
@@ -50,13 +50,13 @@ export const OrganizationTypes = memo(() => {
     }} transition={{
       duration: 0.5
     }} className="max-w-4xl">
-        <h2 className="text-lg font-semibold sm:text-xl lg:text-2xl">
+        <h2 className="heading-3">
           Organization Types
         </h2>
         
       </motion.div>
 
-      <div className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-4 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
         {orgTypes.map((org, index) => {
         const Icon = org.icon;
         const isExpanded = expandedOrg === org.name;
@@ -72,12 +72,12 @@ export const OrganizationTypes = memo(() => {
           duration: 0.5,
           delay: index * 0.1
         }} className="relative">
-               <motion.button onClick={() => toggleOrg(org.name)} whileHover={{
+              <motion.button onClick={() => toggleOrg(org.name)} whileHover={{
             y: -4,
             scale: 1.02
           }} whileTap={{
             scale: 0.98
-          }} className={`group w-full rounded-xl border transition-all duration-300 cursor-pointer min-h-[44px] ${isExpanded ? 'border-primary/50 bg-gradient-to-br ' + org.gradient : 'border-border bg-gradient-to-br from-card/60 to-card/30'} p-3 text-center`}>
+          }} className={`group w-full rounded-xl border transition-all duration-300 cursor-pointer ${isExpanded ? 'border-primary/50 bg-gradient-to-br ' + org.gradient : 'border-border bg-gradient-to-br from-card/60 to-card/30'} p-3 text-center`}>
                 <motion.div animate={{
               scale: isExpanded ? 1.1 : 1,
               rotate: isExpanded ? -5 : 0

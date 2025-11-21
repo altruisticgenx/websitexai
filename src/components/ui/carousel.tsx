@@ -4,7 +4,6 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useHapticFeedback } from "@/hooks/use-haptic-feedback";
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -167,20 +166,8 @@ const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
 CarouselItem.displayName = "CarouselItem";
 
 const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof Button>>(
-  ({ className, variant = "outline", size = "icon", onClick, ...props }, ref) => {
+  ({ className, variant = "outline", size = "icon", ...props }, ref) => {
     const { orientation, scrollPrev, canScrollPrev } = useCarousel();
-    const { trigger } = useHapticFeedback();
-
-    const handleClick = React.useCallback(
-      (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (canScrollPrev) {
-          trigger("medium");
-          scrollPrev();
-          onClick?.(e);
-        }
-      },
-      [canScrollPrev, scrollPrev, trigger, onClick]
-    );
 
     return (
       <Button
@@ -195,7 +182,7 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
           className,
         )}
         disabled={!canScrollPrev}
-        onClick={handleClick}
+        onClick={scrollPrev}
         {...props}
       >
         <ArrowLeft className="h-4 w-4" />
@@ -207,20 +194,8 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
 CarouselPrevious.displayName = "CarouselPrevious";
 
 const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof Button>>(
-  ({ className, variant = "outline", size = "icon", onClick, ...props }, ref) => {
+  ({ className, variant = "outline", size = "icon", ...props }, ref) => {
     const { orientation, scrollNext, canScrollNext } = useCarousel();
-    const { trigger } = useHapticFeedback();
-
-    const handleClick = React.useCallback(
-      (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (canScrollNext) {
-          trigger("medium");
-          scrollNext();
-          onClick?.(e);
-        }
-      },
-      [canScrollNext, scrollNext, trigger, onClick]
-    );
 
     return (
       <Button
@@ -235,7 +210,7 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
           className,
         )}
         disabled={!canScrollNext}
-        onClick={handleClick}
+        onClick={scrollNext}
         {...props}
       >
         <ArrowRight className="h-4 w-4" />
