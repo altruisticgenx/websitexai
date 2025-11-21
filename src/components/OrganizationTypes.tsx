@@ -56,7 +56,7 @@ export const OrganizationTypes = memo(() => {
         
       </motion.div>
 
-      <div className="mt-4 grid gap-2.5 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="relative rounded-lg border border-emerald-400/30 \n  bg-slate-950/80 px-3 py-2\n  text-xs sm:text-sm\n  shadow-[0_0_24px_rgba(16,185,129,0.35)]\n  hover:shadow-[0_0_36px_rgba(16,185,129,0.55)]\n  transition-shadow duration-300">
         {orgTypes.map((org, index) => {
         const Icon = org.icon;
         const isExpanded = expandedOrg === org.name;
