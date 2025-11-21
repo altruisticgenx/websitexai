@@ -194,7 +194,7 @@ export function Hero() {
     <section 
       ref={ref} 
       id="home" 
-      className="relative py-8 md:py-12 overflow-hidden bg-background gradient-mesh"
+      className="relative py-6 sm:py-8 md:py-12 overflow-hidden bg-background gradient-mesh"
       onMouseMove={handleMouseMove}
     >
       {/* Mouse Trail Particles */}
@@ -278,7 +278,7 @@ export function Hero() {
 
       {/* Main Content with Parallax */}
       <motion.div 
-        className="relative z-10 px-4 py-6 mx-auto max-w-7xl organic-spacing"
+        className="relative z-10 px-3 py-4 mx-auto max-w-7xl organic-spacing sm:px-4 lg:px-6 sm:py-6"
         style={{ y: yForeground, opacity }}
       >
         <div className="max-w-3xl mx-auto fluid-space">
@@ -557,7 +557,7 @@ export function Hero() {
                 href="https://scheduler.zoom.us/altruistic-xai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative inline-flex w-full sm:w-auto items-center justify-center rounded-lg bg-gradient-to-br from-primary via-primary to-accent px-5 py-3 body-base font-mono text-primary-foreground font-semibold overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.5)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.5)] active:translate-y-[2px] transition-all"
+                className="relative inline-flex w-full sm:w-auto items-center justify-center rounded-lg bg-gradient-to-br from-primary via-primary to-accent px-4 py-2.5 body-base font-mono text-primary-foreground font-semibold overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.5)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.5)] active:translate-y-[2px] transition-all sm:px-5 sm:py-3"
                 whileHover={{
                   scale: 1.03,
                   rotateX: -5,
@@ -578,7 +578,7 @@ export function Hero() {
               
               <motion.a
                 href="mailto:altruisticxai@gmail.com"
-                className="relative inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm px-5 py-3 body-base font-mono text-foreground overflow-hidden group shadow-[0_3px_0_0_hsl(var(--primary)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--primary)/0.3)] active:translate-y-[2px] transition-all"
+                className="relative inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm px-4 py-2.5 body-base font-mono text-foreground overflow-hidden group shadow-[0_3px_0_0_hsl(var(--primary)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--primary)/0.3)] active:translate-y-[2px] transition-all sm:px-5 sm:py-3"
                 whileHover={{
                   scale: 1.03,
                   rotateX: -5,
@@ -603,7 +603,7 @@ export function Hero() {
                 href="https://www.linkedin.com/in/ik11/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border-2 border-accent/40 bg-card/60 backdrop-blur-sm px-5 py-3 body-base font-mono text-foreground overflow-hidden group shadow-[0_3px_0_0_hsl(var(--accent)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--accent)/0.3)] active:translate-y-[2px] transition-all"
+                className="relative inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border-2 border-accent/40 bg-card/60 backdrop-blur-sm px-4 py-2.5 body-base font-mono text-foreground overflow-hidden group shadow-[0_3px_0_0_hsl(var(--accent)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--accent)/0.3)] active:translate-y-[2px] transition-all sm:px-5 sm:py-3"
                 whileHover={{
                   scale: 1.03,
                   rotateX: -5,

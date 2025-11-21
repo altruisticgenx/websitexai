@@ -54,7 +54,7 @@ export function InPageTOC({ items, className }: InPageTOCProps) {
       <div className="lg:hidden sticky top-16 z-40 w-full bg-background/80 backdrop-blur-md border-b border-border/40 mb-6">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full flex items-center justify-between px-4 py-3 text-left body-sm font-medium text-foreground hover:bg-accent/50 transition-colors"
+          className="w-full flex items-center justify-between px-3 py-2.5 text-left body-sm font-medium text-foreground hover:bg-accent/50 transition-colors sm:px-4 sm:py-3"
           aria-expanded={isOpen}
           aria-label="Toggle table of contents"
         >
@@ -72,7 +72,7 @@ export function InPageTOC({ items, className }: InPageTOCProps) {
               className="overflow-hidden"
               aria-label="Table of contents"
             >
-              <ul className="px-4 pb-3 space-y-1">
+              <ul className="px-3 pb-2.5 space-y-1 sm:px-4 sm:pb-3">
                 {items.map((item) => (
                   <li key={item.id}>
                     <button
@@ -102,7 +102,7 @@ export function InPageTOC({ items, className }: InPageTOCProps) {
         )}
         aria-label="Table of contents"
       >
-        <div className="rounded-lg border border-border/40 bg-card/50 backdrop-blur-sm p-4">
+        <div className="rounded-lg border border-border/40 bg-card/50 backdrop-blur-sm p-3 sm:p-4">
           <h3 className="body-sm font-semibold text-foreground mb-3">On this page</h3>
           <ul className="space-y-1">
             {items.map((item) => (

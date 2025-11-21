@@ -110,8 +110,8 @@ export function ContactForm() {
   };
 
   return (
-    <div className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-6 sm:p-8">
-      <div className="mb-6">
+    <div className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-4 sm:p-6 lg:p-8">
+      <div className="mb-4 sm:mb-6">
         <h3 className="text-xl font-semibold text-slate-50 sm:text-2xl lg:text-3xl">Get in touch</h3>
         <p className="mt-2 body-base text-slate-300">
           Share your project details and I'll respond within 24 hours.

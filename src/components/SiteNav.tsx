@@ -67,12 +67,12 @@ export function SiteNav() {
   }, [isMobileMenuOpen]);
   return <>
       {/* Skip to content link for accessibility */}
-      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-3 focus:py-2 sm:px-4 focus:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
         Skip to main content
       </a>
       
       <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/80" aria-label="Main navigation">
-        <div className="mx-auto max-w-6xl px-3 sm:px-4">
+        <div className="mx-auto max-w-6xl px-3 sm:px-4 lg:px-6">
         <div className="flex h-14 sm:h-16 items-center justify-between">
           {/* Logo/Brand */}
           <a href="#" onClick={handleNavClick} className="flex flex-col transition-colors hover:text-primary">
@@ -149,7 +149,7 @@ export function SiteNav() {
             </div>
 
             {/* CTA Button */}
-            <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" aria-label="Book a 30-minute introduction call (opens in new tab)" className="ml-2 rounded-full bg-primary px-4 py-2 min-h-[44px] flex items-center body-xs font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-md shadow-primary/20">
+            <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" aria-label="Book a 30-minute introduction call (opens in new tab)" className="ml-2 rounded-full bg-primary px-3 py-2 min-h-[44px] flex items-center body-xs font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-md shadow-primary/20 sm:px-4">
               Book Intro
             </a>
           </div>
@@ -163,7 +163,7 @@ export function SiteNav() {
         </div>
 
         {/* Mobile Menu */}
-        {isMobileMenuOpen && <div ref={mobileMenuRef} id="mobile-menu" className="md:hidden border-t border-border/40 py-3 animate-in slide-in-from-top-2 duration-200" role="navigation" aria-label="Mobile navigation">
+        {isMobileMenuOpen && <div ref={mobileMenuRef} id="mobile-menu" className="md:hidden border-t border-border/40 py-2 sm:py-3 animate-in slide-in-from-top-2 duration-200" role="navigation" aria-label="Mobile navigation">
             <div className="space-y-0.5">
               <a href="#" onClick={handleNavClick} aria-label="Navigate to home section" aria-current={activeSection === "" ? "page" : undefined} className={cn("block rounded-md px-4 py-3 min-h-[44px] flex items-center body-sm lowercase transition-colors touch-manipulation", activeSection === "" ? "text-primary bg-primary/10" : "text-foreground hover:text-primary hover:bg-accent/50")}>
                 home
@@ -204,7 +204,7 @@ export function SiteNav() {
                 </a>
               </div>
 
-              <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" aria-label="Book a 30-minute introduction call (opens in new tab)" className="mt-4 block rounded-full bg-primary px-5 py-3 min-h-[48px] flex items-center justify-center text-center body-base font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20 touch-manipulation">
+              <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" aria-label="Book a 30-minute introduction call (opens in new tab)" className="mt-3 sm:mt-4 block rounded-full bg-primary px-4 py-3 min-h-[48px] flex items-center justify-center text-center body-base font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20 touch-manipulation sm:px-5">
                 Book 30-min Intro
               </a>
             </div>

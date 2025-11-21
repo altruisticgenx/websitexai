@@ -18,7 +18,7 @@ const experiments = [{
   lesson: "Students valued one thoughtful comment from a teacher more than ten AI-generated rubric scores."
 }];
 export function ShelvedExperiments() {
-  return <section id="shelved" className="border-t border-slate-900/80 py-6 sm:py-8">
+  return <section id="shelved" className="border-t border-slate-900/80 py-4 sm:py-6 lg:py-8">
       <motion.div initial={{
       opacity: 0,
       y: 20
