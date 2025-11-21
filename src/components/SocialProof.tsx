@@ -1,9 +1,17 @@
 import { motion } from "framer-motion";
 import { Section } from "./Section";
 import { AnimatedNumber } from "./AnimatedNumber";
+import VelustroBackground from "./ui/velustro-component";
+
 export function SocialProof() {
   return <Section spacing="compact" border="bottom">
-      <div className="max-w-3xl mx-auto">
+      <div className="relative">
+        {/* Animated Background */}
+        <div className="absolute inset-0 opacity-30 pointer-events-none -z-10">
+          <VelustroBackground />
+        </div>
+        
+        <div className="max-w-3xl mx-auto relative z-10">
         {/* Killer Quote with Number */}
         <motion.blockquote initial={{
         opacity: 0,
@@ -84,6 +92,7 @@ export function SocialProof() {
             <span className="px-3 py-1.5 rounded-md border border-border/50 bg-card/20">Founder-Backed Startups</span>
           </div>
         </motion.div>
+        </div>
       </div>
     </Section>;
 }
