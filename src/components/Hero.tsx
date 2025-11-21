@@ -181,7 +181,7 @@ export function Hero() {
                 rel="noopener noreferrer"
                 className="min-h-[44px] w-full sm:w-auto inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 hover:bg-primary/90 transition-all focus-ring interactive"
               >
-                Book a 20-min Pilot Fit Call
+                Book 20-min Intro
               </a>
 
               {/* Secondary CTA */}
