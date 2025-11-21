@@ -628,7 +628,7 @@ const PilotOffer: React.FC = React.memo(() => {
 });
 PilotOffer.displayName = "PilotOffer";
 const TypicalProgression: React.FC = React.memo(() => {
-  return <section className="relative border-t border-slate-900/80 py-10 lg:py-16">
+  return <section className="relative border-t border-slate-900/80 py-6 sm:py-8 lg:py-12">
       <ParallaxBackground 
         speed={0.4} 
         gradient="from-accent/10 via-primary/8 to-transparent"
@@ -637,7 +637,7 @@ const TypicalProgression: React.FC = React.memo(() => {
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,hsl(var(--secondary)/0.15),transparent_50%)]" />
       </ParallaxBackground>
-      <div className="mx-auto w-full max-w-5xl px-4">
+      <div className="mx-auto w-full max-w-5xl px-3 sm:px-4">
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -648,50 +648,88 @@ const TypicalProgression: React.FC = React.memo(() => {
         once: true
       }} transition={{
         duration: 0.4
-      }} className="space-y-2">
-          <h2 className="heading-3 text-foreground">Typical Progression</h2>
-          <p className="body-base text-muted-foreground">Start small, scale when ready—or jump to any stage.</p>
+      }} className="space-y-1">
+          <h2 className="text-base font-semibold text-foreground sm:text-lg md:text-xl">Typical Progression</h2>
+          <p className="text-[11px] text-muted-foreground sm:text-xs">Start small, scale when ready—or jump to any stage.</p>
         </motion.div>
 
-        <div className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-4 grid gap-2 grid-cols-2 lg:grid-cols-4 sm:gap-3">
           {[{
           title: "1. Pilot",
           sub: "4 weeks",
           body: "Ship 1–2 features/week. Demo-ready code. Real builds, not decks.",
-          ring: "emerald"
+          ring: "emerald",
+          icon: "⚡"
         }, {
           title: "2. Proposal",
           sub: "1–2 weeks",
           body: "Scope doc, timeline, budget. Grant-ready, stakeholder-approved. RFP support.",
-          ring: "blue"
+          ring: "blue",
+          icon: "📋"
         }, {
           title: "3. Build",
           sub: "2–6 months",
           body: "Full product delivery. Integrations, testing, documentation. Launch-ready.",
-          ring: "violet"
+          ring: "violet",
+          icon: "🚀"
         }, {
           title: "4. Retainer",
           sub: "Ongoing",
           body: "Monthly support. Bug fixes, features, pivots. Always-on expertise.",
-          ring: "orange"
-        }].map((step, i) => <motion.div key={step.title} initial={{
-          opacity: 0,
-          scale: 0.95
-        }} whileInView={{
-          opacity: 1,
-          scale: 1
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.45,
-          delay: 0.08 * i
-        }} className={cn("group rounded-lg border-2 p-4 backdrop-blur-sm transition-all", step.ring === "emerald" && "border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20", step.ring === "blue" && "border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20", step.ring === "violet" && "border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20", step.ring === "orange" && "border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20")}>
-              <div className="mb-2 flex items-center gap-2">
-                <span className="body-base font-bold text-slate-100">{step.title}</span>
-                <span className="body-sm text-slate-200/80">{step.sub}</span>
+          ring: "orange",
+          icon: "🔄"
+        }].map((step, i) => <motion.div 
+          key={step.title} 
+          initial={{
+            opacity: 0,
+            scale: 0.95
+          }} 
+          whileInView={{
+            opacity: 1,
+            scale: 1
+          }} 
+          viewport={{
+            once: true
+          }} 
+          transition={{
+            duration: 0.4,
+            delay: 0.06 * i
+          }}
+          whileHover={{
+            y: -4,
+            scale: 1.02,
+            transition: { duration: 0.2 }
+          }}
+          className={cn(
+            "group relative overflow-hidden rounded-xl border-2 p-2.5 sm:p-3 backdrop-blur-sm transition-all",
+            "hover:shadow-lg hover:shadow-current/20",
+            step.ring === "emerald" && "border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 via-teal-500/10 to-emerald-500/15 hover:border-emerald-400/60",
+            step.ring === "blue" && "border-blue-500/40 bg-gradient-to-br from-blue-500/15 via-indigo-500/10 to-blue-500/15 hover:border-blue-400/60",
+            step.ring === "violet" && "border-violet-500/40 bg-gradient-to-br from-violet-500/15 via-purple-500/10 to-violet-500/15 hover:border-violet-400/60",
+            step.ring === "orange" && "border-orange-500/40 bg-gradient-to-br from-orange-500/15 via-amber-500/10 to-orange-500/15 hover:border-orange-400/60"
+          )}
+        >
+          {/* Animated glow on hover */}
+          <div className={cn(
+            "absolute -inset-[2px] rounded-xl opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-30",
+            step.ring === "emerald" && "bg-emerald-500",
+            step.ring === "blue" && "bg-blue-500",
+            step.ring === "violet" && "bg-violet-500",
+            step.ring === "orange" && "bg-orange-500"
+          )} />
+          
+          {/* Content */}
+          <div className="relative z-10">
+            <div className="mb-1.5 flex items-center justify-between gap-1.5">
+              <div className="flex items-center gap-1.5">
+                <span className="text-base sm:text-lg" aria-hidden="true">{step.icon}</span>
+                <span className="text-[11px] font-bold text-slate-100 sm:text-xs">{step.title}</span>
               </div>
-              <p className="body-base leading-snug text-slate-200/90">{step.body}</p>
-            </motion.div>)}
+              <span className="text-[9px] font-medium text-slate-200/70 sm:text-[10px]">{step.sub}</span>
+            </div>
+            <p className="text-[10px] leading-snug text-slate-200/85 sm:text-[11px]">{step.body}</p>
+          </div>
+        </motion.div>)}
         </div>
       </div>
     </section>;
