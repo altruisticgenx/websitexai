@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { AccessibleButton } from "@/components/ui/accessible-button";
 import {
   Form,
   FormControl,
@@ -224,10 +224,12 @@ export function ContactForm() {
               )}
             />
 
-            <Button
+            <AccessibleButton
               type="submit"
               disabled={isSubmitting || isSuccess}
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+              size="lg"
+              aria-label={isSubmitting ? "Sending message" : isSuccess ? "Message sent successfully" : "Send message"}
             >
               {isSubmitting ? (
                 <>
@@ -242,7 +244,7 @@ export function ContactForm() {
               ) : (
                 "Send Message"
               )}
-            </Button>
+            </AccessibleButton>
           </form>
         </Form>
       </Stack>

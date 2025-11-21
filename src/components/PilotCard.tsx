@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { SpotlightCard } from "./SpotlightCard";
 import { OptimizedImage } from "./OptimizedImage";
+import { AccessibleCard } from "./ui/accessible-card";
 interface PilotCardProps {
   id: string;
   title: string;
@@ -33,15 +34,21 @@ export function PilotCard({
   const reduce = useReducedMotion();
   return <Link to={`/case-study/${id}`} className="block w-full h-full">
       <SpotlightCard className={cn("h-full flex flex-col", className)}>
-        <motion.article initial={{
-        opacity: 0,
-        y: 12
-      }} animate={{
-        opacity: 1,
-        y: 0
-      }} transition={{
-        duration: reduce ? 0 : 0.35
-      }} className="relative w-full h-full flex flex-col overflow-hidden">
+        <AccessibleCard 
+          interactive 
+          headingLevel="h3"
+          aria-label={`Case study: ${title} - ${sector} pilot project`}
+          className="border-0 shadow-none bg-transparent"
+        >
+          <motion.article initial={{
+          opacity: 0,
+          y: 12
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          duration: reduce ? 0 : 0.35
+        }} className="relative w-full h-full flex flex-col overflow-hidden">
           {/* Image header - Mobile-first sizing */}
           <div className="relative h-32 xs:h-36 sm:h-40 w-full overflow-hidden flex-shrink-0">
             {imageUrl && shouldLoadImage ? (
@@ -115,6 +122,7 @@ export function PilotCard({
             </div>
           </div>
         </motion.article>
+        </AccessibleCard>
       </SpotlightCard>
     </Link>;
 }
