@@ -34,11 +34,6 @@ const OrganizationTypes = lazy(() =>
     default: m.OrganizationTypes,
   })),
 );
-const EngagementModels = lazy(() =>
-  import("@/components/EngagementModels").then((m) => ({
-    default: m.EngagementModels,
-  })),
-);
 
 // -----------------------------
 // Local layout helpers (no new files)
@@ -51,7 +46,9 @@ const PageSection: React.FC<{
 }> = ({ id, borderTop = false, className, children }) => (
   <section
     id={id}
-    className={cn("scroll-mt-24 py-10 lg:py-16", borderTop && "border-t border-slate-900/80", className)}
+    className={cn("scroll-mt-24 py-8 sm:py-12 lg:py-16", borderTop && "border-t border-border", className)}
+    role="region"
+    aria-labelledby={id ? `${id}-heading` : undefined}
   >
     <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">{children}</div>
   </section>
@@ -84,7 +81,6 @@ const Index: React.FC = () => {
     "org-types",
     "where",
     "shelved",
-    "testimonials",
     "about",
   ]);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
@@ -129,8 +125,7 @@ const Index: React.FC = () => {
     { key: "4", sectionId: "org-types", name: "Organization Types" },
     { key: "5", sectionId: "where", name: "Where I Work" },
     { key: "6", sectionId: "shelved", name: "Shelved Experiments" },
-    { key: "7", sectionId: "testimonials", name: "Testimonials" },
-    { key: "8", sectionId: "about", name: "About" },
+    { key: "7", sectionId: "about", name: "About" },
   ]);
 
   return (
@@ -235,19 +230,6 @@ const Index: React.FC = () => {
               <AboutMe />
             </LazySection>
 
-            <Suspense
-              fallback={
-                <div
-                  className="mx-auto my-8 h-64 max-w-5xl rounded-2xl bg-slate-900/60"
-                  aria-busy="true"
-                  aria-live="polite"
-                />
-              }
-            >
-              <LazySection>
-                <EngagementModels />
-              </LazySection>
-            </Suspense>
           </motion.div>
         )}
       </main>
