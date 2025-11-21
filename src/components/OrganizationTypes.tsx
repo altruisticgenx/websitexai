@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { ParallaxBackground } from "./ParallaxBackground";
 
 type OrgType = {
   id: string;
@@ -51,6 +52,15 @@ export default function OrganizationTypes({
 
   return (
     <section className={cn("relative w-full", className)}>
+      <ParallaxBackground
+        speed={0.5}
+        gradient="from-accent/8 via-secondary/6 to-primary/8"
+        meshVariant="accent"
+        meshIntensity="medium"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,hsl(var(--accent)/0.15),transparent_50%)]" />
+      </ParallaxBackground>
+
       <div className="mx-auto w-full max-w-5xl px-3 sm:px-4">
         <div className="flex items-end justify-between gap-2">
           <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">
