@@ -11,6 +11,7 @@ import { ParallaxBackground } from "@/components/ParallaxBackground";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { SwipeIndicator } from "@/components/SwipeIndicator";
 import { SiteNav } from "@/components/SiteNav";
+import { BreadcrumbTrail } from "@/components/BreadcrumbTrail";
 import { HeroSkeleton, CardsSkeleton, StepsSkeleton, TwoColumnSkeleton } from "@/components/skeletons/SectionSkeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { PilotCarousel3D } from "@/components/PilotCarousel3D";
@@ -116,6 +117,7 @@ const Index: React.FC = () => {
 
       <ScrollProgress />
       <SiteNav />
+      <BreadcrumbTrail />
 
       <div className="relative mx-auto flex min-h-screen max-w-5xl flex-col px-3 sm:px-4">
         <main id="main-content" className="flex-1 pt-2 sm:pt-4" role="main">
