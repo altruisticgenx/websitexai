@@ -5,13 +5,15 @@ interface LazySectionProps {
   fallback?: ReactNode;
   rootMargin?: string;
   threshold?: number;
+  minHeight?: number;
 }
 
 export function LazySection({ 
   children, 
   fallback = null, 
   rootMargin = "100px",
-  threshold = 0.01 
+  threshold = 0.01,
+  minHeight = 360
 }: LazySectionProps) {
   const [isInView, setIsInView] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -38,7 +40,7 @@ export function LazySection({
   }, [rootMargin, threshold]);
 
   return (
-    <div ref={sectionRef}>
+    <div ref={sectionRef} style={!isInView ? { minHeight } : undefined}>
       {isInView ? children : fallback}
     </div>
   );
