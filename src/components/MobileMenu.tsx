@@ -54,7 +54,7 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
     <div className={className}>
       <button
         onClick={toggleMenu}
-        className="rounded-full border border-primary/60 bg-primary/10 p-2 text-primary hover:bg-primary/20 transition-colors touch-manipulation active:scale-95"
+        className="rounded-full border border-primary/60 bg-primary/10 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-primary hover:bg-primary/20 transition-colors"
         aria-label="Toggle menu"
         aria-expanded={isOpen}
       >
@@ -90,10 +90,10 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
                 </span>
                 <button
                   onClick={closeMenu}
-                  className="rounded-full p-1.5 hover:bg-slate-800 transition-colors active:scale-95"
+                  className="rounded-full p-2 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-slate-800 transition-colors"
                   aria-label="Close menu"
                 >
-                  <X size={18} className="text-slate-400" />
+                  <X size={20} className="text-slate-400" />
                 </button>
               </div>
 
