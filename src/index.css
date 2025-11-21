@@ -21,7 +21,9 @@ All colors MUST be HSL.
     html {
       scroll-behavior: auto;
     }
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -56,7 +58,9 @@ All colors MUST be HSL.
     --sidebar-primary: 175 100% 11%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-ring: 168 89% 53%;
-    --font-sans: Raleway, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    --font-sans:
+      Raleway, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
+      Noto Color Emoji;
     --font-serif: "EB Garamond", ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
   }
   .dark {
@@ -87,7 +91,9 @@ All colors MUST be HSL.
     --sidebar-primary: 168 100% 42%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-ring: 168 89% 53%;
-    --font-sans: Raleway, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    --font-sans:
+      Raleway, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
+      Noto Color Emoji;
     --font-serif: "EB Garamond", ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
   }
 }
@@ -162,12 +168,16 @@ All colors MUST be HSL.
   }
 
   /* Ensure all buttons and links meet minimum touch target size */
-  button, a[role="button"], [role="button"] {
+  button,
+  a[role="button"],
+  [role="button"] {
     @apply touch-manipulation;
   }
 
   @media (max-width: 768px) {
-    button, a[role="button"], [role="button"] {
+    button,
+    a[role="button"],
+    [role="button"] {
       @apply min-h-[44px];
     }
   }
@@ -306,7 +316,7 @@ All colors MUST be HSL.
 @layer utilities {
   /* Gradient Mesh Background */
   .gradient-mesh {
-    background: 
+    background:
       radial-gradient(at 0% 0%, hsl(168 100% 42% / 0.15) 0px, transparent 50%),
       radial-gradient(at 50% 0%, hsl(173 95% 45% / 0.1) 0px, transparent 50%),
       radial-gradient(at 100% 0%, hsl(168 89% 53% / 0.12) 0px, transparent 50%),
@@ -319,8 +329,29 @@ All colors MUST be HSL.
   }
 
   @keyframes gradient-shift {
-    0%, 100% { background-position: 0% 0%, 50% 0%, 100% 0%, 0% 50%, 100% 50%, 0% 100%, 50% 100%, 100% 100%; }
-    50% { background-position: 100% 100%, 50% 100%, 0% 100%, 100% 50%, 0% 50%, 100% 0%, 50% 0%, 0% 0%; }
+    0%,
+    100% {
+      background-position:
+        0% 0%,
+        50% 0%,
+        100% 0%,
+        0% 50%,
+        100% 50%,
+        0% 100%,
+        50% 100%,
+        100% 100%;
+    }
+    50% {
+      background-position:
+        100% 100%,
+        50% 100%,
+        0% 100%,
+        100% 50%,
+        0% 50%,
+        100% 0%,
+        50% 0%,
+        0% 0%;
+    }
   }
 
   /* Fluid Layout Utilities */
@@ -351,10 +382,18 @@ All colors MUST be HSL.
     opacity: 0;
   }
 
-  .text-reveal-delay-1 { animation-delay: 0.1s; }
-  .text-reveal-delay-2 { animation-delay: 0.2s; }
-  .text-reveal-delay-3 { animation-delay: 0.3s; }
-  .text-reveal-delay-4 { animation-delay: 0.4s; }
+  .text-reveal-delay-1 {
+    animation-delay: 0.1s;
+  }
+  .text-reveal-delay-2 {
+    animation-delay: 0.2s;
+  }
+  .text-reveal-delay-3 {
+    animation-delay: 0.3s;
+  }
+  .text-reveal-delay-4 {
+    animation-delay: 0.4s;
+  }
 
   /* 3D Perspective */
   .perspective-1000 {
@@ -402,13 +441,10 @@ All colors MUST be HSL.
   }
 
   .isolated-component::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: -1px;
-    background: linear-gradient(135deg, 
-      hsl(var(--primary) / 0.2), 
-      hsl(var(--accent) / 0.2)
-    );
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.2), hsl(var(--accent) / 0.2));
     border-radius: inherit;
     z-index: -1;
     opacity: 0;
@@ -428,8 +464,14 @@ All colors MUST be HSL.
     }
 
     @keyframes fade-in {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   }
 }
@@ -449,12 +491,15 @@ All colors MUST be HSL.
   }
 
   /* Prevent rubber band scrolling on iOS */
-  body, html {
+  body,
+  html {
     overscroll-behavior-y: contain;
   }
 
   /* Fix iOS input zoom */
-  input, select, textarea {
+  input,
+  select,
+  textarea {
     font-size: 16px;
   }
 
