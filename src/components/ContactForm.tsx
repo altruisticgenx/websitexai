@@ -2,9 +2,19 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useState } from "react";
-import { toast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
-import { User, Mail, MessageSquare, ArrowRight, Loader2, CheckCircle2, Briefcase, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormDescription,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { EmailInput } from "@/components/EmailInput";
 import {
   Select,
   SelectContent,
@@ -12,7 +22,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { Loader2, CheckCircle2 } from "lucide-react";
+import { Stack } from "./layout/Stack";
 
 const formSchema = z.object({
   name: z.string()
@@ -23,7 +36,7 @@ const formSchema = z.object({
     .email("Please enter a valid email address")
     .max(255, "Email must be less than 255 characters")
     .toLowerCase(),
-  projectType: z.string().optional(),
+  projectType: z.string().min(1, "Please select a project type"),
   message: z.string()
     .min(10, "Message must be at least 10 characters")
     .max(1000, "Message must be less than 1000 characters"),
@@ -34,7 +47,6 @@ type FormValues = z.infer<typeof formSchema>;
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [showMoreOptions, setShowMoreOptions] = useState(false);
   
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -46,6 +58,9 @@ export function ContactForm() {
     },
     mode: "onChange",
   });
+
+  const nameLength = form.watch("name")?.length || 0;
+  const messageLength = form.watch("message")?.length || 0;
 
   const onSubmit = async (data: FormValues) => {
     setIsSuccess(true);
@@ -62,7 +77,7 @@ export function ContactForm() {
         .insert({
           name: data.name,
           email: data.email,
-          project_type: data.projectType || "general-inquiry",
+          project_type: data.projectType,
           message: data.message,
         })
         .select()
@@ -99,165 +114,138 @@ export function ContactForm() {
   };
 
   return (
-    <form 
-      onSubmit={form.handleSubmit(onSubmit)}
-      className="flex flex-col items-center text-sm"
-    >
-      <p className="text-xs bg-primary/20 text-primary font-medium px-3 py-1 rounded-full">
-        Contact Us
-      </p>
-
-      <h1 className="text-3xl sm:text-4xl font-bold py-4 text-center">Let's Get In Touch.</h1>
-      <p className="text-sm sm:text-base text-muted-foreground pb-10 text-center max-w-md">
-        Or just reach out manually to us at{" "}
-        <a 
-          href="mailto:altruisticxai@gmail.com" 
-          className="text-primary hover:underline"
-        >
-          altruisticxai@gmail.com
-        </a>
-      </p>
-
-      <div className="max-w-96 w-full px-4">
-        {/* Name Field */}
-        <label htmlFor="name" className="font-medium">
-          Full Name
-        </label>
-        <div className="flex items-center mt-2 mb-4 min-h-[44px] h-10 pl-3 border border-border rounded-full focus-within:ring-2 focus-within:ring-ring transition-all overflow-hidden bg-background">
-          <User className="w-5 h-5 text-muted-foreground flex-shrink-0" />
-          <input
-            type="text"
-            id="name"
-            {...form.register("name")}
-            disabled={isSubmitting}
-            className="h-full px-2 w-full outline-none bg-transparent"
-            placeholder="Enter your full name"
-          />
-        </div>
-        {form.formState.errors.name && (
-          <p className="text-xs text-destructive mb-2 -mt-2">
-            {form.formState.errors.name.message}
+    <div className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-6 sm:p-8">
+      <Stack gap="md">
+        <header>
+          <h3 className="heading-4 text-slate-50">Let's talk</h3>
+          <p className="mt-2 body-base text-slate-300">
+            Send over your project details—I'll reply within 24 hours.
           </p>
-        )}
+        </header>
 
-        {/* Email Field */}
-        <label htmlFor="email" className="font-medium mt-4">
-          Email Address
-        </label>
-        <div className="flex items-center mt-2 mb-4 min-h-[44px] h-10 pl-3 border border-border rounded-full focus-within:ring-2 focus-within:ring-ring transition-all overflow-hidden bg-background">
-          <Mail className="w-5 h-5 text-muted-foreground flex-shrink-0" />
-          <input
-            type="email"
-            id="email"
-            {...form.register("email")}
-            disabled={isSubmitting}
-            className="h-full px-2 w-full outline-none bg-transparent"
-            placeholder="Enter your email address"
-          />
-        </div>
-        {form.formState.errors.email && (
-          <p className="text-xs text-destructive mb-2 -mt-2">
-            {form.formState.errors.email.message}
-          </p>
-        )}
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="body-sm">Name</FormLabel>
+                  <FormControl>
+                    <Input 
+                      placeholder="Your name" 
+                      {...field}
+                      disabled={isSubmitting}
+                    />
+                  </FormControl>
+                  <div className="flex justify-between items-center">
+                    <FormMessage />
+                    <span className={`body-xs ${nameLength > 100 ? 'text-destructive' : 'text-slate-400'}`}>
+                      {nameLength}/100
+                    </span>
+                  </div>
+                </FormItem>
+              )}
+            />
 
-        {/* More Options Toggle */}
-        <button
-          type="button"
-          onClick={() => setShowMoreOptions(!showMoreOptions)}
-          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mt-4 mb-2 group"
-        >
-          <ChevronDown 
-            className={`w-4 h-4 transition-transform duration-300 ${showMoreOptions ? 'rotate-180' : ''}`}
-          />
-          <span>{showMoreOptions ? 'Hide' : 'More'} options</span>
-        </button>
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="body-sm">Email</FormLabel>
+                  <FormControl>
+                    <EmailInput
+                      placeholder="you@example.com"
+                      value={field.value}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      disabled={isSubmitting}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        {/* Project Type Field (Collapsible) */}
-        <AnimatePresence initial={false}>
-          {showMoreOptions && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="overflow-hidden"
+            <FormField
+              control={form.control}
+              name="projectType"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="body-sm">Project Type</FormLabel>
+                  <Select 
+                    onValueChange={field.onChange} 
+                    defaultValue={field.value}
+                    disabled={isSubmitting}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a project type" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="quick-question">Quick Question</SelectItem>
+                      <SelectItem value="consulting">Consulting / Advisory</SelectItem>
+                      <SelectItem value="pilot-project">4-Week Pilot Project</SelectItem>
+                      <SelectItem value="full-project">Full Project</SelectItem>
+                      <SelectItem value="ongoing-support">Ongoing Support</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="message"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="body-sm">Message</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Tell me about your project..."
+                      className="min-h-[120px] resize-none"
+                      {...field}
+                      disabled={isSubmitting}
+                    />
+                  </FormControl>
+                  <div className="flex justify-between items-center">
+                    <FormMessage />
+                    <span className={`body-xs ${messageLength > 1000 ? 'text-destructive' : 'text-slate-400'}`}>
+                      {messageLength}/1000
+                    </span>
+                  </div>
+                  <FormDescription className="body-xs">
+                    Minimum 10 characters required
+                  </FormDescription>
+                </FormItem>
+              )}
+            />
+
+            <Button
+              type="submit"
+              disabled={isSubmitting || isSuccess}
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
             >
-              <label htmlFor="projectType" className="font-medium">
-                Project Type
-              </label>
-              <div className="flex items-center mt-2 mb-4 min-h-[44px] border border-border rounded-full focus-within:ring-2 focus-within:ring-ring transition-all overflow-hidden bg-background">
-                <div className="pl-3">
-                  <Briefcase className="w-5 h-5 text-muted-foreground flex-shrink-0" />
-                </div>
-                <Select
-                  value={form.watch("projectType")}
-                  onValueChange={(value) => form.setValue("projectType", value, { shouldValidate: true })}
-                  disabled={isSubmitting}
-                >
-                  <SelectTrigger className="border-0 focus:ring-0 focus:ring-offset-0 h-full">
-                    <SelectValue placeholder="Select a project type" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-background border-border z-50">
-                    <SelectItem value="quick-question">Quick Question</SelectItem>
-                    <SelectItem value="consulting">Consulting / Advisory</SelectItem>
-                    <SelectItem value="pilot-project">4-Week Pilot Project</SelectItem>
-                    <SelectItem value="full-project">Full Project</SelectItem>
-                    <SelectItem value="ongoing-support">Ongoing Support</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Message Field */}
-        <label htmlFor="message" className="font-medium mt-4">
-          Message
-        </label>
-        <div className="relative">
-          <div className="flex items-start mt-2 p-3 border border-border rounded-lg focus-within:ring-2 focus-within:ring-ring transition-all bg-background">
-            <MessageSquare className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-1" />
-            <textarea
-              id="message"
-              {...form.register("message")}
-              disabled={isSubmitting}
-              rows={4}
-              className="w-full px-2 bg-transparent resize-none outline-none"
-              placeholder="Tell me about your project..."
-            ></textarea>
-          </div>
-          {form.formState.errors.message && (
-            <p className="text-xs text-destructive mt-1">
-              {form.formState.errors.message.message}
-            </p>
-          )}
-        </div>
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          disabled={isSubmitting || isSuccess}
-          className="flex items-center justify-center gap-2 mt-5 bg-primary hover:bg-primary/90 text-primary-foreground py-2.5 min-h-[44px] w-full rounded-full transition disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isSubmitting ? (
-            <>
-              <Loader2 className="w-5 h-5 animate-spin" />
-              Sending...
-            </>
-          ) : isSuccess ? (
-            <>
-              <CheckCircle2 className="w-5 h-5" />
-              Sent!
-            </>
-          ) : (
-            <>
-              Submit Form
-              <ArrowRight className="w-5 h-5" />
-            </>
-          )}
-        </button>
-      </div>
-    </form>
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Sending...
+                </>
+              ) : isSuccess ? (
+                <>
+                  <CheckCircle2 className="mr-2 h-4 w-4" />
+                  Sent!
+                </>
+              ) : (
+                "Send it over"
+              )}
+            </Button>
+          </form>
+        </Form>
+      </Stack>
+    </div>
   );
 }
