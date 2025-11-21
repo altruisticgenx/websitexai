@@ -214,57 +214,57 @@ export function Hero() {
         <svg className="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="wave-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.15 }} />
-              <stop offset="50%" style={{ stopColor: 'hsl(var(--accent))', stopOpacity: 0.15 }} />
-              <stop offset="100%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.15 }} />
+              <stop offset="0%" style={{
+              stopColor: 'hsl(var(--primary))',
+              stopOpacity: 0.15
+            }} />
+              <stop offset="50%" style={{
+              stopColor: 'hsl(var(--accent))',
+              stopOpacity: 0.15
+            }} />
+              <stop offset="100%" style={{
+              stopColor: 'hsl(var(--primary))',
+              stopOpacity: 0.15
+            }} />
             </linearGradient>
             <linearGradient id="wave-gradient-2" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style={{ stopColor: 'hsl(var(--accent))', stopOpacity: 0.1 }} />
-              <stop offset="50%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.1 }} />
-              <stop offset="100%" style={{ stopColor: 'hsl(var(--accent))', stopOpacity: 0.1 }} />
+              <stop offset="0%" style={{
+              stopColor: 'hsl(var(--accent))',
+              stopOpacity: 0.1
+            }} />
+              <stop offset="50%" style={{
+              stopColor: 'hsl(var(--primary))',
+              stopOpacity: 0.1
+            }} />
+              <stop offset="100%" style={{
+              stopColor: 'hsl(var(--accent))',
+              stopOpacity: 0.1
+            }} />
             </linearGradient>
           </defs>
-          <motion.path
-            d="M0,50 Q250,100 500,50 T1000,50 T1500,50 T2000,50 V200 H0 Z"
-            fill="url(#wave-gradient-1)"
-            animate={{
-              d: [
-                "M0,50 Q250,100 500,50 T1000,50 T1500,50 T2000,50 V200 H0 Z",
-                "M0,80 Q250,30 500,80 T1000,80 T1500,80 T2000,80 V200 H0 Z",
-                "M0,50 Q250,100 500,50 T1000,50 T1500,50 T2000,50 V200 H0 Z"
-              ]
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          <motion.path
-            d="M0,100 Q300,150 600,100 T1200,100 T1800,100 T2400,100 V300 H0 Z"
-            fill="url(#wave-gradient-2)"
-            animate={{
-              d: [
-                "M0,100 Q300,150 600,100 T1200,100 T1800,100 T2400,100 V300 H0 Z",
-                "M0,130 Q300,80 600,130 T1200,130 T1800,130 T2400,130 V300 H0 Z",
-                "M0,100 Q300,150 600,100 T1200,100 T1800,100 T2400,100 V300 H0 Z"
-              ]
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1
-            }}
-          />
+          <motion.path d="M0,50 Q250,100 500,50 T1000,50 T1500,50 T2000,50 V200 H0 Z" fill="url(#wave-gradient-1)" animate={{
+          d: ["M0,50 Q250,100 500,50 T1000,50 T1500,50 T2000,50 V200 H0 Z", "M0,80 Q250,30 500,80 T1000,80 T1500,80 T2000,80 V200 H0 Z", "M0,50 Q250,100 500,50 T1000,50 T1500,50 T2000,50 V200 H0 Z"]
+        }} transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }} />
+          <motion.path d="M0,100 Q300,150 600,100 T1200,100 T1800,100 T2400,100 V300 H0 Z" fill="url(#wave-gradient-2)" animate={{
+          d: ["M0,100 Q300,150 600,100 T1200,100 T1800,100 T2400,100 V300 H0 Z", "M0,130 Q300,80 600,130 T1200,130 T1800,130 T2400,130 V300 H0 Z", "M0,100 Q300,150 600,100 T1200,100 T1800,100 T2400,100 V300 H0 Z"]
+        }} transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1
+        }} />
         </svg>
       </div>
 
       {/* Main Content with Parallax */}
-      <motion.div className="relative z-10 px-4 py-3 mx-auto max-w-4xl" style={{
+      <motion.div style={{
       y: yForeground,
       opacity
-    }}>
+    }} className="relative z-10 px-4 py-3 mx-auto max-w-4xl\n">
         <div className="max-w-2xl mx-auto space-y-3">
           <motion.div initial={{
           opacity: 0,
@@ -351,7 +351,10 @@ export function Hero() {
                 <motion.div className="absolute inset-0 rounded-md bg-emerald-500 blur-lg -z-10" animate={{
                 opacity: activeSector === "energy" ? [0.2, 0.5, 0.2] : 0.1,
                 scale: activeSector === "energy" ? [1.1, 1.4, 1.1] : 1
-              }} transition={{ duration: 1.5, repeat: Infinity }} />
+              }} transition={{
+                duration: 1.5,
+                repeat: Infinity
+              }} />
                 <span className="relative z-10 font-mono font-bold">Energy</span>
               </motion.button>
               
@@ -369,7 +372,10 @@ export function Hero() {
                 <motion.div className="absolute inset-0 rounded-full bg-blue-500 blur-lg -z-10" animate={{
                 opacity: activeSector === "education" ? [0.2, 0.5, 0.2] : 0.1,
                 scale: activeSector === "education" ? [1.1, 1.4, 1.1] : 1
-              }} transition={{ duration: 1.8, repeat: Infinity }} />
+              }} transition={{
+                duration: 1.8,
+                repeat: Infinity
+              }} />
                 <span className="relative z-10 font-mono font-bold">Education</span>
               </motion.button>
               
@@ -387,7 +393,10 @@ export function Hero() {
                 <motion.div className="absolute inset-0 rounded-sm bg-violet-500 blur-lg -z-10" animate={{
                 opacity: activeSector === "civic" ? [0.2, 0.5, 0.2] : 0.1,
                 scale: activeSector === "civic" ? [1.1, 1.4, 1.1] : 1
-              }} transition={{ duration: 2, repeat: Infinity }} />
+              }} transition={{
+                duration: 2,
+                repeat: Infinity
+              }} />
                 <span className="relative z-10 font-mono font-bold">Civic</span>
               </motion.button>
               
@@ -405,7 +414,10 @@ export function Hero() {
                 <motion.div className="absolute inset-0 rounded-lg bg-lime-500 blur-lg -z-10" animate={{
                 opacity: activeSector === "climate" ? [0.2, 0.5, 0.2] : 0.1,
                 scale: activeSector === "climate" ? [1.1, 1.4, 1.1] : 1
-              }} transition={{ duration: 1.6, repeat: Infinity }} />
+              }} transition={{
+                duration: 1.6,
+                repeat: Infinity
+              }} />
                 <span className="relative z-10 font-mono font-bold">Climate</span>
               </motion.button>
               
@@ -423,7 +435,10 @@ export function Hero() {
                 <motion.div className="absolute inset-0 rounded-full bg-amber-500 blur-lg -z-10" animate={{
                 opacity: activeSector === "startups" ? [0.2, 0.5, 0.2] : 0.1,
                 scale: activeSector === "startups" ? [1.1, 1.4, 1.1] : 1
-              }} transition={{ duration: 2.2, repeat: Infinity }} />
+              }} transition={{
+                duration: 2.2,
+                repeat: Infinity
+              }} />
                 <span className="relative z-10 font-mono font-bold">Startups</span>
               </motion.button>
             </motion.div>
@@ -434,19 +449,74 @@ export function Hero() {
           }} animate={{
             opacity: 1
           }}>
-              {activeSector === "energy" && <motion.p className="text-[9px] text-emerald-400/90 font-mono" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.3 }}>
+              {activeSector === "energy" && <motion.p className="text-[9px] text-emerald-400/90 font-mono" initial={{
+              opacity: 0,
+              x: -10
+            }} animate={{
+              opacity: 1,
+              x: 0
+            }} exit={{
+              opacity: 0,
+              x: 10
+            }} transition={{
+              duration: 0.3
+            }}>
                   → Grid optimization · Demand forecasting · Utility analytics
                 </motion.p>}
-              {activeSector === "education" && <motion.p className="text-[9px] text-blue-400/90 font-mono" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.3 }}>
+              {activeSector === "education" && <motion.p className="text-[9px] text-blue-400/90 font-mono" initial={{
+              opacity: 0,
+              x: -10
+            }} animate={{
+              opacity: 1,
+              x: 0
+            }} exit={{
+              opacity: 0,
+              x: 10
+            }} transition={{
+              duration: 0.3
+            }}>
                   → Personalized learning · Student privacy · Civic education
                 </motion.p>}
-              {activeSector === "civic" && <motion.p className="text-[9px] text-violet-400/90 font-mono" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.3 }}>
+              {activeSector === "civic" && <motion.p className="text-[9px] text-violet-400/90 font-mono" initial={{
+              opacity: 0,
+              x: -10
+            }} animate={{
+              opacity: 1,
+              x: 0
+            }} exit={{
+              opacity: 0,
+              x: 10
+            }} transition={{
+              duration: 0.3
+            }}>
                   → Policy tracking · Public engagement · Transparency tools
                 </motion.p>}
-              {activeSector === "climate" && <motion.p className="text-[9px] text-lime-400/90 font-mono" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.3 }}>
+              {activeSector === "climate" && <motion.p className="text-[9px] text-lime-400/90 font-mono" initial={{
+              opacity: 0,
+              x: -10
+            }} animate={{
+              opacity: 1,
+              x: 0
+            }} exit={{
+              opacity: 0,
+              x: 10
+            }} transition={{
+              duration: 0.3
+            }}>
                   → Carbon tracking · Sustainability metrics · Impact reporting
                 </motion.p>}
-              {activeSector === "startups" && <motion.p className="text-[9px] text-amber-400/90 font-mono" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.3 }}>
+              {activeSector === "startups" && <motion.p className="text-[9px] text-amber-400/90 font-mono" initial={{
+              opacity: 0,
+              x: -10
+            }} animate={{
+              opacity: 1,
+              x: 0
+            }} exit={{
+              opacity: 0,
+              x: 10
+            }} transition={{
+              duration: 0.3
+            }}>
                   → MVP validation · Product-market fit · Growth experiments
                 </motion.p>}
               {!activeSector && <motion.p className="max-w-xl text-xs text-muted-foreground" initial={{
@@ -459,55 +529,47 @@ export function Hero() {
             </motion.div>
 
             {/* CTA Buttons */}
-            <motion.div 
-              className="mt-3 flex flex-col gap-1.5 sm:flex-row sm:items-start" 
-              style={{ perspective: "1000px" }}
-              initial={{
-                opacity: 0,
-                y: 20
-              }} 
-              animate={{
-                opacity: 1,
-                y: 0
-              }} 
-              transition={{
-                duration: 0.6,
-                delay: 0.8
-              }}
-            >
-              <motion.a 
-                href="https://us06web.zoom.us/launch/chat?src=direct_chat_link&email=altruisticxai@gmail.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="group inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-primary px-2.5 py-1 text-[10px] font-bold text-primary-foreground transition-all duration-300 shadow-[0_0_20px_rgba(var(--primary),0.4)] hover:shadow-[0_0_30px_rgba(var(--primary),0.7),0_0_60px_rgba(var(--primary),0.4)] border border-primary/50"
-                style={{ transformStyle: "preserve-3d" }}
-                whileHover={{ 
-                  scale: 1.05,
-                  rotateX: 3,
-                  rotateY: -2,
-                  y: -2,
-                  transition: { duration: 0.2 }
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
+            <motion.div className="mt-3 flex flex-col gap-1.5 sm:flex-row sm:items-start" style={{
+            perspective: "1000px"
+          }} initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            duration: 0.6,
+            delay: 0.8
+          }}>
+              <motion.a href="https://us06web.zoom.us/launch/chat?src=direct_chat_link&email=altruisticxai@gmail.com" target="_blank" rel="noopener noreferrer" className="group inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-primary px-2.5 py-1 text-[10px] font-bold text-primary-foreground transition-all duration-300 shadow-[0_0_20px_rgba(var(--primary),0.4)] hover:shadow-[0_0_30px_rgba(var(--primary),0.7),0_0_60px_rgba(var(--primary),0.4)] border border-primary/50" style={{
+              transformStyle: "preserve-3d"
+            }} whileHover={{
+              scale: 1.05,
+              rotateX: 3,
+              rotateY: -2,
+              y: -2,
+              transition: {
+                duration: 0.2
+              }
+            }} whileTap={{
+              scale: 0.95
+            }}>
                 <Mail className="w-2.5 h-2.5 mr-1 group-hover:animate-pulse" />
                 Zoom Chat
               </motion.a>
-              <motion.a 
-                href="https://www.linkedin.com/in/ik11/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="group inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-accent px-2.5 py-1 text-[10px] font-bold text-accent-foreground transition-all duration-300 shadow-[0_0_20px_rgba(var(--accent),0.4)] hover:shadow-[0_0_30px_rgba(var(--accent),0.7),0_0_60px_rgba(var(--accent),0.4)] border border-accent/50"
-                style={{ transformStyle: "preserve-3d" }}
-                whileHover={{ 
-                  scale: 1.05,
-                  rotateX: 3,
-                  rotateY: 2,
-                  y: -2,
-                  transition: { duration: 0.2 }
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
+              <motion.a href="https://www.linkedin.com/in/ik11/" target="_blank" rel="noopener noreferrer" className="group inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-accent px-2.5 py-1 text-[10px] font-bold text-accent-foreground transition-all duration-300 shadow-[0_0_20px_rgba(var(--accent),0.4)] hover:shadow-[0_0_30px_rgba(var(--accent),0.7),0_0_60px_rgba(var(--accent),0.4)] border border-accent/50" style={{
+              transformStyle: "preserve-3d"
+            }} whileHover={{
+              scale: 1.05,
+              rotateX: 3,
+              rotateY: 2,
+              y: -2,
+              transition: {
+                duration: 0.2
+              }
+            }} whileTap={{
+              scale: 0.95
+            }}>
                 <Linkedin className="w-2.5 h-2.5 mr-1 group-hover:animate-pulse" />
                 LinkedIn
               </motion.a>
