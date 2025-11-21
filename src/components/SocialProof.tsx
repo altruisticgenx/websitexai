@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { Section } from "./Section";
 import { AnimatedNumber } from "./AnimatedNumber";
-import VelustroBackground from "./ui/velustro-component";
 
 export function SocialProof() {
   return <Section spacing="compact" border="bottom">
