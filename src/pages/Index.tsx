@@ -23,6 +23,7 @@ import { ScrollProgress } from "@/components/ScrollProgress";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { SwipeIndicator } from "@/components/SwipeIndicator";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
+import { useHapticFeedback } from "@/hooks/use-haptic-feedback";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteNav } from "@/components/SiteNav";
@@ -186,6 +187,7 @@ type FeatureItem = {
 const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = React.memo(({ item, index }) => {
   const prefersReducedMotion = useReducedMotion();
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const { trigger: triggerHaptic } = useHapticFeedback();
 
   const colorClasses = useMemo(() => {
     switch (item.color) {
@@ -201,11 +203,24 @@ const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = R
   }, [item.color]);
 
   const handleInteraction = useCallback(() => {
-    setIsTooltipOpen((prev) => !prev);
-  }, []);
+    setIsTooltipOpen((prev) => {
+      const newState = !prev;
+      if (newState) {
+        triggerHaptic("light");
+      }
+      return newState;
+    });
+  }, [triggerHaptic]);
+
+  const handleOpenChange = useCallback((open: boolean) => {
+    if (open && !isTooltipOpen) {
+      triggerHaptic("light");
+    }
+    setIsTooltipOpen(open);
+  }, [triggerHaptic, isTooltipOpen]);
 
   return (
-    <Tooltip open={isTooltipOpen} onOpenChange={setIsTooltipOpen}>
+    <Tooltip open={isTooltipOpen} onOpenChange={handleOpenChange}>
       <TooltipTrigger asChild>
         <motion.button
           type="button"
