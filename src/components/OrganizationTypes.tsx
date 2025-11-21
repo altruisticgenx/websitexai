@@ -1,139 +1,117 @@
-import { memo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { GraduationCap, Zap, Building2, Rocket, LucideIcon, ChevronDown } from "lucide-react";
-import { Section } from "./Section";
-import { Stack } from "./layout/Stack";
-import { Grid } from "./layout/Grid";
+import React, { useMemo, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
-interface OrgType {
-  icon: LucideIcon;
-  name: string;
-  color: string;
-  description: string;
-  gradient: string;
-}
+type OrgType = {
+  id: string;
+  label: string;
+  blurb: string;
+  tags?: string[];
+};
 
-const orgTypes: OrgType[] = [
+const ORG_TYPES: OrgType[] = [
   {
-    icon: GraduationCap,
-    name: "Higher Ed Campuses",
-    color: "text-emerald-400",
-    gradient: "from-emerald-500/10 via-emerald-500/5 to-transparent",
-    description: "Campuses get a **living lab**, not another abstract civics assignment. We turn one course, honors cohort, or \"innovation\" seminar into a structured 4–8 week sprint where students interrogate real campus data, real state bills, and real pilots (AI, energy, tutoring). The payoff: grant-ready stories, concrete evidence for leadership, and students who can talk about systems and tradeoffs without blowing up the room."
+    id: "campus",
+    label: "Universities / Campuses",
+    blurb: "Energy, research, student success, and ops intelligence pilots.",
+    tags: ["Energy", "EdTech", "Ops"],
   },
   {
-    icon: Zap,
-    name: "Energy & Climate Orgs",
-    color: "text-cyan-400",
-    gradient: "from-cyan-500/10 via-cyan-500/5 to-transparent",
-    description: "For energy and climate groups, this is a **translation engine** between technical campaigns and local reality. We help you anchor your work (solar, V2G, building retrofits) in the daily pain points of schools and communities—buses that don't run, bills that spike, kids with asthma—and co-write proposals with students and educators. The result is quieter, more persuasive messaging that can land in rural and urban districts without sounding like a culture-war trigger."
+    id: "cities",
+    label: "Municipalities / Cities",
+    blurb: "Policy + infrastructure analytics with privacy-first AI.",
+    tags: ["Civic", "Grid", "Planning"],
   },
   {
-    icon: Building2,
-    name: "Civic Coalitions",
-    color: "text-purple-400",
-    gradient: "from-purple-500/10 via-purple-500/5 to-transparent",
-    description: "Coalitions are often rich in passion but poor in **shared structure**. We give them a common map: which bills are stuck, which committees matter, where issues intersect (attendance, housing, energy, safety). Then we run short labs that help members rewrite divisive talking points, agree on a small set of metrics, and walk into town halls or legislator meetings with one coherent story instead of six competing narratives."
+    id: "startups",
+    label: "Founder-Led Startups",
+    blurb: "Fast pilot-to-product loops for real traction.",
+    tags: ["B2B", "Growth", "RAG"],
   },
   {
-    icon: Rocket,
-    name: "Impact Startups (1–50 people)",
-    color: "text-orange-400",
-    gradient: "from-orange-500/10 via-orange-500/5 to-transparent",
-    description: "Early-stage teams don't need another \"framework\"; they need a **reality check that doesn't kill the vision**. We sit their product next to actual policy constraints, funding streams, and pilot opportunities in one or two regions, then co-design a simple playbook: where to pilot, who to partner with, and how to talk about tradeoffs honestly. Founders come out with fewer buzzwords, tighter partner briefs, and a roadmap that makes sense to schools, cities, or agencies—not just investors."
-  }
-] as const;
+    id: "utilities",
+    label: "Utilities / Co-ops",
+    blurb: "Local-first load forecasting and customer intelligence.",
+    tags: ["Forecasting", "DER", "Savings"],
+  },
+];
 
-const OrganizationTypes = memo(() => {
-  const [expandedOrg, setExpandedOrg] = useState<string | null>(null);
+export default function OrganizationTypes({
+  className,
+}: {
+  className?: string;
+}) {
+  const reduceMotion = useReducedMotion();
+  const [activeId, setActiveId] = useState<string>(ORG_TYPES[0].id);
 
-  const toggleOrg = (orgName: string) => {
-    setExpandedOrg(expandedOrg === orgName ? null : orgName);
-  };
+  const active = useMemo(
+    () => ORG_TYPES.find((o) => o.id === activeId) ?? ORG_TYPES[0],
+    [activeId]
+  );
 
   return (
-    <Section id="org-types" spacing="compact">
-      <Stack gap="md">
-        <header className="max-w-2xl">
-          <h2 className="heading-4">Organization Types</h2>
-        </header>
+    <section className={cn("relative w-full", className)}>
+      <div className="mx-auto w-full max-w-5xl px-3 sm:px-4">
+        <div className="flex items-end justify-between gap-2">
+          <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">
+            Who I build for
+          </h2>
+          <p className="text-xs sm:text-sm text-muted-foreground">
+            Pick a lane, see the fit.
+          </p>
+        </div>
 
-        <Grid columns={{ mobile: 1, tablet: 2, desktop: 4 }} gap="sm">
-          {orgTypes.map((org, index) => {
-            const Icon = org.icon;
-            const isExpanded = expandedOrg === org.name;
+        <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-2">
+          {ORG_TYPES.map((org) => {
+            const isActive = org.id === activeId;
             return (
-              <motion.div
-                key={org.name}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative"
+              <button
+                key={org.id}
+                onClick={() => setActiveId(org.id)}
+                className={cn(
+                  "min-w-0 rounded-2xl px-3 py-2 text-left border transition",
+                  "bg-background/60 hover:bg-background/90",
+                  isActive
+                    ? "border-primary/60 shadow-sm"
+                    : "border-border/60"
+                )}
+                aria-pressed={isActive}
               >
-                <motion.button
-                  onClick={() => toggleOrg(org.name)}
-                  whileHover={{ y: -4, scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`group w-full rounded-xl border transition-all duration-300 cursor-pointer ${
-                    isExpanded 
-                      ? 'border-primary/50 bg-gradient-to-br ' + org.gradient 
-                      : 'border-border bg-gradient-to-br from-card/60 to-card/30'
-                  } p-3 text-center`}
-                >
-                  <motion.div
-                    animate={{
-                      scale: isExpanded ? 1.1 : 1,
-                      rotate: isExpanded ? -5 : 0
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 15
-                    }}
-                  >
-                    <Icon className={`mx-auto mb-2 h-5 w-5 transition-colors duration-300 ${org.color}`} />
-                  </motion.div>
-                  <h3 className={`body-xs font-medium transition-colors ${
-                    isExpanded ? org.color : 'text-foreground group-hover:text-primary'
-                  }`}>
-                    {org.name}
-                  </h3>
-                  <ChevronDown className={`mx-auto mt-1 h-3 w-3 transition-transform duration-300 ${
-                    isExpanded ? 'rotate-180 ' + org.color : 'text-muted-foreground'
-                  }`} />
-                </motion.button>
-
-                <AnimatePresence>
-                  {isExpanded && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0, y: -10 }}
-                      animate={{ opacity: 1, height: "auto", y: 0 }}
-                      exit={{ opacity: 0, height: 0, y: -10 }}
-                      transition={{ duration: 0.3 }}
-                      className="absolute left-0 right-0 top-full z-50 mt-2"
-                    >
-                      <div className={`rounded-xl border border-border/50 bg-background/95 backdrop-blur-sm p-3 shadow-xl ${'bg-gradient-to-br ' + org.gradient}`}>
-                        <p className="caption leading-relaxed text-muted-foreground">
-                          {org.description.split('**').map((part, i) => 
-                            i % 2 === 1 
-                              ? <strong key={i} className="font-semibold text-foreground">{part}</strong> 
-                              : <span key={i}>{part}</span>
-                          )}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
+                <div className="text-[11px] sm:text-sm font-medium truncate">
+                  {org.label}
+                </div>
+                {org.tags?.length ? (
+                  <div className="mt-1 flex flex-wrap gap-1">
+                    {org.tags.map((t) => (
+                      <span
+                        key={t}
+                        className="text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-full bg-muted/70"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
+              </button>
             );
           })}
-        </Grid>
-      </Stack>
-    </Section>
+        </div>
+
+        <motion.div
+          key={active.id}
+          initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.25 }}
+          className="mt-3 rounded-3xl border border-border/60 bg-background/70 p-4 sm:p-5"
+        >
+          <div className="text-base sm:text-lg font-semibold">
+            {active.label}
+          </div>
+          <p className="mt-1 text-sm sm:text-base text-muted-foreground leading-relaxed">
+            {active.blurb}
+          </p>
+        </motion.div>
+      </div>
+    </section>
   );
-});
-
-OrganizationTypes.displayName = 'OrganizationTypes';
-
-export default OrganizationTypes;
+}
