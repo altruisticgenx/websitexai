@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUp } from "lucide-react";
+import { useHapticFeedback } from "@/hooks/use-haptic-feedback";
 
 export function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
+  const { trigger } = useHapticFeedback();
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -22,6 +24,7 @@ export function ScrollToTop() {
   }, []);
 
   const scrollToTop = () => {
+    trigger('medium');
     window.scrollTo({
       top: 0,
       behavior: "smooth",
