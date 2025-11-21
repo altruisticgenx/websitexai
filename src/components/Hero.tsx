@@ -302,31 +302,25 @@ export function Hero() {
               <span className="font-mono">{'>'} Ship pilot-ready AI tech</span>
             </motion.div>
 
-            {/* Main Headline with Terminal Typing */}
+            {/* Main Headline */}
             <motion.h1
-              className="mt-3 heading-1 relative font-mono text-reveal text-reveal-delay-1"
+              className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight leading-[1.1]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              <span className="relative inline-block">
-                <span className="relative z-10 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-                  {displayedText}
-                  <motion.span
-                    className="inline-block w-[0.6em] h-[1em] bg-primary ml-1"
-                    animate={{ opacity: showCursor ? 1 : 0 }}
-                    transition={{ duration: 0 }}
-                  />
-                </span>
-                <motion.span
-                  className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent blur-sm"
-                  animate={{ opacity: [0.5, 0.8, 0.5] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  {displayedText}
-                </motion.span>
-              </span>
+              Ship a working AI pilot in 2–6 weeks — without hiring.
             </motion.h1>
+
+            {/* Subhead */}
+            <motion.p
+              className="mt-4 body-base text-muted-foreground max-w-2xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              Senior AI + product execution for energy, education, and civic teams. First demo in Week 1.
+            </motion.p>
 
             {/* Sector Tag Switcher */}
             <motion.div
@@ -546,84 +540,32 @@ export function Hero() {
               )}
             </motion.div>
 
-            {/* CTA Buttons - Compact 3D Style with full-width on mobile */}
+            {/* CTA Buttons */}
             <motion.div
-              className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center"
+              className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-start"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
             >
-              <motion.a
+              <a
                 href="https://scheduler.zoom.us/altruistic-xai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative inline-flex w-full sm:w-auto items-center justify-center rounded-lg bg-gradient-to-br from-primary via-primary to-accent px-5 py-3 body-base font-mono text-primary-foreground font-semibold overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.5)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.5)] active:translate-y-[2px] transition-all"
-                whileHover={{
-                  scale: 1.03,
-                  rotateX: -5,
-                  rotateY: 5,
-                  boxShadow: "0 6px 0 0 hsl(var(--primary) / 0.5), 0 8px 20px -5px hsl(var(--primary) / 0.4)"
-                }}
-                whileTap={{ scale: 0.97, translateY: 2 }}
-                style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
+                className="inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-primary px-6 py-3 body-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
               >
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  animate={{ x: ['-200%', '200%'] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg" />
-                <span className="relative z-10">Book 30-min call</span>
-              </motion.a>
-              
-              <motion.a
-                href="mailto:altruisticxai@gmail.com"
-                className="relative inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm px-5 py-3 body-base font-mono text-foreground overflow-hidden group shadow-[0_3px_0_0_hsl(var(--primary)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--primary)/0.3)] active:translate-y-[2px] transition-all"
-                whileHover={{
-                  scale: 1.03,
-                  rotateX: -5,
-                  rotateY: -5,
-                  borderColor: "hsl(var(--primary) / 0.6)",
-                  boxShadow: "0 5px 0 0 hsl(var(--primary) / 0.3), 0 6px 15px -3px hsl(var(--primary) / 0.3)"
-                }}
-                whileTap={{ scale: 0.97, translateY: 2 }}
-                style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
-              >
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0"
-                  animate={{ x: ['-200%', '200%'] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent rounded-lg" />
-                <Mail className="h-3 w-3 relative z-10" />
-                <span className="relative z-10">altruisticxai@gmail.com</span>
-              </motion.a>
-              
-              <motion.a
-                href="https://www.linkedin.com/in/ik11/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border-2 border-accent/40 bg-card/60 backdrop-blur-sm px-5 py-3 body-base font-mono text-foreground overflow-hidden group shadow-[0_3px_0_0_hsl(var(--accent)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--accent)/0.3)] active:translate-y-[2px] transition-all"
-                whileHover={{
-                  scale: 1.03,
-                  rotateX: -5,
-                  rotateY: -5,
-                  borderColor: "hsl(var(--accent) / 0.6)",
-                  boxShadow: "0 5px 0 0 hsl(var(--accent) / 0.3), 0 6px 15px -3px hsl(var(--accent) / 0.3)"
-                }}
-                whileTap={{ scale: 0.97, translateY: 2 }}
-                style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
-              >
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/20 to-accent/0"
-                  animate={{ x: ['-200%', '200%'] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-accent/10 to-transparent rounded-lg" />
-                <Linkedin className="h-3 w-3 relative z-10" />
-                <span className="relative z-10">LinkedIn</span>
-              </motion.a>
+                Book 20-min Pilot Fit Call
+              </a>
             </motion.div>
+
+            {/* Proof line */}
+            <motion.p
+              className="mt-4 body-xs text-muted-foreground"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
+            >
+              Pilots shipped with UNE, school teams, city ops, and founders.
+            </motion.p>
           </motion.div>
         </div>
       </motion.div>
