@@ -120,7 +120,7 @@ const Index: React.FC = () => {
     sectionId: "about",
     name: "About"
   }]);
-  return <div ref={swipeRef} className={cn("min-h-screen text-slate-50 antialiased selection:bg-primary/30 selection:text-white", "bg-[radial-gradient(80%_60%_at_50%_-10%,rgba(14,165,233,0.14),transparent_60%),radial-gradient(70%_50%_at_85%_0%,rgba(16,185,129,0.12),transparent_55%),radial-gradient(60%_45%_at_0%_10%,rgba(99,102,241,0.14),transparent_55%)]", "bg-slate-950")}>
+  return <div ref={swipeRef} className={cn("min-h-screen text-slate-50 antialiased selection:bg-emerald-500/30 selection:text-white", "bg-[radial-gradient(80%_60%_at_50%_-10%,rgba(14,165,233,0.14),transparent_60%),radial-gradient(70%_50%_at_85%_0%,rgba(16,185,129,0.12),transparent_55%),radial-gradient(60%_45%_at_0%_10%,rgba(99,102,241,0.14),transparent_55%)]", "bg-slate-950")}>
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0 opacity-[0.05] mix-blend-soft-light [background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22 viewBox=%220 0 120 120%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/></filter><rect width=%22120%22 height=%22120%22 filter=%22url(%23n)%22 opacity=%220.4%22/></svg>')]" />
 
       <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-slate-800 focus:px-3 focus:py-2">
@@ -292,7 +292,7 @@ const FeatureCardWithTooltip: React.FC<{
         </motion.button>
       </TooltipTrigger>
 
-      <TooltipContent side="top" sideOffset={8} className="max-w-[280px] sm:max-w-[360px] bg-slate-900/95 backdrop-blur-md border-primary/30 p-3.5" onPointerDownOutside={e => {
+      <TooltipContent side="top" sideOffset={8} className="max-w-[280px] sm:max-w-[360px] bg-slate-900/95 backdrop-blur-md border-emerald-400/30 p-3.5" onPointerDownOutside={e => {
       if (isTouched) {
         e.preventDefault();
         setIsTouched(false);
@@ -595,7 +595,7 @@ const PilotOffer: React.FC = React.memo(() => {
       }} transition={{
         duration: 0.45,
         delay: 0.18
-      }} className="rounded-xl border border-primary/35 bg-gradient-to-br from-primary/10 via-slate-950/70 to-slate-950/90 p-6 backdrop-blur-sm">
+      }} className="rounded-xl border border-emerald-400/35 bg-gradient-to-br from-emerald-500/10 via-slate-950/70 to-slate-950/90 p-6 backdrop-blur-sm">
           <p className="heading-5 mb-2 text-foreground">Pilot-first, learning-first approach</p>
           <p className="body-base leading-relaxed text-muted-foreground">
             Small scope, honest results, and no long-term lock-in until you know what's actually worth scaling.
