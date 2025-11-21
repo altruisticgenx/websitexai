@@ -145,7 +145,7 @@ export function Hero() {
       <motion.div style={{
       y: isMobile ? 0 : yForeground,
       opacity
-    }} className="relative z-10 w-full max-w-7xl px-4 sm:px-6 flex flex-col items-center gap-6 sm:gap-8 mt-12 sm:mt-16 lg:mt-20">
+    }} className="relative z-8 w-full max-w-2xl px-4 sm:px-6 flex flex-col items-center gap-6 sm: gap-8 mt-12 sm:mt-14 lg:mt-16 rounded-sm">
         
         {/* SECTOR SELECTOR (Interactive Pills) */}
         <div className="flex flex-wrap justify-center gap-2 sm:gap-2.5">
@@ -215,16 +215,7 @@ export function Hero() {
 
         {/* COMPONENT SLOT: TIMELAPSE HERO 
             (Only shows on default to avoid clutter, or acts as main visual) */}
-        {activeAudience === 'default' && (
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="w-full mt-8 sm:mt-12 border-t border-slate-800/50 pt-8 sm:pt-12"
-          >
-            <TimeLapseHero />
-          </motion.div>
-        )}
+        {activeAudience === 'default'}
 
       </motion.div>
     </section>;
