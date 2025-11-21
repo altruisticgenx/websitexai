@@ -65,21 +65,21 @@ export function PilotCard({
     <Link to={`/case-study/${id}`} className="block group">
       <motion.article
         whileHover={{ 
-          y: -12, 
-          rotateX: 4,
-          rotateY: -3,
-          scale: 1.05,
-          transition: { duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }
+          y: -8, 
+          rotateX: 2,
+          rotateY: -2,
+          scale: 1.02,
+          transition: { duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }
         }}
-        whileTap={{ scale: 0.96 }}
+        whileTap={{ scale: 0.98 }}
         transition={{ duration: 0.3 }}
         style={{ 
           transformStyle: "preserve-3d",
-          perspective: "1200px"
+          perspective: "1500px"
         }}
         className={cn(
-          "relative flex h-full flex-col overflow-hidden rounded-2xl border-2 backdrop-blur-md transition-all duration-500 cursor-pointer",
-          "hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]",
+          "relative flex h-full flex-col overflow-hidden rounded-xl sm:rounded-2xl border-2 backdrop-blur-md transition-all duration-500 cursor-pointer",
+          "shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]",
           getSectorGradient(sector),
           getGlowColor(sector),
           className
@@ -98,14 +98,14 @@ export function PilotCard({
         )}
         
         {/* Floating gradient orbs for depth */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ transform: "translateZ(20px)" }} />
-        <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ transform: "translateZ(15px)" }} />
+        <div className="absolute top-0 right-0 w-20 sm:w-32 h-20 sm:h-32 bg-primary/15 sm:bg-primary/20 rounded-full blur-2xl sm:blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ transform: "translateZ(15px)" }} />
+        <div className="absolute bottom-0 left-0 w-16 sm:w-24 h-16 sm:h-24 bg-accent/15 sm:bg-accent/20 rounded-full blur-xl sm:blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ transform: "translateZ(10px)" }} />
         
         {/* Content Container */}
-        <div className="relative z-10 flex h-full flex-col p-3 bg-gradient-to-br from-background/40 via-background/60 to-background/80 group-hover:from-background/30 group-hover:via-background/50 group-hover:to-background/70 transition-all duration-500">
+        <div className="relative z-10 flex h-full flex-col p-2.5 sm:p-3 bg-gradient-to-br from-background/50 via-background/65 to-background/85 group-hover:from-background/40 group-hover:via-background/55 group-hover:to-background/75 transition-all duration-500">
           
         {/* Header */}
-        <div className="flex items-start justify-between gap-1.5 mb-2">
+        <div className="flex items-start justify-between gap-1.5 mb-1.5 sm:mb-2">
           <div className="flex-1 min-w-0">
             <span className={cn(
               "inline-flex items-center gap-0.5 rounded-full border px-1.5 py-0.5 text-[8px] font-bold shadow-md mb-1 backdrop-blur-sm",
@@ -114,7 +114,7 @@ export function PilotCard({
               <Users className="h-2 w-2" />
               {whoFor}
             </span>
-            <h3 className="text-[11px] sm:text-xs font-bold text-foreground line-clamp-2 leading-tight mb-0.5">{title}</h3>
+            <h3 className="text-[10px] sm:text-[11px] font-bold text-foreground line-clamp-2 leading-tight mb-0.5">{title}</h3>
             <p className="text-[8px] text-muted-foreground/70 font-medium">{sector}</p>
           </div>
           {tag && (
@@ -137,10 +137,10 @@ export function PilotCard({
 
         {/* Result - Highlighted with sector color */}
         <div className={cn(
-          "mb-1.5 rounded-xl border-2 bg-gradient-to-br p-1.5 shadow-lg backdrop-blur-sm transition-all duration-300",
+          "mb-1.5 rounded-lg sm:rounded-xl border-2 bg-gradient-to-br p-1.5 shadow-lg backdrop-blur-sm transition-all duration-300",
           getSectorAccent(sector).replace('text-', 'border-').replace('/20', '/40').replace('/50', '/60'),
           "group-hover:border-opacity-90"
-        )} style={{ transform: "translateZ(10px)" }}>
+        )} style={{ transform: "translateZ(8px)" }}>
           <div className="flex items-start gap-1.5">
             <div className={cn(
               "rounded-lg p-0.5 shadow-md",
