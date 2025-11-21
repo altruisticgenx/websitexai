@@ -111,11 +111,9 @@ export function PilotCard({
                 className={cn(
                   "w-full rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-center",
                   "body-sm font-semibold text-primary",
-                  "hover:bg-primary/20 hover:border-primary/50 active:scale-[0.98] transition-all duration-200",
-                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                  "transition-all duration-200"
                 )}
-                role="button"
-                aria-label={`Open case study for ${title}`}
+                aria-hidden="true"
               >
                 View case study →
               </div>
