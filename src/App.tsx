@@ -3,9 +3,11 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import { ScrollRestoration } from "@/components/ScrollRestoration";
 import { ImageLoadingMonitor } from "@/components/ImageLoadingMonitor";
+import { PageTransition } from "@/components/PageTransition";
 import Index from "./pages/Index";
 import CaseStudyDetail from "./pages/CaseStudyDetail";
 import NotFound from "./pages/NotFound";
@@ -28,6 +30,59 @@ const RouteLoadingFallback = () => (
 
 const queryClient = new QueryClient();
 
+// Animated Routes wrapper component
+function AnimatedRoutes() {
+  const location = useLocation();
+  
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <Routes location={location} key={location.pathname}>
+        <Route 
+          path="/" 
+          element={<Index />} 
+        />
+        <Route 
+          path="/portfolio" 
+          element={
+            <Suspense fallback={<RouteLoadingFallback />}>
+              <PageTransition>
+                <Portfolio />
+              </PageTransition>
+            </Suspense>
+          } 
+        />
+        <Route 
+          path="/case-study/:id" 
+          element={
+            <PageTransition>
+              <CaseStudyDetail />
+            </PageTransition>
+          } 
+        />
+        <Route 
+          path="/solutions/future-proofing" 
+          element={
+            <Suspense fallback={<RouteLoadingFallback />}>
+              <PageTransition>
+                <FutureProofing />
+              </PageTransition>
+            </Suspense>
+          } 
+        />
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+        <Route 
+          path="*" 
+          element={
+            <PageTransition>
+              <NotFound />
+            </PageTransition>
+          } 
+        />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -40,28 +95,7 @@ const App = () => (
         }}
       >
         <ScrollRestoration />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route 
-            path="/portfolio" 
-            element={
-              <Suspense fallback={<RouteLoadingFallback />}>
-                <Portfolio />
-              </Suspense>
-            } 
-          />
-          <Route path="/case-study/:id" element={<CaseStudyDetail />} />
-          <Route 
-            path="/solutions/future-proofing" 
-            element={
-              <Suspense fallback={<RouteLoadingFallback />}>
-                <FutureProofing />
-              </Suspense>
-            } 
-          />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AnimatedRoutes />
         <ImageLoadingMonitor />
       </BrowserRouter>
     </TooltipProvider>
