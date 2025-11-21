@@ -28,7 +28,6 @@ import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteNav } from "@/components/SiteNav";
 import { HeroSkeleton, CardsSkeleton, StepsSkeleton, TwoColumnSkeleton } from "@/components/skeletons/SectionSkeleton";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 // -----------------------------
 // Main Page Component
@@ -184,9 +183,9 @@ type FeatureItem = {
   example: string;
 };
 
-const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = React.memo(({ item, index }) => {
+const FeatureCardCollapsible: React.FC<{ item: FeatureItem; index: number }> = React.memo(({ item, index }) => {
   const prefersReducedMotion = useReducedMotion();
-  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const { trigger: triggerHaptic } = useHapticFeedback();
 
   const colorClasses = useMemo(() => {
@@ -202,67 +201,73 @@ const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = R
     }
   }, [item.color]);
 
-  const handleInteraction = useCallback(() => {
-    setIsTooltipOpen((prev) => {
-      const newState = !prev;
-      if (newState) {
+  const handleToggle = useCallback(() => {
+    setIsOpen((prev) => {
+      if (!prev) {
         triggerHaptic("light");
       }
-      return newState;
+      return !prev;
     });
   }, [triggerHaptic]);
 
-  const handleOpenChange = useCallback((open: boolean) => {
-    if (open && !isTooltipOpen) {
-      triggerHaptic("light");
-    }
-    setIsTooltipOpen(open);
-  }, [triggerHaptic, isTooltipOpen]);
-
   return (
-    <Tooltip open={isTooltipOpen} onOpenChange={handleOpenChange}>
-      <TooltipTrigger asChild>
-        <motion.button
-          type="button"
-          initial={{ opacity: 0, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.35, delay: index * 0.06 }}
-          whileHover={prefersReducedMotion ? undefined : { scale: 1.01, y: -1 }}
-          onClick={handleInteraction}
-          onTouchStart={handleInteraction}
-          className={cn(
-            "group relative w-full overflow-hidden rounded-md border bg-gradient-to-br to-slate-950/80 p-3 sm:p-4 backdrop-blur-sm transition-all",
-            "touch-manipulation active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 min-h-[44px]",
-            colorClasses,
-          )}
-          aria-label={`${item.title} – ${item.desc}. Tap to see example.`}
-          aria-expanded={isTooltipOpen}
-        >
-          <div className="relative flex items-start gap-2">
-            <div className="flex-1 min-w-0 text-left">
-              <h4 className="mb-1 text-xs font-semibold text-foreground sm:text-sm">{item.title}</h4>
-              <p className="text-[10px] leading-relaxed text-muted-foreground sm:text-xs">{item.desc}</p>
-            </div>
-            <span className="flex-shrink-0 text-[10px] text-muted-foreground/60 sm:text-xs" aria-hidden="true">
-              {isTooltipOpen ? "−" : "+"}
-            </span>
-          </div>
-        </motion.button>
-      </TooltipTrigger>
-      <TooltipContent 
-        side="top" 
-        className="z-50 max-w-[280px] bg-slate-900/98 backdrop-blur-md border border-primary/30 shadow-xl"
-        sideOffset={8}
+    <motion.div
+      initial={{ opacity: 0, scale: 0.98 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: prefersReducedMotion ? 0 : 0.35, delay: index * 0.06 }}
+      className={cn(
+        "group relative w-full overflow-hidden rounded-md border bg-gradient-to-br to-background backdrop-blur-sm",
+        colorClasses,
+      )}
+    >
+      <button
+        type="button"
+        onClick={handleToggle}
+        className={cn(
+          "w-full p-2.5 sm:p-3 text-left transition-all touch-manipulation",
+          "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 min-h-[44px]",
+          isOpen && "pb-2"
+        )}
+        aria-expanded={isOpen}
+        aria-label={`${item.title} – ${item.desc}. Tap to expand.`}
       >
-        <p className="text-[10px] leading-relaxed text-slate-200 sm:text-xs">
-          <span className="font-semibold text-primary">Real Example:</span> {item.example}
-        </p>
-      </TooltipContent>
-    </Tooltip>
+        <div className="flex items-start gap-2">
+          <div className="flex-1 min-w-0">
+            <h4 className="mb-0.5 text-[11px] font-semibold text-foreground sm:text-xs">{item.title}</h4>
+            <p className="text-[9px] leading-relaxed text-muted-foreground sm:text-[10px]">{item.desc}</p>
+          </div>
+          <span 
+            className={cn(
+              "flex-shrink-0 text-xs text-muted-foreground/60 transition-transform",
+              isOpen && "rotate-180"
+            )} 
+            aria-hidden="true"
+          >
+            ▼
+          </span>
+        </div>
+      </button>
+      
+      {isOpen && (
+        <motion.div
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: "auto", opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="overflow-hidden"
+        >
+          <div className="px-2.5 pb-2.5 pt-1 sm:px-3 sm:pb-3 border-t border-border/30 bg-background/50">
+            <p className="text-[9px] leading-relaxed text-muted-foreground sm:text-[10px]">
+              <span className="font-semibold text-primary">Real Example:</span> {item.example}
+            </p>
+          </div>
+        </motion.div>
+      )}
+    </motion.div>
   );
 });
-FeatureCardWithTooltip.displayName = "FeatureCardWithTooltip";
+FeatureCardCollapsible.displayName = "FeatureCardCollapsible";
 
 const RecentBuilds: React.FC = React.memo(() => {
   const [projects, setProjects] = useState<
@@ -380,17 +385,17 @@ RecentBuilds.displayName = "RecentBuilds";
 
 const PilotOffer: React.FC = React.memo(() => {
   return (
-    <section id="pilot" className="border-t border-slate-900/80 py-10 lg:py-16">
-      <div className="mx-auto w-full max-w-5xl space-y-8 px-4">
+    <section id="pilot" className="border-t border-border/80 py-6 sm:py-8 lg:py-12">
+      <div className="mx-auto w-full max-w-5xl space-y-5 sm:space-y-6 px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
-          className="space-y-6"
+          className="space-y-3 sm:space-y-4"
         >
-          <h2 className="text-lg font-semibold text-foreground sm:text-xl lg:text-2xl">Why a Pilot Partner Instead of Hiring In-House</h2>
-          <ul className="max-w-3xl space-y-4">
+          <h2 className="text-sm font-semibold text-foreground sm:text-base lg:text-lg">Why a Pilot Partner Instead of Hiring In-House</h2>
+          <ul className="max-w-3xl space-y-2 sm:space-y-3">
             {[
               "Hiring in-house makes sense once you know what you're scaling. When you're still in the \"is this even the right thing?\" phase, it's a slow and expensive way to find out.",
               "Bringing on a full-time senior hire typically means months of recruiting, six-figure commitments, and added overhead—before you even know if the pilot is worth scaling.",
@@ -403,7 +408,7 @@ const PilotOffer: React.FC = React.memo(() => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: i * 0.08 }}
                 className={cn(
-                  "flex items-start gap-2 body-base leading-relaxed",
+                  "flex items-start gap-2 text-[9px] leading-relaxed sm:text-[10px]",
                   i === 2 ? "text-foreground font-medium" : "text-muted-foreground",
                 )}
               >
@@ -419,50 +424,48 @@ const PilotOffer: React.FC = React.memo(() => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.45, delay: 0.1 }}
-          className="space-y-6"
+          className="space-y-3 sm:space-y-4"
         >
-          <h3 className="text-sm font-semibold text-primary sm:text-base lg:text-lg">What This Model Is For</h3>
-          <p className="text-[10px] text-muted-foreground sm:text-xs">Tap cards to see real examples</p>
-          <TooltipProvider delayDuration={160}>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
-               {[
-                {
-                  title: "Early, ambiguous work",
-                  desc: "When edges are fuzzy and you learn by shipping, not planning.",
-                  color: "emerald",
-                  icon: "🧭",
-                  example:
-                    "AI Sales Copilot: Started with messy CRM exports and unclear goals. Week 1: data flow. Week 2: first dashboard. Week 4: auto-prioritized leads ready for demo.",
-                },
-                {
-                  title: "Complex domains",
-                  desc: "Energy, education, civic systems—where policy, people, and tech collide.",
-                  color: "cyan",
-                  icon: "⚡",
-                  example:
-                    "Energy Analytics Pilot: 200+ campus meters, Excel chaos. Built real-time dashboard showing savings opportunities across policy, billing, and operations.",
-                },
-                {
-                  title: "Proof, not promises",
-                  desc: "Visible movement and credible artifacts, not strategy decks.",
-                  color: "teal",
-                  icon: "✓",
-                  example:
-                    "EdTech Portal: Education nonprofit needed evidence for funders. 4 weeks: working pilot tracking outcomes. Result: defended funding with real data.",
-                },
-                {
-                  title: "Lean, collaborative teams",
-                  desc: "Short cycles, reacting to results, adjusting quickly.",
-                  color: "blue",
-                  icon: "⚙",
-                  example:
-                    "Founder OS: Solo founder needed operational clarity. Weekly async Looms, quick pivots. Built unified scheduling, CRM, and invoicing—calm founder cockpit.",
-                },
-              ].map((item, i) => (
-                <FeatureCardWithTooltip key={item.title} item={item as any} index={i} />
-              ))}
-            </div>
-          </TooltipProvider>
+          <h3 className="text-xs font-semibold text-primary sm:text-sm">What This Model Is For</h3>
+          <p className="text-[9px] text-muted-foreground sm:text-[10px]">Tap to expand and see examples</p>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3">
+            {[
+              {
+                title: "Early, ambiguous work",
+                desc: "When edges are fuzzy and you learn by shipping.",
+                color: "emerald",
+                icon: "🧭",
+                example:
+                  "AI Sales Copilot: Started with messy CRM exports and unclear goals. Week 1: data flow. Week 2: first dashboard. Week 4: auto-prioritized leads ready for demo.",
+              },
+              {
+                title: "Complex domains",
+                desc: "Energy, education, civic—where policy, people, tech collide.",
+                color: "cyan",
+                icon: "⚡",
+                example:
+                  "Energy Analytics Pilot: 200+ campus meters, Excel chaos. Built real-time dashboard showing savings opportunities across policy, billing, and operations.",
+              },
+              {
+                title: "Proof, not promises",
+                desc: "Visible movement and credible artifacts, not strategy decks.",
+                color: "teal",
+                icon: "✓",
+                example:
+                  "EdTech Portal: Education nonprofit needed evidence for funders. 4 weeks: working pilot tracking outcomes. Result: defended funding with real data.",
+              },
+              {
+                title: "Lean, collaborative teams",
+                desc: "Short cycles, reacting to results, adjusting quickly.",
+                color: "blue",
+                icon: "⚙",
+                example:
+                  "Founder OS: Solo founder needed operational clarity. Weekly async Looms, quick pivots. Built unified scheduling, CRM, and invoicing—calm founder cockpit.",
+              },
+            ].map((item, i) => (
+              <FeatureCardCollapsible key={item.title} item={item as any} index={i} />
+            ))}
+          </div>
         </motion.div>
 
         <motion.div
@@ -470,17 +473,17 @@ const PilotOffer: React.FC = React.memo(() => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.45, delay: 0.2 }}
-          className="space-y-4"
+          className="space-y-2 sm:space-y-3"
         >
-          <h3 className="text-base font-semibold text-muted-foreground sm:text-lg">What This Model Is Not For</h3>
-          <div className="rounded-lg border border-slate-800/70 bg-slate-950/50 p-5">
-            <ul className="body-base space-y-3 text-slate-400">
+          <h3 className="text-xs font-semibold text-muted-foreground sm:text-sm">What This Model Is Not For</h3>
+          <div className="rounded-lg border border-border/70 bg-background/50 p-3 sm:p-4">
+            <ul className="space-y-2 text-muted-foreground">
               {[
                 "Large, multi-team implementations from day one",
                 'Long-term headcount decisions disguised as "pilots"',
                 "Purely cosmetic work where a static site or brochure would do",
               ].map((t) => (
-                <li key={t} className="flex items-start gap-2">
+                <li key={t} className="flex items-start gap-2 text-[9px] sm:text-[10px]">
                   <span className="mt-0.5 opacity-50">✕</span>
                   <span>{t}</span>
                 </li>
@@ -494,10 +497,10 @@ const PilotOffer: React.FC = React.memo(() => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.25 }}
-          className="rounded-lg border border-primary/30 bg-gradient-to-br from-primary/5 to-slate-950/80 p-5 backdrop-blur-sm"
+          className="rounded-lg border border-primary/30 bg-gradient-to-br from-primary/5 to-background/80 p-3 sm:p-4 backdrop-blur-sm"
         >
-          <p className="text-sm font-semibold mb-3 text-foreground sm:text-base">Pilot-first, learning-first approach</p>
-          <p className="body-base leading-relaxed text-muted-foreground">
+          <p className="text-[10px] font-semibold mb-2 text-foreground sm:text-xs">Pilot-first, learning-first approach</p>
+          <p className="text-[9px] leading-relaxed text-muted-foreground sm:text-[10px]">
             Small scope, honest results, and no long-term lock-in until you know what's actually worth scaling.
           </p>
         </motion.div>
