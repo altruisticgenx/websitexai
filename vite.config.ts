@@ -22,6 +22,8 @@ export default defineConfig(({ mode }) => ({
       "framer-motion",
       // Canvas animation libraries
       "uvcanvas",
+      // Form libraries that depend on React
+      "react-hook-form",
       // Three.js React wrappers
       "@react-three/fiber",
       "@react-three/drei",
