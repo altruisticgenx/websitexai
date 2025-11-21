@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FileText, MessageSquare, PenLine } from "lucide-react";
-import { Section } from "./Section";
+import { Section } from "./utilities/Section";
 import { Stack } from "./layout/Stack";
 
 const experiments = [

@@ -3,8 +3,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { SpotlightCard } from "./SpotlightCard";
-import { OptimizedImage } from "./OptimizedImage";
-import { AccessibleCard } from "./ui/accessible-card";
+import { OptimizedImage } from "../media/OptimizedImage";
+import { AccessibleCard } from "../ui/accessible-card";
 interface PilotCardProps {
   id: string;
   title: string;

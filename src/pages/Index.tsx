@@ -2,20 +2,20 @@ import React, { useCallback, useEffect, useMemo, useRef, useState, Suspense, laz
 import { motion, useReducedMotion } from "framer-motion";
 
 // Component Imports
-import { PilotCard } from "@/components/PilotCard";
-import { SocialProof } from "@/components/SocialProof";
+import { PilotCard } from "@/components/cards/PilotCard";
+import { SocialProof } from "@/components/sections/SocialProof";
 import { Hero } from "@/components/Hero";
-import { LazySection } from "@/components/LazySection";
-import { ScrollToTop } from "@/components/ScrollToTop";
-import { ScrollProgress } from "@/components/ScrollProgress";
-import { ParallaxBackground } from "@/components/ParallaxBackground";
-import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
-import { SwipeIndicator } from "@/components/SwipeIndicator";
-import { SiteNav } from "@/components/SiteNav";
+import { LazySection } from "@/components/utilities/LazySection";
+import { ScrollToTop } from "@/components/effects/ScrollToTop";
+import { ScrollProgress } from "@/components/effects/ScrollProgress";
+import { ParallaxBackground } from "@/components/effects/ParallaxBackground";
+import { KeyboardShortcutsHelp } from "@/components/utilities/KeyboardShortcutsHelp";
+import { SwipeIndicator } from "@/components/utilities/SwipeIndicator";
+import { SiteNav } from "@/components/navigation/SiteNav";
 import { HeroSkeleton, CardsSkeleton, StepsSkeleton, TwoColumnSkeleton } from "@/components/skeletons/SectionSkeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { PilotCarousel3D } from "@/components/PilotCarousel3D";
-import { Section } from "@/components/Section";
+import { PilotCarousel3D } from "@/components/utilities/PilotCarousel3D";
+import { Section } from "@/components/utilities/Section";
 import { Stack } from "@/components/layout/Stack";
 import { Grid } from "@/components/layout/Grid";
 

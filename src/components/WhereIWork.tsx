@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { MapPin, Building2, GraduationCap } from "lucide-react";
-import { Section } from "./Section";
+import { Section } from "./utilities/Section";
 import { Stack } from "./layout/Stack";
 import { Grid } from "./layout/Grid";
 

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { ArrowLeft, Calendar, CheckCircle2, Code } from "lucide-react";
-import { ProjectTimeline } from "@/components/ProjectTimeline";
-import { InPageTOC } from "@/components/InPageTOC";
+import { ProjectTimeline } from "@/components/utilities/ProjectTimeline";
+import { InPageTOC } from "@/components/navigation/InPageTOC";
 import { CaseStudyDetailSkeleton } from "@/components/skeletons/SectionSkeleton";
 
 // --- Case Study Data (shared) ---

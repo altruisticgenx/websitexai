@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
-import { Section } from "@/components/Section";
+import { Section } from "@/components/utilities/Section";
 import { Stack } from "@/components/layout/Stack";
 import { Grid } from "@/components/layout/Grid";
-import { ParallaxBackground } from "@/components/ParallaxBackground";
+import { ParallaxBackground } from "@/components/effects/ParallaxBackground";
 
 export const WhoBenefits: React.FC = React.memo(() => {
   const audiences = useMemo(

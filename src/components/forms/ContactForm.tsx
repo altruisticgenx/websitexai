@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { EmailInput } from "@/components/EmailInput";
+import { EmailInput } from "../forms/EmailInput";
 import {
   Select,
   SelectContent,
@@ -25,7 +25,7 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, CheckCircle2 } from "lucide-react";
-import { Stack } from "./layout/Stack";
+import { Stack } from "../layout/Stack";
 
 const formSchema = z.object({
   name: z.string()
