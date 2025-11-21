@@ -638,7 +638,7 @@ PilotOffer.displayName = "PilotOffer";
 
 const TypicalProgression: React.FC = React.memo(() => {
   return (
-    <section className="relative border-t border-slate-900/80 py-6 sm:py-8 lg:py-12">
+    <Section spacing="normal" border="top">
       <ParallaxBackground
         speed={0.4}
         gradient="from-accent/10 via-primary/8 to-transparent"
@@ -648,21 +648,20 @@ const TypicalProgression: React.FC = React.memo(() => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,hsl(var(--secondary)/0.15),transparent_50%)]" />
       </ParallaxBackground>
 
-      <div className="mx-auto w-full max-w-5xl px-3 sm:px-4">
+      <Stack gap="lg">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
-          className="space-y-1"
         >
-          <h2 className="text-base font-semibold text-foreground sm:text-lg md:text-xl">Typical Progression</h2>
-          <p className="text-[11px] text-muted-foreground sm:text-xs">
+          <h2 className="heading-4 text-foreground">Typical Progression</h2>
+          <p className="body-sm text-muted-foreground mt-1">
             Start small, scale when ready—or jump to any stage.
           </p>
         </motion.div>
 
-        <div className="mt-4 grid gap-2 grid-cols-2 lg:grid-cols-4 sm:gap-3">
+        <Grid columns={{ mobile: 2, tablet: 2, desktop: 4 }} gap="sm">
           {[
             {
               title: "1. Pilot",
@@ -728,17 +727,17 @@ const TypicalProgression: React.FC = React.memo(() => {
                     <span className="text-base sm:text-lg" aria-hidden="true">
                       {step.icon}
                     </span>
-                    <span className="text-[11px] font-bold text-slate-100 sm:text-xs">{step.title}</span>
+                    <span className="body-sm font-bold text-slate-100">{step.title}</span>
                   </div>
-                  <span className="text-[9px] font-medium text-slate-200/70 sm:text-[10px]">{step.sub}</span>
+                  <span className="body-xs font-medium text-slate-200/70">{step.sub}</span>
                 </div>
-                <p className="text-[10px] leading-snug text-slate-200/85 sm:text-[11px]">{step.body}</p>
+                <p className="body-xs leading-snug text-slate-200/85">{step.body}</p>
               </div>
             </motion.div>
           ))}
-        </div>
-      </div>
-    </section>
+        </Grid>
+      </Stack>
+    </Section>
   );
 });
 TypicalProgression.displayName = "TypicalProgression";
@@ -756,7 +755,7 @@ const WhoBenefits: React.FC = React.memo(() => {
   );
 
   return (
-    <section id="benefits" className="relative border-t border-slate-900/80 py-10 lg:py-16">
+    <Section id="benefits" spacing="normal" border="top">
       <ParallaxBackground
         speed={0.55}
         gradient="from-primary/10 via-secondary/8 to-accent/10"
@@ -766,22 +765,21 @@ const WhoBenefits: React.FC = React.memo(() => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_20%,hsl(var(--accent)/0.15),transparent_60%)]" />
       </ParallaxBackground>
 
-      <div className="mx-auto w-full max-w-5xl px-4">
+      <Stack gap="lg">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
-          className="space-y-2"
         >
           <h2 className="heading-3 text-foreground">Who Benefits?</h2>
-          <p className="body-base leading-relaxed text-muted-foreground">
+          <p className="body-base leading-relaxed text-muted-foreground mt-2">
             This model is for anyone who needs{" "}
             <span className="font-medium text-primary">tangible progress without hiring overhead</span>.
           </p>
         </motion.div>
 
-        <div className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2">
+        <Grid columns={{ mobile: 1, tablet: 2, desktop: 2 }} gap="md">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -816,16 +814,16 @@ const WhoBenefits: React.FC = React.memo(() => {
               <p className="body-base text-slate-400">Big static sites, slow-moving teams, no feedback loop</p>
             </div>
           </motion.div>
-        </div>
-      </div>
-    </section>
+        </Grid>
+      </Stack>
+    </Section>
   );
 });
 WhoBenefits.displayName = "WhoBenefits";
 
 const AboutMe: React.FC = React.memo(() => {
   return (
-    <section id="about" className="relative border-t border-slate-900/80 py-10 lg:py-16">
+    <Section id="about" spacing="normal" border="top">
       <ParallaxBackground
         speed={0.6}
         gradient="from-primary/6 via-secondary/8 to-accent/6"
@@ -835,17 +833,16 @@ const AboutMe: React.FC = React.memo(() => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,hsl(var(--primary)/0.12),transparent_60%)]" />
       </ParallaxBackground>
 
-      <div className="mx-auto w-full max-w-5xl space-y-10 px-4">
+      <Stack gap="xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="space-y-3"
         >
           <h2 className="heading-3 text-foreground">About Me</h2>
           <motion.p
-            className="body-lg max-w-3xl text-muted-foreground"
+            className="body-lg max-w-2xl text-muted-foreground mt-3"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -887,7 +884,7 @@ const AboutMe: React.FC = React.memo(() => {
                   "Civics education that feels irrelevant to students",
                   "Declining trust in public institutions",
                 ].map((t) => (
-                  <li key={t} className="caption flex items-start gap-2 text-muted-foreground/90">
+                  <li key={t} className="body-xs flex items-start gap-2 text-muted-foreground/90">
                     <span className="mt-1 inline-block h-1 w-1 flex-shrink-0 rounded-full bg-emerald-400/70" />
                     <span className="flex-1">{t}</span>
                   </li>
@@ -903,8 +900,8 @@ const AboutMe: React.FC = React.memo(() => {
             </div>
           </article>
         </motion.div>
-      </div>
-    </section>
+      </Stack>
+    </Section>
   );
 });
 AboutMe.displayName = "AboutMe";
