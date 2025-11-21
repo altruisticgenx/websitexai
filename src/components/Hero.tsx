@@ -175,7 +175,7 @@ export function Hero() {
     }, 100);
     return () => clearInterval(interval);
   }, []);
-  return <section ref={ref} id="home" className="relative py-8 md:py-12 overflow-hidden bg-background gradient-mesh" onMouseMove={handleMouseMove}>
+  return <section ref={ref} id="home" className="relative py-4 md:py-6 overflow-hidden bg-background gradient-mesh" onMouseMove={handleMouseMove}>
       {/* Mouse Trail Particles */}
       {trailParticles.map(particle => {
       const age = Date.now() - particle.timestamp;
@@ -209,36 +209,63 @@ export function Hero() {
       {/* 3D Animated Background - Lazy Loaded */}
       {shouldRender3D && <Hero3DBackground />}
       
-      {/* Matrix Rain Effect - Optimized */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none overflow-hidden">
-        {[...Array(10)].map((_, i) => <motion.div key={i} className="absolute w-px bg-gradient-to-b from-transparent via-primary to-transparent" style={{
-        left: `${i * 10}%`,
-        height: '200px',
-        top: '-200px'
-      }} animate={{
-        y: ['0vh', '100vh']
-      }} transition={{
-        duration: 4 + Math.random() * 2,
-        repeat: Infinity,
-        ease: "linear",
-        delay: Math.random() * 3
-      }} />)}
-      </div>
-
-      {/* Scanlines */}
-      <div className="absolute inset-0 pointer-events-none opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/20 to-transparent animate-pulse" style={{
-        backgroundSize: '100% 4px',
-        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, hsl(var(--primary) / 0.1) 2px, hsl(var(--primary) / 0.1) 4px)'
-      }} />
+      {/* Wavy Colorful Background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <svg className="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="wave-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.15 }} />
+              <stop offset="50%" style={{ stopColor: 'hsl(var(--accent))', stopOpacity: 0.15 }} />
+              <stop offset="100%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.15 }} />
+            </linearGradient>
+            <linearGradient id="wave-gradient-2" x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style={{ stopColor: 'hsl(var(--accent))', stopOpacity: 0.1 }} />
+              <stop offset="50%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.1 }} />
+              <stop offset="100%" style={{ stopColor: 'hsl(var(--accent))', stopOpacity: 0.1 }} />
+            </linearGradient>
+          </defs>
+          <motion.path
+            d="M0,50 Q250,100 500,50 T1000,50 T1500,50 T2000,50 V200 H0 Z"
+            fill="url(#wave-gradient-1)"
+            animate={{
+              d: [
+                "M0,50 Q250,100 500,50 T1000,50 T1500,50 T2000,50 V200 H0 Z",
+                "M0,80 Q250,30 500,80 T1000,80 T1500,80 T2000,80 V200 H0 Z",
+                "M0,50 Q250,100 500,50 T1000,50 T1500,50 T2000,50 V200 H0 Z"
+              ]
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.path
+            d="M0,100 Q300,150 600,100 T1200,100 T1800,100 T2400,100 V300 H0 Z"
+            fill="url(#wave-gradient-2)"
+            animate={{
+              d: [
+                "M0,100 Q300,150 600,100 T1200,100 T1800,100 T2400,100 V300 H0 Z",
+                "M0,130 Q300,80 600,130 T1200,130 T1800,130 T2400,130 V300 H0 Z",
+                "M0,100 Q300,150 600,100 T1200,100 T1800,100 T2400,100 V300 H0 Z"
+              ]
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1
+            }}
+          />
+        </svg>
       </div>
 
       {/* Main Content with Parallax */}
-      <motion.div className="relative z-10 px-4 py-6 mx-auto max-w-7xl organic-spacing" style={{
+      <motion.div className="relative z-10 px-4 py-3 mx-auto max-w-4xl" style={{
       y: yForeground,
       opacity
     }}>
-        <div className="max-w-3xl mx-auto fluid-space">
+        <div className="max-w-2xl mx-auto space-y-3">
           <motion.div initial={{
           opacity: 0,
           y: 30
@@ -270,7 +297,7 @@ export function Hero() {
             </motion.div>
 
             {/* Main Headline */}
-            <motion.h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight leading-[1.1]" initial={{
+            <motion.h1 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight leading-tight" initial={{
             opacity: 0,
             y: 20
           }} animate={{
@@ -284,7 +311,7 @@ export function Hero() {
             </motion.h1>
 
             {/* Subhead */}
-            <motion.p className="mt-4 body-base text-muted-foreground max-w-2xl" initial={{
+            <motion.p className="mt-2 text-xs sm:text-sm text-muted-foreground max-w-xl" initial={{
             opacity: 0,
             y: 20
           }} animate={{
@@ -298,7 +325,7 @@ export function Hero() {
             </motion.p>
 
             {/* Sector Tag Switcher */}
-            <motion.div className="mt-3 flex flex-wrap gap-2 items-center caption" initial={{
+            <motion.div className="mt-2 flex flex-wrap gap-2 items-center text-[10px]" initial={{
             opacity: 0,
             y: 20
           }} animate={{
@@ -455,12 +482,12 @@ export function Hero() {
             </motion.div>
 
             {/* Dynamic Sector Description */}
-            <motion.div className="mt-2 min-h-[60px]" initial={{
+            <motion.div className="mt-2 min-h-[40px]" initial={{
             opacity: 0
           }} animate={{
             opacity: 1
           }}>
-              {activeSector === "energy" && <motion.p className="caption text-primary/90 font-mono" initial={{
+              {activeSector === "energy" && <motion.p className="text-[10px] text-primary/90 font-mono" initial={{
               opacity: 0,
               x: -10
             }} animate={{
@@ -474,7 +501,7 @@ export function Hero() {
             }}>
                   → Grid optimization · Demand forecasting · Utility analytics
                 </motion.p>}
-              {activeSector === "education" && <motion.p className="caption text-accent/90 font-mono" initial={{
+              {activeSector === "education" && <motion.p className="text-[10px] text-accent/90 font-mono" initial={{
               opacity: 0,
               x: -10
             }} animate={{
@@ -488,7 +515,7 @@ export function Hero() {
             }}>
                   → Personalized learning · Student privacy · Civic education
                 </motion.p>}
-              {!activeSector && <motion.p className="max-w-xl body-base text-muted-foreground" initial={{
+              {!activeSector && <motion.p className="max-w-xl text-xs text-muted-foreground" initial={{
               opacity: 0
             }} animate={{
               opacity: 1
@@ -498,7 +525,7 @@ export function Hero() {
             </motion.div>
 
             {/* CTA Buttons */}
-            <motion.div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-start" initial={{
+            <motion.div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-start" initial={{
             opacity: 0,
             y: 20
           }} animate={{

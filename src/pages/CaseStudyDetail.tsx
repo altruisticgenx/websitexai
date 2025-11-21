@@ -140,15 +140,15 @@ const CaseStudyDetail = () => {
     id: "technologies",
     label: "Technologies"
   }];
-  return <div className="min-h-screen bg-slate-950 text-slate-50">
+  return <div className="min-h-screen bg-background text-foreground">
       <InPageTOC items={tocItems} />
 
-      <div className="lg:flex lg:gap-8 mx-auto max-w-7xl px-3 py-6 sm:px-4 sm:py-8">
+      <div className="lg:flex lg:gap-6 mx-auto max-w-5xl px-4 py-4 sm:py-6">
         {/* Desktop TOC Sidebar */}
         
 
         {/* Main Content */}
-        <article className="flex-1 min-w-0 rounded-sm">
+        <article className="flex-1 min-w-0">
           {/* Back Button */}
           <motion.div initial={{
           opacity: 0,
@@ -159,7 +159,7 @@ const CaseStudyDetail = () => {
         }} transition={{
           duration: 0.4
         }}>
-            <Link to="/" className="inline-flex items-center gap-2 body-xs text-muted-foreground hover:text-primary transition-colors">
+            <Link to="/" className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground hover:text-primary transition-colors">
               <ArrowLeft className="h-3 w-3" />
               Back to home
             </Link>
@@ -175,14 +175,14 @@ const CaseStudyDetail = () => {
         }} transition={{
           duration: 0.5,
           delay: 0.1
-        }} className="mt-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-400/10 px-3 py-1 body-xs font-medium text-blue-300">
+        }} className="mt-3">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/5 px-2.5 py-0.5 text-[10px] font-medium text-primary">
               {caseStudy.sector}
             </div>
-            <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-50 tracking-tight">
+            <h1 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight leading-tight">
               {caseStudy.title}
             </h1>
-            <p className="mt-3 body-base text-slate-300">{caseStudy.tagline}</p>
+            <p className="mt-2 text-xs sm:text-sm text-muted-foreground">{caseStudy.tagline}</p>
           </motion.div>
 
           {/* Timeline & Duration */}
@@ -195,14 +195,14 @@ const CaseStudyDetail = () => {
         }} transition={{
           duration: 0.5,
           delay: 0.2
-        }} className="mt-6 flex flex-wrap gap-3">
-            <div className="flex items-center gap-2 rounded-lg border border-slate-800/80 bg-slate-900/60 px-3 py-2">
+        }} className="mt-3 flex flex-wrap gap-2">
+            <div className="flex items-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-1.5">
               <Calendar className="h-3 w-3 text-primary" />
-              <span className="body-xs text-slate-300">{caseStudy.duration}</span>
+              <span className="text-[11px] text-muted-foreground">{caseStudy.duration}</span>
             </div>
-            <div className="flex items-center gap-2 rounded-lg border border-slate-800/80 bg-slate-900/60 px-3 py-2">
+            <div className="flex items-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-1.5">
               <Code className="h-3 w-3 text-primary" />
-              <span className="body-xs text-slate-300">{caseStudy.timeline}</span>
+              <span className="text-[11px] text-muted-foreground">{caseStudy.timeline}</span>
             </div>
           </motion.div>
 
@@ -216,8 +216,8 @@ const CaseStudyDetail = () => {
         }} transition={{
           duration: 0.5,
           delay: 0.3
-        }} className="mt-8 rounded-lg border border-slate-800/80 bg-slate-900/60 p-4 sm:p-6 scroll-mt-20">
-            <p className="body-base leading-relaxed text-slate-200">{caseStudy.summary}</p>
+        }} className="mt-4 rounded-lg border border-border bg-card p-3 sm:p-4 scroll-mt-20">
+            <p className="text-xs sm:text-sm leading-relaxed text-foreground">{caseStudy.summary}</p>
           </motion.div>
 
           {/* Challenge */}
@@ -230,9 +230,9 @@ const CaseStudyDetail = () => {
         }} transition={{
           duration: 0.5,
           delay: 0.4
-        }} className="mt-8 scroll-mt-20">
-            <h2 className="heading-3 text-slate-50">The Challenge</h2>
-            <p className="mt-3 body-base leading-relaxed text-slate-300">{caseStudy.challenge}</p>
+        }} className="mt-6 scroll-mt-20">
+            <h2 className="text-base sm:text-lg font-semibold text-foreground">The Challenge</h2>
+            <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted-foreground">{caseStudy.challenge}</p>
           </motion.section>
 
           {/* Solution */}
@@ -245,9 +245,9 @@ const CaseStudyDetail = () => {
         }} transition={{
           duration: 0.5,
           delay: 0.5
-        }} className="mt-8 scroll-mt-20">
-            <h2 className="heading-3 text-slate-50">The Solution</h2>
-            <p className="mt-3 body-base leading-relaxed text-slate-300">{caseStudy.solution}</p>
+        }} className="mt-6 scroll-mt-20">
+            <h2 className="text-base sm:text-lg font-semibold text-foreground">The Solution</h2>
+            <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted-foreground">{caseStudy.solution}</p>
           </motion.section>
 
           {/* Outcomes */}
@@ -260,12 +260,12 @@ const CaseStudyDetail = () => {
         }} transition={{
           duration: 0.5,
           delay: 0.6
-        }} className="mt-8 scroll-mt-20">
-            <h2 className="heading-3 text-slate-50">Key Outcomes</h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {caseStudy.outcomes.map((outcome, index) => <div key={index} className="flex items-start gap-3 rounded-lg border border-slate-800/80 bg-slate-900/60 p-3 sm:p-4">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" />
-                  <span className="body-sm text-slate-200">{outcome}</span>
+        }} className="mt-6 scroll-mt-20">
+            <h2 className="text-base sm:text-lg font-semibold text-foreground">Key Outcomes</h2>
+            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {caseStudy.outcomes.map((outcome, index) => <div key={index} className="flex items-start gap-2 rounded-lg border border-border bg-card p-2.5 sm:p-3">
+                  <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-primary" />
+                  <span className="text-[11px] sm:text-xs text-foreground">{outcome}</span>
                 </div>)}
             </div>
           </motion.section>
@@ -280,8 +280,8 @@ const CaseStudyDetail = () => {
         }} transition={{
           duration: 0.5,
           delay: 0.7
-        }} className="mt-8 scroll-mt-20">
-            <h2 className="heading-3 text-slate-50">Project Timeline</h2>
+        }} className="mt-6 scroll-mt-20">
+            <h2 className="text-base sm:text-lg font-semibold text-foreground">Timeline & Deliverables</h2>
             <ProjectTimeline phases={caseStudy.phases} duration={caseStudy.duration} />
           </motion.section>
 
@@ -295,10 +295,10 @@ const CaseStudyDetail = () => {
         }} transition={{
           duration: 0.5,
           delay: 0.8
-        }} className="mt-8 scroll-mt-20">
-            <h2 className="heading-3 text-slate-50">Technologies</h2>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {caseStudy.technologies.map((tech, index) => <span key={index} className="rounded-lg border border-primary/30 bg-primary/10 px-3 py-1.5 body-xs font-medium text-primary">
+        }} className="mt-6 scroll-mt-20">
+            <h2 className="text-base sm:text-lg font-semibold text-foreground">Technologies Used</h2>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {caseStudy.technologies.map((tech, index) => <span key={index} className="rounded-full border border-border bg-card px-2.5 py-1 text-[11px] text-muted-foreground">
                   {tech}
                 </span>)}
             </div>
@@ -314,12 +314,12 @@ const CaseStudyDetail = () => {
         }} transition={{
           duration: 0.5,
           delay: 0.9
-        }} className="mt-12 mb-8 rounded-lg border border-primary/20 bg-primary/5 p-6 text-center">
-            <h3 className="heading-4 text-slate-50">Ready to start your pilot?</h3>
-            <p className="mt-2 body-sm text-slate-300">
+        }} className="mt-8 mb-4 rounded-lg border border-primary/30 bg-gradient-to-br from-primary/10 to-primary/5 p-4 sm:p-5 text-center">
+            <h3 className="text-sm sm:text-base font-semibold text-foreground">Ready to start your pilot?</h3>
+            <p className="mt-1.5 text-[11px] sm:text-xs text-muted-foreground">
               Book a 30-min intro to discuss your project and see if it's a fit.
             </p>
-            <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex rounded-full bg-primary px-6 py-3 body-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20 w-full sm:w-auto justify-center">
+            <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex rounded-full bg-primary px-4 py-2 text-[11px] font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-md shadow-primary/20 w-full sm:w-auto justify-center">
               Book 30-min Intro
             </a>
           </motion.div>
