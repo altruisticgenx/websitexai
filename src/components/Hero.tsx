@@ -151,7 +151,7 @@ export function Hero() {
           </>}
         
         <div className="absolute inset-0 opacity-[0.07]" style={{
-        backgroundImage: 'linear-gradient(hsl(var(--primary) / 0.15) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary) / 0.15) 1px, transparent 1px)',
+        backgroundImage: 'linear-gradient(rgba(16, 185, 129, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.15) 1px, transparent 1px)',
         backgroundSize: '60px 60px'
       }} />
       </div>
@@ -206,7 +206,7 @@ export function Hero() {
           
           <div className="relative p-6 sm:p-8 lg:p-10 space-y-4 sm:space-y-5">
             {/* Tagline - compact & glowing */}
-            <motion.div className="inline-flex items-center gap-2 rounded-full border-2 border-primary/60 bg-gradient-to-r from-primary/15 via-primary/10 to-accent/15 backdrop-blur-xl px-3 py-1.5 text-[10px] sm:text-xs font-bold text-foreground shadow-[0_0_25px_hsl(var(--primary)/0.3)]" initial={{
+            <motion.div className="inline-flex items-center gap-2 rounded-full border-2 border-primary/60 bg-gradient-to-r from-primary/15 via-primary/10 to-accent/15 backdrop-blur-xl px-3 py-1.5 text-[10px] sm:text-xs font-bold text-foreground" initial={{
             opacity: 0,
             scale: 0.9,
             rotateX: -15
@@ -302,7 +302,7 @@ export function Hero() {
                   
                   {/* Orbital particles */}
                   {activeSector === sector && <>
-                      {[...Array(6)].map((_, i) => <motion.div key={i} className="absolute w-1 h-1 rounded-full bg-primary shadow-[0_0_8px_hsl(var(--primary))]" style={{
+                      {[...Array(6)].map((_, i) => <motion.div key={i} className="absolute w-1 h-1 rounded-full bg-primary" style={{
                   left: "50%",
                   top: "50%"
                 }} animate={{

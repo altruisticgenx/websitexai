@@ -6,7 +6,6 @@ import { Hero } from "@/components/Hero";
 import { LazySection } from "@/components/LazySection";
 import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
 import { PerformanceIndicator } from "@/components/PerformanceIndicator";
-import { ContentLoader, CardSkeleton } from "@/components/ContentLoader";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
@@ -497,8 +496,13 @@ const RecentBuilds: React.FC = React.memo(() => {
           </p>
         </motion.div>
 
-        <ContentLoader isLoading={isLoadingProjects} fallback={<CardSkeleton count={4} />}>
-          {error ? (
+        {isLoadingProjects ? (
+          <div className="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="h-64 animate-pulse rounded-2xl bg-muted/60" />
+            ))}
+          </div>
+        ) : error ? (
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
@@ -549,7 +553,6 @@ const RecentBuilds: React.FC = React.memo(() => {
               ))}
             </motion.div>
           )}
-        </ContentLoader>
       </Stack>
     </PageSection>
   );
