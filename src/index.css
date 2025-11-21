@@ -44,35 +44,47 @@ All colors MUST be HSL.
     }
   }
   :root {
-    --accent: 166 76% 96%;
-    --accent-foreground: 173 80% 40%;
-    --background: 0 0% 96%;
-    --border: 0 0% 83%;
-    --card: 0 0% 98%;
-    --card-foreground: 0 0% 9%;
+    /* New Color Palette - AltruisticX AI Brand */
+    --deep-blue: 207 77% 23%;          /* #0D3B66 - Primary brand color */
+    --teal-accent: 179 78% 42%;        /* #17BEBB - Interactive elements */
+    --light-bg: 65 43% 95%;            /* #F6F7EB - Light backgrounds */
+    --warm-orange: 35 100% 55%;        /* #FF9F1C - Outcome badges */
+    
+    /* Semantic tokens mapped to brand colors */
+    --background: 65 43% 95%;          /* light-bg */
+    --foreground: 207 77% 23%;         /* deep-blue - high contrast */
+    --card: 0 0% 100%;
+    --card-foreground: 207 77% 23%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 207 77% 23%;
+    --primary: 179 78% 42%;            /* teal-accent */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 207 77% 23%;          /* deep-blue */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 65 20% 85%;
+    --muted-foreground: 207 50% 40%;
+    --accent: 179 78% 42%;             /* teal-accent */
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 50%;
-    --destructive-foreground: 0 85% 97%;
-    --foreground: 0 0% 9%;
-    --input: 0 0% 83%;
-    --muted: 0 0% 63%;
-    --muted-foreground: 0 0% 9%;
-    --popover: 0 0% 89%;
-    --popover-foreground: 0 0% 9%;
-    --primary: 161 93% 30%;
-    --primary-foreground: 151 80% 95%;
-    --radius: 0.75rem;
-    --ring: 161 93% 30%;
-    --secondary: 0 0% 32%;
-    --secondary-foreground: 0 0% 98%;
-    --sidebar-accent: 0 0% 32%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-border: 0 0% 83%;
-    --sidebar-foreground: 0 0% 9%;
-    --sidebar-primary: 161 93% 30%;
-    --sidebar-primary-foreground: 151 80% 95%;
-    --sidebar-ring: 161 93% 30%;
-    --font-sans: 'Work Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+    --destructive-foreground: 0 0% 100%;
+    --border: 207 30% 85%;
+    --input: 207 30% 90%;
+    --ring: 179 78% 42%;
+    --radius: 0.5rem;
+    
+    /* Sidebar tokens */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 207 77% 23%;
+    --sidebar-primary: 179 78% 42%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 65 30% 92%;
+    --sidebar-accent-foreground: 207 77% 23%;
+    --sidebar-border: 207 30% 85%;
+    --sidebar-ring: 179 78% 42%;
+    
+    /* Typography */
+    --font-heading: 'Montserrat', 'Work Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-sans: 'Inter', 'Work Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     --font-serif: 'Lora', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
     --chart-1: 158 64% 51%;
     --chart-2: 141 69% 58%;
@@ -93,35 +105,41 @@ All colors MUST be HSL.
     --spacing: 0.25rem;
   }
   .dark {
-    --accent: 178 84% 10%;
-    --accent-foreground: 172 66% 50%;
-    --background: 0 0% 9%;
-    --border: 0 0% 32%;
-    --card: 0 0% 14%;
-    --card-foreground: 0 0% 98%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 85% 97%;
-    --foreground: 0 0% 98%;
-    --input: 0 0% 32%;
-    --muted: 0 0% 45%;
-    --muted-foreground: 0 0% 98%;
-    --popover: 0 0% 25%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 158 64% 51%;
-    --primary-foreground: 165 91% 9%;
-    --ring: 158 64% 51%;
-    --secondary: 0 0% 45%;
-    --secondary-foreground: 0 0% 98%;
-    --sidebar-accent: 172 66% 50%;
-    --sidebar-accent-foreground: 178 84% 10%;
-    --sidebar-background: 175 100% 11%;
-    --sidebar-border: 0 0% 32%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 158 64% 51%;
-    --sidebar-primary-foreground: 165 91% 9%;
-    --sidebar-ring: 158 64% 51%;
-    --font-sans: Raleway, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-    --font-serif: "EB Garamond", ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
+    /* Dark mode with brand colors */
+    --background: 207 77% 15%;         /* darker deep-blue */
+    --foreground: 65 43% 95%;          /* light-bg for text */
+    --card: 207 70% 20%;
+    --card-foreground: 65 43% 95%;
+    --popover: 207 70% 20%;
+    --popover-foreground: 65 43% 95%;
+    --primary: 179 78% 50%;            /* brighter teal in dark mode */
+    --primary-foreground: 207 77% 15%;
+    --secondary: 207 50% 35%;
+    --secondary-foreground: 65 43% 95%;
+    --muted: 207 40% 30%;
+    --muted-foreground: 65 20% 75%;
+    --accent: 179 78% 50%;
+    --accent-foreground: 207 77% 15%;
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 65 43% 95%;
+    --border: 207 40% 30%;
+    --input: 207 40% 30%;
+    --ring: 179 78% 50%;
+    
+    /* Dark sidebar */
+    --sidebar-background: 207 70% 18%;
+    --sidebar-foreground: 65 43% 95%;
+    --sidebar-primary: 179 78% 50%;
+    --sidebar-primary-foreground: 207 77% 15%;
+    --sidebar-accent: 207 50% 30%;
+    --sidebar-accent-foreground: 65 43% 95%;
+    --sidebar-border: 207 40% 30%;
+    --sidebar-ring: 179 78% 50%;
+    
+    /* Typography stays same */
+    --font-heading: 'Montserrat', 'Work Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'Inter', 'Work Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-serif: 'Lora', ui-serif, Georgia, serif;
     --chart-1: 156 71% 66%;
     --chart-2: 141 76% 73%;
     --chart-3: 170 76% 64%;
@@ -141,35 +159,41 @@ All colors MUST be HSL.
 
 /* Semantic Typography System */
 @layer components {
-  /* Headings - Mobile-first, responsive with max text-3xl on mobile */
+  /* Headings - Mobile-first with Montserrat Bold */
   .heading-1 {
-    @apply text-2xl font-semibold tracking-tight;
-    @apply sm:text-3xl lg:text-4xl;
+    font-family: var(--font-heading);
+    @apply text-3xl font-bold tracking-tight;
+    @apply sm:text-4xl lg:text-5xl;
   }
 
   .heading-2 {
-    @apply text-xl font-semibold tracking-tight;
-    @apply sm:text-2xl lg:text-3xl;
+    font-family: var(--font-heading);
+    @apply text-2xl font-bold tracking-tight;
+    @apply sm:text-3xl lg:text-4xl;
   }
 
   .heading-3 {
-    @apply text-lg font-semibold;
-    @apply sm:text-xl lg:text-2xl;
+    font-family: var(--font-heading);
+    @apply text-xl font-bold tracking-tight;
+    @apply sm:text-2xl lg:text-3xl;
   }
 
   .heading-4 {
-    @apply text-base font-semibold;
-    @apply sm:text-lg;
+    font-family: var(--font-heading);
+    @apply text-lg font-bold;
+    @apply sm:text-xl;
   }
 
   .heading-5 {
-    @apply text-sm font-semibold;
-    @apply sm:text-base;
+    font-family: var(--font-heading);
+    @apply text-base font-bold;
+    @apply sm:text-lg;
   }
 
   .heading-6 {
-    @apply text-xs font-semibold;
-    @apply sm:text-sm;
+    font-family: var(--font-heading);
+    @apply text-sm font-bold;
+    @apply sm:text-base;
   }
 
   /* Body text - Mobile-first */
@@ -298,15 +322,15 @@ All colors MUST be HSL.
     @apply sm:text-xs;
   }
 
-  /* Glassmorphism utilities */
+  /* Glassmorphism utilities - Updated for new brand colors */
   .glass-card {
-    background: rgba(15, 23, 42, 0.7);
+    background: rgba(246, 247, 235, 0.85); /* light-bg with transparency */
     backdrop-filter: blur(12px) saturate(180%);
     -webkit-backdrop-filter: blur(12px) saturate(180%);
-    border: 1px solid rgba(148, 163, 184, 0.1);
+    border: 1px solid rgba(13, 59, 102, 0.1); /* deep-blue border */
     box-shadow: 
-      0 8px 32px 0 rgba(0, 0, 0, 0.37),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+      0 8px 32px 0 rgba(13, 59, 102, 0.15),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
   }
 
   .glass-card-hover {
@@ -315,24 +339,56 @@ All colors MUST be HSL.
   }
 
   .glass-card-hover:hover {
-    background: rgba(15, 23, 42, 0.85);
-    border-color: rgba(20, 184, 166, 0.3);
+    background: rgba(246, 247, 235, 0.95);
+    border-color: rgba(23, 190, 187, 0.4); /* teal-accent */
     box-shadow: 
-      0 8px 32px 0 rgba(20, 184, 166, 0.2),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
-      0 0 20px rgba(20, 184, 166, 0.15);
+      0 8px 32px 0 rgba(23, 190, 187, 0.25),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(23, 190, 187, 0.2);
+    transform: translateY(-2px);
   }
 
   .glass-border {
-    border: 1px solid rgba(148, 163, 184, 0.15);
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(13, 59, 102, 0.15);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
   }
 
   .glass-border-accent {
-    border: 1px solid rgba(20, 184, 166, 0.2);
+    border: 1px solid rgba(23, 190, 187, 0.3);
     box-shadow: 
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
-      0 0 15px rgba(20, 184, 166, 0.1);
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.6),
+      0 0 15px rgba(23, 190, 187, 0.15);
+  }
+
+  /* Outcome Badge - Warm Orange Pill */
+  .outcome-badge {
+    background: linear-gradient(135deg, hsl(35, 100%, 55%), hsl(35, 100%, 65%));
+    color: hsl(207, 77%, 15%);
+    border: 2px solid rgba(255, 159, 28, 0.3);
+    box-shadow: 
+      0 4px 12px rgba(255, 159, 28, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    @apply px-4 py-2 rounded-full font-bold text-sm;
+    @apply sm:text-base;
+  }
+
+  .outcome-badge-pulse {
+    @apply outcome-badge;
+    animation: badge-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes badge-pulse {
+    0%, 100% {
+      box-shadow: 
+        0 4px 12px rgba(255, 159, 28, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+    50% {
+      box-shadow: 
+        0 4px 20px rgba(255, 159, 28, 0.5),
+        0 0 30px rgba(255, 159, 28, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
   }
 }
 
