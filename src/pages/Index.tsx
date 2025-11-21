@@ -290,8 +290,9 @@ const RecentBuilds: React.FC = React.memo(() => {
   }, [fetchProjects]);
 
   return (
-    <section id="builds" className="py-10 lg:py-16">
-      <div className="mx-auto w-full max-w-5xl px-4">
+    <section id="builds" className="py-6 sm:py-8 lg:py-12">
+      <div className="mx-auto w-full max-w-5xl px-3 sm:px-4"
+>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -336,10 +337,10 @@ const RecentBuilds: React.FC = React.memo(() => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-6 pb-2"
-          >
-            <CaseStudiesStack caseStudies={projects} />
-          </motion.div>
+          className="mt-4 flex justify-center pb-3 sm:mt-6 sm:pb-4"
+        >
+          <CaseStudiesStack caseStudies={projects} />
+        </motion.div>
         )}
       </div>
     </section>
