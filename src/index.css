@@ -7,6 +7,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -49,7 +51,7 @@ All colors MUST be HSL.
     --teal-accent: 179 78% 42%;        /* #17BEBB - Interactive elements */
     --light-bg: 65 43% 95%;            /* #F6F7EB - Light backgrounds */
     --warm-orange: 35 100% 55%;        /* #FF9F1C - Outcome badges */
-    
+
     /* Semantic tokens mapped to brand colors */
     --background: 65 43% 95%;          /* light-bg */
     --foreground: 207 77% 23%;         /* deep-blue - high contrast */
@@ -60,18 +62,18 @@ All colors MUST be HSL.
     --primary: 179 78% 42%;            /* teal-accent */
     --primary-foreground: 0 0% 100%;
     --secondary: 207 77% 23%;          /* deep-blue */
-    --secondary-foreground: 0 0% 100%;
+    --secondary-foreground: 274 65.6442% 31.9608%;
     --muted: 65 20% 85%;
     --muted-foreground: 207 50% 40%;
     --accent: 179 78% 42%;             /* teal-accent */
-    --accent-foreground: 0 0% 100%;
+    --accent-foreground: 271 91.0112% 65.098%;
     --destructive: 0 72% 50%;
     --destructive-foreground: 0 0% 100%;
     --border: 207 30% 85%;
     --input: 207 30% 90%;
     --ring: 179 78% 42%;
     --radius: 0.5rem;
-    
+
     /* Sidebar tokens */
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 207 77% 23%;
@@ -81,7 +83,7 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 207 77% 23%;
     --sidebar-border: 207 30% 85%;
     --sidebar-ring: 179 78% 42%;
-    
+
     /* Typography */
     --font-heading: 'Montserrat', 'Work Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
     --font-sans: 'Inter', 'Work Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -125,7 +127,7 @@ All colors MUST be HSL.
     --border: 207 40% 30%;
     --input: 207 40% 30%;
     --ring: 179 78% 50%;
-    
+
     /* Dark sidebar */
     --sidebar-background: 207 70% 18%;
     --sidebar-foreground: 65 43% 95%;
@@ -135,7 +137,7 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 65 43% 95%;
     --sidebar-border: 207 40% 30%;
     --sidebar-ring: 179 78% 50%;
-    
+
     /* Typography stays same */
     --font-heading: 'Montserrat', 'Work Sans', ui-sans-serif, system-ui, sans-serif;
     --font-sans: 'Inter', 'Work Sans', ui-sans-serif, system-ui, sans-serif;

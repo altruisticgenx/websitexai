@@ -21,50 +21,46 @@ export default {
   		'2xl': '1536px'
   	},
   	extend: {
-		fontFamily: {
-			heading: [
-				'Montserrat',
-				'Work Sans',
-				'ui-sans-serif',
-				'system-ui',
-				'-apple-system',
-				'sans-serif'
-			],
-			sans: [
-				'Inter',
-				'Work Sans',
-				'ui-sans-serif',
-				'system-ui',
-				'-apple-system',
-				'BlinkMacSystemFont',
-				'Segoe UI',
-				'Roboto',
-				'Helvetica Neue',
-				'Arial',
-				'Noto Sans',
-				'sans-serif'
-			],
-			mono: [
-				'Inconsolata',
-				'ui-monospace',
-				'SFMono-Regular',
-				'Menlo',
-				'Monaco',
-				'Consolas',
-				'Liberation Mono',
-				'Courier New',
-				'monospace'
-			],
-			serif: [
-				'Lora',
-				'ui-serif',
-				'Georgia',
-				'Cambria',
-				'Times New Roman',
-				'Times',
-				'serif'
-			]
-		},
+  		fontFamily: {
+  			heading: [
+  				'Montserrat',
+  				'Work Sans',
+  				'ui-sans-serif',
+  				'system-ui',
+  				'-apple-system',
+  				'sans-serif'
+  			],
+  			sans: [
+  				'Inter',
+  				'ui-sans-serif',
+  				'system-ui',
+  				'sans-serif',
+  				'Apple Color Emoji',
+  				'Segoe UI Emoji',
+  				'Segoe UI Symbol',
+  				'Noto Color Emoji'
+  			],
+  			mono: [
+  				'Inconsolata',
+  				'ui-monospace',
+  				'SFMono-Regular',
+  				'Menlo',
+  				'Monaco',
+  				'Consolas',
+  				'Liberation Mono',
+  				'Courier New',
+  				'monospace'
+  			],
+  			serif: [
+  				'Lora',
+  				'ui-serif',
+  				'Georgia',
+  				'Cambria',
+  				'Times New Roman',
+  				'Times',
+  				'serif'
+  			]
+  		},
   		colors: {
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
@@ -109,38 +105,38 @@ export default {
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
   			},
-			aquamarine: {
-				'50': 'hsl(168, 100%, 97%)',
-				'100': 'hsl(168, 100%, 88%)',
-				'200': 'hsl(168, 100%, 77%)',
-				'300': 'hsl(168, 100%, 64%)',
-				'400': 'hsl(168, 89%, 53%)',
-				'500': 'hsl(168, 100%, 42%)',
-				'600': 'hsl(168, 100%, 34%)',
-				'700': 'hsl(168, 100%, 27%)',
-				'800': 'hsl(173, 95%, 21%)',
-				'900': 'hsl(173, 84%, 19%)',
-				'950': 'hsl(175, 100%, 11%)'
-			},
-			'deep-blue': {
-				DEFAULT: 'hsl(207, 77%, 23%)',
-				light: 'hsl(207, 70%, 35%)',
-				dark: 'hsl(207, 77%, 15%)'
-			},
-			'teal-accent': {
-				DEFAULT: 'hsl(179, 78%, 42%)',
-				light: 'hsl(179, 78%, 55%)',
-				dark: 'hsl(179, 78%, 30%)'
-			},
-			'warm-orange': {
-				DEFAULT: 'hsl(35, 100%, 55%)',
-				light: 'hsl(35, 100%, 65%)',
-				dark: 'hsl(35, 100%, 45%)'
-			},
-			'light-bg': {
-				DEFAULT: 'hsl(65, 43%, 95%)',
-				darker: 'hsl(65, 30%, 90%)'
-			}
+  			aquamarine: {
+  				'50': 'hsl(168, 100%, 97%)',
+  				'100': 'hsl(168, 100%, 88%)',
+  				'200': 'hsl(168, 100%, 77%)',
+  				'300': 'hsl(168, 100%, 64%)',
+  				'400': 'hsl(168, 89%, 53%)',
+  				'500': 'hsl(168, 100%, 42%)',
+  				'600': 'hsl(168, 100%, 34%)',
+  				'700': 'hsl(168, 100%, 27%)',
+  				'800': 'hsl(173, 95%, 21%)',
+  				'900': 'hsl(173, 84%, 19%)',
+  				'950': 'hsl(175, 100%, 11%)'
+  			},
+  			'deep-blue': {
+  				DEFAULT: 'hsl(207, 77%, 23%)',
+  				light: 'hsl(207, 70%, 35%)',
+  				dark: 'hsl(207, 77%, 15%)'
+  			},
+  			'teal-accent': {
+  				DEFAULT: 'hsl(179, 78%, 42%)',
+  				light: 'hsl(179, 78%, 55%)',
+  				dark: 'hsl(179, 78%, 30%)'
+  			},
+  			'warm-orange': {
+  				DEFAULT: 'hsl(35, 100%, 55%)',
+  				light: 'hsl(35, 100%, 65%)',
+  				dark: 'hsl(35, 100%, 45%)'
+  			},
+  			'light-bg': {
+  				DEFAULT: 'hsl(65, 43%, 95%)',
+  				darker: 'hsl(65, 30%, 90%)'
+  			}
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
