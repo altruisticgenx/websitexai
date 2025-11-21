@@ -1,12 +1,15 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { GradientMesh } from "./GradientMesh";
 
 interface ParallaxBackgroundProps {
   children?: React.ReactNode;
   speed?: number;
   className?: string;
   gradient?: string;
+  meshVariant?: "primary" | "secondary" | "accent" | "mixed";
+  meshIntensity?: "subtle" | "medium" | "vibrant";
 }
 
 export function ParallaxBackground({
@@ -14,6 +17,8 @@ export function ParallaxBackground({
   speed = 0.5,
   className = "",
   gradient = "from-primary/5 via-accent/5 to-secondary/5",
+  meshVariant = "mixed",
+  meshIntensity = "medium",
 }: ParallaxBackgroundProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
@@ -40,6 +45,10 @@ export function ParallaxBackground({
 
   return (
     <div ref={ref} className="relative overflow-hidden">
+      {/* Animated gradient mesh */}
+      <GradientMesh variant={meshVariant} intensity={meshIntensity} />
+      
+      {/* Parallax layer */}
       <motion.div
         style={{ y, opacity }}
         className={`absolute inset-0 -z-10 bg-gradient-to-br ${gradient} ${className}`}
