@@ -94,8 +94,8 @@ export function ContactForm() {
       }
 
       toast({
-        title: "Message sent!",
-        description: "Thanks for reaching out. Check your email for confirmation.",
+        title: "Got it!",
+        description: "I'll reply to your email within 24 hours.",
       });
       
       form.reset();
@@ -104,8 +104,8 @@ export function ContactForm() {
       console.error("Error submitting form:", error);
       setIsSuccess(false);
       toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
+        title: "Hmm",
+        description: "Something went wrong. Mind trying again?",
         variant: "destructive",
       });
     } finally {
@@ -117,9 +117,9 @@ export function ContactForm() {
     <div className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-6 sm:p-8">
       <Stack gap="md">
         <header>
-          <h3 className="heading-4 text-slate-50">Get in touch</h3>
+          <h3 className="heading-4 text-slate-50">Let's talk</h3>
           <p className="mt-2 body-base text-slate-300">
-            Share your project details and I'll respond within 24 hours.
+            Send over your project details—I'll reply within 24 hours.
           </p>
         </header>
 
@@ -240,7 +240,7 @@ export function ContactForm() {
                   Sent!
                 </>
               ) : (
-                "Send Message"
+                "Send it over"
               )}
             </Button>
           </form>

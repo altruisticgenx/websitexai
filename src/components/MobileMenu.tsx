@@ -135,7 +135,7 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
                     onClick={closeMenu}
                     className="block w-full rounded-lg border border-primary/60 bg-primary/10 px-4 py-3 text-center text-sm font-medium text-primary hover:bg-primary/20 transition-colors active:scale-95"
                   >
-                    Book a 30-min intro
+                    Let's talk
                   </a>
                 </div>
               </nav>
