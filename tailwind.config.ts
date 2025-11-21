@@ -41,7 +41,7 @@ export default {
   				'Noto Color Emoji'
   			],
   			mono: [
-  				'Inconsolata',
+  				'IBM Plex Mono',
   				'ui-monospace',
   				'SFMono-Regular',
   				'Menlo',
@@ -52,7 +52,7 @@ export default {
   				'monospace'
   			],
   			serif: [
-  				'Lora',
+  				'Crimson Text',
   				'ui-serif',
   				'Georgia',
   				'Cambria',

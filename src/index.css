@@ -53,48 +53,48 @@ All colors MUST be HSL.
     --warm-orange: 35 100% 55%;        /* #FF9F1C - Outcome badges */
 
     /* Semantic tokens mapped to brand colors */
-    --background: 65 43% 95%;          /* light-bg */
-    --foreground: 207 77% 23%;         /* deep-blue - high contrast */
-    --card: 0 0% 100%;
-    --card-foreground: 207 77% 23%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 207 77% 23%;
-    --primary: 179 78% 42%;            /* teal-accent */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 207 77% 23%;          /* deep-blue */
-    --secondary-foreground: 274 65.6442% 31.9608%;
-    --muted: 65 20% 85%;
-    --muted-foreground: 207 50% 40%;
-    --accent: 179 78% 42%;             /* teal-accent */
-    --accent-foreground: 271 91.0112% 65.098%;
+    --background: 240 4% 95%;          /* light-bg */
+    --foreground: 240 5% 10%;         /* deep-blue - high contrast */
+    --card: 0 0% 98%;
+    --card-foreground: 240 5% 10%;
+    --popover: 240 5% 90%;
+    --popover-foreground: 240 5% 10%;
+    --primary: 333 71% 50%;            /* teal-accent */
+    --primary-foreground: 327 73% 97%;
+    --secondary: 240 5% 33%;          /* deep-blue */
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 4% 83%;
+    --muted-foreground: 240 5% 10%;
+    --accent: 355 100% 97%;             /* teal-accent */
+    --accent-foreground: 349 89% 60%;
     --destructive: 0 72% 50%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 207 30% 85%;
-    --input: 207 30% 90%;
-    --ring: 179 78% 42%;
-    --radius: 0.5rem;
+    --destructive-foreground: 0 85% 97%;
+    --border: 240 4% 83%;
+    --input: 240 4% 83%;
+    --ring: 333 71% 50%;
+    --radius: 1.5rem;
 
     /* Sidebar tokens */
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 207 77% 23%;
-    --sidebar-primary: 179 78% 42%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 65 30% 92%;
-    --sidebar-accent-foreground: 207 77% 23%;
-    --sidebar-border: 207 30% 85%;
-    --sidebar-ring: 179 78% 42%;
+    --sidebar-foreground: 240 5% 10%;
+    --sidebar-primary: 333 71% 50%;
+    --sidebar-primary-foreground: 327 73% 97%;
+    --sidebar-accent: 240 5% 33%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 240 4% 83%;
+    --sidebar-ring: 333 71% 50%;
 
     /* Typography */
     --font-heading: 'Montserrat', 'Work Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
-    --font-sans: 'Inter', 'Work Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    --font-serif: 'Lora', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
-    --chart-1: 158 64% 51%;
-    --chart-2: 141 69% 58%;
-    --chart-3: 172 66% 50%;
-    --chart-4: 82 77% 55%;
-    --chart-5: 0 0% 45%;
+    --font-sans: Inter, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    --font-serif: "Crimson Text", ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
+    --chart-1: 328 85% 70%;
+    --chart-2: 351 94% 71%;
+    --chart-3: 327 87% 81%;
+    --chart-4: 352 95% 81%;
+    --chart-5: 240 3% 46%;
     --sidebar: 0 0% 98%;
-    --font-mono: 'Inconsolata', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
     --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
     --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
     --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
@@ -108,46 +108,46 @@ All colors MUST be HSL.
   }
   .dark {
     /* Dark mode with brand colors */
-    --background: 207 77% 15%;         /* darker deep-blue */
-    --foreground: 65 43% 95%;          /* light-bg for text */
-    --card: 207 70% 20%;
-    --card-foreground: 65 43% 95%;
-    --popover: 207 70% 20%;
-    --popover-foreground: 65 43% 95%;
-    --primary: 179 78% 50%;            /* brighter teal in dark mode */
-    --primary-foreground: 207 77% 15%;
-    --secondary: 207 50% 35%;
-    --secondary-foreground: 65 43% 95%;
-    --muted: 207 40% 30%;
-    --muted-foreground: 65 20% 75%;
-    --accent: 179 78% 50%;
-    --accent-foreground: 207 77% 15%;
-    --destructive: 0 72% 50%;
-    --destructive-foreground: 65 43% 95%;
-    --border: 207 40% 30%;
-    --input: 207 40% 30%;
-    --ring: 179 78% 50%;
+    --background: 240 5% 10%;         /* darker deep-blue */
+    --foreground: 0 0% 98%;          /* light-bg for text */
+    --card: 240 3% 15%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 5% 26%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 328 85% 70%;            /* brighter teal in dark mode */
+    --primary-foreground: 210 40% 98.0392%;
+    --secondary: 326 84.6154% 89.8039%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3% 46%;
+    --muted-foreground: 0 0% 98%;
+    --accent: 343 87% 15%;
+    --accent-foreground: 351 94% 71%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 85% 97%;
+    --border: 240 5% 33%;
+    --input: 240 5% 33%;
+    --ring: 328 85% 70%;
 
     /* Dark sidebar */
     --sidebar-background: 207 70% 18%;
-    --sidebar-foreground: 65 43% 95%;
-    --sidebar-primary: 179 78% 50%;
-    --sidebar-primary-foreground: 207 77% 15%;
-    --sidebar-accent: 207 50% 30%;
-    --sidebar-accent-foreground: 65 43% 95%;
-    --sidebar-border: 207 40% 30%;
-    --sidebar-ring: 179 78% 50%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 328 85% 70%;
+    --sidebar-primary-foreground: 336 83% 17%;
+    --sidebar-accent: 351 94% 71%;
+    --sidebar-accent-foreground: 343 87% 15%;
+    --sidebar-border: 240 5% 33%;
+    --sidebar-ring: 328 85% 70%;
 
     /* Typography stays same */
     --font-heading: 'Montserrat', 'Work Sans', ui-sans-serif, system-ui, sans-serif;
     --font-sans: 'Inter', 'Work Sans', ui-sans-serif, system-ui, sans-serif;
     --font-serif: 'Lora', ui-serif, Georgia, serif;
-    --chart-1: 156 71% 66%;
-    --chart-2: 141 76% 73%;
-    --chart-3: 170 76% 64%;
-    --chart-4: 81 84% 67%;
-    --chart-5: 0 0% 45%;
-    --sidebar: 0 0% 14%;
+    --chart-1: 327 87% 81%;
+    --chart-2: 352 95% 81%;
+    --chart-3: 328 85% 70%;
+    --chart-4: 351 94% 71%;
+    --chart-5: 240 5% 33%;
+    --sidebar: 240 3% 15%;
     --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
     --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
     --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
