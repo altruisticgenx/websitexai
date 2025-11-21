@@ -44,7 +44,7 @@ export function ParallaxBackground({
   );
 
   return (
-    <div ref={ref} className="relative overflow-hidden">
+    <div ref={ref} className="relative overflow-hidden" style={{ position: 'relative' }}>
       {/* Animated gradient mesh */}
       <GradientMesh variant={meshVariant} intensity={meshIntensity} />
       
