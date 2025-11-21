@@ -510,6 +510,98 @@ const PilotOffer: React.FC = React.memo(() => {
 });
 PilotOffer.displayName = "PilotOffer";
 
+const ProgressionCard: React.FC<{
+  step: {
+    title: string;
+    sub: string;
+    body: string;
+    ring: string;
+    cost: string;
+    outcome: string;
+  };
+  index: number;
+  prefersReducedMotion: boolean;
+}> = React.memo(({ step, index, prefersReducedMotion }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const { trigger } = useHapticFeedback();
+
+  const handleToggle = useCallback(() => {
+    setIsHovered((prev) => {
+      if (!prev) {
+        trigger("light");
+      }
+      return !prev;
+    });
+  }, [trigger]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ 
+        duration: prefersReducedMotion ? 0 : 0.3, 
+        delay: prefersReducedMotion ? 0 : 0.05 * index 
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={handleToggle}
+      className={cn(
+        "group relative rounded-md border p-2 sm:p-2.5 backdrop-blur-sm transition-all touch-manipulation cursor-pointer overflow-hidden",
+        "min-h-[80px] sm:min-h-[90px]",
+        step.ring === "emerald" && "border-emerald-500/40 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 hover:border-emerald-500/60",
+        step.ring === "blue" && "border-blue-500/40 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 hover:border-blue-500/60",
+        step.ring === "violet" && "border-violet-500/40 bg-gradient-to-br from-violet-500/10 to-purple-500/10 hover:border-violet-500/60",
+        step.ring === "orange" && "border-orange-500/40 bg-gradient-to-br from-orange-500/10 to-amber-500/10 hover:border-orange-500/60",
+      )}
+    >
+      {/* Default Content */}
+      <motion.div
+        animate={{ opacity: isHovered ? 0 : 1 }}
+        transition={{ duration: 0.2 }}
+        className="pointer-events-none"
+      >
+        <div className="mb-1 flex flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-1.5">
+          <span className="text-[10px] font-bold text-foreground sm:text-[11px]">{step.title}</span>
+          <span className="text-[8px] text-muted-foreground sm:text-[9px]">{step.sub}</span>
+        </div>
+        <p className="text-[8px] leading-snug text-muted-foreground sm:text-[9px]">{step.body}</p>
+      </motion.div>
+
+      {/* Hover/Tap Content */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isHovered ? 1 : 0 }}
+        transition={{ duration: 0.2 }}
+        className={cn(
+          "absolute inset-0 p-2 sm:p-2.5 flex flex-col justify-center pointer-events-none",
+          step.ring === "emerald" && "bg-gradient-to-br from-emerald-500/30 to-teal-500/30",
+          step.ring === "blue" && "bg-gradient-to-br from-blue-500/30 to-indigo-500/30",
+          step.ring === "violet" && "bg-gradient-to-br from-violet-500/30 to-purple-500/30",
+          step.ring === "orange" && "bg-gradient-to-br from-orange-500/30 to-amber-500/30",
+        )}
+      >
+        <div className="space-y-1.5">
+          <div>
+            <p className="text-[7px] font-semibold text-primary uppercase tracking-wide sm:text-[8px]">Est. Range</p>
+            <p className="text-[9px] font-bold text-foreground sm:text-[10px]">{step.cost}</p>
+          </div>
+          <div>
+            <p className="text-[7px] font-semibold text-primary uppercase tracking-wide sm:text-[8px]">Typical Outcome</p>
+            <p className="text-[8px] leading-tight text-foreground sm:text-[9px]">{step.outcome}</p>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Tap indicator for mobile */}
+      <div className="absolute top-1 right-1 text-[8px] text-muted-foreground/50 sm:hidden">
+        {isHovered ? "✕" : "?"}
+      </div>
+    </motion.div>
+  );
+});
+ProgressionCard.displayName = "ProgressionCard";
+
 const TypicalProgression: React.FC = React.memo(() => {
   const prefersReducedMotion = useReducedMotion();
   
@@ -524,7 +616,7 @@ const TypicalProgression: React.FC = React.memo(() => {
           className="space-y-1 sm:space-y-1.5"
         >
           <h2 className="text-sm font-semibold text-foreground sm:text-base lg:text-lg">Typical Progression</h2>
-          <p className="text-[9px] text-muted-foreground sm:text-[10px]">Start small, scale when ready—or jump to any stage.</p>
+          <p className="text-[9px] text-muted-foreground sm:text-[10px]">Start small, scale when ready—or jump to any stage. <span className="sm:hidden">(Tap cards for details)</span></p>
         </motion.div>
 
         <div className="mt-3 sm:mt-4 grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
@@ -534,49 +626,40 @@ const TypicalProgression: React.FC = React.memo(() => {
               sub: "4 weeks",
               body: "Ship 1–2 features/week. Demo-ready code. Real builds, not decks.",
               ring: "emerald",
+              cost: "$8k–$15k",
+              outcome: "Demo-ready tool + clarity on next steps",
             },
             {
               title: "2. Proposal",
               sub: "1–2 weeks",
               body: "Scope doc, timeline, budget. Grant-ready, stakeholder-approved. RFP support.",
               ring: "blue",
+              cost: "$2k–$4k",
+              outcome: "Fundable proposal + RFP-ready documentation",
             },
             {
               title: "3. Build",
               sub: "2–6 months",
               body: "Full product delivery. Integrations, testing, documentation. Launch-ready.",
               ring: "violet",
+              cost: "$25k–$80k+",
+              outcome: "Production system + user training + handoff docs",
             },
             {
               title: "4. Retainer",
               sub: "Ongoing",
               body: "Monthly support. Bug fixes, features, pivots. Always-on expertise.",
               ring: "orange",
+              cost: "$3k–$8k/mo",
+              outcome: "Continuous improvements + fast response times",
             },
           ].map((step, i) => (
-            <motion.div
-              key={step.title}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-30px" }}
-              transition={{ 
-                duration: prefersReducedMotion ? 0 : 0.3, 
-                delay: prefersReducedMotion ? 0 : 0.05 * i 
-              }}
-              className={cn(
-                "group rounded-md border p-2 sm:p-2.5 backdrop-blur-sm transition-colors touch-manipulation",
-                step.ring === "emerald" && "border-emerald-500/40 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 hover:border-emerald-500/60",
-                step.ring === "blue" && "border-blue-500/40 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 hover:border-blue-500/60",
-                step.ring === "violet" && "border-violet-500/40 bg-gradient-to-br from-violet-500/10 to-purple-500/10 hover:border-violet-500/60",
-                step.ring === "orange" && "border-orange-500/40 bg-gradient-to-br from-orange-500/10 to-amber-500/10 hover:border-orange-500/60",
-              )}
-            >
-              <div className="mb-1 flex flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-1.5">
-                <span className="text-[10px] font-bold text-foreground sm:text-[11px]">{step.title}</span>
-                <span className="text-[8px] text-muted-foreground sm:text-[9px]">{step.sub}</span>
-              </div>
-              <p className="text-[8px] leading-snug text-muted-foreground sm:text-[9px]">{step.body}</p>
-            </motion.div>
+            <ProgressionCard 
+              key={step.title} 
+              step={step} 
+              index={i} 
+              prefersReducedMotion={prefersReducedMotion}
+            />
           ))}
         </div>
       </div>
