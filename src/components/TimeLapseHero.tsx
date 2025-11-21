@@ -1,12 +1,14 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { FileSpreadsheet, Mail, FileText, Layout, Box, Grid3x3, BarChart3, TrendingUp, Sparkles } from "lucide-react";
+import { FileSpreadsheet, Mail, FileText, Layout, Box, Grid3x3, BarChart3, TrendingUp, Sparkles, Play, Pause } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
 import { TimelineSlider } from "./TimelineSlider";
+import { Button } from "@/components/ui/button";
 
 export function TimeLapseHero() {
   const [timelinePosition, setTimelinePosition] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
   const prefersReducedMotion = useReducedMotion();
   const isMobile = useIsMobile();
 
@@ -17,13 +19,36 @@ export function TimeLapseHero() {
     return 'polished';
   }, [timelinePosition]);
 
+  // Auto-play functionality
+  useEffect(() => {
+    if (!isPlaying || prefersReducedMotion) return;
+
+    const interval = setInterval(() => {
+      setTimelinePosition(prev => {
+        // Cycle through key milestones: 0 → 35 (Week 1) → 70 (Week 4) → 0
+        if (prev < 30) return 35; // Go to Week 1
+        if (prev < 65) return 70; // Go to Week 4
+        return 0; // Reset to Week 0
+      });
+    }, 3000); // 3 seconds per state
+
+    return () => clearInterval(interval);
+  }, [isPlaying, prefersReducedMotion]);
+
   // For mobile swipe navigation
   const handleSwipeLeft = () => {
+    setIsPlaying(false); // Pause on manual interaction
     setTimelinePosition(prev => Math.min(prev + 35, 100));
   };
 
   const handleSwipeRight = () => {
+    setIsPlaying(false); // Pause on manual interaction
     setTimelinePosition(prev => Math.max(prev - 35, 0));
+  };
+
+  const handleManualChange = (newPosition: number) => {
+    setIsPlaying(false); // Pause on manual slider interaction
+    setTimelinePosition(newPosition);
   };
 
   const swipeRef = useSwipeGesture<HTMLDivElement>({
@@ -50,6 +75,29 @@ export function TimeLapseHero() {
 
   return (
     <div className="relative w-full max-w-5xl mx-auto px-4 py-8 sm:py-12">
+      {/* Play/Pause Button */}
+      <div className="flex justify-end mb-4">
+        <Button
+          onClick={() => setIsPlaying(!isPlaying)}
+          variant="outline"
+          size="sm"
+          className="gap-2 rounded-full"
+          aria-label={isPlaying ? "Pause timeline" : "Play timeline"}
+        >
+          {isPlaying ? (
+            <>
+              <Pause className="w-4 h-4" />
+              <span className="text-xs">Pause</span>
+            </>
+          ) : (
+            <>
+              <Play className="w-4 h-4" />
+              <span className="text-xs">Auto-play</span>
+            </>
+          )}
+        </Button>
+      </div>
+
       {/* Visual Canvas */}
       <div
         ref={swipeRef}
@@ -238,7 +286,7 @@ export function TimeLapseHero() {
       {/* Timeline Slider */}
       <TimelineSlider
         position={timelinePosition}
-        onChange={setTimelinePosition}
+        onChange={handleManualChange}
       />
 
       {/* Timeline Labels */}
