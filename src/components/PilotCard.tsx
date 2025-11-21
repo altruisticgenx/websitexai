@@ -96,37 +96,37 @@ export function PilotCard({
         {/* Header */}
         <div className="flex items-start justify-between gap-1.5 mb-2">
           <div className="flex-1 min-w-0">
-            <span className="inline-flex items-center gap-0.5 rounded-full border border-primary/50 bg-primary/20 px-2 py-0.5 text-[9px] font-semibold text-primary shadow-md mb-1.5 backdrop-blur-sm">
-              <Users className="h-2.5 w-2.5" />
+            <span className="inline-flex items-center gap-0.5 rounded-full border border-primary/50 bg-primary/20 px-1.5 py-0.5 text-[8px] font-bold text-primary shadow-md mb-1 backdrop-blur-sm">
+              <Users className="h-2 w-2" />
               {whoFor}
             </span>
-            <h3 className="text-xs sm:text-sm font-bold text-foreground line-clamp-2 leading-tight mb-1">{title}</h3>
-            <p className="text-[9px] text-muted-foreground/80">{sector}</p>
+            <h3 className="text-[11px] sm:text-xs font-bold text-foreground line-clamp-2 leading-tight mb-0.5">{title}</h3>
+            <p className="text-[8px] text-muted-foreground/70 font-medium">{sector}</p>
           </div>
           {tag && (
-            <span className="rounded-full border border-accent/50 bg-accent/20 px-2 py-0.5 text-[8px] font-medium text-accent whitespace-nowrap shadow-md backdrop-blur-sm">
+            <span className="rounded-full border border-accent/50 bg-accent/20 px-1.5 py-0.5 text-[7px] font-bold text-accent whitespace-nowrap shadow-md backdrop-blur-sm">
               {tag}
             </span>
           )}
         </div>
 
         {/* Challenge */}
-        <div className="mb-2 flex-1">
-          <h4 className="text-[9px] font-bold text-foreground/70 mb-1 uppercase tracking-wider">Challenge</h4>
-          <p className="text-[10px] text-foreground/90 leading-relaxed line-clamp-2">
+        <div className="mb-1.5 flex-1">
+          <h4 className="text-[8px] font-bold text-foreground/60 mb-0.5 uppercase tracking-wide">Challenge</h4>
+          <p className="text-[9px] text-foreground/85 leading-snug line-clamp-2 font-medium">
             {problem}
           </p>
         </div>
 
         {/* Result - Highlighted */}
-        <div className="mb-2 rounded-xl border-2 border-primary/40 bg-gradient-to-br from-primary/25 via-primary/15 to-transparent p-2 shadow-lg backdrop-blur-sm group-hover:border-primary/60 transition-all duration-300" style={{ transform: "translateZ(10px)" }}>
-          <div className="flex items-start gap-2">
-            <div className="rounded-lg bg-primary/30 p-1 shadow-md">
-              <TrendingUp className="h-3 w-3 text-primary" />
+        <div className="mb-1.5 rounded-xl border-2 border-primary/40 bg-gradient-to-br from-primary/25 via-primary/15 to-transparent p-1.5 shadow-lg backdrop-blur-sm group-hover:border-primary/60 transition-all duration-300" style={{ transform: "translateZ(10px)" }}>
+          <div className="flex items-start gap-1.5">
+            <div className="rounded-lg bg-primary/30 p-0.5 shadow-md">
+              <TrendingUp className="h-2.5 w-2.5 text-primary" />
             </div>
             <div className="min-w-0 flex-1">
-              <h4 className="text-[9px] font-bold text-primary mb-1 uppercase tracking-wide">Result</h4>
-              <p className="text-[10px] text-foreground font-medium leading-snug line-clamp-2">
+              <h4 className="text-[8px] font-bold text-primary mb-0.5 uppercase tracking-wide">Result</h4>
+              <p className="text-[9px] text-foreground font-bold leading-tight line-clamp-2">
                 {outcome}
               </p>
             </div>
@@ -134,14 +134,14 @@ export function PilotCard({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-2 border-t border-border/30">
-          <div className="flex items-center gap-1.5 text-[9px] text-muted-foreground font-medium">
-            <Clock className="h-3 w-3" />
+        <div className="flex items-center justify-between pt-1.5 border-t border-border/30">
+          <div className="flex items-center gap-1 text-[8px] text-muted-foreground font-bold">
+            <Clock className="h-2.5 w-2.5" />
             <span>{timeToDemo}</span>
           </div>
-          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-primary group-hover:gap-2 transition-all">
+          <span className="inline-flex items-center gap-0.5 text-[8px] font-bold text-primary group-hover:gap-1 transition-all">
             View
-            <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight className="h-2.5 w-2.5 group-hover:translate-x-0.5 transition-transform" />
           </span>
         </div>
         

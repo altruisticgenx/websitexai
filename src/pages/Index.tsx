@@ -32,6 +32,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { SiteNav } from "@/components/SiteNav";
 import { HeroSkeleton, CardsSkeleton, StepsSkeleton, TwoColumnSkeleton } from "@/components/skeletons/SectionSkeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { PilotCarousel3D } from "@/components/PilotCarousel3D";
 
 // -----------------------------
 // Main Page Component
@@ -459,30 +460,20 @@ const RecentBuilds: React.FC = React.memo(() => {
         y: 0
       }} className="mt-6 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center">
             <p className="text-sm text-slate-400">No projects available yet. Check back soon!</p>
-          </motion.div> : <motion.div initial={{
-        opacity: 0,
-        y: 20
-      }} whileInView={{
-        opacity: 1,
-        y: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.5,
-        delay: 0.1
-      }} className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
-            {projects.map((project, index) => {
-              const imageUrl = `https://duuhvgjdzaowrwonqhtz.supabase.co/storage/v1/object/public/project-images/${project.id}.jpg`;
-              
-              return (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                >
+          </motion.div> : <motion.div 
+            initial={{ opacity: 0, y: 20 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            viewport={{ once: true }} 
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mt-8"
+          >
+            <PilotCarousel3D autoPlayInterval={6000}>
+              {projects.map((project) => {
+                const imageUrl = `https://duuhvgjdzaowrwonqhtz.supabase.co/storage/v1/object/public/project-images/${project.id}.jpg`;
+                
+                return (
                   <PilotCard
+                    key={project.id}
                     id={project.id}
                     title={project.title}
                     sector={project.sector}
@@ -493,9 +484,9 @@ const RecentBuilds: React.FC = React.memo(() => {
                     tag={project.tag}
                     imageUrl={imageUrl}
                   />
-                </motion.div>
-              );
-            })}
+                );
+              })}
+            </PilotCarousel3D>
           </motion.div>}
       </div>
     </section>;
