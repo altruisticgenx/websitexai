@@ -44,7 +44,7 @@ export function PilotCard({
         >
           {/* Image header - Mobile-first sizing */}
           <div className="relative h-32 xs:h-36 sm:h-40 w-full overflow-hidden flex-shrink-0">
-            {imageUrl && shouldLoadImage ? (
+            {(shouldLoadImage ?? true) && imageUrl ? (
               <img
                 src={imageUrl}
                 alt={`${title} preview`}
@@ -54,7 +54,9 @@ export function PilotCard({
                   e.currentTarget.style.display = 'none';
                 }}
               />
-            ) : null}
+            ) : (
+              <div className="h-full w-full bg-slate-800" />
+            )}
             {/* Gradient overlay/fallback */}
             <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/50 to-transparent" />
