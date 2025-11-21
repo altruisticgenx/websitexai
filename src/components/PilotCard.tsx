@@ -47,7 +47,7 @@ export function PilotCard({
             e.currentTarget.style.display = 'none';
           }} /> : null}
             {/* Gradient overlay/fallback */}
-            <div className="absolute inset-0 med-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
             <div className="pointer-events-none\n    absolute\n    inset-x-0\n    bottom-0\n    h-1/2\n    rounded-2xl\n    bg-gradient-to-t\n    from-slate-950/95\n    via-slate-950/60\n    to-transparent\n    sm:inset-0\n    sm:h-full" />
 
             {/* Sector pill */}
