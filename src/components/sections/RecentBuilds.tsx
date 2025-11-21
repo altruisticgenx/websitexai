@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { supabase } from "@/integrations/supabase/client";
 import { Section } from "@/components/Section";
 import { Stack } from "@/components/layout/Stack";
 import { ParallaxBackground } from "@/components/ParallaxBackground";
 import { PilotCarousel3D } from "@/components/PilotCarousel3D";
 import { PilotCard } from "@/components/PilotCard";
 import { CardsSkeleton } from "@/components/skeletons/SectionSkeleton";
+import { useProjects } from "@/hooks/use-projects";
 
 const getSectorAudience = (sector: string): string => {
   const audienceMap: Record<string, string> = {
@@ -48,75 +48,8 @@ const getTimeToDemo = (id: string): string => {
   return timeMap[id] || "Week 1";
 };
 
-function shallowArrayEqual<T extends Record<string, any>>(a: T[], b: T[]): boolean {
-  if (a === b) return true;
-  if (a.length !== b.length) return false;
-  for (let i = 0; i < a.length; i++) {
-    const aa = a[i];
-    const bb = b[i];
-    if (!aa || !bb) return false;
-    const keys = new Set([...Object.keys(aa), ...Object.keys(bb)]);
-    for (const k of keys) if (aa[k] !== bb[k]) return false;
-  }
-  return true;
-}
-
 export const RecentBuilds: React.FC = React.memo(() => {
-  const [projects, setProjects] = useState<
-    Array<{ id: string; title: string; sector: string; summary: string; tag: string; image_url?: string | null }>
-  >([]);
-  const [isLoadingProjects, setIsLoadingProjects] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const mapProjects = useCallback((rows: any[] | null) => {
-    return (rows ?? []).map((p) => ({
-      id: p.slug,
-      title: p.title,
-      sector: p.sector,
-      summary: p.summary,
-      tag: p.tag || "",
-      image_url: p.image_url || null,
-    }));
-  }, []);
-
-  const fetchProjects = useCallback(async () => {
-    try {
-      setIsLoadingProjects(true);
-      const { data, error: fetchError } = await supabase
-        .from("projects")
-        .select("slug, title, sector, summary, tag, image_url")
-        .eq("featured", true)
-        .order("display_order", { ascending: true });
-
-      if (fetchError) throw fetchError;
-
-      setProjects((prev) => {
-        const next = mapProjects(data);
-        return shallowArrayEqual(prev, next) ? prev : next;
-      });
-      setError(null);
-    } catch (e) {
-      console.error("Error fetching projects:", e);
-      setError("Failed to load projects");
-    } finally {
-      setIsLoadingProjects(false);
-    }
-  }, [mapProjects]);
-
-  useEffect(() => {
-    fetchProjects();
-  }, [fetchProjects]);
-
-  useEffect(() => {
-    const channel = supabase
-      .channel("projects-changes")
-      .on("postgres_changes", { event: "*", schema: "public", table: "projects" }, fetchProjects)
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, [fetchProjects]);
+  const { projects, isLoading: isLoadingProjects, error, refetch } = useProjects();
 
   return (
     <Section id="builds" spacing="normal">
@@ -148,7 +81,7 @@ export const RecentBuilds: React.FC = React.memo(() => {
             aria-live="polite"
           >
             <p className="body-sm text-red-300">{error}</p>
-            <button onClick={fetchProjects} className="mt-3 body-xs underline text-red-400 hover:text-red-300">
+            <button onClick={refetch} className="mt-3 body-xs underline text-red-400 hover:text-red-300">
               Try again
             </button>
           </motion.div>
