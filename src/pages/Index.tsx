@@ -18,6 +18,7 @@ import { PilotCarousel3D } from "@/components/PilotCarousel3D";
 import { Section } from "@/components/Section";
 import { Stack } from "@/components/layout/Stack";
 import { Grid } from "@/components/layout/Grid";
+import { HorizontalScroll } from "@/components/HorizontalScroll";
 
 import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
@@ -463,9 +464,34 @@ const RecentBuilds: React.FC = React.memo(() => {
           </motion.div>
         ) : (
           <>
-            {/* Desktop: Grid, Mobile: Carousel */}
+            {/* Desktop: Horizontal scroll, Mobile: Standard grid */}
             {!isMobile ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <HorizontalScroll className="pb-6">
+                {projects.map((project, idx) => (
+                  <motion.div
+                    key={project.id}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 }}
+                    className="flex-shrink-0 w-[320px] sm:w-[360px]"
+                  >
+                    <PilotCard
+                      id={project.id}
+                      title={project.title}
+                      sector={project.sector}
+                      whoFor={getSectorAudience(project.sector)}
+                      problem={getProjectProblem(project.id)}
+                      outcome={getProjectOutcome(project.id)}
+                      timeToDemo={getTimeToDemo(project.id)}
+                      tag={project.tag}
+                      imageUrl={project.image_url || undefined}
+                    />
+                  </motion.div>
+                ))}
+              </HorizontalScroll>
+            ) : (
+              <div className="grid grid-cols-1 gap-4">
                 {projects.slice(0, 3).map((project, idx) => (
                   <motion.article
                     key={project.id}
@@ -529,27 +555,6 @@ const RecentBuilds: React.FC = React.memo(() => {
                   </motion.article>
                 ))}
               </div>
-            ) : (
-              <PilotCarousel3D autoPlayInterval={0}>
-                {projects.map((project) => {
-                  const imageUrl = project.image_url || `https://duuhvgjdzaowrwonqhtz.supabase.co/storage/v1/object/public/project-images/${project.id}.jpg`;
-
-                  return (
-                    <PilotCard
-                      key={project.id}
-                      id={project.id}
-                      title={project.title}
-                      sector={project.sector}
-                      whoFor={getSectorAudience(project.sector)}
-                      problem={getProjectProblem(project.id)}
-                      outcome={getProjectOutcome(project.id)}
-                      timeToDemo={getTimeToDemo(project.id)}
-                      tag={project.tag}
-                      imageUrl={imageUrl}
-                    />
-                  );
-                })}
-              </PilotCarousel3D>
             )}
           </>
         )}

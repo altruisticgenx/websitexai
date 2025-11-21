@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Section } from "./Section";
+import { AnimatedNumber } from "./AnimatedNumber";
 
 export function SocialProof() {
   return (
@@ -38,7 +39,9 @@ export function SocialProof() {
           className="mt-6 grid grid-cols-3 gap-4 text-center"
         >
           <div className="rounded-lg border border-border/50 bg-card/30 backdrop-blur-sm p-3">
-            <div className="text-xl sm:text-2xl font-bold text-primary">4+</div>
+            <div className="text-xl sm:text-2xl font-bold text-primary">
+              <AnimatedNumber value={4} suffix="+" />
+            </div>
             <div className="text-xs text-muted-foreground mt-1">Pilots shipped</div>
           </div>
           <div className="rounded-lg border border-border/50 bg-card/30 backdrop-blur-sm p-3">
@@ -46,7 +49,9 @@ export function SocialProof() {
             <div className="text-xs text-muted-foreground mt-1">Avg first demo</div>
           </div>
           <div className="rounded-lg border border-border/50 bg-card/30 backdrop-blur-sm p-3">
-            <div className="text-xl sm:text-2xl font-bold text-primary">3</div>
+            <div className="text-xl sm:text-2xl font-bold text-primary">
+              <AnimatedNumber value={3} />
+            </div>
             <div className="text-xs text-muted-foreground mt-1">Core sectors</div>
           </div>
         </motion.div>
