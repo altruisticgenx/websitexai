@@ -4,7 +4,7 @@ import * as z from "zod";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { User, Mail, MessageSquare, ArrowRight, Loader2, CheckCircle2, Briefcase } from "lucide-react";
+import { User, Mail, MessageSquare, ArrowRight, Loader2, CheckCircle2, Briefcase, ChevronDown } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { motion, AnimatePresence } from "framer-motion";
 
 const formSchema = z.object({
   name: z.string()
@@ -22,7 +23,7 @@ const formSchema = z.object({
     .email("Please enter a valid email address")
     .max(255, "Email must be less than 255 characters")
     .toLowerCase(),
-  projectType: z.string().min(1, "Please select a project type"),
+  projectType: z.string().optional(),
   message: z.string()
     .min(10, "Message must be at least 10 characters")
     .max(1000, "Message must be less than 1000 characters"),
@@ -33,6 +34,7 @@ type FormValues = z.infer<typeof formSchema>;
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [showMoreOptions, setShowMoreOptions] = useState(false);
   
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -60,7 +62,7 @@ export function ContactForm() {
         .insert({
           name: data.name,
           email: data.email,
-          project_type: data.projectType,
+          project_type: data.projectType || "general-inquiry",
           message: data.message,
         })
         .select()
@@ -159,36 +161,55 @@ export function ContactForm() {
           </p>
         )}
 
-        {/* Project Type Field */}
-        <label htmlFor="projectType" className="font-medium mt-4">
-          Project Type
-        </label>
-        <div className="flex items-center mt-2 mb-4 min-h-[44px] border border-border rounded-full focus-within:ring-2 focus-within:ring-ring transition-all overflow-hidden bg-background">
-          <div className="pl-3">
-            <Briefcase className="w-5 h-5 text-muted-foreground flex-shrink-0" />
-          </div>
-          <Select
-            value={form.watch("projectType")}
-            onValueChange={(value) => form.setValue("projectType", value, { shouldValidate: true })}
-            disabled={isSubmitting}
-          >
-            <SelectTrigger className="border-0 focus:ring-0 focus:ring-offset-0 h-full">
-              <SelectValue placeholder="Select a project type" />
-            </SelectTrigger>
-            <SelectContent className="bg-background border-border z-50">
-              <SelectItem value="quick-question">Quick Question</SelectItem>
-              <SelectItem value="consulting">Consulting / Advisory</SelectItem>
-              <SelectItem value="pilot-project">4-Week Pilot Project</SelectItem>
-              <SelectItem value="full-project">Full Project</SelectItem>
-              <SelectItem value="ongoing-support">Ongoing Support</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        {form.formState.errors.projectType && (
-          <p className="text-xs text-destructive mb-2 -mt-2">
-            {form.formState.errors.projectType.message}
-          </p>
-        )}
+        {/* More Options Toggle */}
+        <button
+          type="button"
+          onClick={() => setShowMoreOptions(!showMoreOptions)}
+          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mt-4 mb-2 group"
+        >
+          <ChevronDown 
+            className={`w-4 h-4 transition-transform duration-300 ${showMoreOptions ? 'rotate-180' : ''}`}
+          />
+          <span>{showMoreOptions ? 'Hide' : 'More'} options</span>
+        </button>
+
+        {/* Project Type Field (Collapsible) */}
+        <AnimatePresence initial={false}>
+          {showMoreOptions && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="overflow-hidden"
+            >
+              <label htmlFor="projectType" className="font-medium">
+                Project Type
+              </label>
+              <div className="flex items-center mt-2 mb-4 min-h-[44px] border border-border rounded-full focus-within:ring-2 focus-within:ring-ring transition-all overflow-hidden bg-background">
+                <div className="pl-3">
+                  <Briefcase className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                </div>
+                <Select
+                  value={form.watch("projectType")}
+                  onValueChange={(value) => form.setValue("projectType", value, { shouldValidate: true })}
+                  disabled={isSubmitting}
+                >
+                  <SelectTrigger className="border-0 focus:ring-0 focus:ring-offset-0 h-full">
+                    <SelectValue placeholder="Select a project type" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-background border-border z-50">
+                    <SelectItem value="quick-question">Quick Question</SelectItem>
+                    <SelectItem value="consulting">Consulting / Advisory</SelectItem>
+                    <SelectItem value="pilot-project">4-Week Pilot Project</SelectItem>
+                    <SelectItem value="full-project">Full Project</SelectItem>
+                    <SelectItem value="ongoing-support">Ongoing Support</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Message Field */}
         <label htmlFor="message" className="font-medium mt-4">
