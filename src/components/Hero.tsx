@@ -285,14 +285,14 @@ export function Hero() {
           }} transition={{
             duration: 0.5,
             delay: 0.3
-          }}>
+          }} role="status" aria-label="Current service availability">
               <motion.span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary" animate={{
               opacity: [1, 0.5, 1],
               scale: [1, 1.2, 1]
             }} transition={{
               duration: 2,
               repeat: Infinity
-            }} />
+            }} aria-hidden="true" />
               <span className="font-mono">{'>'} Ship pilot-ready AI tech</span>
             </motion.div>
 
