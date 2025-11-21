@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Linkedin, Mail } from "lucide-react";
 import { Hero3DBackground } from "./Hero3D";
+import { usePinchZoom } from "@/hooks/use-pinch-zoom";
 interface TrailParticle {
   id: number;
   x: number;
@@ -32,6 +33,13 @@ export function Hero() {
 
   // Sector switcher state
   const [activeSector, setActiveSector] = useState<"energy" | "education" | "civic" | "climate" | "startups" | null>(null);
+
+  // Pinch-to-zoom for sector buttons
+  const energyZoom = usePinchZoom<HTMLButtonElement>({ maxScale: 2.5 });
+  const educationZoom = usePinchZoom<HTMLButtonElement>({ maxScale: 2.5 });
+  const civicZoom = usePinchZoom<HTMLButtonElement>({ maxScale: 2.5 });
+  const climateZoom = usePinchZoom<HTMLButtonElement>({ maxScale: 2.5 });
+  const startupsZoom = usePinchZoom<HTMLButtonElement>({ maxScale: 2.5 });
 
   // Mouse trail particles state
   const [trailParticles, setTrailParticles] = useState<TrailParticle[]>([]);
@@ -339,6 +347,7 @@ export function Hero() {
               
               {/* Energy - Enhanced 3D Hexagon */}
               <motion.button 
+                ref={energyZoom.elementRef}
                 className="relative px-3 py-1.5 rounded-md border border-emerald-500/50 bg-emerald-500/10 backdrop-blur-sm text-emerald-300 overflow-visible group transition-all touch-manipulation min-h-[44px] sm:min-h-0"
                 onMouseEnter={() => setActiveSector("energy")}
                 onMouseLeave={() => setActiveSector(null)}
@@ -351,6 +360,7 @@ export function Hero() {
                   borderColor: "rgb(16 185 129 / 0.9)",
                 }}
                 whileTap={{ scale: 0.95 }}
+                animate={{ scale: energyZoom.scale }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 style={{
                   transformStyle: "preserve-3d",
@@ -358,6 +368,7 @@ export function Hero() {
                   boxShadow: activeSector === "energy" 
                     ? "0 4px 24px rgba(16, 185, 129, 0.5), 0 0 0 2px rgba(16, 185, 129, 0.1)" 
                     : "0 2px 8px rgba(16, 185, 129, 0.2)",
+                  zIndex: energyZoom.scale > 1 ? 50 : 'auto',
                 }}
               >
                 <motion.div 
@@ -373,6 +384,7 @@ export function Hero() {
               
               {/* Education - Enhanced 3D Circle */}
               <motion.button 
+                ref={educationZoom.elementRef}
                 className="relative px-3 py-1.5 rounded-full border border-blue-500/50 bg-blue-500/10 backdrop-blur-sm text-blue-300 overflow-visible group transition-all touch-manipulation min-h-[44px] sm:min-h-0"
                 onMouseEnter={() => setActiveSector("education")}
                 onMouseLeave={() => setActiveSector(null)}
@@ -385,6 +397,7 @@ export function Hero() {
                   borderColor: "rgb(59 130 246 / 0.9)",
                 }}
                 whileTap={{ scale: 0.95 }}
+                animate={{ scale: educationZoom.scale }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 style={{
                   transformStyle: "preserve-3d",
@@ -392,6 +405,7 @@ export function Hero() {
                   boxShadow: activeSector === "education" 
                     ? "0 4px 24px rgba(59, 130, 246, 0.5), 0 0 0 2px rgba(59, 130, 246, 0.1)" 
                     : "0 2px 8px rgba(59, 130, 246, 0.2)",
+                  zIndex: educationZoom.scale > 1 ? 50 : 'auto',
                 }}
               >
                 <motion.div 
@@ -407,6 +421,7 @@ export function Hero() {
               
               {/* Civic - Enhanced 3D Square */}
               <motion.button 
+                ref={civicZoom.elementRef}
                 className="relative px-3 py-1.5 rounded-sm border border-violet-500/50 bg-violet-500/10 backdrop-blur-sm text-violet-300 overflow-visible group transition-all touch-manipulation min-h-[44px] sm:min-h-0"
                 onMouseEnter={() => setActiveSector("civic")}
                 onMouseLeave={() => setActiveSector(null)}
@@ -419,13 +434,15 @@ export function Hero() {
                   borderColor: "rgb(139 92 246 / 0.9)",
                 }}
                 whileTap={{ scale: 0.95 }}
+                animate={{ scale: civicZoom.scale }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 style={{
                   transformStyle: "preserve-3d",
                   perspective: "1200px",
                   boxShadow: activeSector === "civic" 
-                    ? "0 4px 24px rgba(139, 92, 246, 0.5), 0 0 0 2px rgba(139, 92, 246, 0.1)" 
+                    ? "0 4px 24px rgba(139, 92, 246, 0.5), 0 0 0 2px rgba(139, 92, 246, 0.1)"
                     : "0 2px 8px rgba(139, 92, 246, 0.2)",
+                  zIndex: civicZoom.scale > 1 ? 50 : 'auto',
                 }}
               >
                 <motion.div 
@@ -441,6 +458,7 @@ export function Hero() {
               
               {/* Climate - Enhanced 3D Rounded Square */}
               <motion.button 
+                ref={climateZoom.elementRef}
                 className="relative px-3 py-1.5 rounded-lg border border-lime-500/50 bg-lime-500/10 backdrop-blur-sm text-lime-300 overflow-visible group transition-all touch-manipulation min-h-[44px] sm:min-h-0"
                 onMouseEnter={() => setActiveSector("climate")}
                 onMouseLeave={() => setActiveSector(null)}
@@ -453,6 +471,7 @@ export function Hero() {
                   borderColor: "rgb(132 204 22 / 0.9)",
                 }}
                 whileTap={{ scale: 0.95 }}
+                animate={{ scale: climateZoom.scale }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 style={{
                   transformStyle: "preserve-3d",
@@ -460,6 +479,7 @@ export function Hero() {
                   boxShadow: activeSector === "climate" 
                     ? "0 4px 24px rgba(132, 204, 22, 0.5), 0 0 0 2px rgba(132, 204, 22, 0.1)" 
                     : "0 2px 8px rgba(132, 204, 22, 0.2)",
+                  zIndex: climateZoom.scale > 1 ? 50 : 'auto',
                 }}
               >
                 <motion.div 
@@ -475,6 +495,7 @@ export function Hero() {
               
               {/* Startups - Enhanced 3D Pill */}
               <motion.button 
+                ref={startupsZoom.elementRef}
                 className="relative px-3 py-1.5 rounded-full border border-amber-500/50 bg-amber-500/10 backdrop-blur-sm text-amber-300 overflow-visible group transition-all touch-manipulation min-h-[44px] sm:min-h-0"
                 onMouseEnter={() => setActiveSector("startups")}
                 onMouseLeave={() => setActiveSector(null)}
@@ -487,6 +508,7 @@ export function Hero() {
                   borderColor: "rgb(245 158 11 / 0.9)",
                 }}
                 whileTap={{ scale: 0.95 }}
+                animate={{ scale: startupsZoom.scale }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 style={{
                   transformStyle: "preserve-3d",
@@ -494,6 +516,7 @@ export function Hero() {
                   boxShadow: activeSector === "startups" 
                     ? "0 4px 24px rgba(245, 158, 11, 0.5), 0 0 0 2px rgba(245, 158, 11, 0.1)" 
                     : "0 2px 8px rgba(245, 158, 11, 0.2)",
+                  zIndex: startupsZoom.scale > 1 ? 50 : 'auto',
                 }}
               >
                 <motion.div 
