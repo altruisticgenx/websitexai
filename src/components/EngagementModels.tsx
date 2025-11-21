@@ -50,7 +50,7 @@ const engagementModels: EngagementModel[] = [{
   iconColor: "text-orange-400"
 }] as const;
 export const EngagementModels = memo(() => {
-  return <section className="py-3 sm:py-4">
+  return <section className="py-4 sm:py-6 lg:py-8">
       
     </section>;
 });

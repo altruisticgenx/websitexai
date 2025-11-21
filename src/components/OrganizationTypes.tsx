@@ -38,7 +38,7 @@ export const OrganizationTypes = memo(() => {
   const toggleOrg = (orgName: string) => {
     setExpandedOrg(expandedOrg === orgName ? null : orgName);
   };
-  return <section id="org-types" className="py-6 sm:py-8">
+  return <section id="org-types" className="py-4 sm:py-6 lg:py-8">
       <motion.div initial={{
       opacity: 0,
       y: 20

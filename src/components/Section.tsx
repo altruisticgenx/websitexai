@@ -11,7 +11,7 @@ interface SectionProps {
 export function Section({ id, eyebrow, title, intro, children }: SectionProps) {
   return (
     <section id={id} className="py-10 md:py-16">
-      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
+      <div className="mx-auto w-full max-w-5xl px-3 sm:px-4 md:px-6">
         {eyebrow && (
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
             {eyebrow}
