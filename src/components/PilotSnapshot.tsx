@@ -12,28 +12,28 @@ export function PilotSnapshot() {
         transition={{ duration: 0.5 }}
         className="max-w-4xl mx-auto"
       >
-        <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/5 backdrop-blur-sm p-6">
+        <div className="rounded-xl glass-card-hover p-6">
           <h2 className="text-lg sm:text-xl font-bold text-foreground mb-4">
             Pilot Snapshot
           </h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <div className="rounded-lg border border-border/50 bg-card/40 p-4">
+            <div className="rounded-lg glass-card p-4">
               <div className="text-xs text-muted-foreground mb-1">Duration</div>
               <div className="text-xl font-bold text-primary">4 weeks</div>
             </div>
             
-            <div className="rounded-lg border border-border/50 bg-card/40 p-4">
+            <div className="rounded-lg glass-card p-4">
               <div className="text-xs text-muted-foreground mb-1">Ship Rate</div>
               <div className="text-xl font-bold text-primary">1–2 features/week</div>
             </div>
             
-            <div className="rounded-lg border border-border/50 bg-card/40 p-4">
+            <div className="rounded-lg glass-card p-4">
               <div className="text-xs text-muted-foreground mb-1">Starting Range</div>
               <div className="text-xl font-bold text-primary">$1,150/week</div>
             </div>
             
-            <div className="rounded-lg border border-border/50 bg-card/40 p-4">
+            <div className="rounded-lg glass-card p-4">
               <div className="text-xs text-muted-foreground mb-1">Deliverables</div>
               <div className="text-sm font-semibold text-foreground leading-tight">Demo + Repo + Plan</div>
             </div>

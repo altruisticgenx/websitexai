@@ -48,7 +48,14 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({ children, classNam
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      className={`group relative w-full rounded-2xl border border-slate-800 bg-slate-900/50 shadow-2xl overflow-hidden ${className}`}
+      className={`group relative w-full rounded-2xl overflow-hidden ${className}`}
+      style={{
+        background: 'rgba(15, 23, 42, 0.7)',
+        backdropFilter: 'blur(12px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+        border: '1px solid rgba(148, 163, 184, 0.1)',
+        boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 0 0 rgba(255, 255, 255, 0.05)'
+      }}
     >
       {/* 1. The Spotlight Border Layer */}
       {!reduceMotion && (
@@ -59,7 +66,12 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({ children, classNam
       )}
 
       {/* 2. The Content Mask (Keeps the border thin) */}
-      <div className="absolute inset-0.5 rounded-xl bg-slate-900/90" />
+      <div 
+        className="absolute inset-0.5 rounded-xl" 
+        style={{
+          background: 'rgba(15, 23, 42, 0.9)',
+        }}
+      />
 
       {/* 3. The Spotlight Background Layer (Inside the card) */}
       {!reduceMotion && (

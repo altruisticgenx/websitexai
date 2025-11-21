@@ -12,7 +12,7 @@ export function SocialProof() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="relative rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 to-accent/5 backdrop-blur-sm p-6"
+          className="relative rounded-xl glass-card-hover p-6"
         >
           <div className="absolute top-4 left-4 text-4xl text-primary/20 font-serif">"</div>
           <p className="text-sm sm:text-base text-foreground leading-relaxed pl-6">
@@ -38,17 +38,17 @@ export function SocialProof() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="mt-6 grid grid-cols-3 gap-4 text-center"
         >
-          <div className="rounded-lg border border-border/50 bg-card/30 backdrop-blur-sm p-3">
+          <div className="rounded-lg glass-card backdrop-blur-sm p-3">
             <div className="text-xl sm:text-2xl font-bold text-primary">
               <AnimatedNumber value={4} suffix="+" />
             </div>
             <div className="text-xs text-muted-foreground mt-1">Pilots shipped</div>
           </div>
-          <div className="rounded-lg border border-border/50 bg-card/30 backdrop-blur-sm p-3">
+          <div className="rounded-lg glass-card backdrop-blur-sm p-3">
             <div className="text-xl sm:text-2xl font-bold text-primary">Week 1</div>
             <div className="text-xs text-muted-foreground mt-1">Avg first demo</div>
           </div>
-          <div className="rounded-lg border border-border/50 bg-card/30 backdrop-blur-sm p-3">
+          <div className="rounded-lg glass-card backdrop-blur-sm p-3">
             <div className="text-xl sm:text-2xl font-bold text-primary">
               <AnimatedNumber value={3} />
             </div>
