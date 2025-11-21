@@ -14,6 +14,9 @@ import { SiteNav } from "@/components/SiteNav";
 import { HeroSkeleton, CardsSkeleton, StepsSkeleton, TwoColumnSkeleton } from "@/components/skeletons/SectionSkeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { PilotCarousel3D } from "@/components/PilotCarousel3D";
+import { Section } from "@/components/Section";
+import { Stack } from "@/components/layout/Stack";
+import { Grid } from "@/components/layout/Grid";
 
 import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
@@ -416,7 +419,7 @@ const RecentBuilds: React.FC = React.memo(() => {
   }, [fetchProjects]);
 
   return (
-    <section id="builds" className="relative py-8 sm:py-10 lg:py-16">
+    <Section id="builds" spacing="normal">
       <ParallaxBackground
         speed={0.6}
         gradient="from-primary/8 via-accent/8 to-transparent"
@@ -426,34 +429,26 @@ const RecentBuilds: React.FC = React.memo(() => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,hsl(var(--primary)/0.15),transparent_50%)]" />
       </ParallaxBackground>
 
-      <div className="mx-auto w-full max-w-5xl px-3 sm:px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="space-y-2"
-        >
-          <h2 className="heading-3 text-foreground">Recent Builds</h2>
-          <p className="body-base text-muted-foreground">
+      <Stack gap="lg">
+        <header className="max-w-2xl">
+          <h2 className="heading-3">Recent Builds</h2>
+          <p className="body-lg text-muted-foreground mt-2">
             Small scope, real results—across energy, education, and founder projects.
           </p>
-        </motion.div>
+        </header>
 
         {isLoadingProjects ? (
-          <div className="mt-6 sm:mt-8">
-            <CardsSkeleton />
-          </div>
+          <CardsSkeleton />
         ) : error ? (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-6 sm:mt-8 rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center"
+            className="rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center"
             role="alert"
             aria-live="polite"
           >
-            <p className="text-sm text-red-300">{error}</p>
-            <button onClick={fetchProjects} className="mt-3 text-xs underline text-red-400 hover:text-red-300">
+            <p className="body-sm text-red-300">{error}</p>
+            <button onClick={fetchProjects} className="mt-3 body-xs underline text-red-400 hover:text-red-300">
               Try again
             </button>
           </motion.div>
@@ -461,43 +456,34 @@ const RecentBuilds: React.FC = React.memo(() => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-6 sm:mt-8 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center"
+            className="rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center"
           >
-            <p className="text-sm text-slate-400">No projects available yet. Check back soon!</p>
+            <p className="body-sm text-slate-400">No projects available yet. Check back soon!</p>
           </motion.div>
         ) : (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-6 sm:mt-8"
-          >
-            <PilotCarousel3D autoPlayInterval={6000}>
-              {projects.map((project) => {
-                // Use image_url from database if available, otherwise construct from storage
-                const imageUrl = project.image_url || `https://duuhvgjdzaowrwonqhtz.supabase.co/storage/v1/object/public/project-images/${project.id}.jpg`;
+          <PilotCarousel3D autoPlayInterval={6000}>
+            {projects.map((project) => {
+              const imageUrl = project.image_url || `https://duuhvgjdzaowrwonqhtz.supabase.co/storage/v1/object/public/project-images/${project.id}.jpg`;
 
-                return (
-                  <PilotCard
-                    key={project.id}
-                    id={project.id}
-                    title={project.title}
-                    sector={project.sector}
-                    whoFor={getSectorAudience(project.sector)}
-                    problem={getProjectProblem(project.id)}
-                    outcome={getProjectOutcome(project.id)}
-                    timeToDemo={getTimeToDemo(project.id)}
-                    tag={project.tag}
-                    imageUrl={imageUrl}
-                  />
-                );
-              })}
-            </PilotCarousel3D>
-          </motion.div>
+              return (
+                <PilotCard
+                  key={project.id}
+                  id={project.id}
+                  title={project.title}
+                  sector={project.sector}
+                  whoFor={getSectorAudience(project.sector)}
+                  problem={getProjectProblem(project.id)}
+                  outcome={getProjectOutcome(project.id)}
+                  timeToDemo={getTimeToDemo(project.id)}
+                  tag={project.tag}
+                  imageUrl={imageUrl}
+                />
+              );
+            })}
+          </PilotCarousel3D>
         )}
-      </div>
-    </section>
+      </Stack>
+    </Section>
   );
 });
 RecentBuilds.displayName = "RecentBuilds";

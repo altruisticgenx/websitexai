@@ -25,6 +25,7 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, CheckCircle2 } from "lucide-react";
+import { Stack } from "./layout/Stack";
 
 const formSchema = z.object({
   name: z.string()
@@ -62,7 +63,6 @@ export function ContactForm() {
   const messageLength = form.watch("message")?.length || 0;
 
   const onSubmit = async (data: FormValues) => {
-    // Optimistic UI: Show success immediately
     setIsSuccess(true);
     toast({
       title: "Sending message...",
@@ -85,7 +85,6 @@ export function ContactForm() {
 
       if (error) throw error;
 
-      // Background task: send confirmation email
       if (submission) {
         supabase.functions.invoke("send-contact-confirmation", {
           body: { submissionId: submission.id },
@@ -94,7 +93,6 @@ export function ContactForm() {
         });
       }
 
-      // Confirm success
       toast({
         title: "Message sent!",
         description: "Thanks for reaching out. Check your email for confirmation.",
@@ -117,135 +115,137 @@ export function ContactForm() {
 
   return (
     <div className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-6 sm:p-8">
-      <div className="mb-6">
-        <h3 className="heading-2 text-slate-50">Get in touch</h3>
-        <p className="mt-2 body-base text-slate-300">
-          Share your project details and I'll respond within 24 hours.
-        </p>
-      </div>
+      <Stack gap="md">
+        <header>
+          <h3 className="heading-4 text-slate-50">Get in touch</h3>
+          <p className="mt-2 body-base text-slate-300">
+            Share your project details and I'll respond within 24 hours.
+          </p>
+        </header>
 
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="body-base">Name</FormLabel>
-                <FormControl>
-                  <Input 
-                    placeholder="Your name" 
-                    {...field}
-                    disabled={isSubmitting}
-                  />
-                </FormControl>
-                <div className="flex justify-between items-center">
-                  <FormMessage />
-                  <span className={`body-xs ${nameLength > 100 ? 'text-destructive' : 'text-slate-400'}`}>
-                    {nameLength}/100
-                  </span>
-                </div>
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="body-base">Email</FormLabel>
-                <FormControl>
-                  <EmailInput
-                    placeholder="you@example.com"
-                    value={field.value}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    disabled={isSubmitting}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="projectType"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="body-base">Project Type</FormLabel>
-                <Select 
-                  onValueChange={field.onChange} 
-                  defaultValue={field.value}
-                  disabled={isSubmitting}
-                >
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="body-sm">Name</FormLabel>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a project type" />
-                    </SelectTrigger>
+                    <Input 
+                      placeholder="Your name" 
+                      {...field}
+                      disabled={isSubmitting}
+                    />
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="quick-question">Quick Question</SelectItem>
-                    <SelectItem value="consulting">Consulting / Advisory</SelectItem>
-                    <SelectItem value="pilot-project">4-Week Pilot Project</SelectItem>
-                    <SelectItem value="full-project">Full Project</SelectItem>
-                    <SelectItem value="ongoing-support">Ongoing Support</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  <div className="flex justify-between items-center">
+                    <FormMessage />
+                    <span className={`body-xs ${nameLength > 100 ? 'text-destructive' : 'text-slate-400'}`}>
+                      {nameLength}/100
+                    </span>
+                  </div>
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="message"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="body-base">Message</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder="Tell me about your project..."
-                    className="min-h-[120px] resize-none"
-                    {...field}
-                    disabled={isSubmitting}
-                  />
-                </FormControl>
-                <div className="flex justify-between items-center">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="body-sm">Email</FormLabel>
+                  <FormControl>
+                    <EmailInput
+                      placeholder="you@example.com"
+                      value={field.value}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      disabled={isSubmitting}
+                    />
+                  </FormControl>
                   <FormMessage />
-                  <span className={`body-xs ${messageLength > 1000 ? 'text-destructive' : 'text-slate-400'}`}>
-                    {messageLength}/1000
-                  </span>
-                </div>
-                <FormDescription className="body-xs">
-                  Minimum 10 characters required
-                </FormDescription>
-              </FormItem>
-            )}
-          />
+                </FormItem>
+              )}
+            />
 
-          <Button
-            type="submit"
-            disabled={isSubmitting || isSuccess}
-            className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-          >
-            {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Sending...
-              </>
-            ) : isSuccess ? (
-              <>
-                <CheckCircle2 className="mr-2 h-4 w-4" />
-                Sent!
-              </>
-            ) : (
-              "Send Message"
-            )}
-          </Button>
-        </form>
-      </Form>
+            <FormField
+              control={form.control}
+              name="projectType"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="body-sm">Project Type</FormLabel>
+                  <Select 
+                    onValueChange={field.onChange} 
+                    defaultValue={field.value}
+                    disabled={isSubmitting}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a project type" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="quick-question">Quick Question</SelectItem>
+                      <SelectItem value="consulting">Consulting / Advisory</SelectItem>
+                      <SelectItem value="pilot-project">4-Week Pilot Project</SelectItem>
+                      <SelectItem value="full-project">Full Project</SelectItem>
+                      <SelectItem value="ongoing-support">Ongoing Support</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="message"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="body-sm">Message</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Tell me about your project..."
+                      className="min-h-[120px] resize-none"
+                      {...field}
+                      disabled={isSubmitting}
+                    />
+                  </FormControl>
+                  <div className="flex justify-between items-center">
+                    <FormMessage />
+                    <span className={`body-xs ${messageLength > 1000 ? 'text-destructive' : 'text-slate-400'}`}>
+                      {messageLength}/1000
+                    </span>
+                  </div>
+                  <FormDescription className="body-xs">
+                    Minimum 10 characters required
+                  </FormDescription>
+                </FormItem>
+              )}
+            />
+
+            <Button
+              type="submit"
+              disabled={isSubmitting || isSuccess}
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Sending...
+                </>
+              ) : isSuccess ? (
+                <>
+                  <CheckCircle2 className="mr-2 h-4 w-4" />
+                  Sent!
+                </>
+              ) : (
+                "Send Message"
+              )}
+            </Button>
+          </form>
+        </Form>
+      </Stack>
     </div>
   );
 }
