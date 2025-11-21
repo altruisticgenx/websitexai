@@ -92,6 +92,8 @@ export function PilotCard({
           <div className="absolute inset-0 z-0">
             <LazyImage
               src={imageUrl}
+              srcSet={`${imageUrl}?w=400 400w, ${imageUrl}?w=800 800w, ${imageUrl}?w=1200 1200w`}
+              sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px"
               alt=""
               placeholderSrc={generatePlaceholderDataUrl(20, 20, '#0f172a')}
               className="h-full w-full object-cover opacity-20 group-hover:opacity-30 transition-opacity duration-500"
