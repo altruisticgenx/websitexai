@@ -1,19 +1,21 @@
 import { motion } from "framer-motion";
 import { Section } from "./Section";
 import { AnimatedNumber } from "./AnimatedNumber";
-
 export function SocialProof() {
-  return (
-    <Section spacing="compact" border="bottom">
+  return <Section spacing="compact" border="bottom">
       <div className="max-w-3xl mx-auto">
         {/* Killer Quote with Number */}
-        <motion.blockquote
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="relative rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 to-accent/5 backdrop-blur-sm p-6"
-        >
+        <motion.blockquote initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5
+      }} className="relative rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 to-accent/5 backdrop-blur-sm p-6">
           <div className="absolute top-4 left-4 text-4xl text-primary/20 font-serif">"</div>
           <p className="text-sm sm:text-base text-foreground leading-relaxed pl-6">
             Demo in Week 1. <span className="font-semibold text-primary">65% less manual work</span> by Week 4. 
@@ -31,13 +33,18 @@ export function SocialProof() {
         </motion.blockquote>
 
         {/* Proxy Proof Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="mt-6 grid grid-cols-3 gap-4 text-center"
-        >
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5,
+        delay: 0.1
+      }} className="mt-6 grid grid-cols-3 gap-4 text-center">
           <div className="rounded-lg border border-border/50 bg-card/30 backdrop-blur-sm p-3">
             <div className="text-xl sm:text-2xl font-bold text-primary">
               <AnimatedNumber value={4} suffix="+" />
@@ -57,14 +64,19 @@ export function SocialProof() {
         </motion.div>
 
         {/* Worked With */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-6 text-center"
-        >
-          <p className="text-xs text-muted-foreground mb-3">Worked with</p>
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5,
+        delay: 0.2
+      }} className="mt-6 text-center">
+          
           <div className="flex flex-wrap justify-center gap-3 text-xs text-muted-foreground/80">
             <span className="px-3 py-1.5 rounded-md border border-border/50 bg-card/20">Education Nonprofits</span>
             <span className="px-3 py-1.5 rounded-md border border-border/50 bg-card/20">Energy Teams</span>
@@ -73,6 +85,5 @@ export function SocialProof() {
           </div>
         </motion.div>
       </div>
-    </Section>
-  );
+    </Section>;
 }
