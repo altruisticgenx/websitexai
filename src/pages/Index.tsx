@@ -431,7 +431,7 @@ const RecentBuilds: React.FC = React.memo(() => {
         <header className="max-w-2xl">
           <h2 className="heading-3">Recent Builds</h2>
           <p className="body-lg text-muted-foreground mt-2">
-            Small scope, real results—across energy, education, and founder projects.
+            Small scope. Real outcomes. Across energy, education, and founder ops.
           </p>
         </header>
 

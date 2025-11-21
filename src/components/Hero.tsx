@@ -133,7 +133,7 @@ export function Hero() {
                 }}
                 aria-hidden="true"
               />
-              <span className="font-mono text-primary/80">Ship pilot-ready AI tech</span>
+              <span className="font-mono text-primary/80">Week 1 demo · Week 4 handoff</span>
             </motion.div>
 
             {/* Main Headline - Speed + Proof Formula */}
@@ -143,18 +143,28 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.5 }}
             >
-              Ship a demo-ready AI pilot in 4 weeks{" "}
-              <span className="text-primary">(without hiring)</span>
+              Pilot-ready AI.{" "}
+              <span className="text-primary">Shipped fast.</span>
             </motion.h1>
 
-            {/* Subhead - Domains + Outcome */}
+            {/* Subhead - Demo + Results */}
             <motion.p
-              className="mt-4 text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+              className="mt-3 text-base sm:text-lg font-medium text-foreground/90 max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.6 }}
             >
-              Energy, education, and civic teams use me to turn messy data + stalled plans into working dashboards and automations.
+              A demo in Week 1. A working pilot in Week 4.
+            </motion.p>
+
+            {/* Supporting copy */}
+            <motion.p
+              className="mt-2 text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.7 }}
+            >
+              I help energy, education, and civic teams turn "we should do something with this data" into dashboards + automations people actually use.
             </motion.p>
 
             {/* Primary CTA + Secondary CTA */}
@@ -162,7 +172,7 @@ export function Hero() {
               className="mt-6 flex flex-col sm:flex-row gap-3 justify-center items-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.7 }}
+              transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.8 }}
             >
               {/* Primary CTA */}
               <a
@@ -179,7 +189,7 @@ export function Hero() {
                 onClick={scrollToRecentBuilds}
                 className="min-h-[44px] w-full sm:w-auto inline-flex items-center justify-center rounded-full border border-border bg-card/50 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-foreground hover:bg-card/80 transition-all focus-ring interactive"
               >
-                See 4 Pilots →
+                See recent pilots →
               </button>
             </motion.div>
           </motion.div>
