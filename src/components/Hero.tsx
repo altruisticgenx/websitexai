@@ -45,15 +45,18 @@ const audienceVariants = {
     supporting: "Privacy-first AI for infrastructure, policy, and community workflows.",
     color: "text-rose-400",
     icon: <Building2 className="w-4 h-4" />
-  },
+  }
 } as const;
-
 type AudienceType = keyof typeof audienceVariants;
-
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const {
+    scrollYProgress
+  } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"]
+  });
 
   // --- STATE ---
   // Initialize from URL, but allow manual overrides
@@ -72,7 +75,6 @@ export function Hero() {
       setIsMobile(window.innerWidth < 768);
     }
   }, []);
-
   const copy = audienceVariants[activeAudience];
 
   // --- ANIMATIONS ---
@@ -82,7 +84,6 @@ export function Hero() {
   // Only render 3D on desktop and when user hasn't requested reduced motion
   useEffect(() => {
     if (isMobile || prefersReducedMotion) return;
-    
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting && !shouldRender3D) {
@@ -105,34 +106,21 @@ export function Hero() {
   }, [shouldRender3D, isMobile, prefersReducedMotion]);
 
   // Radar Scan Effect (Background)
-  const RadarOverlay = () => (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-       <motion.div 
-         className="absolute w-full h-[2px] bg-gradient-to-r from-transparent via-primary/30 to-transparent"
-         animate={{ top: ["0%", "100%"], opacity: [0, 1, 0] }}
-         transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-       />
+  const RadarOverlay = () => <div className="absolute inset-0 overflow-hidden pointer-events-none">
+       <motion.div className="absolute w-full h-[2px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" animate={{
+      top: ["0%", "100%"],
+      opacity: [0, 1, 0]
+    }} transition={{
+      duration: 3,
+      repeat: Infinity,
+      ease: "linear"
+    }} />
        <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.03]" />
-    </div>
-  );
-
-  return (
-    <section ref={ref} className="relative min-h-screen flex flex-col items-center pt-20 overflow-hidden bg-slate-950">
+    </div>;
+  return <section ref={ref} className="relative min-h-screen flex flex-col items-center pt-20 overflow-hidden bg-slate-950">
       
       {/* 1. SYSTEM STATUS BAR (Top of Hero) */}
-      <div className="absolute top-0 left-0 right-0 h-10 bg-slate-900/50 border-b border-slate-800 flex items-center justify-between px-4 text-[10px] uppercase tracking-widest text-slate-500 font-mono z-20 backdrop-blur-sm">
-        <div className="flex items-center gap-4">
-          <span className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> 
-            System: Online
-          </span>
-          <span className="hidden sm:inline">Latency: 14ms</span>
-        </div>
-        <div className="flex gap-4">
-           <span>Build: v2.4.0</span>
-           <span className="text-primary">Ready for Pilot</span>
-        </div>
-      </div>
+      
 
       {/* 2. BACKGROUNDS */}
       {!isMobile && !prefersReducedMotion && shouldRender3D && <HeroScene />}
@@ -142,38 +130,33 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/90 to-slate-900 pointer-events-none -z-10" />
 
       {/* 3. MAIN CONTENT */}
-      <motion.div 
-        style={{ y: isMobile ? 0 : yForeground, opacity }}
-        className="relative z-10 w-full max-w-7xl px-4 flex flex-col items-center gap-8 mt-8 sm:mt-16"
-      >
+      <motion.div style={{
+      y: isMobile ? 0 : yForeground,
+      opacity
+    }} className="relative z-10 w-full max-w-7xl px-4 flex flex-col items-center gap-8 mt-8 sm:mt-16">
         
         {/* SECTOR SELECTOR (Interactive Pills) */}
         <div className="flex flex-wrap justify-center gap-2 mb-4">
-          {(Object.keys(audienceVariants) as AudienceType[]).map((key) => (
-            <button
-              key={key}
-              onClick={() => setActiveAudience(key)}
-              className={`px-3 py-1 rounded-full text-xs font-medium transition-all border ${
-                activeAudience === key 
-                  ? "bg-slate-800 border-slate-600 text-white shadow-lg scale-105" 
-                  : "bg-transparent border-transparent text-slate-500 hover:text-slate-300 hover:bg-slate-900"
-              }`}
-            >
+          {(Object.keys(audienceVariants) as AudienceType[]).map(key => <button key={key} onClick={() => setActiveAudience(key)} className={`px-3 py-1 rounded-full text-xs font-medium transition-all border ${activeAudience === key ? "bg-slate-800 border-slate-600 text-white shadow-lg scale-105" : "bg-transparent border-transparent text-slate-500 hover:text-slate-300 hover:bg-slate-900"}`}>
               {key === 'default' ? 'All Sectors' : key.charAt(0).toUpperCase() + key.slice(1)}
-            </button>
-          ))}
+            </button>)}
         </div>
 
         {/* DYNAMIC TEXT HEADER */}
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <AnimatePresence mode="wait">
-            <motion.div
-              key={activeAudience}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
+            <motion.div key={activeAudience} initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} exit={{
+            opacity: 0,
+            y: -20
+          }} transition={{
+            duration: 0.3
+          }}>
               {/* Tagline */}
               <div className={`inline-flex items-center gap-2 px-3 py-1 rounded border border-slate-800 bg-slate-900/50 backdrop-blur-md text-xs font-mono mb-6 ${copy.color}`}>
                 {copy.icon}
@@ -196,26 +179,23 @@ export function Hero() {
           </AnimatePresence>
 
           {/* CTAs */}
-          <motion.div 
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4"
-          >
-            <a
-              href="https://us06web.zoom.us/launch/chat?src=direct_chat_link&email=altruisticxai@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative inline-flex items-center justify-center px-8 py-3 text-sm font-bold text-slate-950 bg-white rounded-full overflow-hidden transition-transform active:scale-95 hover:scale-105"
-            >
+          <motion.div initial={{
+          opacity: 0
+        }} animate={{
+          opacity: 1
+        }} transition={{
+          delay: 0.4
+        }} className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+            <a href="https://us06web.zoom.us/launch/chat?src=direct_chat_link&email=altruisticxai@gmail.com" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center justify-center px-8 py-3 text-sm font-bold text-slate-950 bg-white rounded-full overflow-hidden transition-transform active:scale-95 hover:scale-105">
               <span className="relative z-10 flex items-center gap-2">
                 Start a Pilot <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-white via-slate-200 to-white opacity-0 group-hover:opacity-100 transition-opacity" />
             </a>
             
-            <button 
-              onClick={() => document.getElementById('builds')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-8 py-3 text-sm font-medium text-slate-400 hover:text-white transition-colors"
-            >
+            <button onClick={() => document.getElementById('builds')?.scrollIntoView({
+            behavior: 'smooth'
+          })} className="px-8 py-3 text-sm font-medium text-slate-400 hover:text-white transition-colors">
               View Case Studies
             </button>
           </motion.div>
@@ -223,18 +203,8 @@ export function Hero() {
 
         {/* COMPONENT SLOT: TIMELAPSE HERO 
             (Only shows on default to avoid clutter, or acts as main visual) */}
-        {activeAudience === 'default' && (
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="w-full mt-12 border-t border-slate-800/50 pt-12"
-          >
-            <TimeLapseHero />
-          </motion.div>
-        )}
+        {activeAudience === 'default'}
 
       </motion.div>
-    </section>
-  );
+    </section>;
 }
