@@ -185,6 +185,7 @@ type FeatureItem = {
 
 const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = React.memo(({ item, index }) => {
   const prefersReducedMotion = useReducedMotion();
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
 
   const colorClasses = useMemo(() => {
     switch (item.color) {
@@ -199,8 +200,12 @@ const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = R
     }
   }, [item.color]);
 
+  const handleInteraction = useCallback(() => {
+    setIsTooltipOpen((prev) => !prev);
+  }, []);
+
   return (
-    <Tooltip>
+    <Tooltip open={isTooltipOpen} onOpenChange={setIsTooltipOpen}>
       <TooltipTrigger asChild>
         <motion.button
           type="button"
@@ -209,23 +214,33 @@ const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = R
           viewport={{ once: true }}
           transition={{ duration: prefersReducedMotion ? 0 : 0.35, delay: index * 0.06 }}
           whileHover={prefersReducedMotion ? undefined : { scale: 1.01, y: -1 }}
+          onClick={handleInteraction}
+          onTouchStart={handleInteraction}
           className={cn(
-            "group relative w-full overflow-hidden rounded-md border bg-gradient-to-br to-slate-950/80 p-4 backdrop-blur-sm transition-all",
-            "touch-manipulation active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
+            "group relative w-full overflow-hidden rounded-md border bg-gradient-to-br to-slate-950/80 p-3 sm:p-4 backdrop-blur-sm transition-all",
+            "touch-manipulation active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 min-h-[44px]",
             colorClasses,
           )}
-          aria-label={`${item.title} – ${item.desc}`}
+          aria-label={`${item.title} – ${item.desc}. Tap to see example.`}
+          aria-expanded={isTooltipOpen}
         >
           <div className="relative flex items-start gap-2">
             <div className="flex-1 min-w-0 text-left">
-              <h4 className="mb-1 text-sm font-semibold text-foreground">{item.title}</h4>
-              <p className="body-base leading-relaxed text-muted-foreground">{item.desc}</p>
+              <h4 className="mb-1 text-xs font-semibold text-foreground sm:text-sm">{item.title}</h4>
+              <p className="text-[10px] leading-relaxed text-muted-foreground sm:text-xs">{item.desc}</p>
             </div>
+            <span className="flex-shrink-0 text-[10px] text-muted-foreground/60 sm:text-xs" aria-hidden="true">
+              {isTooltipOpen ? "−" : "+"}
+            </span>
           </div>
         </motion.button>
       </TooltipTrigger>
-      <TooltipContent side="top" className="max-w-[280px] bg-slate-900/95 backdrop-blur-sm border-primary/30">
-        <p className="body-sm leading-relaxed text-slate-200">
+      <TooltipContent 
+        side="top" 
+        className="z-50 max-w-[280px] bg-slate-900/98 backdrop-blur-md border border-primary/30 shadow-xl"
+        sideOffset={8}
+      >
+        <p className="text-[10px] leading-relaxed text-slate-200 sm:text-xs">
           <span className="font-semibold text-primary">Real Example:</span> {item.example}
         </p>
       </TooltipContent>
@@ -391,13 +406,14 @@ const PilotOffer: React.FC = React.memo(() => {
           transition={{ duration: 0.45, delay: 0.1 }}
           className="space-y-6"
         >
-          <h3 className="text-base font-semibold text-primary sm:text-lg">What This Model Is For</h3>
+          <h3 className="text-sm font-semibold text-primary sm:text-base lg:text-lg">What This Model Is For</h3>
+          <p className="text-[10px] text-muted-foreground sm:text-xs">Tap cards to see real examples</p>
           <TooltipProvider delayDuration={160}>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {[
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+               {[
                 {
                   title: "Early, ambiguous work",
-                  desc: "When the edges are fuzzy and you need to learn by shipping, not by planning.",
+                  desc: "When edges are fuzzy and you learn by shipping, not planning.",
                   color: "emerald",
                   icon: "🧭",
                   example:
@@ -405,7 +421,7 @@ const PilotOffer: React.FC = React.memo(() => {
                 },
                 {
                   title: "Complex domains",
-                  desc: "Energy, education, civic systems, compliance—places where policy, people, and tech collide.",
+                  desc: "Energy, education, civic systems—where policy, people, and tech collide.",
                   color: "cyan",
                   icon: "⚡",
                   example:
@@ -413,7 +429,7 @@ const PilotOffer: React.FC = React.memo(() => {
                 },
                 {
                   title: "Proof, not promises",
-                  desc: "You need visible movement and credible artifacts, not another strategy deck.",
+                  desc: "Visible movement and credible artifacts, not strategy decks.",
                   color: "teal",
                   icon: "✓",
                   example:
@@ -421,7 +437,7 @@ const PilotOffer: React.FC = React.memo(() => {
                 },
                 {
                   title: "Lean, collaborative teams",
-                  desc: "You're comfortable working in short cycles, reacting to real results, and adjusting quickly.",
+                  desc: "Short cycles, reacting to results, adjusting quickly.",
                   color: "blue",
                   icon: "⚙",
                   example:
