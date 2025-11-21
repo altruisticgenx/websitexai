@@ -62,7 +62,7 @@ export function PilotCard({
   };
 
   return (
-    <Link to={`/case-study/${id}`} className="block group">
+    <Link to={`/case-study/${id}`} className="block group h-full">
       <motion.article
         whileHover={{ 
           y: -8, 
@@ -78,7 +78,7 @@ export function PilotCard({
           perspective: "1500px"
         }}
         className={cn(
-          "relative flex h-full flex-col overflow-hidden rounded-xl sm:rounded-2xl border-2 backdrop-blur-md transition-all duration-500 cursor-pointer",
+          "relative flex h-full min-h-[320px] sm:min-h-[280px] flex-col overflow-hidden rounded-xl sm:rounded-2xl border-2 backdrop-blur-md transition-all duration-500 cursor-pointer",
           "shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]",
           getSectorGradient(sector),
           getGlowColor(sector),
@@ -102,24 +102,24 @@ export function PilotCard({
         <div className="absolute bottom-0 left-0 w-16 sm:w-24 h-16 sm:h-24 bg-accent/15 sm:bg-accent/20 rounded-full blur-xl sm:blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ transform: "translateZ(10px)" }} />
         
         {/* Content Container */}
-        <div className="relative z-10 flex h-full flex-col p-2.5 sm:p-3 bg-gradient-to-br from-background/50 via-background/65 to-background/85 group-hover:from-background/40 group-hover:via-background/55 group-hover:to-background/75 transition-all duration-500">
+        <div className="relative z-10 flex h-full flex-col p-3.5 sm:p-3 bg-gradient-to-br from-background/50 via-background/65 to-background/85 group-hover:from-background/40 group-hover:via-background/55 group-hover:to-background/75 transition-all duration-500">
           
         {/* Header */}
-        <div className="flex items-start justify-between gap-1.5 mb-1.5 sm:mb-2">
+        <div className="flex items-start justify-between gap-2 mb-2.5 sm:mb-2">
           <div className="flex-1 min-w-0">
             <span className={cn(
-              "inline-flex items-center gap-0.5 rounded-full border px-1.5 py-0.5 text-[8px] font-bold shadow-md mb-1 backdrop-blur-sm",
+              "inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[9px] sm:text-[8px] font-bold shadow-md mb-1.5 backdrop-blur-sm",
               getSectorAccent(sector)
             )}>
-              <Users className="h-2 w-2" />
+              <Users className="h-2.5 w-2.5 sm:h-2 sm:w-2" />
               {whoFor}
             </span>
-            <h3 className="text-[10px] sm:text-[11px] font-bold text-foreground line-clamp-2 leading-tight mb-0.5">{title}</h3>
-            <p className="text-[8px] text-muted-foreground/70 font-medium">{sector}</p>
+            <h3 className="text-xs sm:text-[11px] font-bold text-foreground line-clamp-2 leading-tight mb-1">{title}</h3>
+            <p className="text-[9px] sm:text-[8px] text-muted-foreground/70 font-medium">{sector}</p>
           </div>
           {tag && (
             <span className={cn(
-              "rounded-full border px-1.5 py-0.5 text-[7px] font-bold whitespace-nowrap shadow-md backdrop-blur-sm",
+              "rounded-full border px-2 py-0.5 text-[8px] sm:text-[7px] font-bold whitespace-nowrap shadow-md backdrop-blur-sm",
               getSectorAccent(sector)
             )}>
               {tag}
@@ -128,29 +128,29 @@ export function PilotCard({
         </div>
 
         {/* Challenge */}
-        <div className="mb-1.5 flex-1">
-          <h4 className="text-[8px] font-bold text-foreground/60 mb-0.5 uppercase tracking-wide">Challenge</h4>
-          <p className="text-[9px] text-foreground/85 leading-snug line-clamp-2 font-medium">
+        <div className="mb-2.5 flex-1">
+          <h4 className="text-[9px] sm:text-[8px] font-bold text-foreground/60 mb-1 uppercase tracking-wide">Challenge</h4>
+          <p className="text-[10px] sm:text-[9px] text-foreground/85 leading-relaxed line-clamp-3 font-medium">
             {problem}
           </p>
         </div>
 
         {/* Result - Highlighted with sector color */}
         <div className={cn(
-          "mb-1.5 rounded-lg sm:rounded-xl border-2 bg-gradient-to-br p-1.5 shadow-lg backdrop-blur-sm transition-all duration-300",
+          "mb-2.5 rounded-lg sm:rounded-xl border-2 bg-gradient-to-br p-2 sm:p-1.5 shadow-lg backdrop-blur-sm transition-all duration-300",
           getSectorAccent(sector).replace('text-', 'border-').replace('/20', '/40').replace('/50', '/60'),
           "group-hover:border-opacity-90"
         )} style={{ transform: "translateZ(8px)" }}>
-          <div className="flex items-start gap-1.5">
+          <div className="flex items-start gap-2 sm:gap-1.5">
             <div className={cn(
-              "rounded-lg p-0.5 shadow-md",
+              "rounded-lg p-1 sm:p-0.5 shadow-md",
               getSectorAccent(sector).replace('text-', 'bg-').replace('/20', '/40')
             )}>
-              <TrendingUp className={cn("h-2.5 w-2.5", getSectorAccent(sector).split(' ')[0])} />
+              <TrendingUp className={cn("h-3 w-3 sm:h-2.5 sm:w-2.5", getSectorAccent(sector).split(' ')[0])} />
             </div>
             <div className="min-w-0 flex-1">
-              <h4 className={cn("text-[8px] font-bold mb-0.5 uppercase tracking-wide", getSectorAccent(sector).split(' ')[0])}>Result</h4>
-              <p className="text-[9px] text-foreground font-bold leading-tight line-clamp-2">
+              <h4 className={cn("text-[9px] sm:text-[8px] font-bold mb-1 uppercase tracking-wide", getSectorAccent(sector).split(' ')[0])}>Result</h4>
+              <p className="text-[10px] sm:text-[9px] text-foreground font-bold leading-snug line-clamp-2">
                 {outcome}
               </p>
             </div>
@@ -158,14 +158,14 @@ export function PilotCard({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-1.5 border-t border-border/30">
-          <div className="flex items-center gap-1 text-[8px] text-muted-foreground font-bold">
-            <Clock className="h-2.5 w-2.5" />
+        <div className="flex items-center justify-between pt-2 border-t border-border/30">
+          <div className="flex items-center gap-1.5 text-[9px] sm:text-[8px] text-muted-foreground font-bold">
+            <Clock className="h-3 w-3 sm:h-2.5 sm:w-2.5" />
             <span>{timeToDemo}</span>
           </div>
-          <span className="inline-flex items-center gap-0.5 text-[8px] font-bold text-primary group-hover:gap-1 transition-all">
+          <span className="inline-flex items-center gap-1 text-[9px] sm:text-[8px] font-bold text-primary group-hover:gap-1.5 transition-all">
             View
-            <ArrowRight className="h-2.5 w-2.5 group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight className="h-3 w-3 sm:h-2.5 sm:w-2.5 group-hover:translate-x-0.5 transition-transform" />
           </span>
         </div>
         
