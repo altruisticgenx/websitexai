@@ -36,6 +36,7 @@ const OrganizationTypes = lazy(() =>
 const EngagementModels = lazy(() =>
   import("@/components/EngagementModels").then((m) => ({ default: m.EngagementModels })),
 );
+const AboutMe = lazy(() => import("@/components/sections/AboutMe").then((m) => ({ default: m.AboutMe })));
 
 // -----------------------------
 // Types & Interfaces
