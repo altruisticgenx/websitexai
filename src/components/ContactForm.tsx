@@ -124,7 +124,16 @@ export function ContactForm() {
         </header>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form 
+            onSubmit={form.handleSubmit(onSubmit)} 
+            className="space-y-4"
+            aria-busy={isSubmitting}
+          >
+            {/* Screen reader announcements for form status */}
+            <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
+              {isSubmitting && "Submitting your message, please wait"}
+              {isSuccess && !isSubmitting && "Message sent successfully"}
+            </div>
             <FormField
               control={form.control}
               name="name"

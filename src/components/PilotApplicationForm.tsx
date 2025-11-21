@@ -46,7 +46,15 @@ export function PilotApplicationForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md">
+    <form 
+      onSubmit={handleSubmit} 
+      className="flex flex-col sm:flex-row gap-3 max-w-md"
+      aria-busy={isSubmitting}
+    >
+      {/* Screen reader announcements for form status */}
+      <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
+        {isSubmitting && "Submitting your application, please wait"}
+      </div>
       <div className="flex-1">
         <AccessibleInput
           type="email"
