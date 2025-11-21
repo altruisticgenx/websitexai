@@ -152,8 +152,34 @@ All colors MUST be HSL.
   }
 
   .body-sm {
-    @apply text-[10px] leading-snug;
-    @apply sm:text-xs;
+    @apply text-xs leading-relaxed; /* 12px */
+    @apply sm:text-sm; /* 14px */
+  }
+
+  .body-xs {
+    @apply text-[11px] leading-relaxed; /* 11px minimum */
+    @apply sm:text-xs; /* 12px */
+  }
+
+  /* Utility text - WCAG AA compliant sizes */
+  .caption {
+    @apply text-[11px] text-muted-foreground;
+    @apply sm:text-xs; /* 12px */
+  }
+
+  .label {
+    @apply text-[11px] font-medium uppercase tracking-[0.16em];
+    @apply sm:text-xs; /* 12px */
+  }
+
+  .overline {
+    @apply text-[11px] font-semibold uppercase tracking-wider text-muted-foreground;
+    @apply sm:text-xs; /* 12px */
+  }
+
+  .micro {
+    @apply text-[11px] leading-tight;
+    @apply sm:text-xs; /* 12px */
   }
 
   /* Touch-friendly utilities */
@@ -171,41 +197,41 @@ All colors MUST be HSL.
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* Ensure all buttons and links meet minimum touch target size */
-  button, a[role="button"], [role="button"] {
-    @apply touch-manipulation;
+  /* Global focus indicator utility */
+  .focus-ring {
+    @apply focus-visible:outline-none 
+           focus-visible:ring-2 
+           focus-visible:ring-primary 
+           focus-visible:ring-offset-2 
+           focus-visible:ring-offset-background
+           transition-shadow duration-150;
   }
 
+  /* Active/pressed state utility */
+  .interactive {
+    @apply touch-manipulation
+           active:scale-95 
+           active:brightness-90
+           transition-transform duration-100;
+  }
+
+  /* Enforce minimum touch target size */
   @media (max-width: 768px) {
-    button, a[role="button"], [role="button"] {
-      @apply min-h-[44px];
+    button:not(.touch-exception), 
+    a[role="button"]:not(.touch-exception), 
+    [role="button"]:not(.touch-exception),
+    [type="button"]:not(.touch-exception),
+    [type="submit"]:not(.touch-exception),
+    a[href].touch-target {
+      @apply min-h-[44px] min-w-[44px];
+      @apply px-3 py-2;
+      @apply flex items-center justify-center;
     }
-  }
-
-  .body-xs {
-    @apply text-[9px] leading-snug;
-    @apply sm:text-[10px];
-  }
-
-  /* Utility text */
-  .caption {
-    @apply text-[9px] text-muted-foreground;
-    @apply sm:text-[10px];
-  }
-
-  .label {
-    @apply text-[9px] font-medium uppercase tracking-[0.16em];
-    @apply sm:text-[10px];
-  }
-
-  .overline {
-    @apply text-[8px] font-semibold uppercase tracking-wider text-muted-foreground;
-    @apply sm:text-[9px];
-  }
-
-  .micro {
-    @apply text-[7px] leading-tight;
-    @apply sm:text-[8px];
+    
+    /* Prevent text wrapping in small buttons */
+    button, a[role="button"] {
+      white-space: nowrap;
+    }
   }
 
   /* Button text */
@@ -490,6 +516,16 @@ All colors MUST be HSL.
     overflow: visible;
     clip: auto;
     white-space: normal;
+  }
+
+  /* Auto-apply focus rings and interactive states to all interactive elements */
+  button:not(.no-focus),
+  a[href]:not(.no-focus),
+  [role="button"]:not(.no-focus),
+  input:not(.no-focus),
+  select:not(.no-focus),
+  textarea:not(.no-focus) {
+    @apply focus-ring interactive;
   }
 }
 

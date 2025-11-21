@@ -182,6 +182,36 @@ export type Database = {
         }
         Relationships: []
       }
+      pilot_quiz_submissions: {
+        Row: {
+          answers: Json
+          created_at: string
+          email: string
+          email_sent: boolean | null
+          email_sent_at: string | null
+          id: string
+          recommendations: Json
+        }
+        Insert: {
+          answers: Json
+          created_at?: string
+          email: string
+          email_sent?: boolean | null
+          email_sent_at?: string | null
+          id?: string
+          recommendations: Json
+        }
+        Update: {
+          answers?: Json
+          created_at?: string
+          email?: string
+          email_sent?: boolean | null
+          email_sent_at?: string | null
+          id?: string
+          recommendations?: Json
+        }
+        Relationships: []
+      }
       projects: {
         Row: {
           challenge: string | null
