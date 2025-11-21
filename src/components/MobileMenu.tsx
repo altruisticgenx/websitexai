@@ -129,7 +129,7 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
 
                 <div className="mt-6 pt-4 border-t border-slate-800">
                   <a
-                    href="https://scheduler.zoom.us/altruistic-xai"
+                    href="https://us06web.zoom.us/launch/chat?src=direct_chat_link&email=altruisticxai@gmail.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={closeMenu}

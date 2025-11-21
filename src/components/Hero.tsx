@@ -2,6 +2,9 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Linkedin, Mail } from "lucide-react";
 import { Hero3DBackground } from "./Hero3D";
+import { shouldDisableHeavyAnimations, detectDeviceCapabilities, getAnimationDuration } from "@/utils/deviceCapabilities";
+import { cn } from "@/lib/utils";
+
 interface TrailParticle {
   id: number;
   x: number;
@@ -9,6 +12,7 @@ interface TrailParticle {
   timestamp: number;
   speed: number;
 }
+
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const {
@@ -18,8 +22,16 @@ export function Hero() {
     offset: ["start start", "end start"]
   });
 
-  // Parallax transforms
-  const yForeground = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  // Device capability detection
+  const [deviceCapabilities, setDeviceCapabilities] = useState(() => detectDeviceCapabilities());
+  const [isPerformanceMode, setIsPerformanceMode] = useState(() => shouldDisableHeavyAnimations());
+
+  // Parallax transforms - disabled on low-end devices
+  const yForeground = useTransform(
+    scrollYProgress, 
+    [0, 1], 
+    isPerformanceMode ? ["0%", "0%"] : ["0%", "15%"]
+  );
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   // Lazy loading state for 3D background
@@ -44,8 +56,13 @@ export function Hero() {
   const lastSoundTime = useRef(0);
   const audioContextRef = useRef<AudioContext | null>(null);
 
-  // Intersection Observer for lazy loading 3D background
+  // Intersection Observer for lazy loading 3D background - only on capable devices
   useEffect(() => {
+    // Skip 3D background entirely on low-end devices or performance mode
+    if (isPerformanceMode) {
+      return;
+    }
+
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting && !shouldRender3D) {
@@ -65,10 +82,18 @@ export function Hero() {
         observer.unobserve(currentRef);
       }
     };
-  }, [shouldRender3D]);
+  }, [shouldRender3D, isPerformanceMode]);
+  // Typing animation with optimized speed
   useEffect(() => {
     let currentIndex = 0;
-    const typingSpeed = 80;
+    const typingSpeed = getAnimationDuration(80);
+    
+    // Skip typing animation in performance mode
+    if (isPerformanceMode) {
+      setDisplayedText(fullText);
+      return;
+    }
+
     const typingInterval = setInterval(() => {
       if (currentIndex <= fullText.length) {
         setDisplayedText(fullText.slice(0, currentIndex));
@@ -84,23 +109,26 @@ export function Hero() {
       clearInterval(typingInterval);
       clearInterval(cursorInterval);
     };
-  }, [fullText]);
+  }, [fullText, isPerformanceMode]);
 
-  // Initialize Audio Context
+  // Initialize Audio Context - only on capable devices
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+    if (isPerformanceMode || typeof window === 'undefined') {
+      return;
     }
+    
+    audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+    
     return () => {
       if (audioContextRef.current) {
         audioContextRef.current.close();
       }
     };
-  }, []);
+  }, [isPerformanceMode]);
 
-  // Play sound based on speed threshold
+  // Play sound based on speed threshold - disabled in performance mode
   const playSpeedSound = (speed: number) => {
-    if (!audioContextRef.current) return;
+    if (!audioContextRef.current || isPerformanceMode) return;
     const now = Date.now();
     // Throttle sounds to prevent spam (minimum 100ms between sounds)
     if (now - lastSoundTime.current < 100) return;
@@ -133,9 +161,9 @@ export function Hero() {
     lastSoundTime.current = now;
   };
 
-  // Handle mouse movement for trail effect
+  // Handle mouse movement for trail effect - disabled in performance mode
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    if (!ref.current) return;
+    if (!ref.current || isPerformanceMode) return;
     const rect = ref.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -176,67 +204,78 @@ export function Hero() {
     return () => clearInterval(interval);
   }, []);
   return <section ref={ref} id="home" className="relative py-4 md:py-6 overflow-hidden bg-background" onMouseMove={handleMouseMove}>
-      {/* Simplified Subtle Background - Reduced opacity for better text contrast */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
+      {/* Simplified Subtle Background - Further reduced for performance */}
+      <div className={cn(
+        "absolute inset-0 pointer-events-none overflow-hidden",
+        isPerformanceMode ? "opacity-10" : "opacity-30"
+      )}>
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10" />
-        <svg className="absolute w-full h-full opacity-50" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="wave-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.08 }} />
-              <stop offset="100%" style={{ stopColor: 'hsl(var(--accent))', stopOpacity: 0.08 }} />
-            </linearGradient>
-          </defs>
-          <motion.path
-            d="M0,80 Q400,120 800,80 T1600,80 V400 H0 Z"
-            fill="url(#wave-gradient-1)"
-            animate={{
-              d: [
-                "M0,80 Q400,120 800,80 T1600,80 V400 H0 Z",
-                "M0,100 Q400,60 800,100 T1600,100 V400 H0 Z",
-                "M0,80 Q400,120 800,80 T1600,80 V400 H0 Z"
-              ]
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        </svg>
+        {!isPerformanceMode && (
+          <svg className="absolute w-full h-full opacity-50" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="wave-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.08 }} />
+                <stop offset="100%" style={{ stopColor: 'hsl(var(--accent))', stopOpacity: 0.08 }} />
+              </linearGradient>
+            </defs>
+            <motion.path
+              d="M0,80 Q400,120 800,80 T1600,80 V400 H0 Z"
+              fill="url(#wave-gradient-1)"
+              animate={{
+                d: [
+                  "M0,80 Q400,120 800,80 T1600,80 V400 H0 Z",
+                  "M0,100 Q400,60 800,100 T1600,100 V400 H0 Z",
+                  "M0,80 Q400,120 800,80 T1600,80 V400 H0 Z"
+                ]
+              }}
+              transition={{
+                duration: 12,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+          </svg>
+        )}
       </div>
 
-      {/* Mouse Trail Particles - Reduced for mobile performance */}
-      <div className="hidden md:block">
-        {trailParticles.slice(0, 10).map(particle => {
-          const age = Date.now() - particle.timestamp;
-          const lifespan = 1000;
-          const progress = age / lifespan;
-          const speedRatio = Math.min(particle.speed / 3, 1);
-          
-          return <motion.div 
-            key={particle.id} 
-            className="absolute w-1.5 h-1.5 rounded-full pointer-events-none" 
-            style={{
-              left: particle.x,
-              top: particle.y,
-              background: `radial-gradient(circle, hsl(var(--primary) / ${0.6 * (1 - progress)}), transparent)`,
-              boxShadow: `0 0 ${6 * (1 - progress)}px hsl(var(--primary) / ${0.4 * (1 - progress)})`
-            }} 
-            initial={{ scale: 0, opacity: 1 }} 
-            animate={{
-              scale: [0, 1.2, 0],
-              opacity: [1, 0.6, 0]
-            }} 
-            transition={{
-              duration: 0.8,
-              ease: "easeOut"
-            }} 
-          />;
-        })}
-      </div>
+      {/* Mouse Trail Particles - Only on desktop with capable devices */}
+      {!isPerformanceMode && (
+        <div className="hidden md:block">
+          {trailParticles.slice(0, 10).map(particle => {
+            const age = Date.now() - particle.timestamp;
+            const lifespan = 1000;
+            const progress = age / lifespan;
+            const speedRatio = Math.min(particle.speed / 3, 1);
+            
+            return <motion.div 
+              key={particle.id} 
+              className="absolute w-1.5 h-1.5 rounded-full pointer-events-none" 
+              style={{
+                left: particle.x,
+                top: particle.y,
+                background: `radial-gradient(circle, hsl(var(--primary) / ${0.6 * (1 - progress)}), transparent)`,
+                boxShadow: `0 0 ${6 * (1 - progress)}px hsl(var(--primary) / ${0.4 * (1 - progress)})`
+              }} 
+              initial={{ scale: 0, opacity: 1 }} 
+              animate={{
+                scale: [0, 1.2, 0],
+                opacity: [1, 0.6, 0]
+              }} 
+              transition={{
+                duration: 0.8,
+                ease: "easeOut"
+              }} 
+            />;
+          })}
+        </div>
+      )}
       
-      {/* 3D Animated Background - Lazy Loaded & Reduced opacity */}
-      {shouldRender3D && <div className="opacity-20"><Hero3DBackground /></div>}
+      {/* 3D Animated Background - Only on capable devices with reduced opacity */}
+      {shouldRender3D && !isPerformanceMode && (
+        <div className="opacity-20">
+          <Hero3DBackground />
+        </div>
+      )}
 
       {/* Main Content with Semi-Transparent Overlay for Better Contrast */}
       <motion.div className="relative z-10 px-4 py-3 mx-auto max-w-4xl" style={{

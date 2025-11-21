@@ -7,6 +7,8 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { Hero } from "@/components/Hero";
 import { LazySection } from "@/components/LazySection";
 import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
+import { PerformanceIndicator } from "@/components/PerformanceIndicator";
+import { ContentLoader, CardSkeleton } from "@/components/ContentLoader";
 
 // Lazy load heavier, below-the-fold sections
 const ShelvedExperiments = lazy(() => import("@/components/ShelvedExperiments").then(m => ({
@@ -183,6 +185,7 @@ const Index: React.FC = () => {
       <ScrollToTop />
       <KeyboardShortcutsHelp />
       <SwipeIndicator />
+      <PerformanceIndicator />
     </div>;
 };
 export default Index;
@@ -429,60 +432,66 @@ const RecentBuilds: React.FC = React.memo(() => {
           </p>
         </motion.div>
 
-        {isLoadingProjects ? <div className="mt-6">
-            <CardsSkeleton />
-          </div> : error ? <motion.div initial={{
-        opacity: 0,
-        y: 20
-      }} animate={{
-        opacity: 1,
-        y: 0
-      }} className="mt-6 rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center" role="alert" aria-live="polite">
-            <p className="text-sm text-red-300">{error}</p>
-            <button onClick={fetchProjects} className="mt-3 text-xs underline text-red-400 hover:text-red-300">
-              Try again
-            </button>
-          </motion.div> : projects.length === 0 ? <motion.div initial={{
-        opacity: 0,
-        y: 20
-      }} animate={{
-        opacity: 1,
-        y: 0
-      }} className="mt-6 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center">
-            <p className="text-sm text-slate-400">No projects available yet. Check back soon!</p>
-          </motion.div> : <motion.div initial={{
-        opacity: 0,
-        y: 20
-      }} whileInView={{
-        opacity: 1,
-        y: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.5,
-        delay: 0.1
-      }} className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-              >
-                <PilotCard
-                  id={project.id}
-                  title={project.title}
-                  sector={project.sector}
-                  whoFor={getSectorAudience(project.sector)}
-                  problem={getProjectProblem(project.id)}
-                  outcome={getProjectOutcome(project.id)}
-                  timeToDemo={getTimeToDemo(project.id)}
-                  tag={project.tag}
-                />
-              </motion.div>
-            ))}
-          </motion.div>}
+        <ContentLoader isLoading={isLoadingProjects} fallback={<CardSkeleton count={4} />}>
+          {error ? (
+            <motion.div initial={{
+              opacity: 0,
+              y: 20
+            }} animate={{
+              opacity: 1,
+              y: 0
+            }} className="mt-6 rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center" role="alert" aria-live="polite">
+              <p className="text-sm text-red-300">{error}</p>
+              <button onClick={fetchProjects} className="mt-3 text-xs underline text-red-400 hover:text-red-300">
+                Try again
+              </button>
+            </motion.div>
+          ) : projects.length === 0 ? (
+            <motion.div initial={{
+              opacity: 0,
+              y: 20
+            }} animate={{
+              opacity: 1,
+              y: 0
+            }} className="mt-6 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center">
+              <p className="text-sm text-slate-400">No projects available yet. Check back soon!</p>
+            </motion.div>
+          ) : (
+            <motion.div initial={{
+              opacity: 0,
+              y: 20
+            }} whileInView={{
+              opacity: 1,
+              y: 0
+            }} viewport={{
+              once: true
+            }} transition={{
+              duration: 0.5,
+              delay: 0.1
+            }} className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mt-6">
+              {projects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                >
+                  <PilotCard
+                    id={project.id}
+                    title={project.title}
+                    sector={project.sector}
+                    whoFor={getSectorAudience(project.sector)}
+                    problem={getProjectProblem(project.id)}
+                    outcome={getProjectOutcome(project.id)}
+                    timeToDemo={getTimeToDemo(project.id)}
+                    tag={project.tag}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+        </ContentLoader>
       </div>
     </section>;
 });

@@ -149,7 +149,7 @@ export function SiteNav() {
             </div>
 
             {/* CTA Button */}
-            <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" aria-label="Book a 30-minute introduction call (opens in new tab)" className="ml-2 rounded-full bg-primary px-4 py-2 min-h-[44px] flex items-center body-xs font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-md shadow-primary/20">
+            <a href="https://us06web.zoom.us/launch/chat?src=direct_chat_link&email=altruisticxai@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Start Zoom chat (opens in new tab)" className="ml-2 rounded-full bg-primary px-4 py-2 min-h-[44px] flex items-center body-xs font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-md shadow-primary/20">
               Book Intro
             </a>
           </div>
@@ -204,7 +204,7 @@ export function SiteNav() {
                 </a>
               </div>
 
-              <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" aria-label="Book a 30-minute introduction call (opens in new tab)" className="mt-4 block rounded-full bg-primary px-5 py-3 min-h-[48px] flex items-center justify-center text-center body-base font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20 touch-manipulation">
+              <a href="https://us06web.zoom.us/launch/chat?src=direct_chat_link&email=altruisticxai@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Start Zoom chat (opens in new tab)" className="mt-4 block rounded-full bg-primary px-5 py-3 min-h-[48px] flex items-center justify-center text-center body-base font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20 touch-manipulation">
                 Book 30-min Intro
               </a>
             </div>
