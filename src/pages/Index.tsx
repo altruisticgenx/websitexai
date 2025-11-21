@@ -393,7 +393,7 @@ const PilotOffer: React.FC = React.memo(() => {
         >
           <h3 className="heading-4 text-primary">What This Model Is For</h3>
           <TooltipProvider delayDuration={160}>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {[
                 {
                   title: "Early, ambiguous work",
@@ -491,7 +491,7 @@ const TypicalProgression: React.FC = React.memo(() => {
           <p className="body-base text-muted-foreground">Start small, scale when ready—or jump to any stage.</p>
         </motion.div>
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
             {
               title: "1. Pilot",
@@ -575,7 +575,7 @@ const WhoBenefits: React.FC = React.memo(() => {
           </p>
         </motion.div>
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-1 md:grid-cols-2">
+        <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
