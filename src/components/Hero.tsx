@@ -1,6 +1,42 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useMemo } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { HeroScene } from "./HeroScene";
+
+// Audience-specific copy variants
+const audienceVariants = {
+  startup: {
+    tagline: "Fast · Lean · Production-ready",
+    headline: "Ship production-lean AI",
+    subhead: "in 4 weeks.",
+    supporting: "Your data's already telling you what to build. I help you listen fast.",
+  },
+  energy: {
+    tagline: "Real-time · Local-first · Savings-focused",
+    headline: "Find savings your meters",
+    subhead: "already know about.",
+    supporting: "Real-time energy dashboards + alerts in 4 weeks, local-first by default.",
+  },
+  education: {
+    tagline: "Student-first · Evidence-based · Trust-building",
+    headline: "Turn school data into",
+    subhead: "decisions people trust.",
+    supporting: "Attendance, facilities, learning signals → clear dashboards + gentle automations.",
+  },
+  civic: {
+    tagline: "Privacy-first · Community-focused · Transparent",
+    headline: "Make public ops smarter",
+    subhead: "without making them creepy.",
+    supporting: "Privacy-first AI for infrastructure, policy, and community workflows.",
+  },
+  default: {
+    tagline: "Week 1 demo · Week 4 handoff",
+    headline: "Pilot-ready AI.",
+    subhead: "Shipped fast.",
+    supporting: "I help energy, education, and civic teams turn \"we should do something with this data\" into dashboards + automations people actually use.",
+  },
+} as const;
+
+type AudienceType = keyof typeof audienceVariants;
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -9,6 +45,18 @@ export function Hero() {
     target: ref,
     offset: ["start start", "end start"]
   });
+
+  // Get audience from URL params
+  const audience = useMemo(() => {
+    if (typeof window === 'undefined') return 'default';
+    const params = new URLSearchParams(window.location.search);
+    const audienceParam = params.get('audience')?.toLowerCase();
+    return (audienceParam && audienceParam in audienceVariants) 
+      ? audienceParam as AudienceType 
+      : 'default';
+  }, []);
+
+  const copy = audienceVariants[audience];
 
   // Parallax transforms
   const yForeground = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
@@ -133,7 +181,7 @@ export function Hero() {
                 }}
                 aria-hidden="true"
               />
-              <span className="font-mono text-primary/80">Week 1 demo · Week 4 handoff</span>
+              <span className="font-mono text-primary/80">{copy.tagline}</span>
             </motion.div>
 
             {/* Main Headline - Speed + Proof Formula */}
@@ -143,28 +191,30 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.5 }}
             >
-              Pilot-ready AI.{" "}
-              <span className="text-primary">Shipped fast.</span>
+              {copy.headline}{" "}
+              <span className="text-primary">{copy.subhead}</span>
             </motion.h1>
 
-            {/* Subhead - Demo + Results */}
-            <motion.p
-              className="mt-3 text-base sm:text-lg font-medium text-foreground/90 max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.6 }}
-            >
-              A demo in Week 1. A working pilot in Week 4.
-            </motion.p>
+            {/* Subhead - Demo + Results (only for default) */}
+            {audience === 'default' && (
+              <motion.p
+                className="mt-3 text-base sm:text-lg font-medium text-foreground/90 max-w-2xl mx-auto"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.6 }}
+              >
+                A demo in Week 1. A working pilot in Week 4.
+              </motion.p>
+            )}
 
             {/* Supporting copy */}
             <motion.p
-              className="mt-2 text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+              className={`${audience === 'default' ? 'mt-2' : 'mt-4'} text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.7 }}
             >
-              I help energy, education, and civic teams turn "we should do something with this data" into dashboards + automations people actually use.
+              {copy.supporting}
             </motion.p>
 
             {/* Primary CTA + Secondary CTA */}
