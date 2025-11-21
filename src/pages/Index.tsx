@@ -299,6 +299,47 @@ const RecentBuilds: React.FC = React.memo(() => {
     };
     return timeMap[id] || "Week 1";
   };
+
+  const getProjectTechnologies = (id: string): string[] => {
+    const techMap: Record<string, string[]> = {
+      "sales-copilot": ["React", "TypeScript", "OpenAI GPT-4", "Python", "Supabase"],
+      "founder-os": ["React", "Supabase", "Stripe API", "Cal.com", "Tailwind"],
+      "energy-analytics": ["React", "Python", "PostgreSQL", "D3.js", "Docker"],
+      "edtech-portal": ["React", "Supabase", "Tailwind", "Recharts", "PDF Export"]
+    };
+    return techMap[id] || [];
+  };
+
+  const getProjectKeyFeatures = (id: string): string[] => {
+    const featuresMap: Record<string, string[]> = {
+      "sales-copilot": [
+        "AI-powered lead scoring with GPT-4",
+        "Automated follow-up sequences",
+        "Real-time sentiment analysis",
+        "Gmail & CRM integration"
+      ],
+      "founder-os": [
+        "Unified scheduling & CRM",
+        "Session note-taking",
+        "Stripe invoice sync",
+        "Mobile-first PWA design"
+      ],
+      "energy-analytics": [
+        "Real-time meter data ingestion",
+        "ML anomaly detection",
+        "Peer building comparison",
+        "Automated savings reports"
+      ],
+      "edtech-portal": [
+        "Student outcome tracking",
+        "Demographic analytics",
+        "Funder report generator",
+        "Google Classroom SSO"
+      ]
+    };
+    return featuresMap[id] || [];
+  };
+
   const mapProjects = useCallback((rows: any[] | null) => {
     return (rows ?? []).map(p => ({
       id: p.slug,
@@ -415,6 +456,8 @@ const RecentBuilds: React.FC = React.memo(() => {
                   outcome={getProjectOutcome(project.id)}
                   timeToDemo={getTimeToDemo(project.id)}
                   tag={project.tag}
+                  technologies={getProjectTechnologies(project.id)}
+                  keyFeatures={getProjectKeyFeatures(project.id)}
                 />
               </motion.div>
             ))}
