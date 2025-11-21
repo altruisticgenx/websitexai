@@ -16,24 +16,29 @@ export function PilotApplicationForm() {
       return;
     }
 
+    // Optimistic UI: Show success immediately and clear form
+    const submittedEmail = email;
+    setEmail("");
+    toast.success("Application submitted! We'll be in touch soon.");
     setIsSubmitting(true);
 
     try {
       const { error } = await supabase
         .from("contact_submissions")
         .insert({
-          email,
+          email: submittedEmail,
           name: "Pilot Application",
           project_type: "PA Future-Proofing Pilot 2025-2026",
           message: "Applied for the Pennsylvania Future-Proofing Pilot program",
         });
 
       if (error) throw error;
-
-      toast.success("Application submitted! We'll be in touch soon.");
-      setEmail("");
+      
+      // Success already shown optimistically
     } catch (error) {
       console.error("Error submitting application:", error);
+      // Rollback on error
+      setEmail(submittedEmail);
       toast.error("Failed to submit application. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -53,7 +58,7 @@ export function PilotApplicationForm() {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="rounded-full bg-sky-400 px-4 py-2 text-sm font-medium text-slate-950 hover:bg-sky-300 transition sm:px-5 sm:py-2.5"
+        className="rounded-full bg-sky-400 px-5 py-2.5 text-sm font-medium text-slate-950 hover:bg-sky-300 transition"
       >
         {isSubmitting ? "Submitting..." : "Apply for 2025-2026"}
       </Button>

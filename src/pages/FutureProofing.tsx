@@ -8,9 +8,9 @@ export default function FutureProofing() {
       {/* Back Home Button */}
       <div className="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur">
         <div className="mx-auto max-w-6xl px-4 py-2">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground hover:text-foreground transition-colors min-h-[44px]"
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="h-2.5 w-2.5" />
             back home
@@ -25,7 +25,7 @@ export default function FutureProofing() {
             <p className="text-xs font-semibold tracking-[0.2em] text-accent uppercase">
               2025–2026 Pennsylvania Pilot
             </p>
-            <h1 className="text-2xl font-semibold leading-tight sm:text-3xl md:text-4xl lg:text-5xl">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight">
               Future-Proofing Pennsylvania Students
             </h1>
             <p className="text-base sm:text-lg text-foreground/90">
@@ -37,7 +37,7 @@ export default function FutureProofing() {
             <div className="flex flex-wrap gap-3">
               <a
                 href="#apply"
-                className="inline-flex items-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground hover:bg-accent/90 transition min-h-[44px]"
+                className="inline-flex items-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground hover:bg-accent/90 transition"
               >
                 Apply Below
               </a>
@@ -60,9 +60,9 @@ export default function FutureProofing() {
       {/* Problem & Urgency */}
       <section className="border-b border-border">
         <div className="mx-auto max-w-6xl px-4 py-12 lg:py-16">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
+          <div className="grid gap-10 grid-cols-1 lg:grid-cols-2">
             <div className="space-y-4">
-              <h2 className="text-xl font-semibold sm:text-2xl">
+              <h2 className="text-2xl font-semibold">
                 Pennsylvania is stuck between innovation and reality.
               </h2>
               <p className="text-foreground/90">
@@ -80,12 +80,12 @@ export default function FutureProofing() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
               <div className="rounded-2xl border border-border bg-card/60 p-4">
                 <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                   Legislative Congestion
                 </p>
-                <p className="mt-2 text-2xl font-semibold text-accent sm:text-3xl">
+                <p className="mt-2 text-3xl font-semibold text-accent">
                   80%+
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">
@@ -97,7 +97,7 @@ export default function FutureProofing() {
                 <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                   Fragmented Districts
                 </p>
-                <p className="mt-2 text-2xl font-semibold text-primary sm:text-3xl">
+                <p className="mt-2 text-3xl font-semibold text-primary">
                   500+
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">
@@ -126,7 +126,7 @@ export default function FutureProofing() {
       <section className="border-b border-border bg-background">
         <div className="mx-auto max-w-6xl px-4 py-12 lg:py-16 space-y-8">
           <div className="max-w-3xl space-y-3">
-            <h2 className="text-xl font-semibold sm:text-2xl">
+            <h2 className="text-2xl font-semibold">
               A policy-to-practice civic lab for Pennsylvania.
             </h2>
             <p className="text-foreground/90">
@@ -136,7 +136,7 @@ export default function FutureProofing() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
             {[
               {
                 title: "Regional Needs Dashboard",
@@ -173,7 +173,7 @@ export default function FutureProofing() {
       <section className="border-b border-border">
         <div className="mx-auto max-w-6xl px-4 py-12 lg:py-16 space-y-6">
           <div className="max-w-3xl space-y-2">
-            <h2 className="text-xl font-semibold sm:text-2xl">
+            <h2 className="text-2xl font-semibold">
               2–6 weeks. Real data. Real bills. Real student work.
             </h2>
             <p className="text-foreground/90">
@@ -182,7 +182,7 @@ export default function FutureProofing() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 text-sm">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 text-sm">
             {[
               {
                 step: "Week 1",
@@ -230,8 +230,8 @@ export default function FutureProofing() {
       {/* Outcomes */}
       <section className="border-b border-border bg-background">
         <div className="mx-auto max-w-6xl px-4 py-12 lg:py-16 space-y-8">
-          <h2 className="text-xl font-semibold sm:text-2xl">What districts gain.</h2>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 text-xs">
+          <h2 className="text-2xl font-semibold">What districts gain.</h2>
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 text-xs">
             <div className="space-y-2 rounded-2xl border border-border bg-card/60 p-4">
               <h3 className="text-sm font-semibold text-foreground">
                 For Students
@@ -277,7 +277,7 @@ export default function FutureProofing() {
       <section id="apply" className="border-b border-border">
         <div className="mx-auto max-w-6xl px-4 py-12 lg:py-16 space-y-6">
           <div className="max-w-3xl space-y-3">
-            <h2 className="text-xl font-semibold sm:text-2xl">
+            <h2 className="text-2xl font-semibold">
               Bring the Future-Proofing Pilot to your district.
             </h2>
             <p className="text-foreground/90">

@@ -1,14 +1,9 @@
-import { motion } from "framer-motion";
+import React from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Clock, TrendingUp, Users, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-// Import background images
-import salesCopilotBg from "@/assets/pilot-sales-copilot.jpg";
-import founderOsBg from "@/assets/pilot-founder-os.jpg";
-import energyAnalyticsBg from "@/assets/pilot-energy-analytics.jpg";
-import edtechPortalBg from "@/assets/pilot-edtech-portal.jpg";
-
+import { SpotlightCard } from "./SpotlightCard";
+import { OptimizedImage } from "./OptimizedImage";
 interface PilotCardProps {
   id: string;
   title: string;
@@ -18,9 +13,10 @@ interface PilotCardProps {
   outcome: string;
   timeToDemo: string;
   tag?: string;
+  imageUrl?: string;
   className?: string;
+  shouldLoadImage?: boolean; // New prop for lazy loading control
 }
-
 export function PilotCard({
   id,
   title,
@@ -30,106 +26,95 @@ export function PilotCard({
   outcome,
   timeToDemo,
   tag,
+  imageUrl,
   className,
+  shouldLoadImage = true
 }: PilotCardProps) {
-  // Get background image based on slug/title
-  const getBackgroundImage = (id: string) => {
-    const bgMap: Record<string, string> = {
-      "sales-copilot": salesCopilotBg,
-      "founder-os": founderOsBg,
-      "energy-analytics": energyAnalyticsBg,
-      "edtech-portal": edtechPortalBg,
-    };
-    return bgMap[id] || "";
-  };
+  const reduce = useReducedMotion();
+  return <Link to={`/case-study/${id}`} className="block w-full h-full">
+      <SpotlightCard className={cn("h-full flex flex-col", className)}>
+        <motion.article initial={{
+        opacity: 0,
+        y: 12
+      }} animate={{
+        opacity: 1,
+        y: 0
+      }} transition={{
+        duration: reduce ? 0 : 0.35
+      }} className="relative w-full h-full flex flex-col overflow-hidden">
+          {/* Image header - Mobile-first sizing */}
+          <div className="relative h-32 xs:h-36 sm:h-40 w-full overflow-hidden flex-shrink-0">
+            {imageUrl && shouldLoadImage ? (
+              <OptimizedImage
+                src={imageUrl}
+                alt={`${title} preview`}
+                className="h-full w-full object-cover"
+                aspectRatio="video"
+                sizes="(max-width: 475px) 320px, (max-width: 640px) 400px, 500px"
+                enableModernFormats={true}
+              />
+            ) : (
+              /* Gradient fallback when no image or not loaded yet */
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+            )}
+            <div className="pointer-events-none\n    absolute\n    inset-x-0\n    bottom-0\n    h-1/2\n    rounded-2xl\n    bg-gradient-to-t\n    from-slate-950/95\n    via-slate-950/60\n    to-transparent\n    sm:inset-0\n    sm:h-full" />
 
-  // Dynamic gradient based on sector
-  const getSectorGradient = (sector: string) => {
-    const gradients: Record<string, string> = {
-      "Education Nonprofit": "border-blue-400/30 hover:border-blue-400/50",
-      "Founder-Backed Startup": "border-emerald-400/30 hover:border-emerald-400/50",
-      "Solo Founder": "border-amber-400/30 hover:border-amber-400/50",
-      "Climate & Energy": "border-lime-400/30 hover:border-lime-400/50",
-    };
-    return gradients[sector] || "border-slate-400/30 hover:border-slate-400/50";
-  };
-
-  const bgImage = getBackgroundImage(id);
-
-  return (
-    <Link to={`/case-study/${id}`}>
-      <motion.article
-        whileHover={{ y: -2, scale: 1.01 }}
-        transition={{ duration: 0.2 }}
-        className={cn(
-          "group relative flex h-full flex-col rounded-xl border overflow-hidden backdrop-blur-sm p-3 sm:p-4 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 cursor-pointer min-h-[180px]",
-          getSectorGradient(sector),
-          className
-        )}
-        style={{
-          transformStyle: 'preserve-3d',
-        }}
-      >
-        {/* Background Image with Overlay */}
-        {bgImage && (
-          <div 
-            className="absolute inset-0 bg-cover bg-center opacity-20 transition-opacity duration-300 group-hover:opacity-30"
-            style={{ backgroundImage: `url(${bgImage})` }}
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-background/95" />
-        {/* Header */}
-        <div className="relative z-10 flex items-start justify-between gap-2 mb-2">
-          <div className="flex-1">
-            <div className="flex items-center gap-1.5 mb-1">
-              <span className="inline-flex items-center gap-1 rounded-md border border-primary/30 bg-primary/10 px-1.5 py-0.5 text-[9px] sm:text-[10px] font-medium text-primary">
-                <Users className="h-2.5 w-2.5" />
-                {whoFor}
-              </span>
+            {/* Sector pill */}
+            <div className="absolute left-2 top-2 rounded-full bg-black/70 backdrop-blur-sm px-2 py-0.5 body-xs text-slate-200 ring-1 ring-white/10 font-medium">
+              {sector}
             </div>
-            <h3 className="text-[11px] font-semibold text-foreground line-clamp-2 sm:text-xs">{title}</h3>
-            <p className="text-[9px] sm:text-[10px] text-muted-foreground mt-0.5">{sector}</p>
+
+            {tag && (
+              <div className="absolute right-2 top-2 rounded-full bg-primary/20 backdrop-blur-sm px-2 py-0.5 body-xs text-primary ring-1 ring-primary/30 font-medium">
+                {tag}
+              </div>
+            )}
           </div>
-          {tag && (
-            <span className="rounded-md border border-border/50 bg-muted/50 px-1.5 py-0.5 text-[8px] sm:text-[9px] text-muted-foreground whitespace-nowrap">
-              {tag}
-            </span>
-          )}
-        </div>
 
-        {/* Problem */}
-        <div className="relative z-10 mb-2 flex-1">
-          <h4 className="text-[9px] sm:text-[10px] font-semibold text-foreground mb-0.5">Problem</h4>
-          <p className="text-[9px] sm:text-[10px] text-muted-foreground leading-relaxed line-clamp-2">
-            {problem}
-          </p>
-        </div>
-
-        {/* Outcome Metric */}
-        <div className="relative z-10 mb-2 rounded-lg border border-primary/20 bg-primary/5 p-1.5">
-          <div className="flex items-start gap-1.5">
-            <TrendingUp className="h-2.5 w-2.5 text-primary mt-0.5 flex-shrink-0" />
-            <div>
-              <h4 className="text-[9px] sm:text-[10px] font-semibold text-primary mb-0.5">Outcome</h4>
-              <p className="text-[9px] sm:text-[10px] text-foreground leading-relaxed">
-                {outcome}
+          {/* Body - Mobile-first padding and spacing */}
+          <div className="flex flex-col gap-2 p-3 sm:p-4 flex-1">
+            <header className="space-y-0.5">
+              <h3 className="body-base font-bold leading-tight text-white line-clamp-2">
+                {title}
+              </h3>
+              <p className="body-xs text-slate-400">
+                For <span className="text-slate-200 font-medium">{whoFor}</span> · {timeToDemo}
               </p>
+            </header>
+
+            <div className="space-y-1.5 flex-1">
+              <div className="rounded-lg bg-slate-900/60 backdrop-blur-sm p-2 sm:p-2.5">
+                <p className="body-sm text-slate-300 leading-relaxed">
+                  <span className="font-semibold text-slate-100">Problem:</span>{" "}
+                  {problem}
+                </p>
+              </div>
+
+              <div className="rounded-lg bg-slate-900/60 backdrop-blur-sm p-2 sm:p-2.5">
+                <p className="body-sm text-slate-300 leading-relaxed">
+                  <span className="font-semibold text-slate-100">Outcome:</span>{" "}
+                  {outcome}
+                </p>
+              </div>
+            </div>
+
+            {/* Footer CTA */}
+            <div className="mt-auto pt-1">
+              <div
+                className={cn(
+                  "w-full rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-center",
+                  "body-sm font-semibold text-primary",
+                  "hover:bg-primary/20 hover:border-primary/50 active:scale-[0.98] transition-all duration-200",
+                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                )}
+                role="button"
+                aria-label={`Open case study for ${title}`}
+              >
+                View case study →
+              </div>
             </div>
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className="relative z-10 flex items-center justify-between pt-2 border-t border-border/40">
-          <div className="flex items-center gap-1 text-[9px] sm:text-[10px] text-muted-foreground">
-            <Clock className="h-2.5 w-2.5" />
-            <span>{timeToDemo}</span>
-          </div>
-          <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-medium text-primary group-hover:gap-1.5 transition-all">
-            View
-            <ArrowRight className="h-2.5 w-2.5" />
-          </span>
-        </div>
-      </motion.article>
-    </Link>
-  );
+        </motion.article>
+      </SpotlightCard>
+    </Link>;
 }

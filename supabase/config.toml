@@ -3,8 +3,5 @@ project_id = "duuhvgjdzaowrwonqhtz"
 [functions.send-contact-confirmation]
 verify_jwt = false
 
-[functions.send-quiz-recommendations]
-verify_jwt = false
-
 [functions.faq-assistant]
 verify_jwt = false
