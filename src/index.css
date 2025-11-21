@@ -191,28 +191,28 @@ All colors MUST be HSL.
   }
 
   .body-xs {
-    @apply text-xs leading-relaxed;
+    @apply text-[11px] leading-relaxed;
     @apply sm:text-xs;
   }
 
   /* Utility text */
   .caption {
-    @apply text-xs text-muted-foreground;
+    @apply text-[11px] text-muted-foreground;
     @apply sm:text-xs;
   }
 
   .label {
-    @apply text-xs font-medium uppercase tracking-[0.16em];
+    @apply text-[11px] font-medium uppercase tracking-[0.16em];
     @apply sm:text-xs;
   }
 
   .overline {
-    @apply text-xs font-semibold uppercase tracking-wider text-muted-foreground;
+    @apply text-[11px] font-semibold uppercase tracking-wider text-muted-foreground;
     @apply sm:text-xs;
   }
 
   .micro {
-    @apply text-xs leading-tight;
+    @apply text-[11px] leading-tight;
     @apply sm:text-xs;
   }
 
@@ -285,13 +285,13 @@ All colors MUST be HSL.
   }
 
   .btn-text-sm {
-    @apply text-xs font-medium;
+    @apply text-[10px] font-medium;
     @apply sm:text-xs;
   }
 
   /* Code/Mono text */
   .code-text {
-    @apply font-mono text-xs;
+    @apply font-mono text-[10px];
     @apply sm:text-xs;
   }
 

@@ -55,5 +55,3 @@ export const EngagementModels = memo(() => {
     </section>;
 });
 EngagementModels.displayName = 'EngagementModels';
-
-export default EngagementModels;

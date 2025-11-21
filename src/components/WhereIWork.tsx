@@ -23,7 +23,7 @@ const locations = [
   }
 ];
 
-export default function WhereIWork() {
+export function WhereIWork() {
   return (
     <Section id="where" spacing="compact" border="top">
       <Stack gap="md">
