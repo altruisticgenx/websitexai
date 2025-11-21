@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -31,17 +31,51 @@ export function PilotCard({
   shouldLoadImage = true
 }: PilotCardProps) {
   const reduce = useReducedMotion();
+  const [rotateX, setRotateX] = useState(0);
+  const [rotateY, setRotateY] = useState(0);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (reduce) return;
+    
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientY - rect.top) / rect.height - 0.5;
+    const y = (e.clientX - rect.left) / rect.width - 0.5;
+    
+    setRotateX(x * 10);
+    setRotateY(y * -10);
+  };
+
+  const handleMouseLeave = () => {
+    setRotateX(0);
+    setRotateY(0);
+  };
+
   return <Link to={`/case-study/${id}`} className="block w-full h-full">
       <SpotlightCard className={cn("h-full flex flex-col", className)}>
-        <motion.article initial={{
-        opacity: 0,
-        y: 12
-      }} animate={{
-        opacity: 1,
-        y: 0
-      }} transition={{
-        duration: reduce ? 0 : 0.35
-      }} className="relative w-full h-full flex flex-col overflow-hidden">
+        <motion.article 
+          initial={{
+            opacity: 0,
+            y: 12
+          }} 
+          animate={{
+            opacity: 1,
+            y: 0,
+            rotateX,
+            rotateY
+          }} 
+          transition={{
+            duration: reduce ? 0 : 0.35,
+            rotateX: { duration: 0.3, ease: "easeOut" },
+            rotateY: { duration: 0.3, ease: "easeOut" }
+          }}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          style={{
+            transformStyle: "preserve-3d",
+            perspective: "1000px"
+          }}
+          className="relative w-full h-full flex flex-col overflow-hidden"
+        >
           {/* Image header - Mobile-first sizing */}
           <div className="relative h-32 xs:h-36 sm:h-40 w-full overflow-hidden flex-shrink-0">
             {imageUrl && shouldLoadImage ? (
