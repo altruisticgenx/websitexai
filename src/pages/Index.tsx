@@ -135,22 +135,22 @@ const Index: React.FC = () => {
               <SocialProof />
               <RecentBuilds />
 
-              <LazySection>
+              <LazySection minHeight={380}>
                 <TypicalProgression />
               </LazySection>
 
-              <LazySection>
+              <LazySection minHeight={450}>
                 <PilotOffer />
               </LazySection>
 
-              <LazySection>
+              <LazySection minHeight={320}>
                 <WhoBenefits />
               </LazySection>
 
               <Suspense
                 fallback={<div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
               >
-                <LazySection>
+                <LazySection minHeight={280}>
                   <OrganizationTypes />
                 </LazySection>
               </Suspense>
@@ -158,7 +158,7 @@ const Index: React.FC = () => {
               <Suspense
                 fallback={<div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
               >
-                <LazySection>
+                <LazySection minHeight={260}>
                   <WhereIWork />
                 </LazySection>
               </Suspense>
@@ -166,7 +166,7 @@ const Index: React.FC = () => {
               <Suspense
                 fallback={<div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
               >
-                <LazySection>
+                <LazySection minHeight={340}>
                   <ShelvedExperiments />
                 </LazySection>
               </Suspense>
@@ -174,12 +174,12 @@ const Index: React.FC = () => {
               <Suspense
                 fallback={<div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
               >
-                <LazySection>
+                <LazySection minHeight={320}>
                   <EngagementModels />
                 </LazySection>
               </Suspense>
 
-              <LazySection>
+              <LazySection minHeight={420}>
                 <AboutMe />
               </LazySection>
             </motion.div>
