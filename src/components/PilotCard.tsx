@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Clock, TrendingUp, Users, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { LazyImage } from "./LazyImage";
+import { generatePlaceholderDataUrl } from "@/utils/imageOptimization";
 
 interface PilotCardProps {
   id: string;
@@ -88,10 +90,12 @@ export function PilotCard({
         {/* Image Background with Overlay */}
         {imageUrl && (
           <div className="absolute inset-0 z-0">
-            <img 
-              src={imageUrl} 
+            <LazyImage
+              src={imageUrl}
               alt=""
+              placeholderSrc={generatePlaceholderDataUrl(20, 20, '#0f172a')}
               className="h-full w-full object-cover opacity-20 group-hover:opacity-30 transition-opacity duration-500"
+              aspectRatio="wide"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
           </div>
