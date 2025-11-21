@@ -304,7 +304,7 @@ export function Hero() {
 
             {/* Main Headline with Terminal Typing */}
             <motion.h1
-              className="mt-3 heading-1 relative font-mono text-reveal text-reveal-delay-1"
+              className="mt-3 text-2xl font-semibold tracking-tight relative font-mono text-reveal text-reveal-delay-1 sm:text-3xl lg:text-4xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
