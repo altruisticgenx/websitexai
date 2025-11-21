@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { HeroScene } from "./HeroScene";
+import { TimeLapseHero } from "./TimeLapseHero";
 
 // Audience-specific copy variants
 const audienceVariants = {
@@ -148,6 +149,13 @@ export function Hero() {
               }}
             />
           </svg>
+        </div>
+      )}
+
+      {/* Time-Lapse Interactive Hero */}
+      {audience === 'default' && (
+        <div className="relative z-10 w-full mb-12">
+          <TimeLapseHero />
         </div>
       )}
 
