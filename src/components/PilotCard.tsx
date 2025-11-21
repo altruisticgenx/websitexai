@@ -1,7 +1,8 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Clock, TrendingUp, Users, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useRef } from "react";
 
 interface PilotCardProps {
   id: string;
@@ -26,6 +27,42 @@ export function PilotCard({
   tag,
   className,
 }: PilotCardProps) {
+  const cardRef = useRef<HTMLElement>(null);
+  
+  // Motion values for parallax
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  // Smooth spring animations
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), {
+    stiffness: 300,
+    damping: 30,
+  });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), {
+    stiffness: 300,
+    damping: 30,
+  });
+  
+  // Handle mouse move for parallax
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (!cardRef.current) return;
+    
+    const rect = cardRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    const mouseXPos = (e.clientX - centerX) / rect.width;
+    const mouseYPos = (e.clientY - centerY) / rect.height;
+    
+    mouseX.set(mouseXPos);
+    mouseY.set(mouseYPos);
+  };
+  
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+  
   // Dynamic gradient based on sector with enhanced 3D effects
   const getSectorGradient = (sector: string) => {
     const gradients: Record<string, string> = {
@@ -51,10 +88,11 @@ export function PilotCard({
   return (
     <Link to={`/case-study/${id}`} className="block group">
       <motion.article
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
         whileHover={{ 
           y: -12, 
-          rotateX: 5,
-          rotateY: -3,
           scale: 1.05,
           z: 50,
           transition: { 
@@ -68,7 +106,9 @@ export function PilotCard({
         transition={{ duration: 0.3 }}
         style={{ 
           transformStyle: "preserve-3d",
-          perspective: "1200px"
+          perspective: "1200px",
+          rotateX,
+          rotateY,
         }}
         className={cn(
           "relative flex h-full flex-col rounded-lg border bg-gradient-to-br backdrop-blur-sm p-2 sm:p-2.5 transition-all duration-500 cursor-pointer",
@@ -80,11 +120,23 @@ export function PilotCard({
           className
         )}
       >
-        {/* Enhanced 3D Depth Layers */}
-        <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-transparent via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" 
-          style={{ transform: "translateZ(10px)" }} />
-        <div className="absolute inset-0 rounded-lg bg-gradient-radial from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-sm" 
-          style={{ transform: "translateZ(-5px)" }} />
+        {/* Enhanced 3D Depth Layers with Parallax */}
+        <motion.div 
+          className="absolute inset-0 rounded-lg bg-gradient-to-br from-transparent via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          style={{ 
+            transform: "translateZ(10px)",
+            x: useTransform(mouseX, [-0.5, 0.5], [-8, 8]),
+            y: useTransform(mouseY, [-0.5, 0.5], [-8, 8]),
+          }} 
+        />
+        <motion.div 
+          className="absolute inset-0 rounded-lg bg-gradient-radial from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-sm"
+          style={{ 
+            transform: "translateZ(-5px)",
+            x: useTransform(mouseX, [-0.5, 0.5], [4, -4]),
+            y: useTransform(mouseY, [-0.5, 0.5], [4, -4]),
+          }} 
+        />
         
         {/* Header */}
         <div className="relative z-10 flex items-start justify-between gap-1 mb-1.5">
