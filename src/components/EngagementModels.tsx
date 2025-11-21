@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { motion } from "framer-motion";
 import { Zap, FileText, Layers, RefreshCw, LucideIcon } from "lucide-react";
-import { Card3D } from "./ui/card-3d";
+import { InteractiveCard } from "./ui/interactive-card";
 interface EngagementModel {
   name: string;
   icon: LucideIcon;
@@ -66,7 +66,7 @@ export const EngagementModels = memo(() => {
           {engagementModels.map((model, index) => {
             const Icon = model.icon;
             return (
-              <Card3D key={model.name} intensity={6}>
+              <InteractiveCard key={model.name} hover3d clickable haptic>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -104,7 +104,7 @@ export const EngagementModels = memo(() => {
                     </div>
                   </div>
                 </motion.div>
-              </Card3D>
+              </InteractiveCard>
             );
           })}
         </div>

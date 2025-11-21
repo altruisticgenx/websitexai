@@ -2,7 +2,8 @@ import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Zap, Users, Target, Cpu, TrendingUp, Clock, CheckCircle, Book, MessageSquare } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { InteractiveButton } from "@/components/ui/interactive-button";
+import { InteractiveCard } from "@/components/ui/interactive-card";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { SiteNav } from "@/components/SiteNav";
@@ -38,16 +39,24 @@ const Index: React.FC = () => {
                 No black box automation. Just transparent, explainable solutions.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Button size="lg" className="touch-target-lg" asChild>
-                  <Link to="/pilots">
-                    See 4-Week Pilots <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" className="touch-target-lg" asChild>
-                  <a href="https://us06web.zoom.us/launch/chat?src=direct_chat_link&email=altruisticxai@gmail.com" target="_blank" rel="noopener noreferrer">
-                    Book Fit Call
-                  </a>
-                </Button>
+                <InteractiveButton 
+                  size="lg" 
+                  variant="primary"
+                  haptic="medium"
+                  onClick={() => window.location.href = '/pilots'}
+                  className="w-full sm:w-auto"
+                >
+                  See 4-Week Pilots <ArrowRight className="ml-2 h-4 w-4" />
+                </InteractiveButton>
+                <InteractiveButton 
+                  size="lg" 
+                  variant="outline"
+                  haptic="light"
+                  onClick={() => window.open('https://us06web.zoom.us/launch/chat?src=direct_chat_link&email=altruisticxai@gmail.com', '_blank')}
+                  className="w-full sm:w-auto"
+                >
+                  Book Fit Call
+                </InteractiveButton>
               </div>
             </motion.div>
           </div>
@@ -185,11 +194,14 @@ const Index: React.FC = () => {
               transition={{ delay: 0.5 }}
               className="mt-8 text-center"
             >
-              <Button variant="outline" size="lg" asChild>
-                <Link to="/portfolio">
-                  View All Case Studies <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
+              <InteractiveButton 
+                variant="outline" 
+                size="lg"
+                haptic="light"
+                onClick={() => window.location.href = '/portfolio'}
+              >
+                View All Case Studies <ArrowRight className="ml-2 h-4 w-4" />
+              </InteractiveButton>
             </motion.div>
           </div>
         </section>
@@ -243,17 +255,25 @@ const Index: React.FC = () => {
                 See the full pilot catalog or book a 30-minute fit call to discuss your specific challenge.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="touch-target-lg" asChild>
-                  <Link to="/pilots">
-                    See Pilot Catalog <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" className="touch-target-lg" asChild>
-                  <a href="https://us06web.zoom.us/launch/chat?src=direct_chat_link&email=altruisticxai@gmail.com" target="_blank" rel="noopener noreferrer">
-                    <MessageSquare className="mr-2 h-4 w-4" />
-                    Book 30 Min Fit Call
-                  </a>
-                </Button>
+                <InteractiveButton 
+                  size="lg"
+                  variant="primary"
+                  haptic="medium"
+                  onClick={() => window.location.href = '/pilots'}
+                  className="w-full sm:w-auto"
+                >
+                  See Pilot Catalog <ArrowRight className="ml-2 h-4 w-4" />
+                </InteractiveButton>
+                <InteractiveButton 
+                  size="lg"
+                  variant="outline"
+                  haptic="light"
+                  onClick={() => window.open('https://us06web.zoom.us/launch/chat?src=direct_chat_link&email=altruisticxai@gmail.com', '_blank')}
+                  className="w-full sm:w-auto"
+                >
+                  <MessageSquare className="mr-2 h-4 w-4" />
+                  Book 30 Min Fit Call
+                </InteractiveButton>
               </div>
             </motion.div>
           </div>
@@ -384,11 +404,15 @@ const PilotShowcaseCard: React.FC<{
             <p className="body-sm font-semibold text-primary mb-1">Outcome:</p>
             <p className="body-base font-medium">{outcome}</p>
           </div>
-          <Button variant="ghost" size="sm" className="w-full" asChild>
-            <Link to={link}>
-              Open case study <ArrowRight className="ml-2 h-3 w-3" />
-            </Link>
-          </Button>
+          <InteractiveButton 
+            variant="ghost" 
+            size="sm"
+            haptic="light"
+            onClick={() => window.location.href = link}
+            className="w-full"
+          >
+            Open case study <ArrowRight className="ml-2 h-3 w-3" />
+          </InteractiveButton>
         </CardContent>
       </Card>
     </motion.div>
