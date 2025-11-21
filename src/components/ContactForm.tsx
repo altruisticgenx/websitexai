@@ -114,7 +114,7 @@ export function ContactForm() {
   };
 
   return (
-    <div className="rounded-3xl border border-slate-800/80 bg-slate-900/60 p-6 sm:p-8">
+    <div className="rounded-3xl glass-card-hover p-6 sm:p-8">
       <Stack gap="md">
         <header>
           <h3 className="heading-4 text-slate-50">Let's talk</h3>
