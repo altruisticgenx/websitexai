@@ -478,7 +478,7 @@ export const CaseStudiesStack = ({
 
   return (
     <div 
-      className="group/container relative mx-auto h-[160px] w-full max-w-[340px] touch-pan-y select-none sm:h-[180px] sm:max-w-md md:h-[200px] md:max-w-lg"
+      className="relative h-[180px] w-full sm:h-[200px] md:h-[240px] touch-pan-y select-none"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -492,90 +492,67 @@ export const CaseStudiesStack = ({
           <motion.a
             key={study.id}
             href={`/case-study/${study.id}`}
-            className={cn(
-              "absolute left-1/2 mx-auto flex h-[140px] w-[95%] flex-col justify-between rounded-lg border-[2px] p-3 backdrop-blur-sm",
-              "sm:h-[160px] sm:w-[92%] sm:rounded-xl sm:border-[3px] sm:p-4",
-              "md:h-[180px] md:w-[90%]",
-              "bg-gradient-to-br",
-              gradientClass,
-              "group/card relative overflow-hidden outline outline-[2px] outline-background outline-offset-[2px] sm:outline-[3px] sm:outline-offset-[3px]",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-              "touch-target",
-              "transition-all duration-300 ease-out cursor-pointer",
-              // Mix blend mode and filter effects
-              "mix-blend-multiply active:scale-[0.98]"
-            )}
+            className={`absolute inset-0 mx-auto flex w-full max-w-lg cursor-pointer flex-col justify-between rounded-xl border bg-gradient-to-br ${gradientClass} p-3 shadow-2xl backdrop-blur-md transition-colors min-h-[44px] active:scale-[0.98] sm:p-4 md:rounded-2xl md:p-4`}
             style={{
               transformOrigin: "center center",
               backfaceVisibility: "hidden",
               WebkitBackfaceVisibility: "hidden",
               transform: "translateZ(0)",
-              willChange: "transform, opacity, filter, box-shadow",
-              filter: hoveredIndex === index ? 'none' : 'grayscale(100%) sepia(5%)',
-              mixBlendMode: hoveredIndex === index ? 'normal' : 'multiply',
-              boxShadow: hoveredIndex === index 
-                ? `0 0 120px 0 hsl(var(--primary) / 0.5)` 
-                : `0 0 24px 0 hsl(var(--background) / 0.3)`,
+              willChange: "transform, opacity",
             }}
             initial={false}
             animate={{
-              x: "-50%",
-              y: index * -4,
-              scale: hoveredIndex === index ? 1 : 1 - index * 0.03,
-              rotate: hoveredIndex === index ? 0 : (isTop ? 0 : index % 2 === 0 ? -2 : 2),
-              zIndex: hoveredIndex === index ? 100 : caseStudies.length - index,
-              opacity: hoveredIndex !== null && hoveredIndex !== index 
-                ? 0.3 
-                : (index === 0 ? 1 : index === 1 ? 0.75 : index === 2 ? 0.4 : 0),
+              top: index * -6,
+              scale: 1 - index * 0.04,
+              zIndex: caseStudies.length - index,
+              opacity: index === 0 ? 1 : index === 1 ? 0.75 : index === 2 ? 0.4 : 0,
             }}
             whileHover={isTop ? {
-              scale: 1.02,
-              y: -6,
-              rotateX: -1,
-              rotateY: 0.5,
+              scale: 1.03,
+              y: -8,
+              rotateX: -2,
+              rotateY: 1,
               transition: {
                 duration: 0.2,
                 ease: "easeOut",
               }
             } : {}}
             whileTap={isTop ? { 
-              scale: 0.98,
+              scale: 0.97,
               transition: {
                 duration: 0.1,
               }
             } : {}}
             transition={{
-              duration: hoveredIndex === index ? 0.3 : 0.4,
-              ease: [0.25, 0.1, 0.25, 1],
+              duration: 0.4,
+              ease: [0.23, 1, 0.32, 1],
             }}
-            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseEnter={() => isTop && setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
-            onFocus={() => setHoveredIndex(index)}
-            onBlur={() => setHoveredIndex(null)}
           >
-            <div className="space-y-1 sm:space-y-1.5">
+            <div className="space-y-1.5 sm:space-y-2">
               <div 
-                className="inline-flex items-center gap-1 rounded-full border border-current/30 bg-current/10 px-1.5 py-0.5 text-[8px] font-medium leading-tight sm:px-2 sm:text-[9px]"
+                className="inline-flex items-center gap-1 rounded-full border border-current/30 bg-current/10 px-2 py-0.5 text-[9px] font-medium sm:text-[10px]"
               >
                 <span className="flex items-center">{getProjectIcon(study.id)}</span>
                 <span>{study.sector}</span>
               </div>
-              <h3 className="text-[11px] font-semibold leading-tight text-slate-50 sm:text-xs md:text-sm">
+              <h3 className="text-xs font-semibold leading-tight text-slate-50 sm:text-sm md:text-base">
                 {study.title}
               </h3>
-              <p className="line-clamp-2 text-[10px] leading-snug text-slate-200/90 sm:text-[11px]">
+              <p className="line-clamp-2 text-[10px] leading-relaxed text-slate-200/90 sm:text-xs">
                 {study.summary}
               </p>
             </div>
 
-            <div className="mt-1.5 flex items-center justify-between gap-2 sm:mt-2">
+            <div className="mt-2 flex items-center justify-between gap-2">
               <span 
-                className="rounded-full border border-slate-700/60 bg-slate-800/40 px-1.5 py-0.5 text-[8px] font-medium text-slate-300 sm:px-2 sm:text-[9px]"
+                className="rounded-full border border-slate-700/60 bg-slate-800/40 px-2 py-1 text-[9px] font-medium text-slate-300 sm:text-[10px]"
               >
                 {study.tag}
               </span>
               <span 
-                className="text-[9px] font-medium text-current transition-transform group-hover/card:translate-x-0.5 sm:text-[10px]"
+                className="text-[10px] font-medium text-current transition-transform sm:text-xs group-hover:translate-x-1"
               >
                 View →
               </span>

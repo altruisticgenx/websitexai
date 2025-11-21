@@ -170,16 +170,6 @@ All colors MUST be HSL.
     button, a[role="button"], [role="button"] {
       @apply min-h-[44px];
     }
-    
-    /* Mobile-first card enhancements */
-    .group\/card {
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-      -webkit-perspective: 1000;
-      perspective: 1000;
-    }
   }
 
   .body-xs {
