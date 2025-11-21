@@ -175,174 +175,188 @@ export function Hero() {
     }, 100);
     return () => clearInterval(interval);
   }, []);
-  return <section ref={ref} id="home" className="relative py-4 md:py-6 overflow-hidden bg-background gradient-mesh" onMouseMove={handleMouseMove}>
-      {/* Mouse Trail Particles */}
-      {trailParticles.map(particle => {
-      const age = Date.now() - particle.timestamp;
-      const lifespan = 1000; // 1 second
-      const progress = age / lifespan;
-
-      // Interpolate between primary (slow) and accent (fast) based on speed
-      const speedRatio = Math.min(particle.speed / 3, 1); // Normalize to 0-1
-      const primaryWeight = 1 - speedRatio;
-      const accentWeight = speedRatio;
-
-      // Dynamic color mixing between primary and accent
-      const mixedColor = speedRatio < 0.5 ? `color-mix(in oklch, hsl(var(--primary)) ${(1 - speedRatio * 2) * 100}%, hsl(var(--accent)) ${speedRatio * 2 * 100}%)` : `color-mix(in oklch, hsl(var(--accent)) ${(speedRatio - 0.5) * 2 * 100}%, hsl(var(--primary)) ${(1 - (speedRatio - 0.5) * 2) * 100}%)`;
-      return <motion.div key={particle.id} className="absolute w-2 h-2 rounded-full pointer-events-none" style={{
-        left: particle.x,
-        top: particle.y,
-        background: speedRatio < 0.5 ? `radial-gradient(circle, hsl(var(--primary) / ${1 - progress}), transparent)` : `radial-gradient(circle, hsl(var(--accent) / ${1 - progress}), transparent)`,
-        boxShadow: speedRatio < 0.5 ? `0 0 ${8 * (1 - progress)}px ${4 * (1 - progress)}px hsl(var(--primary) / ${0.6 * (1 - progress)})` : `0 0 ${12 * (1 - progress)}px ${6 * (1 - progress)}px hsl(var(--accent) / ${0.7 * (1 - progress)})`
-      }} initial={{
-        scale: 0,
-        opacity: 1
-      }} animate={{
-        scale: [0, 1.5 + speedRatio * 0.5, 0],
-        opacity: [1, 0.8, 0]
-      }} transition={{
-        duration: 1 - speedRatio * 0.3,
-        ease: "easeOut"
-      }} />;
-    })}
-      
-      {/* 3D Animated Background - Lazy Loaded */}
-      {shouldRender3D && <Hero3DBackground />}
-      
-      {/* Wavy Colorful Background */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <svg className="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
+  return <section ref={ref} id="home" className="relative py-4 md:py-6 overflow-hidden bg-background" onMouseMove={handleMouseMove}>
+      {/* Simplified Subtle Background - Reduced opacity for better text contrast */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10" />
+        <svg className="absolute w-full h-full opacity-50" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="wave-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.15 }} />
-              <stop offset="50%" style={{ stopColor: 'hsl(var(--accent))', stopOpacity: 0.15 }} />
-              <stop offset="100%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.15 }} />
-            </linearGradient>
-            <linearGradient id="wave-gradient-2" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style={{ stopColor: 'hsl(var(--accent))', stopOpacity: 0.1 }} />
-              <stop offset="50%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.1 }} />
-              <stop offset="100%" style={{ stopColor: 'hsl(var(--accent))', stopOpacity: 0.1 }} />
+              <stop offset="0%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.08 }} />
+              <stop offset="100%" style={{ stopColor: 'hsl(var(--accent))', stopOpacity: 0.08 }} />
             </linearGradient>
           </defs>
           <motion.path
-            d="M0,50 Q250,100 500,50 T1000,50 T1500,50 T2000,50 V200 H0 Z"
+            d="M0,80 Q400,120 800,80 T1600,80 V400 H0 Z"
             fill="url(#wave-gradient-1)"
             animate={{
               d: [
-                "M0,50 Q250,100 500,50 T1000,50 T1500,50 T2000,50 V200 H0 Z",
-                "M0,80 Q250,30 500,80 T1000,80 T1500,80 T2000,80 V200 H0 Z",
-                "M0,50 Q250,100 500,50 T1000,50 T1500,50 T2000,50 V200 H0 Z"
+                "M0,80 Q400,120 800,80 T1600,80 V400 H0 Z",
+                "M0,100 Q400,60 800,100 T1600,100 V400 H0 Z",
+                "M0,80 Q400,120 800,80 T1600,80 V400 H0 Z"
               ]
             }}
             transition={{
-              duration: 8,
+              duration: 12,
               repeat: Infinity,
               ease: "easeInOut"
-            }}
-          />
-          <motion.path
-            d="M0,100 Q300,150 600,100 T1200,100 T1800,100 T2400,100 V300 H0 Z"
-            fill="url(#wave-gradient-2)"
-            animate={{
-              d: [
-                "M0,100 Q300,150 600,100 T1200,100 T1800,100 T2400,100 V300 H0 Z",
-                "M0,130 Q300,80 600,130 T1200,130 T1800,130 T2400,130 V300 H0 Z",
-                "M0,100 Q300,150 600,100 T1200,100 T1800,100 T2400,100 V300 H0 Z"
-              ]
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1
             }}
           />
         </svg>
       </div>
 
-      {/* Main Content with Parallax */}
-      <motion.div className="relative z-10 px-4 py-3 mx-auto max-w-4xl" style={{
-      y: yForeground,
-      opacity
-    }}>
-        <div className="max-w-2xl mx-auto space-y-3">
-          <motion.div initial={{
-          opacity: 0,
-          y: 30
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.8
-        }}>
-            {/* Tagline with Animated Dot */}
-            <motion.div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-[10px] font-normal text-muted-foreground" initial={{
-            opacity: 0,
-            scale: 0.9
-          }} animate={{
-            opacity: 1,
-            scale: 1
-          }} transition={{
-            duration: 0.5,
-            delay: 0.3
-          }} role="status" aria-label="Current service availability">
-              <motion.span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary" animate={{
-              opacity: [1, 0.5, 1],
-              scale: [1, 1.2, 1]
-            }} transition={{
-              duration: 2,
-              repeat: Infinity
-            }} aria-hidden="true" />
-              <span className="font-mono">{'>'} Ship pilot-ready AI tech</span>
-            </motion.div>
+      {/* Mouse Trail Particles - Reduced for mobile performance */}
+      <div className="hidden md:block">
+        {trailParticles.slice(0, 10).map(particle => {
+          const age = Date.now() - particle.timestamp;
+          const lifespan = 1000;
+          const progress = age / lifespan;
+          const speedRatio = Math.min(particle.speed / 3, 1);
+          
+          return <motion.div 
+            key={particle.id} 
+            className="absolute w-1.5 h-1.5 rounded-full pointer-events-none" 
+            style={{
+              left: particle.x,
+              top: particle.y,
+              background: `radial-gradient(circle, hsl(var(--primary) / ${0.6 * (1 - progress)}), transparent)`,
+              boxShadow: `0 0 ${6 * (1 - progress)}px hsl(var(--primary) / ${0.4 * (1 - progress)})`
+            }} 
+            initial={{ scale: 0, opacity: 1 }} 
+            animate={{
+              scale: [0, 1.2, 0],
+              opacity: [1, 0.6, 0]
+            }} 
+            transition={{
+              duration: 0.8,
+              ease: "easeOut"
+            }} 
+          />;
+        })}
+      </div>
+      
+      {/* 3D Animated Background - Lazy Loaded & Reduced opacity */}
+      {shouldRender3D && <div className="opacity-20"><Hero3DBackground /></div>}
 
-            {/* Main Headline */}
-            <motion.h1 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight leading-tight" initial={{
+      {/* Main Content with Semi-Transparent Overlay for Better Contrast */}
+      <motion.div className="relative z-10 px-4 py-3 mx-auto max-w-4xl" style={{
+        y: yForeground,
+        opacity
+      }}>
+        {/* Semi-transparent backdrop for text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-transparent backdrop-blur-sm rounded-2xl -z-10" />
+        
+        <div className="max-w-2xl mx-auto space-y-3 relative">
+          <motion.div initial={{
             opacity: 0,
-            y: 20
+            y: 30
           }} animate={{
             opacity: 1,
             y: 0
           }} transition={{
-            duration: 0.6,
-            delay: 0.5
+            duration: 0.8
           }}>
+            {/* Tagline with Animated Dot - Enhanced contrast */}
+            <motion.div 
+              className="inline-flex items-center gap-2 rounded-full border border-primary/50 bg-primary/10 backdrop-blur-md px-3 py-1 text-[10px] font-normal text-primary-foreground shadow-lg" 
+              initial={{
+                opacity: 0,
+                scale: 0.9
+              }} 
+              animate={{
+                opacity: 1,
+                scale: 1
+              }} 
+              transition={{
+                duration: 0.5,
+                delay: 0.3
+              }} 
+              role="status" 
+              aria-label="Current service availability"
+            >
+              <motion.span 
+                className="inline-flex h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_8px_hsl(var(--primary))]" 
+                animate={{
+                  opacity: [1, 0.5, 1],
+                  scale: [1, 1.2, 1]
+                }} 
+                transition={{
+                  duration: 2,
+                  repeat: Infinity
+                }} 
+                aria-hidden="true" 
+              />
+              <span className="font-mono text-foreground">{'>'} Ship pilot-ready AI tech</span>
+            </motion.div>
+
+            {/* Main Headline - Enhanced contrast with stronger color */}
+            <motion.h1 
+              className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight leading-tight text-white drop-shadow-lg" 
+              initial={{
+                opacity: 0,
+                y: 20
+              }} 
+              animate={{
+                opacity: 1,
+                y: 0
+              }} 
+              transition={{
+                duration: 0.6,
+                delay: 0.5
+              }}
+            >
               Ship a working AI pilot in 2–6 weeks — without hiring.
             </motion.h1>
 
-            {/* Subhead */}
-            <motion.p className="mt-2 text-xs sm:text-sm text-muted-foreground max-w-xl" initial={{
-            opacity: 0,
-            y: 20
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }} transition={{
-            duration: 0.6,
-            delay: 0.6
-          }}>
+            {/* Subhead - Enhanced contrast */}
+            <motion.p 
+              className="mt-2 text-xs sm:text-sm max-w-xl text-slate-200 drop-shadow-md" 
+              initial={{
+                opacity: 0,
+                y: 20
+              }} 
+              animate={{
+                opacity: 1,
+                y: 0
+              }} 
+              transition={{
+                duration: 0.6,
+                delay: 0.6
+              }}
+            >
               Senior AI + product execution for energy, education, and civic teams. First demo in Week 1.
             </motion.p>
 
-            {/* Sector Tag Switcher */}
-            <motion.div className="mt-2 flex flex-wrap gap-2 items-center text-[10px]" initial={{
-            opacity: 0,
-            y: 20
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }} transition={{
-            duration: 0.6,
-            delay: 0.6
-          }}>
-              <span className="text-muted-foreground">Focus:</span>
-              <motion.button className="relative px-3 py-1.5 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all" onMouseEnter={() => setActiveSector("energy")} onMouseLeave={() => setActiveSector(null)} whileHover={{
-              scale: 1.05,
-              borderColor: "hsl(var(--primary) / 0.6)"
-            }} style={{
-              transformStyle: "preserve-3d",
-              perspective: "1000px"
-            }}>
+            {/* Sector Tag Switcher - Enhanced contrast */}
+            <motion.div 
+              className="mt-2 flex flex-wrap gap-2 items-center text-[10px]" 
+              initial={{
+                opacity: 0,
+                y: 20
+              }} 
+              animate={{
+                opacity: 1,
+                y: 0
+              }} 
+              transition={{
+                duration: 0.6,
+                delay: 0.6
+              }}
+            >
+              <span className="text-slate-300 font-medium">Focus:</span>
+              <motion.button 
+                className="relative px-3 py-1.5 rounded-lg border-2 border-primary/60 bg-card/80 backdrop-blur-md text-white font-medium overflow-visible group transition-all shadow-lg" 
+                onMouseEnter={() => setActiveSector("energy")} 
+                onMouseLeave={() => setActiveSector(null)} 
+                whileHover={{
+                  scale: 1.05,
+                  borderColor: "hsl(var(--primary) / 0.8)"
+                }} 
+                style={{
+                  transformStyle: "preserve-3d",
+                  perspective: "1000px"
+                }}
+              >
                 {/* Glowing Halo Effect - Behind button */}
                 <motion.div className="absolute inset-0 rounded-lg bg-primary blur-xl -z-10" animate={{
                 opacity: activeSector === "energy" ? [0.3, 0.6, 0.3] : 0.1,
@@ -408,13 +422,19 @@ export function Hero() {
                 <span className="relative z-10 font-mono">Energy</span>
               </motion.button>
               
-              <motion.button className="relative px-3 py-1.5 rounded-lg border-2 border-accent/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all" onMouseEnter={() => setActiveSector("education")} onMouseLeave={() => setActiveSector(null)} whileHover={{
-              scale: 1.05,
-              borderColor: "hsl(var(--accent) / 0.6)"
-            }} style={{
-              transformStyle: "preserve-3d",
-              perspective: "1000px"
-            }}>
+              <motion.button 
+                className="relative px-3 py-1.5 rounded-lg border-2 border-accent/60 bg-card/80 backdrop-blur-md text-white font-medium overflow-visible group transition-all shadow-lg" 
+                onMouseEnter={() => setActiveSector("education")} 
+                onMouseLeave={() => setActiveSector(null)} 
+                whileHover={{
+                  scale: 1.05,
+                  borderColor: "hsl(var(--accent) / 0.8)"
+                }} 
+                style={{
+                  transformStyle: "preserve-3d",
+                  perspective: "1000px"
+                }}
+              >
                 {/* Glowing Halo Effect - Behind button */}
                 <motion.div className="absolute inset-0 rounded-lg bg-accent blur-xl -z-10" animate={{
                 opacity: activeSector === "education" ? [0.3, 0.6, 0.3] : 0.1,
@@ -481,47 +501,43 @@ export function Hero() {
               </motion.button>
             </motion.div>
 
-            {/* Dynamic Sector Description */}
-            <motion.div className="mt-2 min-h-[40px]" initial={{
-            opacity: 0
-          }} animate={{
-            opacity: 1
-          }}>
-              {activeSector === "energy" && <motion.p className="text-[10px] text-primary/90 font-mono" initial={{
-              opacity: 0,
-              x: -10
-            }} animate={{
-              opacity: 1,
-              x: 0
-            }} exit={{
-              opacity: 0,
-              x: 10
-            }} transition={{
-              duration: 0.3
-            }}>
+            {/* Dynamic Sector Description - Enhanced contrast */}
+            <motion.div 
+              className="mt-2 min-h-[40px]" 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }}
+            >
+              {activeSector === "energy" && (
+                <motion.p 
+                  className="text-[10px] text-primary font-mono drop-shadow-md bg-primary/10 backdrop-blur-md rounded-lg px-3 py-1.5 inline-block" 
+                  initial={{ opacity: 0, x: -10 }} 
+                  animate={{ opacity: 1, x: 0 }} 
+                  exit={{ opacity: 0, x: 10 }} 
+                  transition={{ duration: 0.3 }}
+                >
                   → Grid optimization · Demand forecasting · Utility analytics
-                </motion.p>}
-              {activeSector === "education" && <motion.p className="text-[10px] text-accent/90 font-mono" initial={{
-              opacity: 0,
-              x: -10
-            }} animate={{
-              opacity: 1,
-              x: 0
-            }} exit={{
-              opacity: 0,
-              x: 10
-            }} transition={{
-              duration: 0.3
-            }}>
+                </motion.p>
+              )}
+              {activeSector === "education" && (
+                <motion.p 
+                  className="text-[10px] text-accent font-mono drop-shadow-md bg-accent/10 backdrop-blur-md rounded-lg px-3 py-1.5 inline-block" 
+                  initial={{ opacity: 0, x: -10 }} 
+                  animate={{ opacity: 1, x: 0 }} 
+                  exit={{ opacity: 0, x: 10 }} 
+                  transition={{ duration: 0.3 }}
+                >
                   → Personalized learning · Student privacy · Civic education
-                </motion.p>}
-              {!activeSector && <motion.p className="max-w-xl text-xs text-muted-foreground" initial={{
-              opacity: 0
-            }} animate={{
-              opacity: 1
-            }}>
+                </motion.p>
+              )}
+              {!activeSector && (
+                <motion.p 
+                  className="max-w-xl text-xs text-slate-200 drop-shadow-md" 
+                  initial={{ opacity: 0 }} 
+                  animate={{ opacity: 1 }}
+                >
                   Privacy-first prototypes that help educators personalize learning and utilities optimize grids—without sending your data to Big Tech clouds.
-                </motion.p>}
+                </motion.p>
+              )}
             </motion.div>
 
             {/* CTA Buttons */}
