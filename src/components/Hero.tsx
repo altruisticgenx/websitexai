@@ -1,39 +1,50 @@
-import React, { useRef, useState, useEffect, useMemo } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import React, { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, useReducedMotion, AnimatePresence } from "framer-motion";
+import { Terminal, Activity, Zap, GraduationCap, Building2, ArrowRight } from "lucide-react";
 import { HeroScene } from "./HeroScene";
 import { TimeLapseHero } from "./TimeLapseHero";
 
-// Audience-specific copy variants
+// --- TYPES & CONFIG ---
 const audienceVariants = {
+  default: {
+    tagline: "Week 1 demo · Week 4 handoff",
+    headline: "Pilot-ready AI.",
+    subhead: "Shipped fast.",
+    supporting: "I turn \"we should do something with this data\" into dashboards + automations people actually use.",
+    color: "text-blue-400",
+    icon: <Activity className="w-4 h-4" />
+  },
   startup: {
     tagline: "Fast · Lean · Production-ready",
     headline: "Ship production-lean AI",
     subhead: "in 4 weeks.",
     supporting: "Your data's already telling you what to build. I help you listen fast.",
+    color: "text-purple-400",
+    icon: <Terminal className="w-4 h-4" />
   },
   energy: {
-    tagline: "Real-time · Local-first · Savings-focused",
+    tagline: "Real-time · Local-first · Savings",
     headline: "Find savings your meters",
     subhead: "already know about.",
     supporting: "Real-time energy dashboards + alerts in 4 weeks, local-first by default.",
+    color: "text-emerald-400",
+    icon: <Zap className="w-4 h-4" />
   },
   education: {
-    tagline: "Student-first · Evidence-based · Trust-building",
+    tagline: "Student-first · Evidence-based",
     headline: "Turn school data into",
     subhead: "decisions people trust.",
     supporting: "Attendance, facilities, learning signals → clear dashboards + gentle automations.",
+    color: "text-amber-400",
+    icon: <GraduationCap className="w-4 h-4" />
   },
   civic: {
-    tagline: "Privacy-first · Community-focused · Transparent",
+    tagline: "Privacy-first · Transparent",
     headline: "Make public ops smarter",
-    subhead: "without making them creepy.",
+    subhead: "without being creepy.",
     supporting: "Privacy-first AI for infrastructure, policy, and community workflows.",
-  },
-  default: {
-    tagline: "Week 1 demo · Week 4 handoff",
-    headline: "Pilot-ready AI.",
-    subhead: "Shipped fast.",
-    supporting: "I help energy, education, and civic teams turn \"we should do something with this data\" into dashboards + automations people actually use.",
+    color: "text-rose-400",
+    icon: <Building2 className="w-4 h-4" />
   },
 } as const;
 
@@ -42,37 +53,31 @@ type AudienceType = keyof typeof audienceVariants;
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"]
-  });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
 
-  // Get audience from URL params
-  const audience = useMemo(() => {
-    if (typeof window === 'undefined') return 'default';
-    const params = new URLSearchParams(window.location.search);
-    const audienceParam = params.get('audience')?.toLowerCase();
-    return (audienceParam && audienceParam in audienceVariants) 
-      ? audienceParam as AudienceType 
-      : 'default';
-  }, []);
-
-  const copy = audienceVariants[audience];
-
-  // Parallax transforms
-  const yForeground = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
-  // Mobile/reduced motion detection - gate heavy visuals
+  // --- STATE ---
+  // Initialize from URL, but allow manual overrides
+  const [activeAudience, setActiveAudience] = useState<AudienceType>('default');
   const [isMobile, setIsMobile] = useState(false);
   const [shouldRender3D, setShouldRender3D] = useState(false);
-  
+
+  // Load URL param on mount only
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const param = params.get('audience')?.toLowerCase();
+      if (param && param in audienceVariants) {
+        setActiveAudience(param as AudienceType);
+      }
+      setIsMobile(window.innerWidth < 768);
+    }
   }, []);
+
+  const copy = audienceVariants[activeAudience];
+
+  // --- ANIMATIONS ---
+  const yForeground = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   // Only render 3D on desktop and when user hasn't requested reduced motion
   useEffect(() => {
@@ -99,159 +104,136 @@ export function Hero() {
     };
   }, [shouldRender3D, isMobile, prefersReducedMotion]);
 
-  const scrollToRecentBuilds = () => {
-    const element = document.getElementById('builds');
-    element?.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
-  };
+  // Radar Scan Effect (Background)
+  const RadarOverlay = () => (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+       <motion.div 
+         className="absolute w-full h-[2px] bg-gradient-to-r from-transparent via-primary/30 to-transparent"
+         animate={{ top: ["0%", "100%"], opacity: [0, 1, 0] }}
+         transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+       />
+       <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.03]" />
+    </div>
+  );
 
   return (
-    <section
-      ref={ref}
-      className="relative min-h-[70vh] flex items-center justify-center overflow-hidden"
-      onMouseMove={(e) => {
-        // Disable mouse trail on mobile
-        if (isMobile) return;
-      }}
-    >
-      {/* 3D Animated Background - Only on desktop with motion enabled */}
-      {shouldRender3D && !isMobile && !prefersReducedMotion && <HeroScene />}
+    <section ref={ref} className="relative min-h-screen flex flex-col items-center pt-20 overflow-hidden bg-slate-950">
       
-      {/* Simplified gradient background for mobile or reduced motion */}
-      {(isMobile || prefersReducedMotion) && (
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-slate-950 to-accent/10" />
-      )}
+      {/* 1. SYSTEM STATUS BAR (Top of Hero) */}
+      <div className="absolute top-0 left-0 right-0 h-10 bg-slate-900/50 border-b border-slate-800 flex items-center justify-between px-4 text-[10px] uppercase tracking-widest text-slate-500 font-mono z-20 backdrop-blur-sm">
+        <div className="flex items-center gap-4">
+          <span className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> 
+            System: Online
+          </span>
+          <span className="hidden sm:inline">Latency: 14ms</span>
+        </div>
+        <div className="flex gap-4">
+           <span>Build: v2.4.0</span>
+           <span className="text-primary">Ready for Pilot</span>
+        </div>
+      </div>
+
+      {/* 2. BACKGROUNDS */}
+      {!isMobile && !prefersReducedMotion && shouldRender3D && <HeroScene />}
+      <RadarOverlay />
       
-      {/* Wavy Background - Disabled on mobile */}
-      {!isMobile && (
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <svg className="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="wave-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.15 }} />
-                <stop offset="50%" style={{ stopColor: 'hsl(var(--accent))', stopOpacity: 0.15 }} />
-                <stop offset="100%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.15 }} />
-              </linearGradient>
-            </defs>
-            <motion.path
-              d="M0,50 Q250,100 500,50 T1000,50 T1500,50 T2000,50 V200 H0 Z"
-              fill="url(#wave-gradient-1)"
-              animate={prefersReducedMotion ? undefined : {
-                d: [
-                  "M0,50 Q250,100 500,50 T1000,50 T1500,50 T2000,50 V200 H0 Z",
-                  "M0,80 Q250,30 500,80 T1000,80 T1500,80 T2000,80 V200 H0 Z",
-                  "M0,50 Q250,100 500,50 T1000,50 T1500,50 T2000,50 V200 H0 Z"
-                ]
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-          </svg>
-        </div>
-      )}
+      {/* Gradient fallback */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/90 to-slate-900 pointer-events-none -z-10" />
 
-      {/* Time-Lapse Interactive Hero */}
-      {audience === 'default' && (
-        <div className="relative z-10 w-full mb-12">
-          <TimeLapseHero />
-        </div>
-      )}
-
-      {/* Main Content with Parallax */}
-      <motion.div
-        style={!isMobile ? { y: yForeground, opacity } : undefined}
-        className="relative z-10 px-4 py-8 mx-auto max-w-4xl w-full"
+      {/* 3. MAIN CONTENT */}
+      <motion.div 
+        style={{ y: isMobile ? 0 : yForeground, opacity }}
+        className="relative z-10 w-full max-w-7xl px-4 flex flex-col items-center gap-8 mt-8 sm:mt-16"
       >
-        <div className="max-w-2xl mx-auto space-y-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: prefersReducedMotion ? 0 : 0.8 }}
+        
+        {/* SECTOR SELECTOR (Interactive Pills) */}
+        <div className="flex flex-wrap justify-center gap-2 mb-4">
+          {(Object.keys(audienceVariants) as AudienceType[]).map((key) => (
+            <button
+              key={key}
+              onClick={() => setActiveAudience(key)}
+              className={`px-3 py-1 rounded-full text-xs font-medium transition-all border ${
+                activeAudience === key 
+                  ? "bg-slate-800 border-slate-600 text-white shadow-lg scale-105" 
+                  : "bg-transparent border-transparent text-slate-500 hover:text-slate-300 hover:bg-slate-900"
+              }`}
+            >
+              {key === 'default' ? 'All Sectors' : key.charAt(0).toUpperCase() + key.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        {/* DYNAMIC TEXT HEADER */}
+        <div className="max-w-3xl mx-auto text-center space-y-6">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeAudience}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Tagline */}
+              <div className={`inline-flex items-center gap-2 px-3 py-1 rounded border border-slate-800 bg-slate-900/50 backdrop-blur-md text-xs font-mono mb-6 ${copy.color}`}>
+                {copy.icon}
+                <span className="uppercase tracking-wider">{copy.tagline}</span>
+              </div>
+
+              {/* Headline */}
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1]">
+                {copy.headline} <br />
+                <span className={`transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 ${copy.color.replace('text-', 'text-')}`}>
+                  {copy.subhead}
+                </span>
+              </h1>
+
+              {/* Supporting Text */}
+              <p className="mt-6 text-lg text-slate-400 max-w-xl mx-auto leading-relaxed">
+                {copy.supporting}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* CTAs */}
+          <motion.div 
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4"
           >
-            {/* Tagline */}
-            <motion.div
-              className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1.5 text-xs font-normal text-muted-foreground"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: 0.3 }}
+            <a
+              href="https://us06web.zoom.us/launch/chat?src=direct_chat_link&email=altruisticxai@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative inline-flex items-center justify-center px-8 py-3 text-sm font-bold text-slate-950 bg-white rounded-full overflow-hidden transition-transform active:scale-95 hover:scale-105"
             >
-              <motion.span
-                className="inline-flex h-1.5 w-1.5 rounded-full bg-primary"
-                animate={prefersReducedMotion ? undefined : {
-                  opacity: [1, 0.5, 1],
-                  scale: [1, 1.2, 1]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity
-                }}
-                aria-hidden="true"
-              />
-              <span className="font-mono text-primary/80">{copy.tagline}</span>
-            </motion.div>
-
-            {/* Main Headline - Speed + Proof Formula */}
-            <motion.h1
-              className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight leading-tight"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.5 }}
+              <span className="relative z-10 flex items-center gap-2">
+                Start a Pilot <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-white via-slate-200 to-white opacity-0 group-hover:opacity-100 transition-opacity" />
+            </a>
+            
+            <button 
+              onClick={() => document.getElementById('builds')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-8 py-3 text-sm font-medium text-slate-400 hover:text-white transition-colors"
             >
-              {copy.headline}{" "}
-              <span className="text-primary">{copy.subhead}</span>
-            </motion.h1>
-
-            {/* Subhead - Demo + Results (only for default) */}
-            {audience === 'default' && (
-              <motion.p
-                className="mt-3 text-base sm:text-lg font-medium text-foreground/90 max-w-2xl mx-auto"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.6 }}
-              >
-                A demo in Week 1. A working pilot in Week 4.
-              </motion.p>
-            )}
-
-            {/* Supporting copy */}
-            <motion.p
-              className={`${audience === 'default' ? 'mt-2' : 'mt-4'} text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.7 }}
-            >
-              {copy.supporting}
-            </motion.p>
-
-            {/* Primary CTA + Secondary CTA */}
-            <motion.div
-              className="mt-6 flex flex-col sm:flex-row gap-3 justify-center items-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.8 }}
-            >
-              {/* Primary CTA */}
-              <a
-                href="https://us06web.zoom.us/launch/chat?src=direct_chat_link&email=altruisticxai@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="min-h-[44px] w-full sm:w-auto inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 hover:bg-primary/90 transition-all focus-ring interactive"
-              >
-                Book 20-min Intro
-              </a>
-
-              {/* Secondary CTA */}
-              <button
-                onClick={scrollToRecentBuilds}
-                className="min-h-[44px] w-full sm:w-auto inline-flex items-center justify-center rounded-full border border-border bg-card/50 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-foreground hover:bg-card/80 transition-all focus-ring interactive"
-              >
-                See recent pilots →
-              </button>
-            </motion.div>
+              View Case Studies
+            </button>
           </motion.div>
         </div>
+
+        {/* COMPONENT SLOT: TIMELAPSE HERO 
+            (Only shows on default to avoid clutter, or acts as main visual) */}
+        {activeAudience === 'default' && (
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="w-full mt-12 border-t border-slate-800/50 pt-12"
+          >
+            <TimeLapseHero />
+          </motion.div>
+        )}
+
       </motion.div>
     </section>
   );
