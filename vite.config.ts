@@ -17,6 +17,7 @@ export default defineConfig(({ mode }) => ({
     dedupe: [
       "react", 
       "react-dom",
+      "framer-motion",
       "@radix-ui/react-navigation-menu",
       "@radix-ui/react-tooltip",
       "@radix-ui/react-slot",
