@@ -164,7 +164,7 @@ export const TestimonialsVariant = () => {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center"
         >
-          <h2 className="text-2xl font-semibold sm:text-3xl">
+          <h2 className="text-xl font-semibold sm:text-2xl lg:text-3xl">
             What clients say
           </h2>
           <p className="mt-3 text-sm text-slate-300 sm:text-base">
@@ -244,7 +244,7 @@ export const AwardsVariant = () => {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center"
         >
-          <h2 className="text-2xl font-semibold sm:text-3xl">
+          <h2 className="text-xl font-semibold sm:text-2xl lg:text-3xl">
             Recognition & Awards
           </h2>
           <p className="mt-3 text-sm text-slate-300 sm:text-base">
@@ -302,7 +302,7 @@ export const MetricsVariant = () => {
           <div className="text-xs uppercase tracking-[0.16em] text-slate-400">
             {metric.title}
           </div>
-          <div className="mt-3 text-5xl font-bold text-emerald-300 md:text-6xl">
+          <div className="mt-3 text-3xl font-bold text-emerald-300 sm:text-4xl md:text-5xl lg:text-6xl">
             {metric.value}
           </div>
           <p className="mt-4 text-base leading-relaxed text-slate-200">
@@ -326,7 +326,7 @@ export const MetricsVariant = () => {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center"
         >
-          <h2 className="text-2xl font-semibold sm:text-3xl">
+          <h2 className="text-xl font-semibold sm:text-2xl lg:text-3xl">
             Track record
           </h2>
           <p className="mt-3 text-sm text-slate-300 sm:text-base">

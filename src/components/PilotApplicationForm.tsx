@@ -53,7 +53,7 @@ export function PilotApplicationForm() {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="rounded-full bg-sky-400 px-5 py-2.5 text-sm font-medium text-slate-950 hover:bg-sky-300 transition"
+        className="rounded-full bg-sky-400 px-4 py-2 text-sm font-medium text-slate-950 hover:bg-sky-300 transition sm:px-5 sm:py-2.5"
       >
         {isSubmitting ? "Submitting..." : "Apply for 2025-2026"}
       </Button>

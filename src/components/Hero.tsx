@@ -194,7 +194,7 @@ export function Hero() {
     <section 
       ref={ref} 
       id="home" 
-      className="relative py-8 md:py-12 overflow-hidden bg-background gradient-mesh"
+      className="relative py-6 sm:py-8 md:py-12 overflow-hidden bg-background gradient-mesh"
       onMouseMove={handleMouseMove}
     >
       {/* Mouse Trail Particles */}
@@ -278,7 +278,7 @@ export function Hero() {
 
       {/* Main Content with Parallax */}
       <motion.div 
-        className="relative z-10 px-4 py-6 mx-auto max-w-7xl organic-spacing"
+        className="relative z-10 px-3 py-4 mx-auto max-w-7xl organic-spacing sm:px-4 lg:px-6 sm:py-6"
         style={{ y: yForeground, opacity }}
       >
         <div className="max-w-3xl mx-auto fluid-space">
@@ -304,7 +304,7 @@ export function Hero() {
 
             {/* Main Headline with Terminal Typing */}
             <motion.h1
-              className="mt-3 heading-1 relative font-mono text-reveal text-reveal-delay-1"
+              className="mt-3 text-2xl font-semibold tracking-tight relative font-mono text-reveal text-reveal-delay-1 sm:text-3xl lg:text-4xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
@@ -330,25 +330,25 @@ export function Hero() {
 
             {/* Sector Tag Switcher */}
             <motion.div
-              className="mt-3 flex flex-wrap gap-2 items-center caption"
+              className="mt-3 flex flex-wrap gap-1.5 items-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              <span className="text-muted-foreground">Focus:</span>
+              <span className="text-[9px] sm:text-[10px] text-muted-foreground">Focus:</span>
               <motion.button
-                className="relative px-3 py-1.5 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all"
+                className="relative px-2 py-1 rounded-md border border-primary/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all min-h-[32px] min-w-[56px]"
                 onMouseEnter={() => setActiveSector("energy")}
                 onMouseLeave={() => setActiveSector(null)}
-                whileHover={{ scale: 1.05, borderColor: "hsl(var(--primary) / 0.6)" }}
+                whileHover={{ scale: 1.03, borderColor: "hsl(var(--primary) / 0.6)" }}
                 style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
               >
                 {/* Glowing Halo Effect - Behind button */}
                 <motion.div
-                  className="absolute inset-0 rounded-lg bg-primary blur-xl -z-10"
+                  className="absolute inset-0 rounded-md bg-primary blur-md -z-10"
                   animate={{
-                    opacity: activeSector === "energy" ? [0.3, 0.6, 0.3] : 0.1,
-                    scale: activeSector === "energy" ? [1.2, 1.5, 1.2] : 1,
+                    opacity: activeSector === "energy" ? [0.2, 0.4, 0.2] : 0.05,
+                    scale: activeSector === "energy" ? [1.1, 1.3, 1.1] : 1,
                   }}
                   transition={{
                     duration: 1.5,
@@ -361,27 +361,27 @@ export function Hero() {
                 {activeSector === "energy" && (
                   <>
                     <motion.div
-                      className="absolute inset-0 rounded-lg border-2 border-primary"
-                      initial={{ scale: 1, opacity: 0.6 }}
-                      animate={{ scale: [1, 1.5, 2], opacity: [0.6, 0.3, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+                      className="absolute inset-0 rounded-md border border-primary"
+                      initial={{ scale: 1, opacity: 0.4 }}
+                      animate={{ scale: [1, 1.3, 1.6], opacity: [0.4, 0.2, 0] }}
+                      transition={{ duration: 1.2, repeat: Infinity, ease: "easeOut" }}
                     />
                     <motion.div
-                      className="absolute inset-0 rounded-lg border-2 border-primary"
-                      initial={{ scale: 1, opacity: 0.6 }}
-                      animate={{ scale: [1, 1.5, 2], opacity: [0.6, 0.3, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut", delay: 0.5 }}
+                      className="absolute inset-0 rounded-md border border-primary"
+                      initial={{ scale: 1, opacity: 0.4 }}
+                      animate={{ scale: [1, 1.3, 1.6], opacity: [0.4, 0.2, 0] }}
+                      transition={{ duration: 1.2, repeat: Infinity, ease: "easeOut", delay: 0.4 }}
                     />
                   </>
                 )}
                 {/* Orbital Particles */}
-                {[...Array(4)].map((_, i) => {
-                  const angle = (i * 90) * (Math.PI / 180);
-                  const radius = 25;
+                {[...Array(3)].map((_, i) => {
+                  const angle = (i * 120) * (Math.PI / 180);
+                  const radius = 18;
                   return (
                     <motion.div
                       key={i}
-                      className="absolute w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_2px_hsl(var(--primary)/0.6)]"
+                      className="absolute w-1 h-1 rounded-full bg-primary shadow-[0_0_4px_1px_hsl(var(--primary)/0.5)]"
                       style={{
                         left: '50%',
                         top: '50%',
@@ -401,39 +401,39 @@ export function Hero() {
                           Math.sin(angle + 3 * Math.PI / 2) * radius,
                           Math.sin(angle + 2 * Math.PI) * radius,
                         ],
-                        opacity: [0.4, 0.8, 0.6, 0.8, 0.4],
-                        scale: [0.8, 1.2, 1, 1.2, 0.8],
+                        opacity: [0.3, 0.6, 0.4, 0.6, 0.3],
+                        scale: [0.7, 1, 0.8, 1, 0.7],
                       }}
                       transition={{
                         duration: activeSector === "energy" ? 2 : 4,
                         repeat: Infinity,
                         ease: "linear",
-                        delay: i * 0.25,
+                        delay: i * 0.33,
                       }}
                     />
                   );
                 })}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0"
+                  className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/15 to-primary/0"
                   animate={{ x: ['-200%', '200%'] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
                 />
-                <span className="relative z-10 font-mono">Energy</span>
+                <span className="relative z-10 font-mono text-[9px] sm:text-[10px]">Energy</span>
               </motion.button>
               
               <motion.button
-                className="relative px-3 py-1.5 rounded-lg border-2 border-accent/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all"
+                className="relative px-2 py-1 rounded-md border border-accent/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all min-h-[32px] min-w-[68px]"
                 onMouseEnter={() => setActiveSector("education")}
                 onMouseLeave={() => setActiveSector(null)}
-                whileHover={{ scale: 1.05, borderColor: "hsl(var(--accent) / 0.6)" }}
+                whileHover={{ scale: 1.03, borderColor: "hsl(var(--accent) / 0.6)" }}
                 style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
               >
                 {/* Glowing Halo Effect - Behind button */}
                 <motion.div
-                  className="absolute inset-0 rounded-lg bg-accent blur-xl -z-10"
+                  className="absolute inset-0 rounded-md bg-accent blur-md -z-10"
                   animate={{
-                    opacity: activeSector === "education" ? [0.3, 0.6, 0.3] : 0.1,
-                    scale: activeSector === "education" ? [1.2, 1.5, 1.2] : 1,
+                    opacity: activeSector === "education" ? [0.2, 0.4, 0.2] : 0.05,
+                    scale: activeSector === "education" ? [1.1, 1.3, 1.1] : 1,
                   }}
                   transition={{
                     duration: 1.5,
@@ -446,64 +446,64 @@ export function Hero() {
                 {activeSector === "education" && (
                   <>
                     <motion.div
-                      className="absolute inset-0 rounded-lg border-2 border-accent"
-                      initial={{ scale: 1, opacity: 0.6 }}
-                      animate={{ scale: [1, 1.5, 2], opacity: [0.6, 0.3, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+                      className="absolute inset-0 rounded-md border border-accent"
+                      initial={{ scale: 1, opacity: 0.4 }}
+                      animate={{ scale: [1, 1.3, 1.6], opacity: [0.4, 0.2, 0] }}
+                      transition={{ duration: 1.2, repeat: Infinity, ease: "easeOut" }}
                     />
-                    <motion.div
-                      className="absolute inset-0 rounded-lg border-2 border-accent"
-                      initial={{ scale: 1, opacity: 0.6 }}
-                      animate={{ scale: [1, 1.5, 2], opacity: [0.6, 0.3, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut", delay: 0.5 }}
-                    />
-                  </>
-                )}
-                {/* Orbital Particles */}
-                {[...Array(4)].map((_, i) => {
-                  const angle = (i * 90 + 45) * (Math.PI / 180);
-                  const radius = 25;
-                  return (
-                    <motion.div
-                      key={i}
-                      className="absolute w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_2px_hsl(var(--accent)/0.6)]"
-                      style={{
-                        left: '50%',
-                        top: '50%',
-                      }}
-                      animate={{
-                        x: [
-                          Math.cos(angle) * radius,
-                          Math.cos(angle + Math.PI / 2) * radius,
-                          Math.cos(angle + Math.PI) * radius,
-                          Math.cos(angle + 3 * Math.PI / 2) * radius,
-                          Math.cos(angle + 2 * Math.PI) * radius,
-                        ],
-                        y: [
-                          Math.sin(angle) * radius,
-                          Math.sin(angle + Math.PI / 2) * radius,
-                          Math.sin(angle + Math.PI) * radius,
-                          Math.sin(angle + 3 * Math.PI / 2) * radius,
-                          Math.sin(angle + 2 * Math.PI) * radius,
-                        ],
-                        opacity: [0.5, 0.9, 0.7, 0.9, 0.5],
-                        scale: [0.9, 1.3, 1.1, 1.3, 0.9],
-                      }}
-                      transition={{
-                        duration: activeSector === "education" ? 2.5 : 5,
-                        repeat: Infinity,
-                        ease: "linear",
-                        delay: i * 0.3,
-                      }}
-                    />
-                  );
-                })}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/20 to-accent/0"
-                  animate={{ x: ['-200%', '200%'] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                />
-                <span className="relative z-10 font-mono">Education</span>
+                     <motion.div
+                       className="absolute inset-0 rounded-md border border-accent"
+                       initial={{ scale: 1, opacity: 0.4 }}
+                       animate={{ scale: [1, 1.3, 1.6], opacity: [0.4, 0.2, 0] }}
+                       transition={{ duration: 1.2, repeat: Infinity, ease: "easeOut", delay: 0.4 }}
+                     />
+                   </>
+                 )}
+                 {/* Orbital Particles */}
+                 {[...Array(3)].map((_, i) => {
+                   const angle = (i * 120) * (Math.PI / 180);
+                   const radius = 20;
+                   return (
+                     <motion.div
+                       key={i}
+                       className="absolute w-1 h-1 rounded-full bg-accent shadow-[0_0_4px_1px_hsl(var(--accent)/0.5)]"
+                       style={{
+                         left: '50%',
+                         top: '50%',
+                       }}
+                       animate={{
+                         x: [
+                           Math.cos(angle) * radius,
+                           Math.cos(angle + Math.PI / 2) * radius,
+                           Math.cos(angle + Math.PI) * radius,
+                           Math.cos(angle + 3 * Math.PI / 2) * radius,
+                           Math.cos(angle + 2 * Math.PI) * radius,
+                         ],
+                         y: [
+                           Math.sin(angle) * radius,
+                           Math.sin(angle + Math.PI / 2) * radius,
+                           Math.sin(angle + Math.PI) * radius,
+                           Math.sin(angle + 3 * Math.PI / 2) * radius,
+                           Math.sin(angle + 2 * Math.PI) * radius,
+                         ],
+                         opacity: [0.3, 0.6, 0.4, 0.6, 0.3],
+                         scale: [0.7, 1, 0.8, 1, 0.7],
+                       }}
+                       transition={{
+                         duration: activeSector === "education" ? 2.5 : 4.5,
+                         repeat: Infinity,
+                         ease: "linear",
+                         delay: i * 0.33,
+                       }}
+                     />
+                   );
+                 })}
+                 <motion.div
+                   className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/15 to-accent/0"
+                   animate={{ x: ['-200%', '200%'] }}
+                   transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                 />
+                 <span className="relative z-10 font-mono text-[9px] sm:text-[10px]">Education</span>
               </motion.button>
             </motion.div>
 
@@ -557,7 +557,7 @@ export function Hero() {
                 href="https://scheduler.zoom.us/altruistic-xai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative inline-flex w-full sm:w-auto items-center justify-center rounded-lg bg-gradient-to-br from-primary via-primary to-accent px-5 py-3 body-base font-mono text-primary-foreground font-semibold overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.5)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.5)] active:translate-y-[2px] transition-all"
+                className="relative inline-flex w-full sm:w-auto items-center justify-center rounded-lg bg-gradient-to-br from-primary via-primary to-accent px-4 py-2.5 body-base font-mono text-primary-foreground font-semibold overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.5)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.5)] active:translate-y-[2px] transition-all sm:px-5 sm:py-3"
                 whileHover={{
                   scale: 1.03,
                   rotateX: -5,
@@ -578,7 +578,7 @@ export function Hero() {
               
               <motion.a
                 href="mailto:altruisticxai@gmail.com"
-                className="relative inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm px-5 py-3 body-base font-mono text-foreground overflow-hidden group shadow-[0_3px_0_0_hsl(var(--primary)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--primary)/0.3)] active:translate-y-[2px] transition-all"
+                className="relative inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm px-4 py-2.5 body-base font-mono text-foreground overflow-hidden group shadow-[0_3px_0_0_hsl(var(--primary)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--primary)/0.3)] active:translate-y-[2px] transition-all sm:px-5 sm:py-3"
                 whileHover={{
                   scale: 1.03,
                   rotateX: -5,
@@ -603,7 +603,7 @@ export function Hero() {
                 href="https://www.linkedin.com/in/ik11/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border-2 border-accent/40 bg-card/60 backdrop-blur-sm px-5 py-3 body-base font-mono text-foreground overflow-hidden group shadow-[0_3px_0_0_hsl(var(--accent)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--accent)/0.3)] active:translate-y-[2px] transition-all"
+                className="relative inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border-2 border-accent/40 bg-card/60 backdrop-blur-sm px-4 py-2.5 body-base font-mono text-foreground overflow-hidden group shadow-[0_3px_0_0_hsl(var(--accent)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--accent)/0.3)] active:translate-y-[2px] transition-all sm:px-5 sm:py-3"
                 whileHover={{
                   scale: 1.03,
                   rotateX: -5,

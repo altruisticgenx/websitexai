@@ -32,7 +32,7 @@ export function ProjectTimeline({ phases, duration }: ProjectTimelineProps) {
     <div className="mt-6">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="flex w-full items-center justify-between rounded-xl border border-slate-800/70 bg-slate-950/40 p-4 text-left transition-all hover:border-emerald-400/30 hover:bg-slate-900/60"
+        className="flex w-full items-center justify-between rounded-xl border border-slate-800/70 bg-slate-950/40 p-3 text-left transition-all hover:border-emerald-400/30 hover:bg-slate-900/60 min-h-[44px] sm:p-4"
       >
         <div className="flex items-center gap-3">
           <div className="rounded-lg bg-emerald-400/10 p-2">
@@ -63,7 +63,7 @@ export function ProjectTimeline({ phases, duration }: ProjectTimelineProps) {
         transition={{ duration: 0.3, ease: "easeInOut" }}
         className="overflow-hidden"
       >
-        <div className="mt-4 rounded-xl border border-slate-800/70 bg-slate-950/40 p-5">
+        <div className="mt-4 rounded-xl border border-slate-800/70 bg-slate-950/40 p-4 sm:p-5">
           {/* Week headers */}
           <div className="mb-4 flex gap-2">
             {Array.from({ length: totalWeeks }, (_, i) => (
@@ -167,7 +167,7 @@ export function ProjectTimeline({ phases, duration }: ProjectTimelineProps) {
           </div>
 
           {/* Legend */}
-          <div className="mt-5 flex items-center gap-4 border-t border-slate-800/50 pt-4">
+          <div className="mt-4 sm:mt-5 flex items-center gap-3 sm:gap-4 border-t border-slate-800/50 pt-3 sm:pt-4">
             <div className="flex items-center gap-2">
               <div className="h-3 w-3 rounded bg-gradient-to-r from-emerald-400 to-emerald-500" />
               <span className="text-xs text-slate-400">Active Phase</span>
@@ -179,7 +179,7 @@ export function ProjectTimeline({ phases, duration }: ProjectTimelineProps) {
           </div>
 
           {/* Quick stats */}
-          <div className="mt-4 grid grid-cols-3 gap-3">
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
             <div className="rounded-lg bg-slate-900/50 p-2.5 text-center">
               <div className="text-xs text-slate-400">Total Duration</div>
               <div className="mt-1 text-sm font-semibold text-emerald-300">
