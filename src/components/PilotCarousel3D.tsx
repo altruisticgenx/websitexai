@@ -106,10 +106,10 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
   };
 
   return (
-    <div className="relative w-full" style={{ perspective: "1500px" }}>
+    <div className="relative w-full flex items-center justify-center" style={{ perspective: "2000px" }}>
       {/* Carousel Container */}
       <div
-        className="relative h-[240px] sm:h-[260px] md:h-[280px] overflow-visible touch-pan-y select-none"
+        className="relative h-[280px] xs:h-[300px] sm:h-[320px] md:h-[360px] w-full max-w-7xl overflow-visible touch-pan-y select-none"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
@@ -118,28 +118,29 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
           {/* Previous Card (Left) */}
           <motion.div
             key={`prev-${prev}`}
-            className="absolute left-0 top-1/2 w-[28%] sm:w-[25%] origin-center hidden xs:block"
+            className="absolute left-0 top-1/2 w-[30%] sm:w-[28%] md:w-[25%] origin-center hidden sm:block"
             initial={false}
             animate={{
-              x: "5%",
+              x: "10%",
               y: "-50%",
-              scale: 0.65,
-              opacity: 0.3,
-              rotateY: 30,
-              z: -250,
+              scale: 0.7,
+              opacity: 0.4,
+              rotateY: 35,
+              z: -300,
             }}
             transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
             style={{
               transformStyle: "preserve-3d",
+              filter: "blur(1px) brightness(0.7)",
             }}
           >
-            <div className="pointer-events-none blur-[1.5px]">{childrenArray[prev]}</div>
+            <div className="pointer-events-none shadow-2xl">{childrenArray[prev]}</div>
           </motion.div>
 
           {/* Current Card (Center) */}
           <motion.div
             key={`current-${current}`}
-            className="absolute left-1/2 top-1/2 w-[85%] xs:w-[70%] sm:w-[60%] md:w-[50%] origin-center"
+            className="absolute left-1/2 top-1/2 w-[90%] xs:w-[80%] sm:w-[65%] md:w-[55%] lg:w-[45%] origin-center"
             custom={direction}
             variants={slideVariants}
             initial="enter"
@@ -151,30 +152,32 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
               y: "-50%",
               transformStyle: "preserve-3d",
               zIndex: 10,
+              filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.4))",
             }}
           >
-            {childrenArray[current]}
+            <div className="transform-gpu">{childrenArray[current]}</div>
           </motion.div>
 
           {/* Next Card (Right) */}
           <motion.div
             key={`next-${next}`}
-            className="absolute right-0 top-1/2 w-[28%] sm:w-[25%] origin-center hidden xs:block"
+            className="absolute right-0 top-1/2 w-[30%] sm:w-[28%] md:w-[25%] origin-center hidden sm:block"
             initial={false}
             animate={{
-              x: "-5%",
+              x: "-10%",
               y: "-50%",
-              scale: 0.65,
-              opacity: 0.3,
-              rotateY: -30,
-              z: -250,
+              scale: 0.7,
+              opacity: 0.4,
+              rotateY: -35,
+              z: -300,
             }}
             transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
             style={{
               transformStyle: "preserve-3d",
+              filter: "blur(1px) brightness(0.7)",
             }}
           >
-            <div className="pointer-events-none blur-[1.5px]">{childrenArray[next]}</div>
+            <div className="pointer-events-none shadow-2xl">{childrenArray[next]}</div>
           </motion.div>
         </AnimatePresence>
       </div>
