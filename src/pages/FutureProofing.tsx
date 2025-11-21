@@ -8,9 +8,9 @@ export default function FutureProofing() {
       {/* Back Home Button */}
       <div className="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur">
         <div className="mx-auto max-w-6xl px-4 py-2">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground hover:text-foreground transition-colors"
+            <Link
+              to="/"
+              className="inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground hover:text-foreground transition-colors min-h-[44px]"
           >
             <ArrowLeft className="h-2.5 w-2.5" />
             back home
@@ -37,7 +37,7 @@ export default function FutureProofing() {
             <div className="flex flex-wrap gap-3">
               <a
                 href="#apply"
-                className="inline-flex items-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground hover:bg-accent/90 transition"
+                className="inline-flex items-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground hover:bg-accent/90 transition min-h-[44px]"
               >
                 Apply Below
               </a>

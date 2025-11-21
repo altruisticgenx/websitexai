@@ -187,7 +187,7 @@ const CaseStudyDetail = () => {
           >
             <Link
               to="/"
-              className="inline-flex items-center gap-2 body-xs text-muted-foreground hover:text-primary transition-colors"
+              className="inline-flex items-center gap-2 body-xs text-muted-foreground hover:text-primary transition-colors min-h-[44px]"
             >
               <ArrowLeft className="h-3 w-3" />
               Back to home

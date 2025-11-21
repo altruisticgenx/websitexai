@@ -43,7 +43,7 @@ export function PilotCard({
         whileHover={{ y: -4, scale: 1.02 }}
         transition={{ duration: 0.2 }}
         className={cn(
-          "group relative flex h-full flex-col rounded-lg border bg-gradient-to-br backdrop-blur-sm p-4 transition-all duration-300 hover:shadow-xl cursor-pointer",
+          "group relative flex h-full flex-col rounded-lg border bg-gradient-to-br backdrop-blur-sm p-4 transition-all duration-300 hover:shadow-xl cursor-pointer min-h-[200px]",
           getSectorGradient(sector),
           className
         )}

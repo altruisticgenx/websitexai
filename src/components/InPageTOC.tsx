@@ -54,7 +54,7 @@ export function InPageTOC({ items, className }: InPageTOCProps) {
       <div className="lg:hidden sticky top-16 z-40 w-full bg-background/80 backdrop-blur-md border-b border-border/40 mb-6">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full flex items-center justify-between px-3 py-2.5 text-left body-sm font-medium text-foreground hover:bg-accent/50 transition-colors sm:px-4 sm:py-3"
+          className="w-full flex items-center justify-between px-3 py-2.5 text-left body-sm font-medium text-foreground hover:bg-accent/50 transition-colors min-h-[44px] sm:px-4 sm:py-3"
           aria-expanded={isOpen}
           aria-label="Toggle table of contents"
         >
@@ -78,7 +78,7 @@ export function InPageTOC({ items, className }: InPageTOCProps) {
                     <button
                       onClick={() => handleClick(item.id)}
                       className={cn(
-                        "block w-full text-left px-3 py-2 rounded-md body-xs transition-colors",
+                        "block w-full text-left px-3 py-2 rounded-md body-xs transition-colors min-h-[44px]",
                         activeId === item.id
                           ? "text-primary bg-primary/10 font-medium"
                           : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
@@ -110,7 +110,7 @@ export function InPageTOC({ items, className }: InPageTOCProps) {
                 <button
                   onClick={() => handleClick(item.id)}
                   className={cn(
-                    "block w-full text-left px-3 py-1.5 rounded-md body-xs transition-all duration-200",
+                    "block w-full text-left px-3 py-1.5 rounded-md body-xs transition-all duration-200 min-h-[40px]",
                     activeId === item.id
                       ? "text-primary bg-primary/10 font-medium border-l-2 border-primary"
                       : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
