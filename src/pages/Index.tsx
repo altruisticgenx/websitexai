@@ -274,8 +274,8 @@ const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = R
           onMouseEnter={() => setIsTouched(false)}
           style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
           className={cn(
-            "group relative w-full overflow-hidden rounded-lg border bg-gradient-to-br backdrop-blur-sm p-2.5 sm:p-3 transition-all cursor-pointer",
-            "touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
+            "group relative w-full overflow-hidden rounded-lg border bg-gradient-to-br backdrop-blur-sm min-h-[44px] p-3 sm:p-3 transition-all cursor-pointer",
+            "touch-manipulation focus-ring interactive",
             "hover:shadow-xl shadow-lg",
             colorClasses.border,
             colorClasses.gradient,
@@ -290,15 +290,15 @@ const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = R
               {item.icon}
             </span>
             <div className="flex-1 min-w-0 text-left">
-              <h4 className="mb-0.5 text-[10px] sm:text-[11px] font-bold text-foreground leading-tight line-clamp-2">
+              <h4 className="mb-0.5 text-xs sm:text-xs font-bold text-foreground leading-tight line-clamp-2">
                 {item.title}
               </h4>
-              <p className="text-[9px] sm:text-[10px] leading-snug text-muted-foreground line-clamp-2 sm:line-clamp-3">
+              <p className="text-xs sm:text-xs leading-snug text-muted-foreground line-clamp-2 sm:line-clamp-3">
                 {item.desc}
               </p>
             </div>
           </div>
-          <div className="absolute bottom-1 right-1 text-[8px] text-muted-foreground/50 sm:hidden">Tap</div>
+          <div className="absolute bottom-1 right-1 text-xs text-muted-foreground/50 sm:hidden">Tap</div>
         </motion.button>
       </TooltipTrigger>
 
@@ -312,7 +312,7 @@ const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = R
           }
         }}
       >
-        <p className="text-[10px] sm:text-xs leading-relaxed text-slate-200">
+        <p className="text-xs sm:text-xs leading-relaxed text-slate-200">
           <span className="font-semibold text-primary">Real Example:</span> {item.example}
         </p>
       </TooltipContent>
@@ -448,7 +448,10 @@ const RecentBuilds: React.FC = React.memo(() => {
             aria-live="polite"
           >
             <p className="body-sm text-red-300">{error}</p>
-            <button onClick={fetchProjects} className="mt-3 body-xs underline text-red-400 hover:text-red-300">
+            <button 
+              onClick={fetchProjects} 
+              className="mt-3 body-xs underline text-red-400 hover:text-red-300 min-h-[44px] px-4 focus-ring interactive"
+            >
               Try again
             </button>
           </motion.div>
@@ -583,7 +586,7 @@ const PilotOffer: React.FC = React.memo(() => {
           className="space-y-3 sm:space-y-4"
         >
           <h3 className="heading-4 text-primary">What This Model Is For</h3>
-          <p className="text-[10px] sm:text-xs text-muted-foreground">Tap cards to see real examples</p>
+          <p className="text-xs sm:text-xs text-muted-foreground">Tap cards to see real examples</p>
 
           <TooltipProvider delayDuration={160}>
             <div className="grid gap-2 sm:gap-3 grid-cols-2 lg:grid-cols-4">
