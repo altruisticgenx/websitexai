@@ -511,21 +511,23 @@ const PilotOffer: React.FC = React.memo(() => {
 PilotOffer.displayName = "PilotOffer";
 
 const TypicalProgression: React.FC = React.memo(() => {
+  const prefersReducedMotion = useReducedMotion();
+  
   return (
-    <section className="border-t border-slate-900/80 py-10 lg:py-16">
+    <section className="border-t border-border/80 py-6 sm:py-8 lg:py-10">
       <div className="mx-auto w-full max-w-5xl px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="space-y-2"
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.3 }}
+          className="space-y-1 sm:space-y-1.5"
         >
-          <h2 className="text-lg font-semibold text-foreground sm:text-xl lg:text-2xl">Typical Progression</h2>
-          <p className="body-base text-muted-foreground">Start small, scale when ready—or jump to any stage.</p>
+          <h2 className="text-sm font-semibold text-foreground sm:text-base lg:text-lg">Typical Progression</h2>
+          <p className="text-[9px] text-muted-foreground sm:text-[10px]">Start small, scale when ready—or jump to any stage.</p>
         </motion.div>
 
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-3 sm:mt-4 grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
           {[
             {
               title: "1. Pilot",
@@ -554,23 +556,26 @@ const TypicalProgression: React.FC = React.memo(() => {
           ].map((step, i) => (
             <motion.div
               key={step.title}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: 0.08 * i }}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ 
+                duration: prefersReducedMotion ? 0 : 0.3, 
+                delay: prefersReducedMotion ? 0 : 0.05 * i 
+              }}
               className={cn(
-                "group rounded-lg border-2 p-4 backdrop-blur-sm transition-all",
-                step.ring === "emerald" && "border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20",
-                step.ring === "blue" && "border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20",
-                step.ring === "violet" && "border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20",
-                step.ring === "orange" && "border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20",
+                "group rounded-md border p-2 sm:p-2.5 backdrop-blur-sm transition-colors touch-manipulation",
+                step.ring === "emerald" && "border-emerald-500/40 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 hover:border-emerald-500/60",
+                step.ring === "blue" && "border-blue-500/40 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 hover:border-blue-500/60",
+                step.ring === "violet" && "border-violet-500/40 bg-gradient-to-br from-violet-500/10 to-purple-500/10 hover:border-violet-500/60",
+                step.ring === "orange" && "border-orange-500/40 bg-gradient-to-br from-orange-500/10 to-amber-500/10 hover:border-orange-500/60",
               )}
             >
-              <div className="mb-2 flex items-center gap-2">
-                <span className="body-base font-bold text-slate-100">{step.title}</span>
-                <span className="body-sm text-slate-200/80">{step.sub}</span>
+              <div className="mb-1 flex flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-1.5">
+                <span className="text-[10px] font-bold text-foreground sm:text-[11px]">{step.title}</span>
+                <span className="text-[8px] text-muted-foreground sm:text-[9px]">{step.sub}</span>
               </div>
-              <p className="body-base leading-snug text-slate-200/90">{step.body}</p>
+              <p className="text-[8px] leading-snug text-muted-foreground sm:text-[9px]">{step.body}</p>
             </motion.div>
           ))}
         </div>
