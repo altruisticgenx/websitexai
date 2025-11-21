@@ -525,24 +525,58 @@ export function Hero() {
             </motion.div>
 
             {/* CTA Buttons */}
-            <motion.div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-start" initial={{
-            opacity: 0,
-            y: 20
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }} transition={{
-            duration: 0.6,
-            delay: 0.8
-          }}>
-              <a href="https://us06web.zoom.us/launch/chat?src=direct_chat_link&email=altruisticxai@gmail.com" target="_blank" rel="noopener noreferrer" className="inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-primary px-3 py-1.5 text-[11px] font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-md shadow-primary/20">
-                <Mail className="w-3 h-3 mr-1.5" />
+            <motion.div 
+              className="mt-3 flex flex-col gap-1.5 sm:flex-row sm:items-start" 
+              style={{ perspective: "1000px" }}
+              initial={{
+                opacity: 0,
+                y: 20
+              }} 
+              animate={{
+                opacity: 1,
+                y: 0
+              }} 
+              transition={{
+                duration: 0.6,
+                delay: 0.8
+              }}
+            >
+              <motion.a 
+                href="https://us06web.zoom.us/launch/chat?src=direct_chat_link&email=altruisticxai@gmail.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="group inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-primary px-2.5 py-1 text-[10px] font-bold text-primary-foreground transition-all duration-300 shadow-[0_0_20px_rgba(var(--primary),0.4)] hover:shadow-[0_0_30px_rgba(var(--primary),0.7),0_0_60px_rgba(var(--primary),0.4)] border border-primary/50"
+                style={{ transformStyle: "preserve-3d" }}
+                whileHover={{ 
+                  scale: 1.05,
+                  rotateX: 3,
+                  rotateY: -2,
+                  y: -2,
+                  transition: { duration: 0.2 }
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Mail className="w-2.5 h-2.5 mr-1 group-hover:animate-pulse" />
                 Zoom Chat
-              </a>
-              <a href="https://www.linkedin.com/in/ik11/" target="_blank" rel="noopener noreferrer" className="inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-accent px-3 py-1.5 text-[11px] font-medium text-accent-foreground hover:bg-accent/90 transition-colors shadow-md shadow-accent/20">
-                <Linkedin className="w-3 h-3 mr-1.5" />
+              </motion.a>
+              <motion.a 
+                href="https://www.linkedin.com/in/ik11/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="group inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-accent px-2.5 py-1 text-[10px] font-bold text-accent-foreground transition-all duration-300 shadow-[0_0_20px_rgba(var(--accent),0.4)] hover:shadow-[0_0_30px_rgba(var(--accent),0.7),0_0_60px_rgba(var(--accent),0.4)] border border-accent/50"
+                style={{ transformStyle: "preserve-3d" }}
+                whileHover={{ 
+                  scale: 1.05,
+                  rotateX: 3,
+                  rotateY: 2,
+                  y: -2,
+                  transition: { duration: 0.2 }
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Linkedin className="w-2.5 h-2.5 mr-1 group-hover:animate-pulse" />
                 LinkedIn
-              </a>
+              </motion.a>
             </motion.div>
 
             {/* Proof line */}
