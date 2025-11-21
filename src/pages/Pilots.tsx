@@ -1,10 +1,11 @@
 import React, { useState, useMemo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Zap, Book, Users, Cpu, Filter, ArrowRight, Clock, Target, TrendingUp } from "lucide-react";
+import { Zap, Book, Users, Cpu, Filter, ArrowRight, Clock, Target, TrendingUp, Search, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import { SiteNav } from "@/components/SiteNav";
 import { cn } from "@/lib/utils";
 
@@ -151,11 +152,32 @@ const PILOTS_DATA: Pilot[] = [
 const Pilots: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
   const [selectedDomain, setSelectedDomain] = useState<Domain>("All");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const filteredPilots = useMemo(() => {
-    if (selectedDomain === "All") return PILOTS_DATA;
-    return PILOTS_DATA.filter((pilot) => pilot.domain === selectedDomain);
-  }, [selectedDomain]);
+    let results = PILOTS_DATA;
+
+    // Filter by domain
+    if (selectedDomain !== "All") {
+      results = results.filter((pilot) => pilot.domain === selectedDomain);
+    }
+
+    // Filter by search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      results = results.filter((pilot) => {
+        const searchableText = [
+          pilot.title,
+          pilot.problem,
+          pilot.outcome,
+          ...pilot.whatShips,
+        ].join(" ").toLowerCase();
+        return searchableText.includes(query);
+      });
+    }
+
+    return results;
+  }, [selectedDomain, searchQuery]);
 
   const domainStats = useMemo(() => {
     return {
@@ -227,9 +249,33 @@ const Pilots: React.FC = () => {
           </div>
         </section>
 
-        {/* Filter Tabs */}
+        {/* Filter Tabs + Search */}
         <section className="sticky top-[64px] z-40 border-b border-border bg-background/95 backdrop-blur-sm">
           <div className="mx-auto max-w-5xl px-4 py-4 sm:px-6">
+            {/* Search Bar */}
+            <div className="mb-4">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="text"
+                  placeholder="Search pilots by problem, outcome, or deliverables..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 pr-10"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                    aria-label="Clear search"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Domain Filters */}
             <div className="flex items-center gap-2 overflow-x-auto">
               <Filter className="h-4 w-4 text-muted-foreground flex-shrink-0" />
               <div className="flex gap-2 flex-wrap">
@@ -281,7 +327,7 @@ const Pilots: React.FC = () => {
         <section className="py-12 sm:py-16">
           <div className="mx-auto max-w-5xl px-4 sm:px-6">
             <motion.div
-              key={selectedDomain}
+              key={`${selectedDomain}-${searchQuery}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
@@ -290,6 +336,7 @@ const Pilots: React.FC = () => {
               <p className="body-base text-muted-foreground">
                 Showing {filteredPilots.length} pilot{filteredPilots.length !== 1 ? "s" : ""}
                 {selectedDomain !== "All" && ` in ${selectedDomain}`}
+                {searchQuery && ` matching "${searchQuery}"`}
               </p>
             </motion.div>
 
@@ -301,7 +348,21 @@ const Pilots: React.FC = () => {
 
             {filteredPilots.length === 0 && (
               <div className="py-16 text-center">
-                <p className="body-lg text-muted-foreground">No pilots found in this domain.</p>
+                <p className="body-lg text-muted-foreground mb-2">
+                  {searchQuery
+                    ? `No pilots found matching "${searchQuery}"`
+                    : "No pilots found in this domain."}
+                </p>
+                {searchQuery && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setSearchQuery("")}
+                    className="mt-4"
+                  >
+                    Clear search
+                  </Button>
+                )}
               </div>
             )}
           </div>
