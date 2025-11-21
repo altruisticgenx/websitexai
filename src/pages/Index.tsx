@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useMemo, useRef, useState, Suspense, laz
 import { motion, useReducedMotion } from "framer-motion";
 import { CaseStudiesStack } from "@/components/ui/animated-cards-stack";
 import { PilotCard } from "@/components/PilotCard";
+import { SocialProof } from "@/components/SocialProof";
+import { HowItWorks } from "@/components/HowItWorks";
 import { Hero } from "@/components/Hero";
 import { LazySection } from "@/components/LazySection";
 import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
@@ -116,6 +118,11 @@ const Index: React.FC = () => {
               transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
             >
               <Hero />
+              
+              <SocialProof />
+              
+              <HowItWorks />
+              
               <RecentBuilds />
 
               <LazySection>
@@ -241,6 +248,47 @@ const RecentBuilds: React.FC = React.memo(() => {
   const [isLoadingProjects, setIsLoadingProjects] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Helper functions to map project data to PilotCard props
+  const getSectorAudience = (sector: string): string => {
+    const audienceMap: Record<string, string> = {
+      "Education Nonprofit": "Education teams",
+      "Founder-Backed Startup": "B2B Startups",
+      "Solo Founder": "Solo Founders",
+      "Climate & Energy": "Energy teams",
+    };
+    return audienceMap[sector] || "Organizations";
+  };
+
+  const getProjectProblem = (id: string): string => {
+    const problemMap: Record<string, string> = {
+      "sales-copilot": "Manual follow-ups drowning the team, missing high-intent leads",
+      "founder-os": "5 tools, constant context-switching, scattered client data",
+      "energy-analytics": "200+ buildings, data chaos, no visibility into savings",
+      "edtech-portal": "15+ pilots tracked in spreadsheets, funding reports take weeks",
+    };
+    return problemMap[id] || "Complex operational challenges requiring AI solutions";
+  };
+
+  const getProjectOutcome = (id: string): string => {
+    const outcomeMap: Record<string, string> = {
+      "sales-copilot": "65% less manual work, 2.3x conversion rate",
+      "founder-os": "Saved 4+ hours/week, 5 tools → 1 interface",
+      "energy-analytics": "$180k+ savings identified in first month",
+      "edtech-portal": "Secured $500k funding with data-backed reports",
+    };
+    return outcomeMap[id] || "Measurable operational improvements";
+  };
+
+  const getTimeToDemo = (id: string): string => {
+    const timeMap: Record<string, string> = {
+      "sales-copilot": "Week 1 demo",
+      "founder-os": "Week 1 demo",
+      "energy-analytics": "Week 1 dashboard",
+      "edtech-portal": "Week 1 portal",
+    };
+    return timeMap[id] || "Week 1";
+  };
+
   const mapProjects = useCallback((rows: any[] | null) => {
     return (rows ?? []).map((p) => ({
       id: p.slug,
@@ -337,9 +385,21 @@ const RecentBuilds: React.FC = React.memo(() => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-6 pb-2"
+            className="mt-6 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4"
           >
-            <CaseStudiesStack caseStudies={projects} />
+            {projects.map((project) => (
+              <PilotCard
+                key={project.id}
+                id={project.id}
+                title={project.title}
+                sector={project.sector}
+                whoFor={getSectorAudience(project.sector)}
+                problem={getProjectProblem(project.id)}
+                outcome={getProjectOutcome(project.id)}
+                timeToDemo={getTimeToDemo(project.id)}
+                tag={project.tag}
+              />
+            ))}
           </motion.div>
         )}
       </div>
@@ -491,7 +551,7 @@ const TypicalProgression: React.FC = React.memo(() => {
           <p className="body-base text-muted-foreground">Start small, scale when ready—or jump to any stage.</p>
         </motion.div>
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
           {[
             {
               title: "1. Pilot",
@@ -575,7 +635,7 @@ const WhoBenefits: React.FC = React.memo(() => {
           </p>
         </motion.div>
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-1 md:grid-cols-2">
+        <div className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}

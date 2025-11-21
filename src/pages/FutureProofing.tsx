@@ -60,7 +60,7 @@ export default function FutureProofing() {
       {/* Problem & Urgency */}
       <section className="border-b border-border">
         <div className="mx-auto max-w-6xl px-4 py-12 lg:py-16">
-          <div className="grid gap-10 lg:grid-cols-2">
+          <div className="grid gap-10 grid-cols-1 lg:grid-cols-2">
             <div className="space-y-4">
               <h2 className="text-2xl font-semibold">
                 Pennsylvania is stuck between innovation and reality.
@@ -80,7 +80,7 @@ export default function FutureProofing() {
               </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
               <div className="rounded-2xl border border-border bg-card/60 p-4">
                 <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                   Legislative Congestion
@@ -136,7 +136,7 @@ export default function FutureProofing() {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
             {[
               {
                 title: "Regional Needs Dashboard",
@@ -182,7 +182,7 @@ export default function FutureProofing() {
             </p>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 text-sm">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 text-sm">
             {[
               {
                 step: "Week 1",
@@ -231,7 +231,7 @@ export default function FutureProofing() {
       <section className="border-b border-border bg-background">
         <div className="mx-auto max-w-6xl px-4 py-12 lg:py-16 space-y-8">
           <h2 className="text-2xl font-semibold">What districts gain.</h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 text-xs">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 text-xs">
             <div className="space-y-2 rounded-2xl border border-border bg-card/60 p-4">
               <h3 className="text-sm font-semibold text-foreground">
                 For Students
