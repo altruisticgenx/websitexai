@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -29,6 +30,14 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Helper function to determine which cards should load images
+  const shouldLoadImage = (index: number): boolean => {
+    // Only load current card and adjacent cards (prev/next)
+    const prev = (currentIndex - 1 + totalSlides) % totalSlides;
+    const next = (currentIndex + 1) % totalSlides;
+    return index === currentIndex || index === prev || index === next;
+  };
 
   // Minimum swipe distance (in px) to trigger navigation
   const minSwipeDistance = 50;
@@ -152,7 +161,11 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
                 filter: "blur(1px) brightness(0.7)",
               }}
             >
-              <div className="pointer-events-none shadow-2xl">{childrenArray[prev]}</div>
+              <div className="pointer-events-none shadow-2xl">
+                {React.cloneElement(childrenArray[prev] as React.ReactElement, {
+                  shouldLoadImage: shouldLoadImage(prev)
+                })}
+              </div>
             </motion.div>
 
             {/* Current Card (Center) */}
@@ -173,7 +186,11 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
                 filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.4))",
               }}
             >
-              <div className="transform-gpu">{childrenArray[current]}</div>
+              <div className="transform-gpu">
+                {React.cloneElement(childrenArray[current] as React.ReactElement, {
+                  shouldLoadImage: shouldLoadImage(current)
+                })}
+              </div>
             </motion.div>
 
             {/* Next Card (Right) */}
@@ -199,7 +216,11 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
                 filter: "blur(1px) brightness(0.7)",
               }}
             >
-              <div className="pointer-events-none shadow-2xl">{childrenArray[next]}</div>
+              <div className="pointer-events-none shadow-2xl">
+                {React.cloneElement(childrenArray[next] as React.ReactElement, {
+                  shouldLoadImage: shouldLoadImage(next)
+                })}
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>

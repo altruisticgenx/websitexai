@@ -15,6 +15,7 @@ interface PilotCardProps {
   tag?: string;
   imageUrl?: string;
   className?: string;
+  shouldLoadImage?: boolean; // New prop for lazy loading control
 }
 
 export function PilotCard({
@@ -28,6 +29,7 @@ export function PilotCard({
   tag,
   imageUrl,
   className,
+  shouldLoadImage = true, // Default to true for non-carousel usage
 }: PilotCardProps) {
   const reduce = useReducedMotion();
 
@@ -42,7 +44,7 @@ export function PilotCard({
         >
           {/* Image header */}
           <div className="relative h-36 sm:h-40 lg:h-44 w-full overflow-hidden">
-            {imageUrl ? (
+            {imageUrl && shouldLoadImage ? (
               <img
                 src={imageUrl}
                 alt={`${title} preview`}
