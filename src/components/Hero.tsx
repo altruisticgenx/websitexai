@@ -338,16 +338,24 @@ export function Hero() {
               <span className="text-muted-foreground font-mono">Focus:</span>
               
               {/* Energy - Hexagon Shape */}
-              <motion.button className="relative px-2 py-0.5 rounded-md border border-emerald-500/50 bg-emerald-500/10 backdrop-blur-sm text-emerald-400 overflow-visible group transition-all" onMouseEnter={() => setActiveSector("energy")} onMouseLeave={() => setActiveSector(null)} whileHover={{
-              scale: 1.1,
-              rotateX: 5,
-              rotateY: -5,
-              borderColor: "rgb(16 185 129 / 0.8)"
-            }} style={{
-              transformStyle: "preserve-3d",
-              perspective: "1000px",
-              boxShadow: activeSector === "energy" ? "0 0 20px rgba(16, 185, 129, 0.4)" : "0 0 8px rgba(16, 185, 129, 0.2)"
-            }}>
+              <motion.button 
+                className="relative px-3 py-2 min-h-[44px] min-w-[44px] rounded-md border border-emerald-500/50 bg-emerald-500/10 backdrop-blur-sm text-emerald-400 overflow-visible group transition-all flex items-center justify-center focus-ring interactive" 
+                onMouseEnter={() => setActiveSector("energy")} 
+                onMouseLeave={() => setActiveSector(null)} 
+                whileHover={{
+                  scale: 1.1,
+                  rotateX: 5,
+                  rotateY: -5,
+                  borderColor: "rgb(16 185 129 / 0.8)"
+                }} 
+                style={{
+                  transformStyle: "preserve-3d",
+                  perspective: "1000px",
+                  boxShadow: activeSector === "energy" ? "0 0 20px rgba(16, 185, 129, 0.4)" : "0 0 8px rgba(16, 185, 129, 0.2)"
+                }}
+                aria-label="Focus area: Energy"
+                role="button"
+              >
                 <motion.div className="absolute inset-0 rounded-md bg-emerald-500 blur-lg -z-10" animate={{
                 opacity: activeSector === "energy" ? [0.2, 0.5, 0.2] : 0.1,
                 scale: activeSector === "energy" ? [1.1, 1.4, 1.1] : 1
@@ -355,20 +363,28 @@ export function Hero() {
                 duration: 1.5,
                 repeat: Infinity
               }} />
-                <span className="relative z-10 font-mono font-bold">Energy</span>
+                <span className="relative z-10 font-mono font-bold text-[11px] sm:text-xs">Energy</span>
               </motion.button>
               
               {/* Education - Circle Shape */}
-              <motion.button className="relative px-2 py-0.5 rounded-full border border-blue-500/50 bg-blue-500/10 backdrop-blur-sm text-blue-400 overflow-visible group transition-all" onMouseEnter={() => setActiveSector("education")} onMouseLeave={() => setActiveSector(null)} whileHover={{
-              scale: 1.1,
-              rotateX: -5,
-              rotateY: 5,
-              borderColor: "rgb(59 130 246 / 0.8)"
-            }} style={{
-              transformStyle: "preserve-3d",
-              perspective: "1000px",
-              boxShadow: activeSector === "education" ? "0 0 20px rgba(59, 130, 246, 0.4)" : "0 0 8px rgba(59, 130, 246, 0.2)"
-            }}>
+              <motion.button 
+                className="relative px-3 py-2 min-h-[44px] min-w-[44px] rounded-full border border-blue-500/50 bg-blue-500/10 backdrop-blur-sm text-blue-400 overflow-visible group transition-all flex items-center justify-center focus-ring interactive" 
+                onMouseEnter={() => setActiveSector("education")} 
+                onMouseLeave={() => setActiveSector(null)} 
+                whileHover={{
+                  scale: 1.1,
+                  rotateX: -5,
+                  rotateY: 5,
+                  borderColor: "rgb(59 130 246 / 0.8)"
+                }} 
+                style={{
+                  transformStyle: "preserve-3d",
+                  perspective: "1000px",
+                  boxShadow: activeSector === "education" ? "0 0 20px rgba(59, 130, 246, 0.4)" : "0 0 8px rgba(59, 130, 246, 0.2)"
+                }}
+                aria-label="Focus area: Education"
+                role="button"
+              >
                 <motion.div className="absolute inset-0 rounded-full bg-blue-500 blur-lg -z-10" animate={{
                 opacity: activeSector === "education" ? [0.2, 0.5, 0.2] : 0.1,
                 scale: activeSector === "education" ? [1.1, 1.4, 1.1] : 1
@@ -376,20 +392,28 @@ export function Hero() {
                 duration: 1.8,
                 repeat: Infinity
               }} />
-                <span className="relative z-10 font-mono font-bold">Education</span>
+                <span className="relative z-10 font-mono font-bold text-[11px] sm:text-xs">Education</span>
               </motion.button>
               
               {/* Civic - Square Shape */}
-              <motion.button className="relative px-2 py-0.5 rounded-sm border border-violet-500/50 bg-violet-500/10 backdrop-blur-sm text-violet-400 overflow-visible group transition-all" onMouseEnter={() => setActiveSector("civic")} onMouseLeave={() => setActiveSector(null)} whileHover={{
-              scale: 1.1,
-              rotateX: 5,
-              rotateZ: 2,
-              borderColor: "rgb(139 92 246 / 0.8)"
-            }} style={{
-              transformStyle: "preserve-3d",
-              perspective: "1000px",
-              boxShadow: activeSector === "civic" ? "0 0 20px rgba(139, 92, 246, 0.4)" : "0 0 8px rgba(139, 92, 246, 0.2)"
-            }}>
+              <motion.button 
+                className="relative px-3 py-2 min-h-[44px] min-w-[44px] rounded-sm border border-violet-500/50 bg-violet-500/10 backdrop-blur-sm text-violet-400 overflow-visible group transition-all flex items-center justify-center focus-ring interactive" 
+                onMouseEnter={() => setActiveSector("civic")} 
+                onMouseLeave={() => setActiveSector(null)} 
+                whileHover={{
+                  scale: 1.1,
+                  rotateX: 5,
+                  rotateZ: 2,
+                  borderColor: "rgb(139 92 246 / 0.8)"
+                }} 
+                style={{
+                  transformStyle: "preserve-3d",
+                  perspective: "1000px",
+                  boxShadow: activeSector === "civic" ? "0 0 20px rgba(139, 92, 246, 0.4)" : "0 0 8px rgba(139, 92, 246, 0.2)"
+                }}
+                aria-label="Focus area: Civic"
+                role="button"
+              >
                 <motion.div className="absolute inset-0 rounded-sm bg-violet-500 blur-lg -z-10" animate={{
                 opacity: activeSector === "civic" ? [0.2, 0.5, 0.2] : 0.1,
                 scale: activeSector === "civic" ? [1.1, 1.4, 1.1] : 1
@@ -397,20 +421,28 @@ export function Hero() {
                 duration: 2,
                 repeat: Infinity
               }} />
-                <span className="relative z-10 font-mono font-bold">Civic</span>
+                <span className="relative z-10 font-mono font-bold text-[11px] sm:text-xs">Civic</span>
               </motion.button>
               
               {/* Climate - Rounded Square */}
-              <motion.button className="relative px-2 py-0.5 rounded-lg border border-lime-500/50 bg-lime-500/10 backdrop-blur-sm text-lime-400 overflow-visible group transition-all" onMouseEnter={() => setActiveSector("climate")} onMouseLeave={() => setActiveSector(null)} whileHover={{
-              scale: 1.1,
-              rotateY: 5,
-              rotateZ: -2,
-              borderColor: "rgb(132 204 22 / 0.8)"
-            }} style={{
-              transformStyle: "preserve-3d",
-              perspective: "1000px",
-              boxShadow: activeSector === "climate" ? "0 0 20px rgba(132, 204, 22, 0.4)" : "0 0 8px rgba(132, 204, 22, 0.2)"
-            }}>
+              <motion.button 
+                className="relative px-3 py-2 min-h-[44px] min-w-[44px] rounded-lg border border-lime-500/50 bg-lime-500/10 backdrop-blur-sm text-lime-400 overflow-visible group transition-all flex items-center justify-center focus-ring interactive" 
+                onMouseEnter={() => setActiveSector("climate")} 
+                onMouseLeave={() => setActiveSector(null)} 
+                whileHover={{
+                  scale: 1.1,
+                  rotateY: 5,
+                  rotateZ: -2,
+                  borderColor: "rgb(132 204 22 / 0.8)"
+                }} 
+                style={{
+                  transformStyle: "preserve-3d",
+                  perspective: "1000px",
+                  boxShadow: activeSector === "climate" ? "0 0 20px rgba(132, 204, 22, 0.4)" : "0 0 8px rgba(132, 204, 22, 0.2)"
+                }}
+                aria-label="Focus area: Climate"
+                role="button"
+              >
                 <motion.div className="absolute inset-0 rounded-lg bg-lime-500 blur-lg -z-10" animate={{
                 opacity: activeSector === "climate" ? [0.2, 0.5, 0.2] : 0.1,
                 scale: activeSector === "climate" ? [1.1, 1.4, 1.1] : 1
@@ -418,20 +450,28 @@ export function Hero() {
                 duration: 1.6,
                 repeat: Infinity
               }} />
-                <span className="relative z-10 font-mono font-bold">Climate</span>
+                <span className="relative z-10 font-mono font-bold text-[11px] sm:text-xs">Climate</span>
               </motion.button>
               
               {/* Startups - Pill Shape */}
-              <motion.button className="relative px-2 py-0.5 rounded-full border border-amber-500/50 bg-amber-500/10 backdrop-blur-sm text-amber-400 overflow-visible group transition-all" onMouseEnter={() => setActiveSector("startups")} onMouseLeave={() => setActiveSector(null)} whileHover={{
-              scale: 1.1,
-              rotateX: -5,
-              rotateZ: 3,
-              borderColor: "rgb(245 158 11 / 0.8)"
-            }} style={{
-              transformStyle: "preserve-3d",
-              perspective: "1000px",
-              boxShadow: activeSector === "startups" ? "0 0 20px rgba(245, 158, 11, 0.4)" : "0 0 8px rgba(245, 158, 11, 0.2)"
-            }}>
+              <motion.button 
+                className="relative px-3 py-2 min-h-[44px] min-w-[44px] rounded-full border border-amber-500/50 bg-amber-500/10 backdrop-blur-sm text-amber-400 overflow-visible group transition-all flex items-center justify-center focus-ring interactive" 
+                onMouseEnter={() => setActiveSector("startups")} 
+                onMouseLeave={() => setActiveSector(null)} 
+                whileHover={{
+                  scale: 1.1,
+                  rotateX: -5,
+                  rotateZ: 3,
+                  borderColor: "rgb(245 158 11 / 0.8)"
+                }} 
+                style={{
+                  transformStyle: "preserve-3d",
+                  perspective: "1000px",
+                  boxShadow: activeSector === "startups" ? "0 0 20px rgba(245, 158, 11, 0.4)" : "0 0 8px rgba(245, 158, 11, 0.2)"
+                }}
+                aria-label="Focus area: Startups"
+                role="button"
+              >
                 <motion.div className="absolute inset-0 rounded-full bg-amber-500 blur-lg -z-10" animate={{
                 opacity: activeSector === "startups" ? [0.2, 0.5, 0.2] : 0.1,
                 scale: activeSector === "startups" ? [1.1, 1.4, 1.1] : 1
@@ -439,7 +479,7 @@ export function Hero() {
                 duration: 2.2,
                 repeat: Infinity
               }} />
-                <span className="relative z-10 font-mono font-bold">Startups</span>
+                <span className="relative z-10 font-mono font-bold text-[11px] sm:text-xs">Startups</span>
               </motion.button>
             </motion.div>
 
