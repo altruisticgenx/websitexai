@@ -36,10 +36,26 @@ export const caseStudiesData = [
     timeline: "6 weeks pilot-to-production",
     duration: "6 weeks",
     phases: [
-      { week: "Week 1", milestone: "Core UI + lead scoring algorithm • Built React dashboard skeleton, PostgreSQL schema, and initial ML scoring model • Validated: Founder confirmed UI matches mental model • Deliverable: Clickable prototype scoring 50 test leads" },
-      { week: "Week 2-3", milestone: "AI integration + live email parsing • Connected OpenAI GPT-4 API, built email ingestion pipeline, trained sentiment analysis on 200+ historical emails • Validated: Scored live leads with 89% accuracy vs. founder's manual ratings • Deliverable: Real-time lead scoring from Gmail integration" },
-      { week: "Week 4-5", milestone: "Workflow automation + stress testing • Implemented auto-follow-up sequences, Zapier webhooks, load tested 500 concurrent leads • Validated: Sales team ran parallel test (old CRM vs. new system) — new system flagged 3 high-intent deals old CRM missed • Deliverable: Production-ready automation handling 200+ leads/day" },
-      { week: "Week 6", milestone: "Polish, deploy, team training • Fixed edge cases, deployed to Vercel, conducted 2hr team training, documented API • Validated: Sales team closed first AI-flagged deal worth $42k ARR within week 6 • Deliverable: Live production system + runbook + 90-day support plan" },
+      {
+        week: "Week 1",
+        milestone:
+          "Core UI + lead scoring algorithm • Built React dashboard skeleton, PostgreSQL schema, and initial ML scoring model • Validated: Founder confirmed UI matches mental model • Deliverable: Clickable prototype scoring 50 test leads",
+      },
+      {
+        week: "Week 2-3",
+        milestone:
+          "AI integration + live email parsing • Connected OpenAI GPT-4 API, built email ingestion pipeline, trained sentiment analysis on 200+ historical emails • Validated: Scored live leads with 89% accuracy vs. founder's manual ratings • Deliverable: Real-time lead scoring from Gmail integration",
+      },
+      {
+        week: "Week 4-5",
+        milestone:
+          "Workflow automation + stress testing • Implemented auto-follow-up sequences, Zapier webhooks, load tested 500 concurrent leads • Validated: Sales team ran parallel test (old CRM vs. new system) — new system flagged 3 high-intent deals old CRM missed • Deliverable: Production-ready automation handling 200+ leads/day",
+      },
+      {
+        week: "Week 6",
+        milestone:
+          "Polish, deploy, team training • Fixed edge cases, deployed to Vercel, conducted 2hr team training, documented API • Validated: Sales team closed first AI-flagged deal worth $42k ARR within week 6 • Deliverable: Live production system + runbook + 90-day support plan",
+      },
     ],
     tag: "Pilot to production",
   },
@@ -72,10 +88,26 @@ export const caseStudiesData = [
     timeline: "4 weeks prototype-to-daily-use",
     duration: "4 weeks",
     phases: [
-      { week: "Week 1", milestone: "Core dashboard + unified contact list • Built single-page React dashboard, migrated 47 contacts from spreadsheet to Supabase, designed 'calm mode' UI with muted colors • Validated: Founder tested daily for 3 days, confirmed 'finally feels organized' • Deliverable: Working contact manager replacing Notion + spreadsheet" },
-      { week: "Week 2", milestone: "Calendar integration + session tracking • Integrated Cal.com API for booking, built session note-taking UI, added client communication history • Validated: Founder booked 3 client sessions through new system, took structured notes during live calls • Deliverable: Unified scheduling + note-taking workflow" },
-      { week: "Week 3", milestone: "Invoicing + Stripe sync • Connected Stripe API for invoice generation, built automatic session-to-invoice flow, added payment tracking • Validated: Generated $3,200 in real invoices, received first client payment through system • Deliverable: End-to-end client lifecycle (book → meet → note → invoice → track payment)" },
-      { week: "Week 4", milestone: "Mobile optimization + launch • Responsive Tailwind redesign for mobile, added keyboard shortcuts (Cmd+K for quick actions), deployed to custom domain • Validated: Founder used exclusively on iPhone for 1 week, reported 4hr/week time savings vs. old tools • Deliverable: Production app at founderos.app + mobile-first PWA" },
+      {
+        week: "Week 1",
+        milestone:
+          "Core dashboard + unified contact list • Built single-page React dashboard, migrated 47 contacts from spreadsheet to Supabase, designed 'calm mode' UI with muted colors • Validated: Founder tested daily for 3 days, confirmed 'finally feels organized' • Deliverable: Working contact manager replacing Notion + spreadsheet",
+      },
+      {
+        week: "Week 2",
+        milestone:
+          "Calendar integration + session tracking • Integrated Cal.com API for booking, built session note-taking UI, added client communication history • Validated: Founder booked 3 client sessions through new system, took structured notes during live calls • Deliverable: Unified scheduling + note-taking workflow",
+      },
+      {
+        week: "Week 3",
+        milestone:
+          "Invoicing + Stripe sync • Connected Stripe API for invoice generation, built automatic session-to-invoice flow, added payment tracking • Validated: Generated $3,200 in real invoices, received first client payment through system • Deliverable: End-to-end client lifecycle (book → meet → note → invoice → track payment)",
+      },
+      {
+        week: "Week 4",
+        milestone:
+          "Mobile optimization + launch • Responsive Tailwind redesign for mobile, added keyboard shortcuts (Cmd+K for quick actions), deployed to custom domain • Validated: Founder used exclusively on iPhone for 1 week, reported 4hr/week time savings vs. old tools • Deliverable: Production app at founderos.app + mobile-first PWA",
+      },
     ],
     tag: "Operational clarity",
   },
@@ -107,10 +139,26 @@ export const caseStudiesData = [
     timeline: "5 weeks proof-of-concept to pilot",
     duration: "5 weeks",
     phases: [
-      { week: "Week 1", milestone: "Data ingestion + live dashboards • Parsed 200+ building meter CSVs (900k rows), built Python ETL pipeline, created Recharts visualizations • Validated: Identified 3 buildings with 24/7 HVAC waste in week 1 data review • Deliverable: Real-time energy dashboard showing 200+ buildings" },
-      { week: "Week 2-3", milestone: "Anomaly detection + scenario modeling • Trained ML model on 2-year historical data, built alert system, added 'what-if' simulator for testing operational changes • Validated: Facilities manager used simulator to justify $50k HVAC upgrade with 18-month payback • Deliverable: Decision-support tools with automated waste detection + capital planning simulations" },
-      { week: "Week 4", milestone: "Peer comparison + mobile optimization • Built building comparison tool (size/type peer groups), optimized mobile dashboards for field use • Validated: Spotted $1,200/month weekend HVAC spike at Building 14 via peer comparison • Deliverable: Mobile-first analytics for facility managers doing building walkthroughs" },
-      { week: "Week 5", milestone: "Campus rollout + executive reporting • Trained 12 facility managers, set up monthly CFO reports, deployed to campus subdomain • Validated: CFO secured $50k capital budget based on dashboard data • Deliverable: Campus-wide adoption tracking $200k+ annual savings opportunities" },
+      {
+        week: "Week 1",
+        milestone:
+          "Data ingestion + live dashboards • Parsed 200+ building meter CSVs (900k rows), built Python ETL pipeline, created Recharts visualizations • Validated: Identified 3 buildings with 24/7 HVAC waste in week 1 data review • Deliverable: Real-time energy dashboard showing 200+ buildings",
+      },
+      {
+        week: "Week 2-3",
+        milestone:
+          "Anomaly detection + scenario modeling • Trained ML model on 2-year historical data, built alert system, added 'what-if' simulator for testing operational changes • Validated: Facilities manager used simulator to justify $50k HVAC upgrade with 18-month payback • Deliverable: Decision-support tools with automated waste detection + capital planning simulations",
+      },
+      {
+        week: "Week 4",
+        milestone:
+          "Peer comparison + mobile optimization • Built building comparison tool (size/type peer groups), optimized mobile dashboards for field use • Validated: Spotted $1,200/month weekend HVAC spike at Building 14 via peer comparison • Deliverable: Mobile-first analytics for facility managers doing building walkthroughs",
+      },
+      {
+        week: "Week 5",
+        milestone:
+          "Campus rollout + executive reporting • Trained 12 facility managers, set up monthly CFO reports, deployed to campus subdomain • Validated: CFO secured $50k capital budget based on dashboard data • Deliverable: Campus-wide adoption tracking $200k+ annual savings opportunities",
+      },
     ],
     tag: "Energy & climate",
   },
@@ -141,10 +189,26 @@ export const caseStudiesData = [
     timeline: "4 weeks MVP to funding decision",
     duration: "4 weeks",
     phases: [
-      { week: "Week 1", milestone: "Pilot design + 3 school partnerships secured • Co-designed pilot framework with nonprofit team, built student data model in Supabase, secured MOUs with 3 Title I high schools (450 students) • Validated: Principals confirmed alignment with state standards, teachers volunteered as pilot leads • Deliverable: Signed partnerships + pilot curriculum outline + data schema" },
-      { week: "Week 2", milestone: "Student portal + teacher dashboard built • Developed React portal for student submissions, built teacher dashboard with real-time outcome tracking, integrated Google Classroom SSO • Validated: 87 students onboarded in pilot school #1, submitted 34 project reflections in first week • Deliverable: Live portal at pilots.nonprofitname.org used by 450 students across 3 schools" },
-      { week: "Week 3", milestone: "Impact analytics + funder report generator • Built outcome export tool (CSV + charts), tracked completion rates by demographics, created PDF report generator with nonprofit branding • Validated: Program manager generated first funder report in 12 minutes (vs. 3-week manual process) • Deliverable: Automated funder-ready reports with completion rates, demographic breakdowns, qualitative themes" },
-      { week: "Week 4", milestone: "Grant defense + board presentation • Compiled pilot impact data (78% completion vs. 45% state avg), presented to leadership and school board, delivered grant-ready documentation • Validated: 9 students presented projects to school board, grant officer used data to defend $500k funding renewal • Deliverable: Grant-winning impact report securing $500k continuation funding (approved 3 weeks after board presentation)" },
+      {
+        week: "Week 1",
+        milestone:
+          "Pilot design + 3 school partnerships secured • Co-designed pilot framework with nonprofit team, built student data model in Supabase, secured MOUs with 3 Title I high schools (450 students) • Validated: Principals confirmed alignment with state standards, teachers volunteered as pilot leads • Deliverable: Signed partnerships + pilot curriculum outline + data schema",
+      },
+      {
+        week: "Week 2",
+        milestone:
+          "Student portal + teacher dashboard built • Developed React portal for student submissions, built teacher dashboard with real-time outcome tracking, integrated Google Classroom SSO • Validated: 87 students onboarded in pilot school #1, submitted 34 project reflections in first week • Deliverable: Live portal at pilots.nonprofitname.org used by 450 students across 3 schools",
+      },
+      {
+        week: "Week 3",
+        milestone:
+          "Impact analytics + funder report generator • Built outcome export tool (CSV + charts), tracked completion rates by demographics, created PDF report generator with nonprofit branding • Validated: Program manager generated first funder report in 12 minutes (vs. 3-week manual process) • Deliverable: Automated funder-ready reports with completion rates, demographic breakdowns, qualitative themes",
+      },
+      {
+        week: "Week 4",
+        milestone:
+          "Grant defense + board presentation • Compiled pilot impact data (78% completion vs. 45% state avg), presented to leadership and school board, delivered grant-ready documentation • Validated: 9 students presented projects to school board, grant officer used data to defend $500k funding renewal • Deliverable: Grant-winning impact report securing $500k continuation funding (approved 3 weeks after board presentation)",
+      },
     ],
     tag: "Education impact",
   },
@@ -170,7 +234,7 @@ const CaseStudyDetail = () => {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
       <InPageTOC items={tocItems} />
-      
+
       <div className="lg:flex lg:gap-8 mx-auto max-w-7xl px-3 py-6 sm:px-4 sm:py-8">
         {/* Desktop TOC Sidebar */}
         <aside className="hidden lg:block w-64 flex-shrink-0">
@@ -180,11 +244,7 @@ const CaseStudyDetail = () => {
         {/* Main Content */}
         <article className="flex-1 min-w-0">
           {/* Back Button */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4 }}
-          >
+          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }}>
             <Link
               to="/"
               className="inline-flex items-center gap-2 body-xs text-muted-foreground hover:text-primary transition-colors"
@@ -235,9 +295,7 @@ const CaseStudyDetail = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="mt-8 rounded-lg border border-slate-800/80 bg-slate-900/60 p-4 sm:p-6 scroll-mt-20"
           >
-            <p className="body-base leading-relaxed text-slate-200">
-              {caseStudy.summary}
-            </p>
+            <p className="body-base leading-relaxed text-slate-200">{caseStudy.summary}</p>
           </motion.div>
 
           {/* Challenge */}
@@ -249,9 +307,7 @@ const CaseStudyDetail = () => {
             className="mt-8 scroll-mt-20"
           >
             <h2 className="heading-3 text-slate-50">The Challenge</h2>
-            <p className="mt-3 body-base leading-relaxed text-slate-300">
-              {caseStudy.challenge}
-            </p>
+            <p className="mt-3 body-base leading-relaxed text-slate-300">{caseStudy.challenge}</p>
           </motion.section>
 
           {/* Solution */}
@@ -263,9 +319,7 @@ const CaseStudyDetail = () => {
             className="mt-8 scroll-mt-20"
           >
             <h2 className="heading-3 text-slate-50">The Solution</h2>
-            <p className="mt-3 body-base leading-relaxed text-slate-300">
-              {caseStudy.solution}
-            </p>
+            <p className="mt-3 body-base leading-relaxed text-slate-300">{caseStudy.solution}</p>
           </motion.section>
 
           {/* Outcomes */}
