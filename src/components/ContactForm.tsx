@@ -4,7 +4,14 @@ import * as z from "zod";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { User, Mail, MessageSquare, ArrowRight, Loader2, CheckCircle2 } from "lucide-react";
+import { User, Mail, MessageSquare, ArrowRight, Loader2, CheckCircle2, Briefcase } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const formSchema = z.object({
   name: z.string()
@@ -15,6 +22,7 @@ const formSchema = z.object({
     .email("Please enter a valid email address")
     .max(255, "Email must be less than 255 characters")
     .toLowerCase(),
+  projectType: z.string().min(1, "Please select a project type"),
   message: z.string()
     .min(10, "Message must be at least 10 characters")
     .max(1000, "Message must be less than 1000 characters"),
@@ -31,6 +39,7 @@ export function ContactForm() {
     defaultValues: {
       name: "",
       email: "",
+      projectType: "",
       message: "",
     },
     mode: "onChange",
@@ -51,7 +60,7 @@ export function ContactForm() {
         .insert({
           name: data.name,
           email: data.email,
-          project_type: "contact-form",
+          project_type: data.projectType,
           message: data.message,
         })
         .select()
@@ -147,6 +156,37 @@ export function ContactForm() {
         {form.formState.errors.email && (
           <p className="text-xs text-destructive mb-2 -mt-2">
             {form.formState.errors.email.message}
+          </p>
+        )}
+
+        {/* Project Type Field */}
+        <label htmlFor="projectType" className="font-medium mt-4">
+          Project Type
+        </label>
+        <div className="flex items-center mt-2 mb-4 min-h-[44px] border border-border rounded-full focus-within:ring-2 focus-within:ring-ring transition-all overflow-hidden bg-background">
+          <div className="pl-3">
+            <Briefcase className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+          </div>
+          <Select
+            value={form.watch("projectType")}
+            onValueChange={(value) => form.setValue("projectType", value, { shouldValidate: true })}
+            disabled={isSubmitting}
+          >
+            <SelectTrigger className="border-0 focus:ring-0 focus:ring-offset-0 h-full">
+              <SelectValue placeholder="Select a project type" />
+            </SelectTrigger>
+            <SelectContent className="bg-background border-border z-50">
+              <SelectItem value="quick-question">Quick Question</SelectItem>
+              <SelectItem value="consulting">Consulting / Advisory</SelectItem>
+              <SelectItem value="pilot-project">4-Week Pilot Project</SelectItem>
+              <SelectItem value="full-project">Full Project</SelectItem>
+              <SelectItem value="ongoing-support">Ongoing Support</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        {form.formState.errors.projectType && (
+          <p className="text-xs text-destructive mb-2 -mt-2">
+            {form.formState.errors.projectType.message}
           </p>
         )}
 
