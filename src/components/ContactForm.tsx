@@ -62,14 +62,8 @@ export function ContactForm() {
   const messageLength = form.watch("message")?.length || 0;
 
   const onSubmit = async (data: FormValues) => {
-    // Optimistic UI: Show success immediately
-    setIsSuccess(true);
-    toast({
-      title: "Sending message...",
-      description: "Your message is being sent.",
-    });
-    
     setIsSubmitting(true);
+    setIsSuccess(false);
     
     try {
       const { data: submission, error } = await supabase
@@ -85,16 +79,17 @@ export function ContactForm() {
 
       if (error) throw error;
 
-      // Background task: send confirmation email
       if (submission) {
-        supabase.functions.invoke("send-contact-confirmation", {
-          body: { submissionId: submission.id },
-        }).catch((emailError) => {
+        try {
+          await supabase.functions.invoke("send-contact-confirmation", {
+            body: { submissionId: submission.id },
+          });
+        } catch (emailError) {
           console.error("Email sending failed (non-critical):", emailError);
-        });
+        }
       }
 
-      // Confirm success
+      setIsSuccess(true);
       toast({
         title: "Message sent!",
         description: "Thanks for reaching out. Check your email for confirmation.",
@@ -104,7 +99,6 @@ export function ContactForm() {
       setTimeout(() => setIsSuccess(false), 3000);
     } catch (error) {
       console.error("Error submitting form:", error);
-      setIsSuccess(false);
       toast({
         title: "Error",
         description: "Failed to send message. Please try again.",

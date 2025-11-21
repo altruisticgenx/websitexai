@@ -1,9 +1,8 @@
-import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Clock, TrendingUp, Users, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { SpotlightCard } from "./SpotlightCard";
-import { OptimizedImage } from "./OptimizedImage";
+
 interface PilotCardProps {
   id: string;
   title: string;
@@ -13,10 +12,9 @@ interface PilotCardProps {
   outcome: string;
   timeToDemo: string;
   tag?: string;
-  imageUrl?: string;
   className?: string;
-  shouldLoadImage?: boolean; // New prop for lazy loading control
 }
+
 export function PilotCard({
   id,
   title,
@@ -26,84 +24,82 @@ export function PilotCard({
   outcome,
   timeToDemo,
   tag,
-  imageUrl,
   className,
-  shouldLoadImage = true
 }: PilotCardProps) {
-  const reduce = useReducedMotion();
-  return <Link to={`/case-study/${id}`} className="block w-full h-full">
-      <SpotlightCard className={cn("h-full flex flex-col", className)}>
-        <motion.article initial={{
-        opacity: 0,
-        y: 12
-      }} animate={{
-        opacity: 1,
-        y: 0
-      }} transition={{
-        duration: reduce ? 0 : 0.35
-      }} className="relative w-full h-full flex flex-col overflow-hidden">
-          {/* Image header - Mobile-first sizing */}
-          <div className="relative h-32 xs:h-36 sm:h-40 w-full overflow-hidden flex-shrink-0">
-            {imageUrl && shouldLoadImage ? (
-              <OptimizedImage
-                src={imageUrl}
-                alt={`${title} preview`}
-                className="h-full w-full object-cover"
-                aspectRatio="video"
-                sizes="(max-width: 475px) 320px, (max-width: 640px) 400px, 500px"
-                enableModernFormats={true}
-              />
-            ) : (
-              /* Gradient fallback when no image or not loaded yet */
-              <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
-            )}
-            <div className="pointer-events-none\n    absolute\n    inset-x-0\n    bottom-0\n    h-1/2\n    rounded-2xl\n    bg-gradient-to-t\n    from-slate-950/95\n    via-slate-950/60\n    to-transparent\n    sm:inset-0\n    sm:h-full" />
+  // Dynamic gradient based on sector
+  const getSectorGradient = (sector: string) => {
+    const gradients: Record<string, string> = {
+      "Education Nonprofit": "from-blue-500/10 via-indigo-500/5 to-violet-500/10 border-blue-400/30 hover:border-blue-400/50",
+      "Founder-Backed Startup": "from-emerald-500/10 via-teal-500/5 to-green-500/10 border-emerald-400/30 hover:border-emerald-400/50",
+      "Solo Founder": "from-amber-500/10 via-orange-500/5 to-yellow-500/10 border-amber-400/30 hover:border-amber-400/50",
+      "Climate & Energy": "from-lime-500/10 via-green-500/5 to-emerald-500/10 border-lime-400/30 hover:border-lime-400/50",
+    };
+    return gradients[sector] || "from-slate-800/10 via-slate-700/5 to-slate-600/10 border-slate-400/30 hover:border-slate-400/50";
+  };
 
-            {/* Sector pill */}
-            <div className="absolute left-2 top-2 rounded-full bg-black/70 backdrop-blur-sm px-2 py-0.5 text-[9px] sm:text-[10px] text-slate-200 ring-1 ring-white/10 font-medium">
-              {sector}
+  return (
+    <Link to={`/case-study/${id}`}>
+      <motion.article
+        whileHover={{ y: -4, scale: 1.02 }}
+        transition={{ duration: 0.2 }}
+        className={cn(
+          "group relative flex h-full flex-col rounded-lg border bg-gradient-to-br backdrop-blur-sm p-4 transition-all duration-300 hover:shadow-xl cursor-pointer",
+          getSectorGradient(sector),
+          className
+        )}
+      >
+        {/* Header */}
+        <div className="flex items-start justify-between gap-2 mb-3">
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="inline-flex items-center gap-1 rounded-md border border-primary/30 bg-primary/10 px-2 py-0.5 body-xs font-medium text-primary">
+                <Users className="h-3 w-3" />
+                {whoFor}
+              </span>
             </div>
-
-            {tag && <div className="absolute right-2 top-2 rounded-full bg-primary/20 backdrop-blur-sm px-2 py-0.5 text-[9px] sm:text-[10px] text-primary ring-1 ring-primary/30 font-medium">
-                {tag}
-              </div>}
+            <h3 className="heading-5 text-foreground line-clamp-2">{title}</h3>
+            <p className="body-xs text-muted-foreground mt-1">{sector}</p>
           </div>
+          {tag && (
+            <span className="rounded-md border border-border/50 bg-muted/50 px-2 py-0.5 body-xs text-muted-foreground whitespace-nowrap">
+              {tag}
+            </span>
+          )}
+        </div>
 
-          {/* Body - Mobile-first padding and spacing */}
-          <div className="flex flex-col gap-2 p-3 sm:p-4 flex-1">
-            <header className="space-y-0.5">
-              <h3 className="text-xs xs:text-sm sm:text-base font-bold leading-tight text-white line-clamp-2">
-                {title}
-              </h3>
-              <p className="text-[10px] xs:text-[11px] sm:text-xs text-slate-400">
-                For <span className="text-slate-200 font-medium">{whoFor}</span> · {timeToDemo}
+        {/* Problem */}
+        <div className="mb-3 flex-1">
+          <h4 className="body-xs font-semibold text-foreground mb-1">Problem</h4>
+          <p className="body-xs text-muted-foreground leading-relaxed line-clamp-2">
+            {problem}
+          </p>
+        </div>
+
+        {/* Outcome Metric */}
+        <div className="mb-3 rounded-md border border-primary/20 bg-primary/5 p-2">
+          <div className="flex items-start gap-2">
+            <TrendingUp className="h-3 w-3 text-primary mt-0.5 flex-shrink-0" />
+            <div>
+              <h4 className="body-xs font-semibold text-primary mb-0.5">Outcome</h4>
+              <p className="body-xs text-foreground leading-relaxed">
+                {outcome}
               </p>
-            </header>
-
-            <div className="space-y-1.5 flex-1">
-              <div className="rounded-lg bg-slate-900/60 backdrop-blur-sm p-2 sm:p-2.5">
-                <p className="text-[10px] xs:text-[11px] sm:text-xs text-slate-300 leading-relaxed">
-                  <span className="font-semibold text-slate-100">Problem:</span>{" "}
-                  {problem}
-                </p>
-              </div>
-
-              <div className="rounded-lg bg-slate-900/60 backdrop-blur-sm p-2 sm:p-2.5">
-                <p className="text-[10px] xs:text-[11px] sm:text-xs text-slate-300 leading-relaxed">
-                  <span className="font-semibold text-slate-100">Outcome:</span>{" "}
-                  {outcome}
-                </p>
-              </div>
-            </div>
-
-            {/* Footer CTA */}
-            <div className="mt-auto pt-1">
-              <div className={cn("w-full rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-center", "text-[10px] xs:text-[11px] sm:text-xs font-semibold text-primary", "hover:bg-primary/20 hover:border-primary/50 active:scale-[0.98] transition-all duration-200", "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50")} role="button" aria-label={`Open case study for ${title}`}>
-                View case study →
-              </div>
             </div>
           </div>
-        </motion.article>
-      </SpotlightCard>
-    </Link>;
+        </div>
+
+        {/* Footer */}
+        <div className="flex items-center justify-between pt-3 border-t border-border/40">
+          <div className="flex items-center gap-1 body-xs text-muted-foreground">
+            <Clock className="h-3 w-3" />
+            <span>{timeToDemo}</span>
+          </div>
+          <span className="inline-flex items-center gap-1 body-xs font-medium text-primary group-hover:gap-2 transition-all">
+            View Case
+            <ArrowRight className="h-3 w-3" />
+          </span>
+        </div>
+      </motion.article>
+    </Link>
+  );
 }

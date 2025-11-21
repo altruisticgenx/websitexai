@@ -4,7 +4,6 @@ import { useActiveSection } from "@/hooks/use-active-section";
 import { useFocusTrap } from "@/hooks/use-focus-trap";
 import { useHapticFeedback } from "@/hooks/use-haptic-feedback";
 import { ChevronDown } from "lucide-react";
-import { prefetchPortfolio, prefetchFutureProofing } from "@/utils/routePrefetch";
 export function SiteNav() {
   const activeSection = useActiveSection(["", "pilot", "builds", "how", "where"]);
   const [isWorkOpen, setIsWorkOpen] = useState(false);
@@ -88,13 +87,7 @@ export function SiteNav() {
               home
             </a>
 
-            <a 
-              href="/portfolio" 
-              aria-label="View portfolio lab" 
-              className="px-2 py-1 body-xs lowercase tracking-wide text-foreground transition-all duration-200 hover:text-primary hover:bg-accent/50 rounded-md"
-              onMouseEnter={prefetchPortfolio}
-              onFocus={prefetchPortfolio}
-            >
+            <a href="/portfolio" aria-label="View portfolio lab" className="px-2 py-1 body-xs lowercase tracking-wide text-foreground transition-all duration-200 hover:text-primary hover:bg-accent/50 rounded-md">
               lab
             </a>
 
@@ -139,15 +132,7 @@ export function SiteNav() {
               {/* Dropdown Menu */}
               {isSolutionsOpen && <div onMouseLeave={() => setIsSolutionsOpen(false)} role="menu" aria-label="Solutions submenu" className="absolute right-0 top-full mt-2 w-44 rounded-lg border border-border bg-card/95 backdrop-blur-sm shadow-xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                   <div className="p-1.5">
-                    <a 
-                      href="/solutions/future-proofing" 
-                      onClick={() => setIsSolutionsOpen(false)} 
-                      role="menuitem" 
-                      aria-label="Future proofing solutions" 
-                      className="block rounded-md px-2 py-1.5 body-xs transition-colors text-card-foreground hover:bg-accent hover:text-accent-foreground"
-                      onMouseEnter={prefetchFutureProofing}
-                      onFocus={prefetchFutureProofing}
-                    >
+                    <a href="/solutions/future-proofing" onClick={() => setIsSolutionsOpen(false)} role="menuitem" aria-label="Future proofing solutions" className="block rounded-md px-2 py-1.5 body-xs transition-colors text-card-foreground hover:bg-accent hover:text-accent-foreground">
                       <div className="font-medium body-sm">Future proofing</div>
                       <div className="micro text-muted-foreground">
                         4-week pilot for schools
@@ -184,13 +169,7 @@ export function SiteNav() {
                 home
               </a>
 
-              <a 
-                href="/portfolio" 
-                aria-label="View portfolio lab" 
-                className="block rounded-md px-4 py-3 min-h-[44px] flex items-center body-sm lowercase text-foreground transition-colors hover:text-primary hover:bg-accent/50 touch-manipulation"
-                onMouseEnter={prefetchPortfolio}
-                onFocus={prefetchPortfolio}
-              >
+              <a href="/portfolio" aria-label="View portfolio lab" className="block rounded-md px-4 py-3 min-h-[44px] flex items-center body-sm lowercase text-foreground transition-colors hover:text-primary hover:bg-accent/50 touch-manipulation">
                 lab
               </a>
 
@@ -217,14 +196,7 @@ export function SiteNav() {
                 <div className="overline text-muted-foreground mb-1.5">
                   Solutions
                 </div>
-                <a 
-                  href="/solutions/future-proofing" 
-                  onClick={() => setIsMobileMenuOpen(false)} 
-                  aria-label="Future proofing solutions" 
-                  className="block rounded-md px-3 py-2.5 min-h-[44px] flex items-center body-xs transition-colors text-foreground hover:text-primary hover:bg-accent/50 touch-manipulation"
-                  onMouseEnter={prefetchFutureProofing}
-                  onFocus={prefetchFutureProofing}
-                >
+                <a href="/solutions/future-proofing" onClick={() => setIsMobileMenuOpen(false)} aria-label="Future proofing solutions" className="block rounded-md px-3 py-2.5 min-h-[44px] flex items-center body-xs transition-colors text-foreground hover:text-primary hover:bg-accent/50 touch-manipulation">
                   Future proofing
                 </a>
                 <a href="https://docs.google.com/document/d/150vF2RNZe395m3TTrq3zQTDGjFxsvfuM4CxNvqiRoss/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)} aria-label="Our mission (opens in new tab)" className="block rounded-md px-3 py-2.5 min-h-[44px] flex items-center body-xs transition-colors text-foreground hover:text-primary hover:bg-accent/50 touch-manipulation">
