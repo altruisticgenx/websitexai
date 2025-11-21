@@ -1,4 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState, lazy } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  lazy,
+} from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { PilotCard } from "@/components/PilotCard";
 import { SocialProof } from "@/components/SocialProof";
@@ -15,8 +22,18 @@ import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteNav } from "@/components/SiteNav";
-import { HeroSkeleton, CardsSkeleton, StepsSkeleton, TwoColumnSkeleton } from "@/components/skeletons/SectionSkeleton";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  HeroSkeleton,
+  CardsSkeleton,
+  StepsSkeleton,
+  TwoColumnSkeleton,
+} from "@/components/skeletons/SectionSkeleton";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 // layout primitives
 import { Section } from "@/components/layout/Section";
@@ -26,22 +43,22 @@ import { Stack } from "@/components/layout/Stack";
 const ShelvedExperiments = lazy(() =>
   import("@/components/ShelvedExperiments").then((m) => ({
     default: m.ShelvedExperiments,
-  })),
+  }))
 );
 const WhereIWork = lazy(() =>
   import("@/components/WhereIWork").then((m) => ({
     default: m.WhereIWork,
-  })),
+  }))
 );
 const OrganizationTypes = lazy(() =>
   import("@/components/OrganizationTypes").then((m) => ({
     default: m.OrganizationTypes,
-  })),
+  }))
 );
 const EngagementModels = lazy(() =>
   import("@/components/EngagementModels").then((m) => ({
     default: m.EngagementModels,
-  })),
+  }))
 );
 
 // -----------------------------
@@ -50,7 +67,9 @@ const EngagementModels = lazy(() =>
 const Index: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
 
-  const [isBootLoading, setBootLoading] = useState(() => !safeLocalStorageGet("contentLoaded"));
+  const [isBootLoading, setBootLoading] = useState(
+    () => !safeLocalStorageGet("contentLoaded")
+  );
 
   const sectionIdsRef = useRef<string[]>([
     "builds",
@@ -78,7 +97,10 @@ const Index: React.FC = () => {
   const navigateSection = useCallback(
     (delta: number) => {
       const ids = sectionIdsRef.current;
-      const next = Math.max(0, Math.min(ids.length - 1, currentSectionIndex + delta));
+      const next = Math.max(
+        0,
+        Math.min(ids.length - 1, currentSectionIndex + delta)
+      );
       if (next !== currentSectionIndex) {
         setCurrentSectionIndex(next);
         const el = document.getElementById(ids[next]);
@@ -88,7 +110,7 @@ const Index: React.FC = () => {
         });
       }
     },
-    [currentSectionIndex, prefersReducedMotion],
+    [currentSectionIndex, prefersReducedMotion]
   );
 
   const swipeRef = useSwipeGesture<HTMLDivElement>({
@@ -115,13 +137,13 @@ const Index: React.FC = () => {
         "min-h-screen text-slate-50 antialiased selection:bg-primary/30 selection:text-white",
         // richer background wash
         "bg-[radial-gradient(80%_60%_at_50%_-10%,rgba(14,165,233,0.14),transparent_60%),radial-gradient(70%_50%_at_85%_0%,rgba(16,185,129,0.12),transparent_55%),radial-gradient(60%_45%_at_0%_10%,rgba(99,102,241,0.14),transparent_55%)]",
-        "bg-slate-950",
+        "bg-slate-950"
       )}
     >
       {/* subtle noise overlay */}
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 z-0 opacity-[0.05] mix-blend-soft-light [background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22 viewBox=%220 0 120 120%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/></filter><rect width=%22120%22 height=%22120%22 filter=%22url(%23n)%22 opacity=%220.4%22/></svg>')]"
+        className="pointer-events-none fixed inset-0 z-0 opacity-[0.05] mix-blend-soft-light [background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22 viewBox=%220 0 120 120%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/></filter><rect width=%22120%22 height=%22120%22 filter=%22url(%23n)%22 opacity=%220.4%22/></svg>')]" 
       />
 
       <a
@@ -134,7 +156,12 @@ const Index: React.FC = () => {
       <ScrollProgress />
       <SiteNav />
 
-      <main id="main-content" className="relative z-10 pt-16" role="main" aria-busy={isBootLoading}>
+      <main
+        id="main-content"
+        className="relative z-10 pt-16"
+        role="main"
+        aria-busy={isBootLoading}
+      >
         {isBootLoading ? (
           <div className="animate-pulse">
             <HeroSkeleton />
@@ -213,118 +240,132 @@ type FeatureItem = {
   example: string;
 };
 
-const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = React.memo(({ item, index }) => {
-  const prefersReducedMotion = useReducedMotion();
-  const [isTouched, setIsTouched] = useState(false);
+const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> =
+  React.memo(({ item, index }) => {
+    const prefersReducedMotion = useReducedMotion();
+    const [isTouched, setIsTouched] = useState(false);
 
-  const colorClasses = useMemo(() => {
-    switch (item.color) {
-      case "emerald":
-        return {
-          ring: "ring-emerald-400/30 hover:ring-emerald-400/60",
-          border: "border-emerald-400/30 hover:border-emerald-300/70",
-          gradient: "from-emerald-500/25 via-teal-500/10 to-green-500/25",
-          glow: "shadow-[0_0_40px_-18px_rgba(16,185,129,0.8)]",
-        };
-      case "cyan":
-        return {
-          ring: "ring-cyan-400/30 hover:ring-cyan-300/60",
-          border: "border-cyan-400/30 hover:border-cyan-300/70",
-          gradient: "from-cyan-500/25 via-blue-500/10 to-teal-500/25",
-          glow: "shadow-[0_0_40px_-18px_rgba(56,189,248,0.8)]",
-        };
-      case "teal":
-        return {
-          ring: "ring-teal-400/30 hover:ring-teal-300/60",
-          border: "border-teal-400/30 hover:border-teal-300/70",
-          gradient: "from-teal-500/25 via-emerald-500/10 to-cyan-500/25",
-          glow: "shadow-[0_0_40px_-18px_rgba(45,212,191,0.8)]",
-        };
-      default:
-        return {
-          ring: "ring-blue-400/30 hover:ring-blue-300/60",
-          border: "border-blue-400/30 hover:border-blue-300/70",
-          gradient: "from-blue-500/25 via-indigo-500/10 to-violet-500/25",
-          glow: "shadow-[0_0_40px_-18px_rgba(59,130,246,0.8)]",
-        };
-    }
-  }, [item.color]);
+    const colorClasses = useMemo(() => {
+      switch (item.color) {
+        case "emerald":
+          return {
+            ring: "ring-emerald-400/30 hover:ring-emerald-400/60",
+            border: "border-emerald-400/30 hover:border-emerald-300/70",
+            gradient:
+              "from-emerald-500/25 via-teal-500/10 to-green-500/25",
+            glow: "shadow-[0_0_40px_-18px_rgba(16,185,129,0.8)]",
+          };
+        case "cyan":
+          return {
+            ring: "ring-cyan-400/30 hover:ring-cyan-300/60",
+            border: "border-cyan-400/30 hover:border-cyan-300/70",
+            gradient: "from-cyan-500/25 via-blue-500/10 to-teal-500/25",
+            glow: "shadow-[0_0_40px_-18px_rgba(56,189,248,0.8)]",
+          };
+        case "teal":
+          return {
+            ring: "ring-teal-400/30 hover:ring-teal-300/60",
+            border: "border-teal-400/30 hover:border-teal-300/70",
+            gradient:
+              "from-teal-500/25 via-emerald-500/10 to-cyan-500/25",
+            glow: "shadow-[0_0_40px_-18px_rgba(45,212,191,0.8)]",
+          };
+        default:
+          return {
+            ring: "ring-blue-400/30 hover:ring-blue-300/60",
+            border: "border-blue-400/30 hover:border-blue-300/70",
+            gradient:
+              "from-blue-500/25 via-indigo-500/10 to-violet-500/25",
+            glow: "shadow-[0_0_40px_-18px_rgba(59,130,246,0.8)]",
+          };
+      }
+    }, [item.color]);
 
-  return (
-    <Tooltip open={isTouched ? true : undefined}>
-      <TooltipTrigger asChild>
-        <motion.button
-          type="button"
-          initial={{ opacity: 0, scale: 0.96, y: 6 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: true, margin: "-10% 0% -10% 0%" }}
-          transition={{
-            duration: prefersReducedMotion ? 0 : 0.35,
-            delay: index * 0.05,
-          }}
-          whileHover={
-            prefersReducedMotion
-              ? undefined
-              : {
-                  y: -6,
-                  rotateX: 2,
-                  rotateY: -2,
-                  scale: 1.03,
-                  transition: { duration: 0.25, ease: "easeOut" },
-                }
-          }
-          whileTap={{ scale: 0.98 }}
-          onClick={() => setIsTouched((v) => !v)}
-          onMouseEnter={() => setIsTouched(false)}
-          onBlur={() => setIsTouched(false)}
-          className={cn(
-            "group relative w-full overflow-hidden rounded-xl border bg-gradient-to-br backdrop-blur-sm",
-            "p-3 sm:p-4 md:p-5 transition-all cursor-pointer",
-            "ring-1",
-            "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60",
-            colorClasses.ring,
-            colorClasses.border,
-            colorClasses.gradient,
-            colorClasses.glow,
-            "before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-br before:from-white/10 before:via-white/0 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300",
-          )}
-          aria-expanded={isTouched}
-          aria-label={`${item.title} – ${item.desc}. Tap to see example.`}
-        >
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(120%_100%_at_10%_0%,rgba(255,255,255,0.08),transparent_60%)]" />
+    return (
+      <Tooltip open={isTouched ? true : undefined}>
+        <TooltipTrigger asChild>
+          <motion.button
+            type="button"
+            initial={{ opacity: 0, scale: 0.96, y: 6 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10% 0% -10% 0%" }}
+            transition={{
+              duration: prefersReducedMotion ? 0 : 0.35,
+              delay: index * 0.05,
+            }}
+            whileHover={
+              prefersReducedMotion
+                ? undefined
+                : {
+                    y: -6,
+                    rotateX: 2,
+                    rotateY: -2,
+                    scale: 1.03,
+                    transition: { duration: 0.25, ease: "easeOut" },
+                  }
+            }
+            whileTap={{ scale: 0.98 }}
+            onClick={() => setIsTouched((v) => !v)}
+            onMouseEnter={() => setIsTouched(false)}
+            onBlur={() => setIsTouched(false)}
+            className={cn(
+              "group relative w-full overflow-hidden rounded-xl border bg-gradient-to-br backdrop-blur-sm",
+              "p-3 sm:p-4 md:p-5 transition-all cursor-pointer",
+              "ring-1",
+              "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60",
+              colorClasses.ring,
+              colorClasses.border,
+              colorClasses.gradient,
+              colorClasses.glow,
+              "before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-br before:from-white/10 before:via-white/0 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300"
+            )}
+            aria-expanded={isTouched}
+            aria-label={`${item.title} – ${item.desc}. Tap to see example.`}
+          >
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(120%_100%_at_10%_0%,rgba(255,255,255,0.08),transparent_60%)]" />
 
-          <div className="relative z-10 flex items-start gap-2.5">
-            <span className="text-xl sm:text-2xl leading-none flex-shrink-0 mt-0.5" aria-hidden="true">
-              {item.icon}
-            </span>
-            <div className="flex-1 min-w-0 text-left">
-              <h4 className="heading-5 mb-1.5 line-clamp-2">{item.title}</h4>
-              <p className="body-sm text-muted-foreground leading-snug line-clamp-3">{item.desc}</p>
+            <div className="relative z-10 flex items-start gap-2.5">
+              <span
+                className="text-xl sm:text-2xl leading-none flex-shrink-0 mt-0.5"
+                aria-hidden="true"
+              >
+                {item.icon}
+              </span>
+              <div className="flex-1 min-w-0 text-left">
+                <h4 className="heading-5 mb-1.5 line-clamp-2">
+                  {item.title}
+                </h4>
+                <p className="body-sm text-muted-foreground leading-snug line-clamp-3">
+                  {item.desc}
+                </p>
+              </div>
             </div>
-          </div>
 
-          <div className="absolute bottom-2 right-2 caption text-muted-foreground/70 sm:hidden">Tap</div>
-        </motion.button>
-      </TooltipTrigger>
+            <div className="absolute bottom-2 right-2 caption text-muted-foreground/70 sm:hidden">
+              Tap
+            </div>
+          </motion.button>
+        </TooltipTrigger>
 
-      <TooltipContent
-        side="top"
-        sideOffset={8}
-        className="max-w-[280px] sm:max-w-[360px] bg-slate-900/95 backdrop-blur-md border-primary/30 p-3.5"
-        onPointerDownOutside={(e) => {
-          if (isTouched) {
-            e.preventDefault();
-            setIsTouched(false);
-          }
-        }}
-      >
-        <p className="body-sm leading-relaxed text-slate-200">
-          <span className="font-semibold text-primary">Real Example:</span> {item.example}
-        </p>
-      </TooltipContent>
-    </Tooltip>
-  );
-});
+        <TooltipContent
+          side="top"
+          sideOffset={8}
+          className="max-w-[280px] sm:max-w-[360px] bg-slate-900/95 backdrop-blur-md border-primary/30 p-3.5"
+          onPointerDownOutside={(e) => {
+            if (isTouched) {
+              e.preventDefault();
+              setIsTouched(false);
+            }
+          }}
+        >
+          <p className="body-sm leading-relaxed text-slate-200">
+            <span className="font-semibold text-primary">Real Example:</span>{" "}
+            {item.example}
+          </p>
+        </TooltipContent>
+      </Tooltip>
+    );
+  });
 
 FeatureCardWithTooltip.displayName = "FeatureCardWithTooltip";
 
@@ -356,12 +397,19 @@ const RecentBuilds: React.FC = React.memo(() => {
 
   const getProjectProblem = (id: string): string => {
     const problemMap: Record<string, string> = {
-      "sales-copilot": "Manual follow-ups drowning the team, missing high-intent leads",
-      "founder-os": "5 tools, constant context-switching, scattered client data",
-      "energy-analytics": "200+ buildings, data chaos, no visibility into savings",
-      "edtech-portal": "15+ pilots tracked in spreadsheets, funding reports take weeks",
+      "sales-copilot":
+        "Manual follow-ups drowning the team, missing high-intent leads",
+      "founder-os":
+        "5 tools, constant context-switching, scattered client data",
+      "energy-analytics":
+        "200+ buildings, data chaos, no visibility into savings",
+      "edtech-portal":
+        "15+ pilots tracked in spreadsheets, funding reports take weeks",
     };
-    return problemMap[id] || "Complex operational challenges requiring AI solutions";
+    return (
+      problemMap[id] ||
+      "Complex operational challenges requiring AI solutions"
+    );
   };
 
   const getProjectOutcome = (id: string): string => {
@@ -426,7 +474,11 @@ const RecentBuilds: React.FC = React.memo(() => {
   useEffect(() => {
     const channel = supabase
       .channel("projects-changes")
-      .on("postgres_changes", { event: "*", schema: "public", table: "projects" }, fetchProjects)
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "projects" },
+        fetchProjects
+      )
       .subscribe();
     return () => {
       supabase.removeChannel(channel);
@@ -452,7 +504,10 @@ const RecentBuilds: React.FC = React.memo(() => {
           </p>
         </motion.div>
 
-        <ContentLoader isLoading={isLoadingProjects} fallback={<CardSkeleton count={4} />}>
+        <ContentLoader
+          isLoading={isLoadingProjects}
+          fallback={<CardSkeleton count={4} />}
+        >
           {error ? (
             <motion.div
               initial={{ opacity: 0, y: 14 }}
@@ -462,7 +517,10 @@ const RecentBuilds: React.FC = React.memo(() => {
               aria-live="polite"
             >
               <p className="body-sm text-red-300">{error}</p>
-              <button onClick={fetchProjects} className="mt-3 caption underline text-red-400 hover:text-red-300">
+              <button
+                onClick={fetchProjects}
+                className="mt-3 caption underline text-red-400 hover:text-red-300"
+              >
                 Try again
               </button>
             </motion.div>
@@ -472,7 +530,9 @@ const RecentBuilds: React.FC = React.memo(() => {
               animate={{ opacity: 1, y: 0 }}
               className="rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center"
             >
-              <p className="body-sm text-slate-400">No projects available yet. Check back soon!</p>
+              <p className="body-sm text-slate-400">
+                No projects available yet. Check back soon!
+              </p>
             </motion.div>
           ) : (
             <motion.div
@@ -544,7 +604,9 @@ const PilotOffer: React.FC = React.memo(() => {
                 transition={{ duration: 0.35, delay: i * 0.08 }}
                 className={cn(
                   "flex items-start gap-2 body-base leading-relaxed",
-                  i === 2 ? "text-foreground font-medium" : "text-muted-foreground",
+                  i === 2
+                    ? "text-foreground font-medium"
+                    : "text-muted-foreground"
                 )}
               >
                 <span className="mt-1 text-primary">•</span>
@@ -562,7 +624,9 @@ const PilotOffer: React.FC = React.memo(() => {
           className="space-y-4"
         >
           <h3 className="heading-3 text-primary">What This Model Is For</h3>
-          <p className="body-sm text-muted-foreground">Tap cards to see real examples</p>
+          <p className="body-sm text-muted-foreground">
+            Tap cards to see real examples
+          </p>
 
           <TooltipProvider delayDuration={160}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -600,7 +664,11 @@ const PilotOffer: React.FC = React.memo(() => {
                     "Founder OS: Solo founder needed operational clarity. Weekly async Looms, quick pivots. Built unified scheduling, CRM, and invoicing—calm founder cockpit.",
                 },
               ].map((item, i) => (
-                <FeatureCardWithTooltip key={item.title} item={item as FeatureItem} index={i} />
+                <FeatureCardWithTooltip
+                  key={item.title}
+                  item={item as FeatureItem}
+                  index={i}
+                />
               ))}
             </div>
           </TooltipProvider>
@@ -613,7 +681,9 @@ const PilotOffer: React.FC = React.memo(() => {
           transition={{ duration: 0.45, delay: 0.12 }}
           className="space-y-4"
         >
-          <h3 className="heading-3 text-muted-foreground">What This Model Is Not For</h3>
+          <h3 className="heading-3 text-muted-foreground">
+            What This Model Is Not For
+          </h3>
 
           <div className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-6">
             <ul className="body-base space-y-3 text-slate-400">
@@ -638,9 +708,12 @@ const PilotOffer: React.FC = React.memo(() => {
           transition={{ duration: 0.45, delay: 0.18 }}
           className="rounded-xl border border-primary/35 bg-gradient-to-br from-primary/10 via-slate-950/70 to-slate-950/90 p-6 backdrop-blur-sm"
         >
-          <p className="heading-5 mb-2 text-foreground">Pilot-first, learning-first approach</p>
+          <p className="heading-5 mb-2 text-foreground">
+            Pilot-first, learning-first approach
+          </p>
           <p className="body-base leading-relaxed text-muted-foreground">
-            Small scope, honest results, and no long-term lock-in until you know what’s actually worth scaling.
+            Small scope, honest results, and no long-term lock-in until you
+            know what's actually worth scaling.
           </p>
         </motion.div>
       </Stack>
@@ -665,7 +738,9 @@ const TypicalProgression: React.FC = React.memo(() => {
           className="space-y-2 max-w-2xl"
         >
           <h2 className="heading-2 text-foreground">Typical Progression</h2>
-          <p className="body-lg text-muted-foreground">Start small, scale when ready—or jump to any stage.</p>
+          <p className="body-lg text-muted-foreground">
+            Start small, scale when ready—or jump to any stage.
+          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
@@ -673,25 +748,29 @@ const TypicalProgression: React.FC = React.memo(() => {
             {
               title: "1. Pilot",
               sub: "4 weeks",
-              body: "Ship 1–2 features/week. Demo-ready code. Real builds, not decks.",
+              body:
+                "Ship 1–2 features/week. Demo-ready code. Real builds, not decks.",
               ring: "emerald",
             },
             {
               title: "2. Proposal",
               sub: "1–2 weeks",
-              body: "Scope doc, timeline, budget. Grant-ready, stakeholder-approved. RFP support.",
+              body:
+                "Scope doc, timeline, budget. Grant-ready, stakeholder-approved. RFP support.",
               ring: "blue",
             },
             {
               title: "3. Build",
               sub: "2–6 months",
-              body: "Full product delivery. Integrations, testing, documentation. Launch-ready.",
+              body:
+                "Full product delivery. Integrations, testing, documentation. Launch-ready.",
               ring: "violet",
             },
             {
               title: "4. Retainer",
               sub: "Ongoing",
-              body: "Monthly support. Bug fixes, features, pivots. Always-on expertise.",
+              body:
+                "Monthly support. Bug fixes, features, pivots. Always-on expertise.",
               ring: "orange",
             },
           ].map((step, i) => (
@@ -703,17 +782,27 @@ const TypicalProgression: React.FC = React.memo(() => {
               transition={{ duration: 0.45, delay: 0.08 * i }}
               className={cn(
                 "group rounded-xl border-2 p-5 backdrop-blur-sm transition-all hover:-translate-y-1",
-                step.ring === "emerald" && "border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20",
-                step.ring === "blue" && "border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20",
-                step.ring === "violet" && "border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20",
-                step.ring === "orange" && "border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20",
+                step.ring === "emerald" &&
+                  "border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20",
+                step.ring === "blue" &&
+                  "border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20",
+                step.ring === "violet" &&
+                  "border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20",
+                step.ring === "orange" &&
+                  "border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20"
               )}
             >
               <div className="mb-2 flex items-center gap-2">
-                <span className="body-base font-bold text-slate-100">{step.title}</span>
-                <span className="body-sm text-slate-200/80">{step.sub}</span>
+                <span className="body-base font-bold text-slate-100">
+                  {step.title}
+                </span>
+                <span className="body-sm text-slate-200/80">
+                  {step.sub}
+                </span>
               </div>
-              <p className="body-base leading-snug text-slate-200/90">{step.body}</p>
+              <p className="body-base leading-snug text-slate-200/90">
+                {step.body}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -736,7 +825,7 @@ const WhoBenefits: React.FC = React.memo(() => {
       "Solo founders wanting operational peace of mind",
       "B2B units innovating on tight timelines",
     ],
-    [],
+    []
   );
 
   return (
@@ -752,7 +841,10 @@ const WhoBenefits: React.FC = React.memo(() => {
           <h2 className="heading-2 text-foreground">Who Benefits?</h2>
           <p className="body-lg leading-relaxed text-muted-foreground">
             This model is for anyone who needs{" "}
-            <span className="font-medium text-primary">tangible progress without hiring overhead</span>.
+            <span className="font-medium text-primary">
+              tangible progress without hiring overhead
+            </span>
+            .
           </p>
         </motion.div>
 
@@ -784,11 +876,15 @@ const WhoBenefits: React.FC = React.memo(() => {
           >
             <div>
               <h3 className="heading-5 mb-2 text-primary">Ideal Fit</h3>
-              <p className="body-base text-slate-200">Weekly feedback, ready to experiment, need clear results</p>
+              <p className="body-base text-slate-200">
+                Weekly feedback, ready to experiment, need clear results
+              </p>
             </div>
             <div>
               <h3 className="heading-5 mb-2 text-slate-400">Not a Fit</h3>
-              <p className="body-base text-slate-400">Big static sites, slow-moving teams, no feedback loop</p>
+              <p className="body-base text-slate-400">
+                Big static sites, slow-moving teams, no feedback loop
+              </p>
             </div>
           </motion.div>
         </div>
@@ -821,8 +917,10 @@ const AboutMe: React.FC = React.memo(() => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.08 }}
           >
-            I aim to close the gap between proven innovations and implementation by giving anyone the tools to turn
-            regional data, successful pilots, and stalled legislation into AI-assisted solutions for any sector.
+            I aim to close the gap between proven innovations and
+            implementation by giving anyone the tools to turn regional
+            data, successful pilots, and stalled legislation into
+            AI-assisted solutions for any sector.
           </motion.p>
         </motion.div>
 
@@ -839,7 +937,10 @@ const AboutMe: React.FC = React.memo(() => {
               aria-hidden="true"
             />
             <div className="relative z-10">
-              <h3 id="why-matters-heading" className="heading-4 text-foreground">
+              <h3
+                id="why-matters-heading"
+                className="heading-4 text-foreground"
+              >
                 Why This Matters
               </h3>
 
@@ -853,7 +954,11 @@ const AboutMe: React.FC = React.memo(() => {
                 Pennsylvania cannot afford another decade of:
               </motion.p>
 
-              <ul className="mt-3 space-y-2" role="list" aria-label="Challenges Pennsylvania faces">
+              <ul
+                className="mt-3 space-y-2"
+                role="list"
+                aria-label="Challenges Pennsylvania faces"
+              >
                 {[
                   "Delayed modernization while comparable states advance",
                   "Legislative gridlock on education and infrastructure",
@@ -861,7 +966,10 @@ const AboutMe: React.FC = React.memo(() => {
                   "Civics education that feels irrelevant to students",
                   "Declining trust in public institutions",
                 ].map((t) => (
-                  <li key={t} className="caption flex items-start gap-2 text-muted-foreground/90">
+                  <li
+                    key={t}
+                    className="caption flex items-start gap-2 text-muted-foreground/90"
+                  >
                     <span
                       className="mt-1 inline-block h-1 w-1 flex-shrink-0 rounded-full bg-emerald-400/70"
                       aria-hidden="true"
@@ -873,8 +981,9 @@ const AboutMe: React.FC = React.memo(() => {
 
               <div className="mt-5 border-t border-slate-800/50 pt-4">
                 <p className="body-base font-medium leading-relaxed text-foreground">
-                  This work provides the missing infrastructure for a state with all the necessary components but no
-                  system connecting them.
+                  This work provides the missing infrastructure for a
+                  state with all the necessary components but no system
+                  connecting them.
                 </p>
               </div>
             </div>
@@ -912,17 +1021,23 @@ SiteFooter.displayName = "SiteFooter";
 // -----------------------------
 function safeLocalStorageGet(key: string): string | null {
   try {
-    return typeof window !== "undefined" ? window.localStorage.getItem(key) : null;
+    return typeof window !== "undefined"
+      ? window.localStorage.getItem(key)
+      : null;
   } catch {
     return null;
   }
 }
 function safeLocalStorageSet(key: string, value: string): void {
   try {
-    if (typeof window !== "undefined") window.localStorage.setItem(key, value);
+    if (typeof window !== "undefined")
+      window.localStorage.setItem(key, value);
   } catch {}
 }
-function shallowArrayEqual<T extends { [k: string]: any }>(a: T[], b: T[]): boolean {
+function shallowArrayEqual<T extends { [k: string]: any }>(
+  a: T[],
+  b: T[]
+): boolean {
   if (a === b) return true;
   if (a.length !== b.length) return false;
   for (let i = 0; i < a.length; i++) {
