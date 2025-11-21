@@ -1,52 +1,32 @@
-import * as React from "react";
-import { cn } from "@/lib/utils";
-import { Container } from "./layout/Container";
+import type { ReactNode } from "react";
 
-type SectionSpacing = "compact" | "normal" | "spacious";
-type SectionBorder = "top" | "bottom" | "both" | "none";
-
-const spacingMap: Record<SectionSpacing, string> = {
-  compact: "py-8 sm:py-10",
-  normal: "py-10 sm:py-14 lg:py-16",
-  spacious: "py-12 sm:py-16 lg:py-20",
-};
-
-const borderMap: Record<SectionBorder, string> = {
-  none: "",
-  top: "border-t border-white/10",
-  bottom: "border-b border-white/10",
-  both: "border-y border-white/10",
-};
-
-export interface SectionProps extends React.HTMLAttributes<HTMLElement> {
-  spacing?: SectionSpacing;
-  border?: SectionBorder;
-  containerSize?: React.ComponentProps<typeof Container>["size"];
-  containerClassName?: string;
+interface SectionProps {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  children?: ReactNode;
 }
 
-export function Section({
-  spacing = "normal",
-  border = "none",
-  containerSize = "xl",
-  containerClassName,
-  className,
-  children,
-  ...props
-}: SectionProps) {
+export function Section({ id, eyebrow, title, intro, children }: SectionProps) {
   return (
-    <section
-      className={cn(
-        "relative w-full",
-        spacingMap[spacing],
-        borderMap[border],
-        className
-      )}
-      {...props}
-    >
-      <Container size={containerSize} className={containerClassName}>
-        {children}
-      </Container>
+    <section id={id} className="py-10 md:py-16">
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6">
+        {eyebrow && (
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+            {eyebrow}
+          </p>
+        )}
+        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+          {title}
+        </h2>
+        {intro && (
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+            {intro}
+          </p>
+        )}
+        {children && <div className="mt-6">{children}</div>}
+      </div>
     </section>
   );
 }

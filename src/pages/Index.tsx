@@ -11,13 +11,9 @@ import { ParallaxBackground } from "@/components/ParallaxBackground";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { SwipeIndicator } from "@/components/SwipeIndicator";
 import { SiteNav } from "@/components/SiteNav";
-import { BreadcrumbTrail } from "@/components/BreadcrumbTrail";
 import { HeroSkeleton, CardsSkeleton, StepsSkeleton, TwoColumnSkeleton } from "@/components/skeletons/SectionSkeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { PilotCarousel3D } from "@/components/PilotCarousel3D";
-import { Section } from "@/components/Section";
-import { Stack } from "@/components/layout/Stack";
-import { Grid } from "@/components/layout/Grid";
 
 import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
@@ -117,7 +113,6 @@ const Index: React.FC = () => {
 
       <ScrollProgress />
       <SiteNav />
-      <BreadcrumbTrail />
 
       <div className="relative mx-auto flex min-h-screen max-w-5xl flex-col px-3 sm:px-4">
         <main id="main-content" className="flex-1 pt-2 sm:pt-4" role="main">
@@ -140,22 +135,22 @@ const Index: React.FC = () => {
               <SocialProof />
               <RecentBuilds />
 
-              <LazySection minHeight={380}>
+              <LazySection>
                 <TypicalProgression />
               </LazySection>
 
-              <LazySection minHeight={450}>
+              <LazySection>
                 <PilotOffer />
               </LazySection>
 
-              <LazySection minHeight={320}>
+              <LazySection>
                 <WhoBenefits />
               </LazySection>
 
               <Suspense
                 fallback={<div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
               >
-                <LazySection minHeight={280}>
+                <LazySection>
                   <OrganizationTypes />
                 </LazySection>
               </Suspense>
@@ -163,7 +158,7 @@ const Index: React.FC = () => {
               <Suspense
                 fallback={<div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
               >
-                <LazySection minHeight={260}>
+                <LazySection>
                   <WhereIWork />
                 </LazySection>
               </Suspense>
@@ -171,7 +166,7 @@ const Index: React.FC = () => {
               <Suspense
                 fallback={<div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
               >
-                <LazySection minHeight={340}>
+                <LazySection>
                   <ShelvedExperiments />
                 </LazySection>
               </Suspense>
@@ -179,12 +174,12 @@ const Index: React.FC = () => {
               <Suspense
                 fallback={<div className="h-64 rounded-2xl bg-slate-900/60" aria-busy="true" aria-live="polite" />}
               >
-                <LazySection minHeight={320}>
+                <LazySection>
                   <EngagementModels />
                 </LazySection>
               </Suspense>
 
-              <LazySection minHeight={420}>
+              <LazySection>
                 <AboutMe />
               </LazySection>
             </motion.div>
@@ -276,8 +271,8 @@ const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = R
           onMouseEnter={() => setIsTouched(false)}
           style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
           className={cn(
-            "group relative w-full overflow-hidden rounded-lg border bg-gradient-to-br backdrop-blur-sm min-h-[44px] p-3 sm:p-3 transition-all cursor-pointer",
-            "touch-manipulation focus-ring interactive",
+            "group relative w-full overflow-hidden rounded-lg border bg-gradient-to-br backdrop-blur-sm p-2.5 sm:p-3 transition-all cursor-pointer",
+            "touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
             "hover:shadow-xl shadow-lg",
             colorClasses.border,
             colorClasses.gradient,
@@ -292,15 +287,15 @@ const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = R
               {item.icon}
             </span>
             <div className="flex-1 min-w-0 text-left">
-              <h4 className="mb-0.5 text-xs sm:text-xs font-bold text-foreground leading-tight line-clamp-2">
+              <h4 className="mb-0.5 text-[10px] sm:text-[11px] font-bold text-foreground leading-tight line-clamp-2">
                 {item.title}
               </h4>
-              <p className="text-xs sm:text-xs leading-snug text-muted-foreground line-clamp-2 sm:line-clamp-3">
+              <p className="text-[9px] sm:text-[10px] leading-snug text-muted-foreground line-clamp-2 sm:line-clamp-3">
                 {item.desc}
               </p>
             </div>
           </div>
-          <div className="absolute bottom-1 right-1 text-xs text-muted-foreground/50 sm:hidden">Tap</div>
+          <div className="absolute bottom-1 right-1 text-[8px] text-muted-foreground/50 sm:hidden">Tap</div>
         </motion.button>
       </TooltipTrigger>
 
@@ -314,7 +309,7 @@ const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = R
           }
         }}
       >
-        <p className="text-xs sm:text-xs leading-relaxed text-slate-200">
+        <p className="text-[10px] sm:text-xs leading-relaxed text-slate-200">
           <span className="font-semibold text-primary">Real Example:</span> {item.example}
         </p>
       </TooltipContent>
@@ -421,7 +416,7 @@ const RecentBuilds: React.FC = React.memo(() => {
   }, [fetchProjects]);
 
   return (
-    <Section id="builds" spacing="normal">
+    <section id="builds" className="relative py-8 sm:py-10 lg:py-16">
       <ParallaxBackground
         speed={0.6}
         gradient="from-primary/8 via-accent/8 to-transparent"
@@ -431,29 +426,34 @@ const RecentBuilds: React.FC = React.memo(() => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,hsl(var(--primary)/0.15),transparent_50%)]" />
       </ParallaxBackground>
 
-      <Stack gap="lg">
-        <header className="max-w-2xl">
-          <h2 className="heading-3">Recent Builds</h2>
-          <p className="body-lg text-muted-foreground mt-2">
+      <div className="mx-auto w-full max-w-5xl px-3 sm:px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="space-y-2"
+        >
+          <h2 className="heading-3 text-foreground">Recent Builds</h2>
+          <p className="body-base text-muted-foreground">
             Small scope, real results—across energy, education, and founder projects.
           </p>
-        </header>
+        </motion.div>
 
         {isLoadingProjects ? (
-          <CardsSkeleton />
+          <div className="mt-6 sm:mt-8">
+            <CardsSkeleton />
+          </div>
         ) : error ? (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center"
+            className="mt-6 sm:mt-8 rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center"
             role="alert"
             aria-live="polite"
           >
-            <p className="body-sm text-red-300">{error}</p>
-            <button 
-              onClick={fetchProjects} 
-              className="mt-3 body-xs underline text-red-400 hover:text-red-300 min-h-[44px] px-4 focus-ring interactive"
-            >
+            <p className="text-sm text-red-300">{error}</p>
+            <button onClick={fetchProjects} className="mt-3 text-xs underline text-red-400 hover:text-red-300">
               Try again
             </button>
           </motion.div>
@@ -461,34 +461,43 @@ const RecentBuilds: React.FC = React.memo(() => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center"
+            className="mt-6 sm:mt-8 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center"
           >
-            <p className="body-sm text-slate-400">No projects available yet. Check back soon!</p>
+            <p className="text-sm text-slate-400">No projects available yet. Check back soon!</p>
           </motion.div>
         ) : (
-          <PilotCarousel3D autoPlayInterval={6000}>
-            {projects.map((project) => {
-              const imageUrl = project.image_url || `https://duuhvgjdzaowrwonqhtz.supabase.co/storage/v1/object/public/project-images/${project.id}.jpg`;
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mt-6 sm:mt-8"
+          >
+            <PilotCarousel3D autoPlayInterval={6000}>
+              {projects.map((project) => {
+                // Use image_url from database if available, otherwise construct from storage
+                const imageUrl = project.image_url || `https://duuhvgjdzaowrwonqhtz.supabase.co/storage/v1/object/public/project-images/${project.id}.jpg`;
 
-              return (
-                <PilotCard
-                  key={project.id}
-                  id={project.id}
-                  title={project.title}
-                  sector={project.sector}
-                  whoFor={getSectorAudience(project.sector)}
-                  problem={getProjectProblem(project.id)}
-                  outcome={getProjectOutcome(project.id)}
-                  timeToDemo={getTimeToDemo(project.id)}
-                  tag={project.tag}
-                  imageUrl={imageUrl}
-                />
-              );
-            })}
-          </PilotCarousel3D>
+                return (
+                  <PilotCard
+                    key={project.id}
+                    id={project.id}
+                    title={project.title}
+                    sector={project.sector}
+                    whoFor={getSectorAudience(project.sector)}
+                    problem={getProjectProblem(project.id)}
+                    outcome={getProjectOutcome(project.id)}
+                    timeToDemo={getTimeToDemo(project.id)}
+                    tag={project.tag}
+                    imageUrl={imageUrl}
+                  />
+                );
+              })}
+            </PilotCarousel3D>
+          </motion.div>
         )}
-      </Stack>
-    </Section>
+      </div>
+    </section>
   );
 });
 RecentBuilds.displayName = "RecentBuilds";
@@ -588,7 +597,7 @@ const PilotOffer: React.FC = React.memo(() => {
           className="space-y-3 sm:space-y-4"
         >
           <h3 className="heading-4 text-primary">What This Model Is For</h3>
-          <p className="text-xs sm:text-xs text-muted-foreground">Tap cards to see real examples</p>
+          <p className="text-[10px] sm:text-xs text-muted-foreground">Tap cards to see real examples</p>
 
           <TooltipProvider delayDuration={160}>
             <div className="grid gap-2 sm:gap-3 grid-cols-2 lg:grid-cols-4">
@@ -643,7 +652,7 @@ PilotOffer.displayName = "PilotOffer";
 
 const TypicalProgression: React.FC = React.memo(() => {
   return (
-    <Section spacing="normal" border="top">
+    <section className="relative border-t border-slate-900/80 py-6 sm:py-8 lg:py-12">
       <ParallaxBackground
         speed={0.4}
         gradient="from-accent/10 via-primary/8 to-transparent"
@@ -653,20 +662,21 @@ const TypicalProgression: React.FC = React.memo(() => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,hsl(var(--secondary)/0.15),transparent_50%)]" />
       </ParallaxBackground>
 
-      <Stack gap="lg">
+      <div className="mx-auto w-full max-w-5xl px-3 sm:px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
+          className="space-y-1"
         >
-          <h2 className="heading-4 text-foreground">Typical Progression</h2>
-          <p className="body-sm text-muted-foreground mt-1">
+          <h2 className="text-base font-semibold text-foreground sm:text-lg md:text-xl">Typical Progression</h2>
+          <p className="text-[11px] text-muted-foreground sm:text-xs">
             Start small, scale when ready—or jump to any stage.
           </p>
         </motion.div>
 
-        <Grid columns={{ mobile: 2, tablet: 2, desktop: 4 }} gap="sm">
+        <div className="mt-4 grid gap-2 grid-cols-2 lg:grid-cols-4 sm:gap-3">
           {[
             {
               title: "1. Pilot",
@@ -732,17 +742,17 @@ const TypicalProgression: React.FC = React.memo(() => {
                     <span className="text-base sm:text-lg" aria-hidden="true">
                       {step.icon}
                     </span>
-                    <span className="body-sm font-bold text-slate-100">{step.title}</span>
+                    <span className="text-[11px] font-bold text-slate-100 sm:text-xs">{step.title}</span>
                   </div>
-                  <span className="body-xs font-medium text-slate-200/70">{step.sub}</span>
+                  <span className="text-[9px] font-medium text-slate-200/70 sm:text-[10px]">{step.sub}</span>
                 </div>
-                <p className="body-xs leading-snug text-slate-200/85">{step.body}</p>
+                <p className="text-[10px] leading-snug text-slate-200/85 sm:text-[11px]">{step.body}</p>
               </div>
             </motion.div>
           ))}
-        </Grid>
-      </Stack>
-    </Section>
+        </div>
+      </div>
+    </section>
   );
 });
 TypicalProgression.displayName = "TypicalProgression";
@@ -760,7 +770,7 @@ const WhoBenefits: React.FC = React.memo(() => {
   );
 
   return (
-    <Section id="benefits" spacing="normal" border="top">
+    <section id="benefits" className="relative border-t border-slate-900/80 py-10 lg:py-16">
       <ParallaxBackground
         speed={0.55}
         gradient="from-primary/10 via-secondary/8 to-accent/10"
@@ -770,21 +780,22 @@ const WhoBenefits: React.FC = React.memo(() => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_20%,hsl(var(--accent)/0.15),transparent_60%)]" />
       </ParallaxBackground>
 
-      <Stack gap="lg">
+      <div className="mx-auto w-full max-w-5xl px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
+          className="space-y-2"
         >
           <h2 className="heading-3 text-foreground">Who Benefits?</h2>
-          <p className="body-base leading-relaxed text-muted-foreground mt-2">
+          <p className="body-base leading-relaxed text-muted-foreground">
             This model is for anyone who needs{" "}
             <span className="font-medium text-primary">tangible progress without hiring overhead</span>.
           </p>
         </motion.div>
 
-        <Grid columns={{ mobile: 1, tablet: 2, desktop: 2 }} gap="md">
+        <div className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -819,16 +830,16 @@ const WhoBenefits: React.FC = React.memo(() => {
               <p className="body-base text-slate-400">Big static sites, slow-moving teams, no feedback loop</p>
             </div>
           </motion.div>
-        </Grid>
-      </Stack>
-    </Section>
+        </div>
+      </div>
+    </section>
   );
 });
 WhoBenefits.displayName = "WhoBenefits";
 
 const AboutMe: React.FC = React.memo(() => {
   return (
-    <Section id="about" spacing="normal" border="top">
+    <section id="about" className="relative border-t border-slate-900/80 py-10 lg:py-16">
       <ParallaxBackground
         speed={0.6}
         gradient="from-primary/6 via-secondary/8 to-accent/6"
@@ -838,16 +849,17 @@ const AboutMe: React.FC = React.memo(() => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,hsl(var(--primary)/0.12),transparent_60%)]" />
       </ParallaxBackground>
 
-      <Stack gap="xl">
+      <div className="mx-auto w-full max-w-5xl space-y-10 px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
+          className="space-y-3"
         >
           <h2 className="heading-3 text-foreground">About Me</h2>
           <motion.p
-            className="body-lg max-w-2xl text-muted-foreground mt-3"
+            className="body-lg max-w-3xl text-muted-foreground"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -889,7 +901,7 @@ const AboutMe: React.FC = React.memo(() => {
                   "Civics education that feels irrelevant to students",
                   "Declining trust in public institutions",
                 ].map((t) => (
-                  <li key={t} className="body-xs flex items-start gap-2 text-muted-foreground/90">
+                  <li key={t} className="caption flex items-start gap-2 text-muted-foreground/90">
                     <span className="mt-1 inline-block h-1 w-1 flex-shrink-0 rounded-full bg-emerald-400/70" />
                     <span className="flex-1">{t}</span>
                   </li>
@@ -905,8 +917,8 @@ const AboutMe: React.FC = React.memo(() => {
             </div>
           </article>
         </motion.div>
-      </Stack>
-    </Section>
+      </div>
+    </section>
   );
 });
 AboutMe.displayName = "AboutMe";

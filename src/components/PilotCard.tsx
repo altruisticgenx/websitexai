@@ -60,38 +60,36 @@ export function PilotCard({
             <div className="pointer-events-none\n    absolute\n    inset-x-0\n    bottom-0\n    h-1/2\n    rounded-2xl\n    bg-gradient-to-t\n    from-slate-950/95\n    via-slate-950/60\n    to-transparent\n    sm:inset-0\n    sm:h-full" />
 
             {/* Sector pill */}
-            <div className="absolute left-2 top-2 rounded-full bg-black/70 backdrop-blur-sm px-2 py-0.5 body-xs text-slate-200 ring-1 ring-white/10 font-medium">
+            <div className="absolute left-2 top-2 rounded-full bg-black/70 backdrop-blur-sm px-2 py-0.5 text-[9px] sm:text-[10px] text-slate-200 ring-1 ring-white/10 font-medium">
               {sector}
             </div>
 
-            {tag && (
-              <div className="absolute right-2 top-2 rounded-full bg-primary/20 backdrop-blur-sm px-2 py-0.5 body-xs text-primary ring-1 ring-primary/30 font-medium">
+            {tag && <div className="absolute right-2 top-2 rounded-full bg-primary/20 backdrop-blur-sm px-2 py-0.5 text-[9px] sm:text-[10px] text-primary ring-1 ring-primary/30 font-medium">
                 {tag}
-              </div>
-            )}
+              </div>}
           </div>
 
           {/* Body - Mobile-first padding and spacing */}
           <div className="flex flex-col gap-2 p-3 sm:p-4 flex-1">
             <header className="space-y-0.5">
-              <h3 className="body-base font-bold leading-tight text-white line-clamp-2">
+              <h3 className="text-xs xs:text-sm sm:text-base font-bold leading-tight text-white line-clamp-2">
                 {title}
               </h3>
-              <p className="body-xs text-slate-400">
+              <p className="text-[10px] xs:text-[11px] sm:text-xs text-slate-400">
                 For <span className="text-slate-200 font-medium">{whoFor}</span> · {timeToDemo}
               </p>
             </header>
 
             <div className="space-y-1.5 flex-1">
               <div className="rounded-lg bg-slate-900/60 backdrop-blur-sm p-2 sm:p-2.5">
-                <p className="body-sm text-slate-300 leading-relaxed">
+                <p className="text-[10px] xs:text-[11px] sm:text-xs text-slate-300 leading-relaxed">
                   <span className="font-semibold text-slate-100">Problem:</span>{" "}
                   {problem}
                 </p>
               </div>
 
               <div className="rounded-lg bg-slate-900/60 backdrop-blur-sm p-2 sm:p-2.5">
-                <p className="body-sm text-slate-300 leading-relaxed">
+                <p className="text-[10px] xs:text-[11px] sm:text-xs text-slate-300 leading-relaxed">
                   <span className="font-semibold text-slate-100">Outcome:</span>{" "}
                   {outcome}
                 </p>
@@ -100,16 +98,7 @@ export function PilotCard({
 
             {/* Footer CTA */}
             <div className="mt-auto pt-1">
-              <div
-                className={cn(
-                  "w-full rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-center",
-                  "body-sm font-semibold text-primary",
-                  "hover:bg-primary/20 hover:border-primary/50 active:scale-[0.98] transition-all duration-200",
-                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
-                )}
-                role="button"
-                aria-label={`Open case study for ${title}`}
-              >
+              <div className={cn("w-full rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-center", "text-[10px] xs:text-[11px] sm:text-xs font-semibold text-primary", "hover:bg-primary/20 hover:border-primary/50 active:scale-[0.98] transition-all duration-200", "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50")} role="button" aria-label={`Open case study for ${title}`}>
                 View case study →
               </div>
             </div>
