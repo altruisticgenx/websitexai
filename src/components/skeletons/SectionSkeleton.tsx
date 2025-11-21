@@ -130,3 +130,77 @@ export function ContactSkeleton() {
     </section>
   );
 }
+
+export function CaseStudyDetailSkeleton() {
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      <div className="mx-auto max-w-5xl px-4 py-4 sm:py-6">
+        <article className="flex-1 min-w-0">
+          {/* Back Button */}
+          <Skeleton className="h-3 w-24" />
+          
+          {/* Header */}
+          <div className="mt-3 space-y-2">
+            <Skeleton className="h-4 w-32 rounded-full" />
+            <Skeleton className="h-8 w-full sm:h-10" />
+            <Skeleton className="h-3 w-3/4" />
+          </div>
+
+          {/* Timeline & Duration */}
+          <div className="mt-3 flex gap-2">
+            <Skeleton className="h-6 w-20 rounded-lg" />
+            <Skeleton className="h-6 w-28 rounded-lg" />
+          </div>
+
+          {/* Summary Card */}
+          <Skeleton className="mt-4 h-20 w-full rounded-lg" />
+
+          {/* Challenge Section */}
+          <div className="mt-6 space-y-2">
+            <Skeleton className="h-5 w-32" />
+            <Skeleton className="h-16 w-full" />
+          </div>
+
+          {/* Solution Section */}
+          <div className="mt-6 space-y-2">
+            <Skeleton className="h-5 w-28" />
+            <Skeleton className="h-16 w-full" />
+          </div>
+
+          {/* Outcomes Grid */}
+          <div className="mt-6 space-y-3">
+            <Skeleton className="h-5 w-32" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <Skeleton key={i} className="h-16 w-full rounded-lg" />
+              ))}
+            </div>
+          </div>
+
+          {/* Timeline */}
+          <div className="mt-6 space-y-3">
+            <Skeleton className="h-5 w-40" />
+            <div className="space-y-2">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <Skeleton key={i} className="h-24 w-full rounded-lg" />
+              ))}
+            </div>
+          </div>
+
+          {/* Technologies */}
+          <div className="mt-6 space-y-3">
+            <Skeleton className="h-5 w-36" />
+            <div className="flex flex-wrap gap-2">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <Skeleton key={i} className="h-6 w-24 rounded-full" />
+              ))}
+            </div>
+          </div>
+
+          {/* CTA Section */}
+          <Skeleton className="mt-8 mb-4 h-32 w-full rounded-lg" />
+        </article>
+      </div>
+    </div>
+  );
+}
