@@ -119,22 +119,17 @@ const CaseStudyDetail = () => {
     id: string;
   }>();
   const [isLoading, setIsLoading] = useState(true);
-  
   const caseStudy = caseStudiesData.find(study => study.id === id);
-  
   useEffect(() => {
     // Simulate loading for better UX
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 500);
-    
     return () => clearTimeout(timer);
   }, [id]);
-  
   if (!caseStudy) {
     return <Navigate to="/portfolio" replace />;
   }
-  
   if (isLoading) {
     return <CaseStudyDetailSkeleton />;
   }
@@ -322,24 +317,7 @@ const CaseStudyDetail = () => {
           </motion.section>
 
           {/* CTA Section */}
-          <motion.div initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.5,
-          delay: 0.9
-        }} className="mt-8 mb-4 rounded-lg border border-primary/30 bg-gradient-to-br from-primary/10 to-primary/5 p-4 sm:p-5 text-center">
-            <h3 className="text-sm sm:text-base font-semibold text-foreground">Ready to start your pilot?</h3>
-            <p className="mt-1.5 text-[11px] sm:text-xs text-muted-foreground">
-              Book a 30-min intro to discuss your project and see if it's a fit.
-            </p>
-            <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex rounded-full bg-primary px-4 py-2 text-[11px] font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-md shadow-primary/20 w-full sm:w-auto justify-center">
-              Book 30-min Intro
-            </a>
-          </motion.div>
+          
         </article>
       </div>
     </div>;
