@@ -12,6 +12,7 @@ interface PilotCardProps {
   outcome: string;
   timeToDemo: string;
   tag?: string;
+  imageUrl?: string;
   className?: string;
 }
 
@@ -24,6 +25,7 @@ export function PilotCard({
   outcome,
   timeToDemo,
   tag,
+  imageUrl,
   className,
 }: PilotCardProps) {
   // Dynamic gradient based on sector with enhanced 3D effects
@@ -52,64 +54,79 @@ export function PilotCard({
     <Link to={`/case-study/${id}`} className="block group">
       <motion.article
         whileHover={{ 
-          y: -8, 
-          rotateX: 2,
-          rotateY: -2,
-          scale: 1.03,
-          transition: { duration: 0.3, ease: "easeOut" }
+          y: -12, 
+          rotateX: 4,
+          rotateY: -3,
+          scale: 1.05,
+          transition: { duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }
         }}
-        whileTap={{ scale: 0.98 }}
-        transition={{ duration: 0.2 }}
+        whileTap={{ scale: 0.96 }}
+        transition={{ duration: 0.3 }}
         style={{ 
           transformStyle: "preserve-3d",
-          perspective: "1000px"
+          perspective: "1200px"
         }}
         className={cn(
-          "relative flex h-full flex-col rounded-xl border bg-gradient-to-br backdrop-blur-sm p-3 transition-all duration-300 cursor-pointer",
-          "hover:shadow-2xl shadow-lg",
+          "relative flex h-full flex-col overflow-hidden rounded-2xl border-2 backdrop-blur-md transition-all duration-500 cursor-pointer",
+          "hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]",
           getSectorGradient(sector),
           getGlowColor(sector),
-          "before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-br before:from-white/5 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300",
           className
         )}
       >
-        {/* 3D Depth Effect */}
-        <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-transparent via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        {/* Image Background with Overlay */}
+        {imageUrl && (
+          <div className="absolute inset-0 z-0">
+            <img 
+              src={imageUrl} 
+              alt=""
+              className="h-full w-full object-cover opacity-20 group-hover:opacity-30 transition-opacity duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+          </div>
+        )}
         
+        {/* Floating gradient orbs for depth */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ transform: "translateZ(20px)" }} />
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ transform: "translateZ(15px)" }} />
+        
+        {/* Content Container */}
+        <div className="relative z-10 flex h-full flex-col p-3 bg-gradient-to-br from-background/40 via-background/60 to-background/80 group-hover:from-background/30 group-hover:via-background/50 group-hover:to-background/70 transition-all duration-500">
+          
         {/* Header */}
-        <div className="relative z-10 flex items-start justify-between gap-1.5 mb-2">
+        <div className="flex items-start justify-between gap-1.5 mb-2">
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-1.5 mb-1">
-              <span className="inline-flex items-center gap-0.5 rounded-md border border-primary/40 bg-primary/15 px-1.5 py-0.5 text-[9px] font-medium text-primary shadow-sm">
-                <Users className="h-2.5 w-2.5" />
-                {whoFor}
-              </span>
-            </div>
-            <h3 className="text-[11px] sm:text-xs font-bold text-foreground line-clamp-2 leading-tight">{title}</h3>
-            <p className="text-[9px] text-muted-foreground mt-0.5 line-clamp-1">{sector}</p>
+            <span className="inline-flex items-center gap-0.5 rounded-full border border-primary/50 bg-primary/20 px-2 py-0.5 text-[9px] font-semibold text-primary shadow-md mb-1.5 backdrop-blur-sm">
+              <Users className="h-2.5 w-2.5" />
+              {whoFor}
+            </span>
+            <h3 className="text-xs sm:text-sm font-bold text-foreground line-clamp-2 leading-tight mb-1">{title}</h3>
+            <p className="text-[9px] text-muted-foreground/80">{sector}</p>
           </div>
           {tag && (
-            <span className="rounded-md border border-border/60 bg-muted/70 px-1.5 py-0.5 text-[8px] text-muted-foreground whitespace-nowrap shadow-sm">
+            <span className="rounded-full border border-accent/50 bg-accent/20 px-2 py-0.5 text-[8px] font-medium text-accent whitespace-nowrap shadow-md backdrop-blur-sm">
               {tag}
             </span>
           )}
         </div>
 
-        {/* Problem */}
-        <div className="relative z-10 mb-2 flex-1">
-          <h4 className="text-[9px] font-semibold text-foreground mb-0.5">Problem</h4>
-          <p className="text-[9px] text-muted-foreground leading-snug line-clamp-2">
+        {/* Challenge */}
+        <div className="mb-2 flex-1">
+          <h4 className="text-[9px] font-bold text-foreground/70 mb-1 uppercase tracking-wider">Challenge</h4>
+          <p className="text-[10px] text-foreground/90 leading-relaxed line-clamp-2">
             {problem}
           </p>
         </div>
 
-        {/* Outcome Metric */}
-        <div className="relative z-10 mb-2 rounded-lg border border-primary/30 bg-primary/10 p-1.5 shadow-inner">
-          <div className="flex items-start gap-1.5">
-            <TrendingUp className="h-2.5 w-2.5 text-primary mt-0.5 flex-shrink-0" />
-            <div className="min-w-0">
-              <h4 className="text-[8px] font-semibold text-primary mb-0.5 uppercase tracking-wide">Outcome</h4>
-              <p className="text-[9px] text-foreground leading-snug line-clamp-2">
+        {/* Result - Highlighted */}
+        <div className="mb-2 rounded-xl border-2 border-primary/40 bg-gradient-to-br from-primary/25 via-primary/15 to-transparent p-2 shadow-lg backdrop-blur-sm group-hover:border-primary/60 transition-all duration-300" style={{ transform: "translateZ(10px)" }}>
+          <div className="flex items-start gap-2">
+            <div className="rounded-lg bg-primary/30 p-1 shadow-md">
+              <TrendingUp className="h-3 w-3 text-primary" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <h4 className="text-[9px] font-bold text-primary mb-1 uppercase tracking-wide">Result</h4>
+              <p className="text-[10px] text-foreground font-medium leading-snug line-clamp-2">
                 {outcome}
               </p>
             </div>
@@ -117,15 +134,17 @@ export function PilotCard({
         </div>
 
         {/* Footer */}
-        <div className="relative z-10 flex items-center justify-between pt-2 border-t border-border/50">
-          <div className="flex items-center gap-1 text-[9px] text-muted-foreground">
-            <Clock className="h-2.5 w-2.5" />
+        <div className="flex items-center justify-between pt-2 border-t border-border/30">
+          <div className="flex items-center gap-1.5 text-[9px] text-muted-foreground font-medium">
+            <Clock className="h-3 w-3" />
             <span>{timeToDemo}</span>
           </div>
-          <span className="inline-flex items-center gap-1 text-[9px] font-medium text-primary group-hover:gap-1.5 transition-all">
-            View Case
-            <ArrowRight className="h-2.5 w-2.5" />
+          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-primary group-hover:gap-2 transition-all">
+            View
+            <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
           </span>
+        </div>
+        
         </div>
       </motion.article>
     </Link>

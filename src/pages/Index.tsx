@@ -330,12 +330,12 @@ const RecentBuilds: React.FC = React.memo(() => {
   // Helper functions to map project data to PilotCard props
   const getSectorAudience = (sector: string): string => {
     const audienceMap: Record<string, string> = {
-      "Education Nonprofit": "Education teams",
-      "Founder-Backed Startup": "B2B Startups",
-      "Solo Founder": "Solo Founders",
-      "Climate & Energy": "Energy teams"
+      "Education Nonprofit": "Schools",
+      "Founder-Backed Startup": "Startups",
+      "Solo Founder": "Founders",
+      "Climate & Energy": "Energy Orgs"
     };
-    return audienceMap[sector] || "Organizations";
+    return audienceMap[sector] || "Teams";
   };
   const getProjectProblem = (id: string): string => {
     const problemMap: Record<string, string> = {
@@ -471,26 +471,31 @@ const RecentBuilds: React.FC = React.memo(() => {
         duration: 0.5,
         delay: 0.1
       }} className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-              >
-                <PilotCard
-                  id={project.id}
-                  title={project.title}
-                  sector={project.sector}
-                  whoFor={getSectorAudience(project.sector)}
-                  problem={getProjectProblem(project.id)}
-                  outcome={getProjectOutcome(project.id)}
-                  timeToDemo={getTimeToDemo(project.id)}
-                  tag={project.tag}
-                />
-              </motion.div>
-            ))}
+            {projects.map((project, index) => {
+              const imageUrl = `https://duuhvgjdzaowrwonqhtz.supabase.co/storage/v1/object/public/project-images/${project.id}.jpg`;
+              
+              return (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                >
+                  <PilotCard
+                    id={project.id}
+                    title={project.title}
+                    sector={project.sector}
+                    whoFor={getSectorAudience(project.sector)}
+                    problem={getProjectProblem(project.id)}
+                    outcome={getProjectOutcome(project.id)}
+                    timeToDemo={getTimeToDemo(project.id)}
+                    tag={project.tag}
+                    imageUrl={imageUrl}
+                  />
+                </motion.div>
+              );
+            })}
           </motion.div>}
       </div>
     </section>;
