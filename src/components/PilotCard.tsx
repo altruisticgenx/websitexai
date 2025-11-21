@@ -2,6 +2,7 @@ import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { OptimizedImage } from "./OptimizedImage";
 
 interface PilotCardProps {
   id: string;
@@ -46,13 +47,12 @@ export function PilotCard({
       {/* Image header */}
       <div className="relative h-36 sm:h-40 lg:h-44 w-full overflow-hidden">
         {imageUrl ? (
-          <img
+          <OptimizedImage
             src={imageUrl}
-            srcSet={`${imageUrl}?w=400 400w, ${imageUrl}?w=800 800w, ${imageUrl}?w=1200 1200w`}
-            sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px"
             alt={`${title} preview`}
+            sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px"
             className="h-full w-full object-cover"
-            loading="lazy"
+            enableModernFormats={true}
           />
         ) : (
           <div className="h-full w-full bg-gradient-to-br from-slate-900 to-slate-800" />
