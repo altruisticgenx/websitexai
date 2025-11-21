@@ -87,13 +87,7 @@ const Index: React.FC = () => {
     setBootLoading(false);
   }, []);
 
-  // Swipe gesture support (mobile-first)
-  const swipeRef = useSwipeGesture<HTMLDivElement>({
-    onSwipeUp: () => navigateSection(1),
-    onSwipeDown: () => navigateSection(-1),
-    threshold: 72,
-  });
-
+  // Define navigateSection BEFORE using it in swipe gesture
   const navigateSection = useCallback(
     (delta: number) => {
       const ids = sectionIdsRef.current;
@@ -109,6 +103,13 @@ const Index: React.FC = () => {
     },
     [currentSectionIndex, prefersReducedMotion]
   );
+
+  // Swipe gesture support (mobile-first)
+  const swipeRef = useSwipeGesture<HTMLDivElement>({
+    onSwipeUp: () => navigateSection(1),
+    onSwipeDown: () => navigateSection(-1),
+    threshold: 72,
+  });
 
   // Keyboard quick-jumps (1..8)
   useKeyboardNavigation([
