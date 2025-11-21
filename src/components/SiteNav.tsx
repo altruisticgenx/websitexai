@@ -11,8 +11,9 @@ export function SiteNav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const mobileMenuRef = useFocusTrap<HTMLDivElement>(isMobileMenuOpen);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
-  const { trigger } = useHapticFeedback();
-  
+  const {
+    trigger
+  } = useHapticFeedback();
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     trigger('light');
@@ -73,7 +74,7 @@ export function SiteNav() {
       
       <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/80" aria-label="Main navigation">
         <div className="mx-auto max-w-6xl px-3 sm:px-4">
-        <div className="flex h-14 sm:h-16 items-center justify-between">
+        <div className="h-14 sm:h-16 flex items-start justify-between rounded-sm shadow-sm">
           {/* Logo/Brand */}
           <a href="#" onClick={handleNavClick} className="flex flex-col transition-colors hover:text-primary">
             <span className="body-xs font-semibold uppercase tracking-wider text-primary">
