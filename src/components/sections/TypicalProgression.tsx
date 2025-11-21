@@ -1,9 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Section } from "@/components/utilities/Section";
-import { Stack } from "@/components/layout/Stack";
-import { Grid } from "@/components/layout/Grid";
-import { ParallaxBackground } from "@/components/effects/ParallaxBackground";
+import { Section } from "@/components/utilities";
+import { Stack, Grid } from "@/components/layout";
+import { ParallaxBackground } from "@/components/effects";
 import { cn } from "@/lib/utils";
 
 export const TypicalProgression: React.FC = React.memo(() => {

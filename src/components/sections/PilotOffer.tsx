@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { ParallaxBackground } from "@/components/effects/ParallaxBackground";
+import { ParallaxBackground } from "@/components/effects";
 import { cn } from "@/lib/utils";
 
 type FeatureItem = {
