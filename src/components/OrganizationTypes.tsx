@@ -71,7 +71,7 @@ export const OrganizationTypes = memo(() => {
         }} transition={{
           duration: 0.5,
           delay: index * 0.1
-        }} className="relative">
+        }} className="relative rounded-none">
               <motion.button onClick={() => toggleOrg(org.name)} whileHover={{
             y: -4,
             scale: 1.02
