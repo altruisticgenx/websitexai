@@ -14,7 +14,7 @@ import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteNav } from "@/components/SiteNav";
-import { HeroSkeleton, CardsSkeleton, StepsSkeleton, TwoColumnSkeleton } from "@/components/skeletons/SectionSkeleton";
+import { HeroSkeleton, CardsSkeleton, StepsSkeleton, TwoColumnSkeleton, LocationsSkeleton, OrganizationTypesSkeleton, TableSkeleton } from "@/components/skeletons/SectionSkeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 // Lazy load heavier, below-the-fold sections
@@ -183,43 +183,19 @@ const Index: React.FC = () => {
               <WhoBenefits />
             </LazySection>
 
-            <Suspense
-              fallback={
-                <div
-                  className="mx-auto my-8 h-64 max-w-5xl rounded-2xl bg-slate-900/60"
-                  aria-busy="true"
-                  aria-live="polite"
-                />
-              }
-            >
+            <Suspense fallback={<OrganizationTypesSkeleton />}>
               <LazySection>
                 <OrganizationTypes />
               </LazySection>
             </Suspense>
 
-            <Suspense
-              fallback={
-                <div
-                  className="mx-auto my-8 h-64 max-w-5xl rounded-2xl bg-slate-900/60"
-                  aria-busy="true"
-                  aria-live="polite"
-                />
-              }
-            >
+            <Suspense fallback={<LocationsSkeleton />}>
               <LazySection>
                 <WhereIWork />
               </LazySection>
             </Suspense>
 
-            <Suspense
-              fallback={
-                <div
-                  className="mx-auto my-8 h-64 max-w-5xl rounded-2xl bg-slate-900/60"
-                  aria-busy="true"
-                  aria-live="polite"
-                />
-              }
-            >
+            <Suspense fallback={<TableSkeleton />}>
               <LazySection>
                 <ShelvedExperiments />
               </LazySection>
