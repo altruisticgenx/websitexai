@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useFocusTrap } from "@/hooks/use-focus-trap";
+import { useHapticFeedback } from "@/hooks/use-haptic-feedback";
 import { ChevronDown } from "lucide-react";
 export function SiteNav() {
   const activeSection = useActiveSection(["", "pilot", "builds", "how", "where"]);
@@ -10,8 +11,11 @@ export function SiteNav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const mobileMenuRef = useFocusTrap<HTMLDivElement>(isMobileMenuOpen);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const { trigger } = useHapticFeedback();
+  
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    trigger('light');
     const href = e.currentTarget.getAttribute("href");
     if (!href) return;
 
