@@ -415,7 +415,7 @@ const RecentBuilds: React.FC = React.memo(() => {
   }, [fetchProjects]);
 
   return (
-    <section id="builds" className="relative py-10 lg:py-16">
+    <section id="builds" className="relative py-8 sm:py-10 lg:py-16">
       <ParallaxBackground
         speed={0.6}
         gradient="from-primary/8 via-accent/8 to-transparent"
@@ -425,7 +425,7 @@ const RecentBuilds: React.FC = React.memo(() => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,hsl(var(--primary)/0.15),transparent_50%)]" />
       </ParallaxBackground>
 
-      <div className="mx-auto w-full max-w-5xl px-4">
+      <div className="mx-auto w-full max-w-5xl px-3 sm:px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -440,14 +440,14 @@ const RecentBuilds: React.FC = React.memo(() => {
         </motion.div>
 
         {isLoadingProjects ? (
-          <div className="mt-6">
+          <div className="mt-6 sm:mt-8">
             <CardsSkeleton />
           </div>
         ) : error ? (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-6 rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center"
+            className="mt-6 sm:mt-8 rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center"
             role="alert"
             aria-live="polite"
           >
@@ -460,7 +460,7 @@ const RecentBuilds: React.FC = React.memo(() => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-6 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center"
+            className="mt-6 sm:mt-8 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center"
           >
             <p className="text-sm text-slate-400">No projects available yet. Check back soon!</p>
           </motion.div>
@@ -470,7 +470,7 @@ const RecentBuilds: React.FC = React.memo(() => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-8"
+            className="mt-6 sm:mt-8"
           >
             <PilotCarousel3D autoPlayInterval={6000}>
               {projects.map((project) => {
