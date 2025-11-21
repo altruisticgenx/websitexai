@@ -320,7 +320,7 @@ FeatureCardWithTooltip.displayName = "FeatureCardWithTooltip";
 
 const RecentBuilds: React.FC = React.memo(() => {
   const [projects, setProjects] = useState<
-    Array<{ id: string; title: string; sector: string; summary: string; tag: string }>
+    Array<{ id: string; title: string; sector: string; summary: string; tag: string; image_url?: string | null }>
   >([]);
   const [isLoadingProjects, setIsLoadingProjects] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -372,6 +372,7 @@ const RecentBuilds: React.FC = React.memo(() => {
       sector: p.sector,
       summary: p.summary,
       tag: p.tag || "",
+      image_url: p.image_url || null,
     }));
   }, []);
 
@@ -380,7 +381,7 @@ const RecentBuilds: React.FC = React.memo(() => {
       setIsLoadingProjects(true);
       const { data, error: fetchError } = await supabase
         .from("projects")
-        .select("slug, title, sector, summary, tag")
+        .select("slug, title, sector, summary, tag, image_url")
         .eq("featured", true)
         .order("display_order", { ascending: true });
 
@@ -474,7 +475,8 @@ const RecentBuilds: React.FC = React.memo(() => {
           >
             <PilotCarousel3D autoPlayInterval={6000}>
               {projects.map((project) => {
-                const imageUrl = `https://duuhvgjdzaowrwonqhtz.supabase.co/storage/v1/object/public/project-images/${project.id}.jpg`;
+                // Use image_url from database if available, otherwise construct from storage
+                const imageUrl = project.image_url || `https://duuhvgjdzaowrwonqhtz.supabase.co/storage/v1/object/public/project-images/${project.id}.jpg`;
 
                 return (
                   <PilotCard
