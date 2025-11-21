@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from "framer-motion";
 
 import { PilotCard } from "@/components/PilotCard";
 import { SocialProof } from "@/components/SocialProof";
+import { PilotSnapshot } from "@/components/PilotSnapshot";
 import { Hero } from "@/components/Hero";
 import { LazySection } from "@/components/LazySection";
 import { ScrollToTop } from "@/components/ScrollToTop";
@@ -322,11 +323,20 @@ const FeatureCardWithTooltip: React.FC<{ item: FeatureItem; index: number }> = R
 FeatureCardWithTooltip.displayName = "FeatureCardWithTooltip";
 
 const RecentBuilds: React.FC = React.memo(() => {
+  const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
   const [projects, setProjects] = useState<
     Array<{ id: string; title: string; sector: string; summary: string; tag: string; image_url?: string | null }>
   >([]);
   const [isLoadingProjects, setIsLoadingProjects] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const getSectorAudience = (sector: string): string => {
     const audienceMap: Record<string, string> = {
@@ -340,32 +350,36 @@ const RecentBuilds: React.FC = React.memo(() => {
 
   const getProjectProblem = (id: string): string => {
     const problemMap: Record<string, string> = {
-      "sales-copilot": "Manual follow-ups drowning the team, missing high-intent leads",
-      "founder-os": "5 tools, constant context-switching, scattered client data",
-      "energy-analytics": "200+ buildings, data chaos, no visibility into savings",
-      "edtech-portal": "15+ pilots tracked in spreadsheets, funding reports take weeks",
+      "sales-copilot": "CRM follow-ups were eating 10 hrs/week.",
+      "founder-os": "Juggling 5 tools, scattered client data.",
+      "energy-analytics": "200+ buildings, Excel chaos, zero visibility.",
+      "edtech-portal": "15+ pilots tracked in spreadsheets, manual reports.",
     };
-    return problemMap[id] || "Complex operational challenges requiring AI solutions";
+    return problemMap[id] || "Complex operational challenges.";
+  };
+
+  const getShippedFeatures = (id: string): string[] => {
+    const shippedMap: Record<string, string[]> = {
+      "sales-copilot": ["Lead scoring + auto follow-ups", "Founder-voice drafting"],
+      "founder-os": ["Unified scheduling", "Lightweight CRM + invoicing"],
+      "energy-analytics": ["Real-time dashboard", "Savings alerts"],
+      "edtech-portal": ["Pilot tracking", "Funder-ready reports"],
+    };
+    return shippedMap[id] || ["Working pilot"];
   };
 
   const getProjectOutcome = (id: string): string => {
     const outcomeMap: Record<string, string> = {
-      "sales-copilot": "65% less manual work, 2.3x conversion rate",
-      "founder-os": "Saved 4+ hours/week, 5 tools → 1 interface",
-      "energy-analytics": "$180k+ savings identified in first month",
-      "edtech-portal": "Secured $500k funding with data-backed reports",
+      "sales-copilot": "65% less manual work",
+      "founder-os": "Saved 4+ hours/week",
+      "energy-analytics": "$180k+ savings identified",
+      "edtech-portal": "Secured $500k funding",
     };
-    return outcomeMap[id] || "Measurable operational improvements";
+    return outcomeMap[id] || "Measurable impact";
   };
 
   const getTimeToDemo = (id: string): string => {
-    const timeMap: Record<string, string> = {
-      "sales-copilot": "Week 1 demo",
-      "founder-os": "Week 1 demo",
-      "energy-analytics": "Week 1 dashboard",
-      "edtech-portal": "Week 1 portal",
-    };
-    return timeMap[id] || "Week 1";
+    return "Demo in Week 1";
   };
 
   const mapProjects = useCallback((rows: any[] | null) => {
@@ -464,26 +478,96 @@ const RecentBuilds: React.FC = React.memo(() => {
             <p className="body-sm text-slate-400">No projects available yet. Check back soon!</p>
           </motion.div>
         ) : (
-          <PilotCarousel3D autoPlayInterval={6000}>
-            {projects.map((project) => {
-              const imageUrl = project.image_url || `https://duuhvgjdzaowrwonqhtz.supabase.co/storage/v1/object/public/project-images/${project.id}.jpg`;
+          <>
+            {/* Desktop: Grid, Mobile: Carousel */}
+            {!isMobile ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {projects.slice(0, 3).map((project, idx) => (
+                  <motion.article
+                    key={project.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: prefersReducedMotion ? 0 : 0.4, delay: idx * 0.1 }}
+                    className="rounded-xl border border-border/70 bg-card/40 backdrop-blur-sm p-5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 transition-all group"
+                  >
+                    <div className="flex items-start justify-between mb-3">
+                      <span className="text-[10px] font-mono text-primary uppercase tracking-wider">
+                        {getSectorAudience(project.sector)}
+                      </span>
+                      {project.tag && (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full border border-border/50 bg-card/50 text-muted-foreground">
+                          {project.tag}
+                        </span>
+                      )}
+                    </div>
 
-              return (
-                <PilotCard
-                  key={project.id}
-                  id={project.id}
-                  title={project.title}
-                  sector={project.sector}
-                  whoFor={getSectorAudience(project.sector)}
-                  problem={getProjectProblem(project.id)}
-                  outcome={getProjectOutcome(project.id)}
-                  timeToDemo={getTimeToDemo(project.id)}
-                  tag={project.tag}
-                  imageUrl={imageUrl}
-                />
-              );
-            })}
-          </PilotCarousel3D>
+                    <h3 className="text-base font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+
+                    <div className="space-y-3 text-xs">
+                      <div>
+                        <div className="text-[10px] font-mono text-muted-foreground/70 uppercase tracking-wide mb-1">Problem</div>
+                        <p className="text-muted-foreground">{getProjectProblem(project.id)}</p>
+                      </div>
+
+                      <div>
+                        <div className="text-[10px] font-mono text-muted-foreground/70 uppercase tracking-wide mb-1">Shipped</div>
+                        <ul className="space-y-1">
+                          {getShippedFeatures(project.id).map((feature, i) => (
+                            <li key={i} className="flex items-start gap-1.5 text-muted-foreground">
+                              <span className="text-primary mt-0.5">•</span>
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="flex items-center justify-between pt-2 border-t border-border/50">
+                        <div>
+                          <div className="text-[10px] font-mono text-muted-foreground/70 uppercase tracking-wide mb-0.5">Outcome</div>
+                          <div className="text-sm font-semibold text-primary">{getProjectOutcome(project.id)}</div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-[10px] font-mono text-muted-foreground/70 uppercase tracking-wide mb-0.5">Time</div>
+                          <div className="text-xs font-medium text-muted-foreground">{getTimeToDemo(project.id)}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <a
+                      href={`/case-study/${project.id}`}
+                      className="inline-flex items-center gap-1 mt-4 text-xs text-primary hover:text-primary/80 transition-colors group-hover:gap-2 focus-ring"
+                    >
+                      Open case study
+                      <span className="transition-transform group-hover:translate-x-0.5">→</span>
+                    </a>
+                  </motion.article>
+                ))}
+              </div>
+            ) : (
+              <PilotCarousel3D autoPlayInterval={0}>
+                {projects.map((project) => {
+                  const imageUrl = project.image_url || `https://duuhvgjdzaowrwonqhtz.supabase.co/storage/v1/object/public/project-images/${project.id}.jpg`;
+
+                  return (
+                    <PilotCard
+                      key={project.id}
+                      id={project.id}
+                      title={project.title}
+                      sector={project.sector}
+                      whoFor={getSectorAudience(project.sector)}
+                      problem={getProjectProblem(project.id)}
+                      outcome={getProjectOutcome(project.id)}
+                      timeToDemo={getTimeToDemo(project.id)}
+                      tag={project.tag}
+                      imageUrl={imageUrl}
+                    />
+                  );
+                })}
+              </PilotCarousel3D>
+            )}
+          </>
         )}
       </Stack>
     </Section>
