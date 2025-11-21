@@ -20,6 +20,8 @@ export default defineConfig(({ mode }) => ({
       "react-dom",
       // Animation libraries that depend on React
       "framer-motion",
+      // Canvas animation libraries
+      "uvcanvas",
       // Three.js React wrappers
       "@react-three/fiber",
       "@react-three/drei",
