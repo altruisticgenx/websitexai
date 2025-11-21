@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { Hero3DBackground } from "./Hero3D";
+import { HeroScene } from "./HeroScene";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -65,7 +65,7 @@ export function Hero() {
       }}
     >
       {/* 3D Animated Background - Only on desktop with motion enabled */}
-      {shouldRender3D && !isMobile && !prefersReducedMotion && <Hero3DBackground />}
+      {shouldRender3D && !isMobile && !prefersReducedMotion && <HeroScene />}
       
       {/* Simplified gradient background for mobile or reduced motion */}
       {(isMobile || prefersReducedMotion) && (
