@@ -633,65 +633,149 @@ const PilotOffer: React.FC = React.memo(() => {
 });
 PilotOffer.displayName = "PilotOffer";
 const TypicalProgression: React.FC = React.memo(() => {
-  return <section className="relative border-t border-white/5 py-8 sm:py-10 lg:py-14 snap-section">
-      {/* Vibrant Section Glow */}
+  return <section className="relative border-t border-white/5 py-6 sm:py-8 lg:py-10 snap-section">
+      {/* Enhanced Vibrant Glow with 3D Depth */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-violet-500/5 via-transparent to-blue-500/5 opacity-50" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent blur-3xl" />
       
       <div className="relative mx-auto w-full max-w-6xl px-3 sm:px-4">
-        <motion.div initial={{
-        opacity: 0,
-        y: 20
-      }} whileInView={{
-        opacity: 1,
-        y: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.4
-      }} className="space-y-2">
-          <h2 className="heading-3 text-foreground">Typical Progression</h2>
-          <p className="body-base text-muted-foreground">Start small, scale when ready—or jump to any stage.</p>
+        <motion.div 
+          initial={{
+            opacity: 0,
+            y: 15
+          }} 
+          whileInView={{
+            opacity: 1,
+            y: 0
+          }} 
+          viewport={{
+            once: true
+          }} 
+          transition={{
+            duration: 0.5
+          }} 
+          className="space-y-1 sm:space-y-1.5 mb-4 sm:mb-5"
+        >
+          <h2 className="text-base sm:text-lg lg:text-xl font-bold text-foreground">Typical Progression</h2>
+          <p className="text-[10px] sm:text-xs text-muted-foreground max-w-xl">Start small, scale when ready—or jump to any stage.</p>
         </motion.div>
 
-        <div className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-4 sm:mt-5 grid gap-2 sm:gap-3 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
           {[{
           title: "1. Pilot",
           sub: "4 weeks",
           body: "Ship 1–2 features/week. Demo-ready code. Real builds, not decks.",
-          ring: "emerald"
+          color: "emerald",
+          gradient: "from-emerald-500/25 via-teal-500/15 to-emerald-500/10",
+          border: "border-emerald-500/60",
+          glow: "shadow-[0_0_20px_hsl(142_76%_36%/0.3)]",
+          hoverGlow: "hover:shadow-[0_0_30px_hsl(142_76%_36%/0.5)]"
         }, {
           title: "2. Proposal",
           sub: "1–2 weeks",
           body: "Scope doc, timeline, budget. Grant-ready, stakeholder-approved. RFP support.",
-          ring: "blue"
+          color: "blue",
+          gradient: "from-blue-500/25 via-indigo-500/15 to-blue-500/10",
+          border: "border-blue-500/60",
+          glow: "shadow-[0_0_20px_hsl(217_91%_60%/0.3)]",
+          hoverGlow: "hover:shadow-[0_0_30px_hsl(217_91%_60%/0.5)]"
         }, {
           title: "3. Build",
           sub: "2–6 months",
           body: "Full product delivery. Integrations, testing, documentation. Launch-ready.",
-          ring: "violet"
+          color: "violet",
+          gradient: "from-violet-500/25 via-purple-500/15 to-violet-500/10",
+          border: "border-violet-500/60",
+          glow: "shadow-[0_0_20px_hsl(258_90%_66%/0.3)]",
+          hoverGlow: "hover:shadow-[0_0_30px_hsl(258_90%_66%/0.5)]"
         }, {
           title: "4. Retainer",
           sub: "Ongoing",
           body: "Monthly support. Bug fixes, features, pivots. Always-on expertise.",
-          ring: "orange"
-        }].map((step, i) => <motion.div key={step.title} initial={{
-          opacity: 0,
-          scale: 0.95
-        }} whileInView={{
-          opacity: 1,
-          scale: 1
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.45,
-          delay: 0.08 * i
-        }} className={cn("group rounded-lg border-2 p-4 backdrop-blur-sm transition-all", step.ring === "emerald" && "border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 to-teal-500/20", step.ring === "blue" && "border-blue-500/50 bg-gradient-to-br from-blue-500/20 to-indigo-500/20", step.ring === "violet" && "border-violet-500/50 bg-gradient-to-br from-violet-500/20 to-purple-500/20", step.ring === "orange" && "border-orange-500/50 bg-gradient-to-br from-orange-500/20 to-amber-500/20")}>
-              <div className="mb-2 flex items-center gap-2">
-                <span className="body-base font-bold text-slate-100">{step.title}</span>
-                <span className="body-sm text-slate-200/80">{step.sub}</span>
-              </div>
-              <p className="body-base leading-snug text-slate-200/90">{step.body}</p>
-            </motion.div>)}
+          color: "orange",
+          gradient: "from-orange-500/25 via-amber-500/15 to-orange-500/10",
+          border: "border-orange-500/60",
+          glow: "shadow-[0_0_20px_hsl(25_95%_53%/0.3)]",
+          hoverGlow: "hover:shadow-[0_0_30px_hsl(25_95%_53%/0.5)]"
+        }].map((step, i) => <motion.div 
+          key={step.title} 
+          initial={{
+            opacity: 0,
+            scale: 0.92,
+            rotateX: -10
+          }} 
+          whileInView={{
+            opacity: 1,
+            scale: 1,
+            rotateX: 0
+          }} 
+          viewport={{
+            once: true,
+            margin: "-50px"
+          }} 
+          transition={{
+            duration: 0.5,
+            delay: 0.1 * i,
+            ease: [0.34, 1.56, 0.64, 1]
+          }}
+          whileHover={{
+            scale: 1.05,
+            rotateX: 5,
+            rotateY: 3,
+            z: 20,
+            transition: {
+              duration: 0.3,
+              ease: "easeOut"
+            }
+          }}
+          style={{
+            transformStyle: "preserve-3d",
+            perspective: "1000px"
+          }}
+          className={cn(
+            "group relative rounded-lg border-2 p-2.5 sm:p-3 backdrop-blur-xl transition-all duration-500 cursor-pointer",
+            "bg-gradient-to-br overflow-hidden",
+            step.gradient,
+            step.border,
+            step.glow,
+            step.hoverGlow,
+            "before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-br before:from-white/10 before:via-white/5 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500",
+            "after:absolute after:inset-0 after:rounded-lg after:bg-gradient-to-t after:from-black/10 after:to-transparent after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-500"
+          )}
+        >
+          {/* 3D Floating Accent Layer */}
+          <div 
+            className="absolute inset-0 rounded-lg bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style={{ transform: "translateZ(5px)" }}
+          />
+          
+          {/* Number Badge with Glow */}
+          <div className="absolute -top-1 -left-1 flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-md border border-white/30 shadow-lg">
+            <span className="text-[8px] sm:text-[9px] font-bold text-white">{i + 1}</span>
+          </div>
+          
+          <div className="relative z-10 space-y-1 sm:space-y-1.5">
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-[10px] sm:text-[11px] font-bold text-white leading-tight">{step.title}</span>
+              <span className="text-[8px] sm:text-[9px] text-white/70 font-medium">{step.sub}</span>
+            </div>
+            <p className="text-[9px] sm:text-[10px] leading-snug text-white/80">{step.body}</p>
+          </div>
+          
+          {/* Shimmer Effect on Hover */}
+          <motion.div 
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100"
+            animate={{
+              x: ['-200%', '200%']
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              repeatDelay: 1,
+              ease: "easeInOut"
+            }}
+          />
+        </motion.div>)}
         </div>
       </div>
     </section>;
