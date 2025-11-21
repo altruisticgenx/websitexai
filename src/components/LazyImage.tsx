@@ -8,6 +8,8 @@ interface LazyImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   placeholderSrc?: string;
   aspectRatio?: "square" | "video" | "portrait" | "wide";
   onLoadComplete?: () => void;
+  srcSet?: string;
+  sizes?: string;
 }
 
 const aspectRatioClasses = {
@@ -25,6 +27,8 @@ export function LazyImage({
   placeholderSrc,
   aspectRatio,
   onLoadComplete,
+  srcSet,
+  sizes,
   ...props 
 }: LazyImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -106,6 +110,8 @@ export function LazyImage({
       <img
         ref={imgRef}
         src={isInView ? src : undefined}
+        srcSet={isInView ? srcSet : undefined}
+        sizes={sizes}
         alt={alt}
         className={cn(
           "w-full h-full object-cover transition-opacity duration-500",
