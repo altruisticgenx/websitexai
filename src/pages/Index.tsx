@@ -397,8 +397,27 @@ const RecentBuilds: React.FC = React.memo(() => {
       }} transition={{
         duration: 0.5,
         delay: 0.1
-      }} className="mt-6 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-            {projects.map(project => <PilotCard key={project.id} id={project.id} title={project.title} sector={project.sector} whoFor={getSectorAudience(project.sector)} problem={getProjectProblem(project.id)} outcome={getProjectOutcome(project.id)} timeToDemo={getTimeToDemo(project.id)} tag={project.tag} />)}
+      }} className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+              >
+                <PilotCard
+                  id={project.id}
+                  title={project.title}
+                  sector={project.sector}
+                  whoFor={getSectorAudience(project.sector)}
+                  problem={getProjectProblem(project.id)}
+                  outcome={getProjectOutcome(project.id)}
+                  timeToDemo={getTimeToDemo(project.id)}
+                  tag={project.tag}
+                />
+              </motion.div>
+            ))}
           </motion.div>}
       </div>
     </section>;
