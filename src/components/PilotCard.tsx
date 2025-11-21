@@ -31,23 +31,34 @@ export function PilotCard({
   // Dynamic gradient based on sector with enhanced 3D effects
   const getSectorGradient = (sector: string) => {
     const gradients: Record<string, string> = {
-      "Education Nonprofit": "from-blue-500/20 via-indigo-500/10 to-violet-500/20 border-blue-400/40 hover:border-blue-400/70",
-      "Founder-Backed Startup": "from-emerald-500/20 via-teal-500/10 to-green-500/20 border-emerald-400/40 hover:border-emerald-400/70",
-      "Solo Founder": "from-amber-500/20 via-orange-500/10 to-yellow-500/20 border-amber-400/40 hover:border-amber-400/70",
-      "Climate & Energy": "from-lime-500/20 via-green-500/10 to-emerald-500/20 border-lime-400/40 hover:border-lime-400/70",
+      "Education Nonprofit": "from-blue-600/25 via-indigo-500/15 to-violet-600/25 border-blue-500/60 hover:border-blue-400/90",
+      "Founder-Backed Startup": "from-emerald-600/25 via-teal-500/15 to-green-600/25 border-emerald-500/60 hover:border-emerald-400/90",
+      "Solo Founder": "from-amber-600/25 via-orange-500/15 to-yellow-600/25 border-amber-500/60 hover:border-amber-400/90",
+      "Climate & Energy": "from-lime-600/25 via-green-500/15 to-emerald-600/25 border-lime-500/60 hover:border-lime-400/90",
     };
-    return gradients[sector] || "from-slate-800/20 via-slate-700/10 to-slate-600/20 border-slate-400/40 hover:border-slate-400/70";
+    return gradients[sector] || "from-slate-700/25 via-slate-600/15 to-slate-500/25 border-slate-400/60 hover:border-slate-300/90";
   };
 
   // Get glow color for 3D effect
   const getGlowColor = (sector: string) => {
     const glows: Record<string, string> = {
-      "Education Nonprofit": "shadow-blue-500/20",
-      "Founder-Backed Startup": "shadow-emerald-500/20",
-      "Solo Founder": "shadow-amber-500/20",
-      "Climate & Energy": "shadow-lime-500/20",
+      "Education Nonprofit": "shadow-blue-500/30 hover:shadow-blue-400/50",
+      "Founder-Backed Startup": "shadow-emerald-500/30 hover:shadow-emerald-400/50",
+      "Solo Founder": "shadow-amber-500/30 hover:shadow-amber-400/50",
+      "Climate & Energy": "shadow-lime-500/30 hover:shadow-lime-400/50",
     };
-    return glows[sector] || "shadow-slate-500/20";
+    return glows[sector] || "shadow-slate-500/30 hover:shadow-slate-400/50";
+  };
+
+  // Get accent color based on sector
+  const getSectorAccent = (sector: string) => {
+    const accents: Record<string, string> = {
+      "Education Nonprofit": "text-blue-400 border-blue-500/50 bg-blue-500/20",
+      "Founder-Backed Startup": "text-emerald-400 border-emerald-500/50 bg-emerald-500/20",
+      "Solo Founder": "text-amber-400 border-amber-500/50 bg-amber-500/20",
+      "Climate & Energy": "text-lime-400 border-lime-500/50 bg-lime-500/20",
+    };
+    return accents[sector] || "text-slate-400 border-slate-500/50 bg-slate-500/20";
   };
 
   return (
@@ -96,7 +107,10 @@ export function PilotCard({
         {/* Header */}
         <div className="flex items-start justify-between gap-1.5 mb-2">
           <div className="flex-1 min-w-0">
-            <span className="inline-flex items-center gap-0.5 rounded-full border border-primary/50 bg-primary/20 px-1.5 py-0.5 text-[8px] font-bold text-primary shadow-md mb-1 backdrop-blur-sm">
+            <span className={cn(
+              "inline-flex items-center gap-0.5 rounded-full border px-1.5 py-0.5 text-[8px] font-bold shadow-md mb-1 backdrop-blur-sm",
+              getSectorAccent(sector)
+            )}>
               <Users className="h-2 w-2" />
               {whoFor}
             </span>
@@ -104,7 +118,10 @@ export function PilotCard({
             <p className="text-[8px] text-muted-foreground/70 font-medium">{sector}</p>
           </div>
           {tag && (
-            <span className="rounded-full border border-accent/50 bg-accent/20 px-1.5 py-0.5 text-[7px] font-bold text-accent whitespace-nowrap shadow-md backdrop-blur-sm">
+            <span className={cn(
+              "rounded-full border px-1.5 py-0.5 text-[7px] font-bold whitespace-nowrap shadow-md backdrop-blur-sm",
+              getSectorAccent(sector)
+            )}>
               {tag}
             </span>
           )}
@@ -118,14 +135,21 @@ export function PilotCard({
           </p>
         </div>
 
-        {/* Result - Highlighted */}
-        <div className="mb-1.5 rounded-xl border-2 border-primary/40 bg-gradient-to-br from-primary/25 via-primary/15 to-transparent p-1.5 shadow-lg backdrop-blur-sm group-hover:border-primary/60 transition-all duration-300" style={{ transform: "translateZ(10px)" }}>
+        {/* Result - Highlighted with sector color */}
+        <div className={cn(
+          "mb-1.5 rounded-xl border-2 bg-gradient-to-br p-1.5 shadow-lg backdrop-blur-sm transition-all duration-300",
+          getSectorAccent(sector).replace('text-', 'border-').replace('/20', '/40').replace('/50', '/60'),
+          "group-hover:border-opacity-90"
+        )} style={{ transform: "translateZ(10px)" }}>
           <div className="flex items-start gap-1.5">
-            <div className="rounded-lg bg-primary/30 p-0.5 shadow-md">
-              <TrendingUp className="h-2.5 w-2.5 text-primary" />
+            <div className={cn(
+              "rounded-lg p-0.5 shadow-md",
+              getSectorAccent(sector).replace('text-', 'bg-').replace('/20', '/40')
+            )}>
+              <TrendingUp className={cn("h-2.5 w-2.5", getSectorAccent(sector).split(' ')[0])} />
             </div>
             <div className="min-w-0 flex-1">
-              <h4 className="text-[8px] font-bold text-primary mb-0.5 uppercase tracking-wide">Result</h4>
+              <h4 className={cn("text-[8px] font-bold mb-0.5 uppercase tracking-wide", getSectorAccent(sector).split(' ')[0])}>Result</h4>
               <p className="text-[9px] text-foreground font-bold leading-tight line-clamp-2">
                 {outcome}
               </p>

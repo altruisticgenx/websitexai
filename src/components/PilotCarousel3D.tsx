@@ -71,29 +71,29 @@ export function PilotCarousel3D({
   };
 
   return (
-    <div className="relative w-full" style={{ perspective: "2000px" }}>
+    <div className="relative w-full" style={{ perspective: "1500px" }}>
       {/* Carousel Container */}
-      <div className="relative h-[280px] sm:h-[320px] md:h-[360px] overflow-visible">
+      <div className="relative h-[240px] sm:h-[260px] md:h-[280px] overflow-visible">
         <AnimatePresence initial={false} custom={direction} mode="popLayout">
           {/* Previous Card (Left) */}
           <motion.div
             key={`prev-${prev}`}
-            className="absolute left-0 top-1/2 w-[35%] sm:w-[30%] origin-center"
+            className="absolute left-0 top-1/2 w-[28%] sm:w-[25%] origin-center hidden xs:block"
             initial={false}
             animate={{
-              x: "10%",
+              x: "5%",
               y: "-50%",
-              scale: 0.7,
-              opacity: 0.4,
-              rotateY: 25,
-              z: -200,
+              scale: 0.65,
+              opacity: 0.3,
+              rotateY: 30,
+              z: -250,
             }}
             transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
             style={{
               transformStyle: "preserve-3d",
             }}
           >
-            <div className="pointer-events-none blur-[2px]">
+            <div className="pointer-events-none blur-[1.5px]">
               {childrenArray[prev]}
             </div>
           </motion.div>
@@ -101,7 +101,7 @@ export function PilotCarousel3D({
           {/* Current Card (Center) */}
           <motion.div
             key={`current-${current}`}
-            className="absolute left-1/2 top-1/2 w-[75%] sm:w-[65%] md:w-[55%] origin-center"
+            className="absolute left-1/2 top-1/2 w-[85%] xs:w-[70%] sm:w-[60%] md:w-[50%] origin-center"
             custom={direction}
             variants={slideVariants}
             initial="enter"
@@ -121,22 +121,22 @@ export function PilotCarousel3D({
           {/* Next Card (Right) */}
           <motion.div
             key={`next-${next}`}
-            className="absolute right-0 top-1/2 w-[35%] sm:w-[30%] origin-center"
+            className="absolute right-0 top-1/2 w-[28%] sm:w-[25%] origin-center hidden xs:block"
             initial={false}
             animate={{
-              x: "-10%",
+              x: "-5%",
               y: "-50%",
-              scale: 0.7,
-              opacity: 0.4,
-              rotateY: -25,
-              z: -200,
+              scale: 0.65,
+              opacity: 0.3,
+              rotateY: -30,
+              z: -250,
             }}
             transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
             style={{
               transformStyle: "preserve-3d",
             }}
           >
-            <div className="pointer-events-none blur-[2px]">
+            <div className="pointer-events-none blur-[1.5px]">
               {childrenArray[next]}
             </div>
           </motion.div>
@@ -144,46 +144,51 @@ export function PilotCarousel3D({
       </div>
 
       {/* Navigation Buttons */}
-      <div className="mt-4 flex items-center justify-center gap-3">
+      <div className="mt-3 flex items-center justify-center gap-2">
         <motion.button
           onClick={handlePrev}
-          whileHover={{ scale: 1.1, rotate: -5 }}
-          whileTap={{ scale: 0.9 }}
-          className="group relative rounded-full bg-primary/20 p-2 backdrop-blur-sm border border-primary/40 shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all duration-300"
+          whileHover={{ scale: 1.08, rotate: -3 }}
+          whileTap={{ scale: 0.92 }}
+          className="group relative rounded-full bg-primary/20 p-1.5 backdrop-blur-sm border border-primary/50 shadow-md shadow-primary/25 hover:shadow-primary/50 transition-all duration-300"
           style={{ transformStyle: "preserve-3d" }}
+          aria-label="Previous project"
         >
-          <ChevronLeft className="h-4 w-4 text-primary group-hover:text-primary-foreground transition-colors" />
-          <div className="absolute inset-0 rounded-full bg-primary/0 group-hover:bg-primary/100 transition-all duration-300 -z-10" />
+          <ChevronLeft className="h-3.5 w-3.5 text-primary group-hover:text-primary-foreground transition-colors" />
+          <div className="absolute inset-0 rounded-full bg-primary/0 group-hover:bg-primary transition-all duration-300 -z-10" />
         </motion.button>
 
         {/* Dots Indicator */}
-        <div className="flex gap-1.5">
+        <div className="flex gap-1">
           {childrenArray.map((_, index) => (
-            <button
+            <motion.button
               key={index}
               onClick={() => {
                 setDirection(index > currentIndex ? 1 : -1);
                 setCurrentIndex(index);
               }}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
               className={cn(
-                "h-1.5 rounded-full transition-all duration-300",
+                "h-1 rounded-full transition-all duration-300",
                 index === currentIndex
-                  ? "w-6 bg-primary shadow-lg shadow-primary/50"
-                  : "w-1.5 bg-primary/30 hover:bg-primary/50"
+                  ? "w-5 bg-primary shadow-md shadow-primary/60"
+                  : "w-1 bg-primary/40 hover:bg-primary/60"
               )}
+              aria-label={`Go to project ${index + 1}`}
             />
           ))}
         </div>
 
         <motion.button
           onClick={handleNext}
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          whileTap={{ scale: 0.9 }}
-          className="group relative rounded-full bg-primary/20 p-2 backdrop-blur-sm border border-primary/40 shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all duration-300"
+          whileHover={{ scale: 1.08, rotate: 3 }}
+          whileTap={{ scale: 0.92 }}
+          className="group relative rounded-full bg-primary/20 p-1.5 backdrop-blur-sm border border-primary/50 shadow-md shadow-primary/25 hover:shadow-primary/50 transition-all duration-300"
           style={{ transformStyle: "preserve-3d" }}
+          aria-label="Next project"
         >
-          <ChevronRight className="h-4 w-4 text-primary group-hover:text-primary-foreground transition-colors" />
-          <div className="absolute inset-0 rounded-full bg-primary/0 group-hover:bg-primary/100 transition-all duration-300 -z-10" />
+          <ChevronRight className="h-3.5 w-3.5 text-primary group-hover:text-primary-foreground transition-colors" />
+          <div className="absolute inset-0 rounded-full bg-primary/0 group-hover:bg-primary transition-all duration-300 -z-10" />
         </motion.button>
       </div>
 
@@ -192,9 +197,9 @@ export function PilotCarousel3D({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
-        className="mt-3 text-center text-[9px] text-muted-foreground sm:hidden"
+        className="mt-2 text-center text-[8px] text-muted-foreground/70 font-medium"
       >
-        Swipe or tap arrows to navigate
+        Swipe or tap arrows
       </motion.p>
     </div>
   );
