@@ -376,7 +376,7 @@ export function Hero() {
             delay: 0.5
           }} style={{
             transformStyle: "preserve-3d"
-          }} className="class=\"mt-4 sm:mt-5 flex flex-wrap items-center gap-2 sm:gap-2.5 text-[7px] sm:text-[8px]\"">
+          }} className="mt-4 sm:mt-5 flex flex-wrap items-center gap-2 sm:gap-2.5 text-[7px] sm:text-[8px]">
               <span className="text-muted-foreground font-mono font-semibold">Focus:</span>
               
               {/* Energy - Enhanced 3D Hexagon */}
