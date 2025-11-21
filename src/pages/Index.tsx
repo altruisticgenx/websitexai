@@ -405,7 +405,7 @@ const RecentBuilds: React.FC = React.memo(() => {
 });
 RecentBuilds.displayName = "RecentBuilds";
 const PilotOffer: React.FC = React.memo(() => {
-  return <section id="pilot" className="border-t border-slate-900/80 py-10 lg:py-16">
+  return <section id="pilot" className="border-t border-slate-900/80 py-10 lg:py-16" aria-labelledby="pilot-heading">
       <div className="mx-auto w-full max-w-5xl space-y-8 px-4">
         <motion.div initial={{
         opacity: 0,
@@ -418,7 +418,7 @@ const PilotOffer: React.FC = React.memo(() => {
       }} transition={{
         duration: 0.4
       }} className="space-y-6">
-          <h2 className="heading-3 text-foreground">Why a Pilot Partner Instead of Hiring In-House</h2>
+          <h2 id="pilot-heading" className="heading-3 text-foreground">Why a Pilot Partner Instead of Hiring In-House</h2>
           <ul className="max-w-3xl space-y-4">
             {["Hiring in-house makes sense once you know what you're scaling. When you're still in the \"is this even the right thing?\" phase, it's a slow and expensive way to find out.", "Bringing on a full-time senior hire typically means months of recruiting, six-figure commitments, and added overhead—before you even know if the pilot is worth scaling.", "My model is different: You bring a real problem, we design a small, honest experiment, and within a few weeks you have something you can show to leadership, funders, or partners—plus a clearer sense of what to do next."].map((text, i) => <motion.li key={i} initial={{
             opacity: 0,
@@ -702,10 +702,10 @@ const AboutMe: React.FC = React.memo(() => {
         duration: 0.6,
         delay: 0.1
       }}>
-          <div className="relative overflow-hidden rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/95 via-slate-900/95 to-slate-950/95 p-5 shadow-2xl backdrop-blur-xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-cyan-500/5" />
+          <article className="relative overflow-hidden rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/95 via-slate-900/95 to-slate-950/95 p-5 shadow-2xl backdrop-blur-xl">
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-cyan-500/5" aria-hidden="true" />
             <div className="relative z-10">
-              <h3 className="heading-4 text-foreground">Why This Matters</h3>
+              <h3 id="why-matters-heading" className="heading-4 text-foreground">Why This Matters</h3>
               <motion.p className="body-sm mt-2 text-muted-foreground" initial={{
               opacity: 0,
               y: 10
@@ -720,9 +720,9 @@ const AboutMe: React.FC = React.memo(() => {
             }}>
                 Pennsylvania cannot afford another decade of:
               </motion.p>
-              <ul className="mt-3 space-y-1.5">
+              <ul className="mt-3 space-y-1.5" role="list" aria-label="Challenges Pennsylvania faces">
                 {["Delayed modernization while comparable states advance", "Legislative gridlock on education and infrastructure", "Workforce development disconnected from regional needs", "Civics education that feels irrelevant to students", "Declining trust in public institutions"].map(t => <li key={t} className="caption flex items-start gap-2 text-muted-foreground/90">
-                    <span className="mt-1 inline-block h-1 w-1 flex-shrink-0 rounded-full bg-emerald-400/70" />
+                    <span className="mt-1 inline-block h-1 w-1 flex-shrink-0 rounded-full bg-emerald-400/70" aria-hidden="true" />
                     <span className="flex-1">{t}</span>
                   </li>)}
               </ul>
@@ -733,7 +733,7 @@ const AboutMe: React.FC = React.memo(() => {
                 </p>
               </div>
             </div>
-          </div>
+          </article>
         </motion.div>
       </div>
     </section>;
