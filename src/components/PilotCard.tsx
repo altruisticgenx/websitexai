@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { SpotlightCard } from "./SpotlightCard";
+import { OptimizedImage } from "./OptimizedImage";
 interface PilotCardProps {
   id: string;
   title: string;
@@ -43,11 +44,19 @@ export function PilotCard({
       }} className="relative w-full h-full flex flex-col overflow-hidden">
           {/* Image header - Mobile-first sizing */}
           <div className="relative h-32 xs:h-36 sm:h-40 w-full overflow-hidden flex-shrink-0">
-            {imageUrl && shouldLoadImage ? <img src={imageUrl} alt={`${title} preview`} className="h-full w-full object-cover" loading="lazy" onError={e => {
-            e.currentTarget.style.display = 'none';
-          }} /> : null}
-            {/* Gradient overlay/fallback */}
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+            {imageUrl && shouldLoadImage ? (
+              <OptimizedImage
+                src={imageUrl}
+                alt={`${title} preview`}
+                className="h-full w-full object-cover"
+                aspectRatio="video"
+                sizes="(max-width: 475px) 320px, (max-width: 640px) 400px, 500px"
+                enableModernFormats={true}
+              />
+            ) : (
+              /* Gradient fallback when no image or not loaded yet */
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+            )}
             <div className="pointer-events-none\n    absolute\n    inset-x-0\n    bottom-0\n    h-1/2\n    rounded-2xl\n    bg-gradient-to-t\n    from-slate-950/95\n    via-slate-950/60\n    to-transparent\n    sm:inset-0\n    sm:h-full" />
 
             {/* Sector pill */}
