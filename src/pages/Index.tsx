@@ -39,7 +39,7 @@ const Index: React.FC = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button size="lg" className="touch-target-lg" asChild>
-                  <Link to="/portfolio">
+                  <Link to="/pilots">
                     See 4-Week Pilots <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
@@ -244,7 +244,7 @@ const Index: React.FC = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" className="touch-target-lg" asChild>
-                  <Link to="/portfolio">
+                  <Link to="/pilots">
                     See Pilot Catalog <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>

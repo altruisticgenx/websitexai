@@ -193,6 +193,40 @@ const Pilots: React.FC = () => {
           </div>
         </section>
 
+        {/* Pilot Snapshot Strip */}
+        <section className="border-b border-border bg-card/20">
+          <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
+            >
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-5 text-center">
+                <div>
+                  <p className="body-sm font-semibold text-primary mb-1">Duration</p>
+                  <p className="body-base">4 weeks</p>
+                </div>
+                <div>
+                  <p className="body-sm font-semibold text-primary mb-1">Ship Rate</p>
+                  <p className="body-base">1–2 features/week</p>
+                </div>
+                <div>
+                  <p className="body-sm font-semibold text-primary mb-1">Deliverables</p>
+                  <p className="body-base">Demo + Repo + Plan</p>
+                </div>
+                <div>
+                  <p className="body-sm font-semibold text-primary mb-1">Flexibility</p>
+                  <p className="body-base">No lock-in</p>
+                </div>
+                <div className="col-span-2 sm:col-span-1">
+                  <p className="body-sm font-semibold text-primary mb-1">Cadence</p>
+                  <p className="body-base">Weekly demos</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Filter Tabs */}
         <section className="sticky top-[64px] z-40 border-b border-border bg-background/95 backdrop-blur-sm">
           <div className="mx-auto max-w-5xl px-4 py-4 sm:px-6">
@@ -418,13 +452,9 @@ const PilotCard: React.FC<{ pilot: Pilot; index: number }> = ({ pilot, index }) 
 
           {/* CTA */}
           <Button variant="outline" size="sm" className="w-full mt-2" asChild>
-            <a
-              href="https://us06web.zoom.us/launch/chat?src=direct_chat_link&email=altruisticxai@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Discuss This Pilot <ArrowRight className="ml-2 h-3 w-3" />
-            </a>
+            <Link to={`/pilots/${pilot.id}`}>
+              View Details <ArrowRight className="ml-2 h-3 w-3" />
+            </Link>
           </Button>
         </CardContent>
       </Card>
