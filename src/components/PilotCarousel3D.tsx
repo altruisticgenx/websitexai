@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useHapticFeedback } from "@/hooks/use-haptic-feedback";
 
@@ -14,6 +14,7 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
   const [direction, setDirection] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [isPaused, setIsPaused] = useState(false);
   const { trigger } = useHapticFeedback();
 
   const childrenArray = Array.isArray(children) ? children : [children];
@@ -24,13 +25,13 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
 
   // Auto-play
   useEffect(() => {
-    if (autoPlayInterval > 0) {
+    if (autoPlayInterval > 0 && !isPaused) {
       const timer = setInterval(() => {
         handleNext();
       }, autoPlayInterval);
       return () => clearInterval(timer);
     }
-  }, [currentIndex, autoPlayInterval]);
+  }, [currentIndex, autoPlayInterval, isPaused]);
 
   const handleNext = () => {
     setDirection(1);
@@ -180,6 +181,26 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
 
       {/* Navigation Buttons */}
       <div className="mt-3 flex items-center justify-center gap-2">
+        {/* Pause/Play Button */}
+        <motion.button
+          onClick={() => {
+            trigger('light');
+            setIsPaused(!isPaused);
+          }}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.92 }}
+          className="group relative rounded-full bg-primary/20 p-1.5 backdrop-blur-sm border border-primary/50 shadow-md shadow-primary/25 hover:shadow-primary/50 transition-all duration-300"
+          style={{ transformStyle: "preserve-3d" }}
+          aria-label={isPaused ? "Resume auto-play" : "Pause auto-play"}
+        >
+          {isPaused ? (
+            <Play className="h-3.5 w-3.5 text-primary group-hover:text-primary-foreground transition-colors" />
+          ) : (
+            <Pause className="h-3.5 w-3.5 text-primary group-hover:text-primary-foreground transition-colors" />
+          )}
+          <div className="absolute inset-0 rounded-full bg-primary/0 group-hover:bg-primary transition-all duration-300 -z-10" />
+        </motion.button>
+
         <motion.button
           onClick={handlePrev}
           whileHover={{ scale: 1.08, rotate: -3 }}
