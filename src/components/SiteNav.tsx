@@ -67,11 +67,12 @@ export function SiteNav() {
   }, [isMobileMenuOpen]);
   return <>
       {/* Skip to content link for accessibility */}
-      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-xs">
         Skip to main content
       </a>
       
-      <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80" aria-label="Main navigation">
+      {/* Single sticky header - no duplicates */}
+      <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/98 backdrop-blur-lg shadow-sm supports-[backdrop-filter]:bg-background/95" aria-label="Main navigation">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo/Brand */}

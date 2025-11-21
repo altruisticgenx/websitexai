@@ -26,7 +26,7 @@ export function Hero() {
   const [shouldRender3D, setShouldRender3D] = useState(false);
 
   // Typing animation state
-  const fullText = "Local-First AI for Schools & Energy Systems";
+  const fullText = "Ship a working AI pilot in 2–6 weeks — without hiring.";
   const [displayedText, setDisplayedText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
   
@@ -289,7 +289,7 @@ export function Hero() {
           >
             {/* Tagline with Animated Dot */}
             <motion.div
-              className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-[10px] font-normal text-muted-foreground"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-2.5 py-1 text-[9px] sm:text-[10px] font-normal text-muted-foreground"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
@@ -299,12 +299,12 @@ export function Hero() {
                 animate={{ opacity: [1, 0.5, 1], scale: [1, 1.2, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
-              <span className="font-mono">{'>'} Ship pilot-ready AI tech</span>
+              <span className="font-mono">Real pilots · Real results</span>
             </motion.div>
 
             {/* Main Headline with Terminal Typing */}
             <motion.h1
-              className="mt-3 heading-1 relative font-mono text-reveal text-reveal-delay-1"
+              className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight relative font-mono text-reveal text-reveal-delay-1"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
@@ -313,7 +313,7 @@ export function Hero() {
                 <span className="relative z-10 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
                   {displayedText}
                   <motion.span
-                    className="inline-block w-[0.6em] h-[1em] bg-primary ml-1"
+                    className="inline-block w-[0.4em] h-[0.9em] bg-primary ml-1"
                     animate={{ opacity: showCursor ? 1 : 0 }}
                     transition={{ duration: 0 }}
                   />
@@ -328,275 +328,81 @@ export function Hero() {
               </span>
             </motion.h1>
 
-            {/* Sector Tag Switcher */}
-            <motion.div
-              className="mt-3 flex flex-wrap gap-2 items-center caption"
+            {/* Subheadline */}
+            <motion.p
+              className="mt-4 text-sm sm:text-base text-muted-foreground max-w-2xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
             >
-              <span className="text-muted-foreground">Focus:</span>
-              <motion.button
-                className="relative px-3 py-1.5 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all"
-                onMouseEnter={() => setActiveSector("energy")}
-                onMouseLeave={() => setActiveSector(null)}
-                whileHover={{ scale: 1.05, borderColor: "hsl(var(--primary) / 0.6)" }}
-                style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
-              >
-                {/* Glowing Halo Effect - Behind button */}
-                <motion.div
-                  className="absolute inset-0 rounded-lg bg-primary blur-xl -z-10"
-                  animate={{
-                    opacity: activeSector === "energy" ? [0.3, 0.6, 0.3] : 0.1,
-                    scale: activeSector === "energy" ? [1.2, 1.5, 1.2] : 1,
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-                
-                {/* Pulsing Ring on Hover */}
-                {activeSector === "energy" && (
-                  <>
-                    <motion.div
-                      className="absolute inset-0 rounded-lg border-2 border-primary"
-                      initial={{ scale: 1, opacity: 0.6 }}
-                      animate={{ scale: [1, 1.5, 2], opacity: [0.6, 0.3, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
-                    />
-                    <motion.div
-                      className="absolute inset-0 rounded-lg border-2 border-primary"
-                      initial={{ scale: 1, opacity: 0.6 }}
-                      animate={{ scale: [1, 1.5, 2], opacity: [0.6, 0.3, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut", delay: 0.5 }}
-                    />
-                  </>
-                )}
-                {/* Orbital Particles */}
-                {[...Array(4)].map((_, i) => {
-                  const angle = (i * 90) * (Math.PI / 180);
-                  const radius = 25;
-                  return (
-                    <motion.div
-                      key={i}
-                      className="absolute w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_2px_hsl(var(--primary)/0.6)]"
-                      style={{
-                        left: '50%',
-                        top: '50%',
-                      }}
-                      animate={{
-                        x: [
-                          Math.cos(angle) * radius,
-                          Math.cos(angle + Math.PI / 2) * radius,
-                          Math.cos(angle + Math.PI) * radius,
-                          Math.cos(angle + 3 * Math.PI / 2) * radius,
-                          Math.cos(angle + 2 * Math.PI) * radius,
-                        ],
-                        y: [
-                          Math.sin(angle) * radius,
-                          Math.sin(angle + Math.PI / 2) * radius,
-                          Math.sin(angle + Math.PI) * radius,
-                          Math.sin(angle + 3 * Math.PI / 2) * radius,
-                          Math.sin(angle + 2 * Math.PI) * radius,
-                        ],
-                        opacity: [0.4, 0.8, 0.6, 0.8, 0.4],
-                        scale: [0.8, 1.2, 1, 1.2, 0.8],
-                      }}
-                      transition={{
-                        duration: activeSector === "energy" ? 2 : 4,
-                        repeat: Infinity,
-                        ease: "linear",
-                        delay: i * 0.25,
-                      }}
-                    />
-                  );
-                })}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0"
-                  animate={{ x: ['-200%', '200%'] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                />
-                <span className="relative z-10 font-mono">Energy</span>
-              </motion.button>
-              
-              <motion.button
-                className="relative px-3 py-1.5 rounded-lg border-2 border-accent/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all"
-                onMouseEnter={() => setActiveSector("education")}
-                onMouseLeave={() => setActiveSector(null)}
-                whileHover={{ scale: 1.05, borderColor: "hsl(var(--accent) / 0.6)" }}
-                style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
-              >
-                {/* Glowing Halo Effect - Behind button */}
-                <motion.div
-                  className="absolute inset-0 rounded-lg bg-accent blur-xl -z-10"
-                  animate={{
-                    opacity: activeSector === "education" ? [0.3, 0.6, 0.3] : 0.1,
-                    scale: activeSector === "education" ? [1.2, 1.5, 1.2] : 1,
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-                
-                {/* Pulsing Ring on Hover */}
-                {activeSector === "education" && (
-                  <>
-                    <motion.div
-                      className="absolute inset-0 rounded-lg border-2 border-accent"
-                      initial={{ scale: 1, opacity: 0.6 }}
-                      animate={{ scale: [1, 1.5, 2], opacity: [0.6, 0.3, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
-                    />
-                    <motion.div
-                      className="absolute inset-0 rounded-lg border-2 border-accent"
-                      initial={{ scale: 1, opacity: 0.6 }}
-                      animate={{ scale: [1, 1.5, 2], opacity: [0.6, 0.3, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut", delay: 0.5 }}
-                    />
-                  </>
-                )}
-                {/* Orbital Particles */}
-                {[...Array(4)].map((_, i) => {
-                  const angle = (i * 90 + 45) * (Math.PI / 180);
-                  const radius = 25;
-                  return (
-                    <motion.div
-                      key={i}
-                      className="absolute w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_2px_hsl(var(--accent)/0.6)]"
-                      style={{
-                        left: '50%',
-                        top: '50%',
-                      }}
-                      animate={{
-                        x: [
-                          Math.cos(angle) * radius,
-                          Math.cos(angle + Math.PI / 2) * radius,
-                          Math.cos(angle + Math.PI) * radius,
-                          Math.cos(angle + 3 * Math.PI / 2) * radius,
-                          Math.cos(angle + 2 * Math.PI) * radius,
-                        ],
-                        y: [
-                          Math.sin(angle) * radius,
-                          Math.sin(angle + Math.PI / 2) * radius,
-                          Math.sin(angle + Math.PI) * radius,
-                          Math.sin(angle + 3 * Math.PI / 2) * radius,
-                          Math.sin(angle + 2 * Math.PI) * radius,
-                        ],
-                        opacity: [0.5, 0.9, 0.7, 0.9, 0.5],
-                        scale: [0.9, 1.3, 1.1, 1.3, 0.9],
-                      }}
-                      transition={{
-                        duration: activeSector === "education" ? 2.5 : 5,
-                        repeat: Infinity,
-                        ease: "linear",
-                        delay: i * 0.3,
-                      }}
-                    />
-                  );
-                })}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/20 to-accent/0"
-                  animate={{ x: ['-200%', '200%'] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                />
-                <span className="relative z-10 font-mono">Education</span>
-              </motion.button>
-            </motion.div>
+              Senior AI + product execution for energy, education, and civic teams. First demo in Week 1.
+            </motion.p>
 
-            {/* Dynamic Sector Description */}
+            {/* Call-to-Action Buttons */}
             <motion.div
-              className="mt-2 min-h-[60px]"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            >
-              {activeSector === "energy" && (
-                <motion.p
-                  className="caption text-primary/90 font-mono"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 10 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  → Grid optimization · Demand forecasting · Utility analytics
-                </motion.p>
-              )}
-              {activeSector === "education" && (
-                <motion.p
-                  className="caption text-accent/90 font-mono"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 10 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  → Personalized learning · Student privacy · Civic education
-                </motion.p>
-              )}
-              {!activeSector && (
-                <motion.p
-                  className="max-w-xl body-base text-muted-foreground"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                >
-                  Privacy-first prototypes that help educators personalize learning and utilities optimize grids—without sending your data to Big Tech clouds.
-                </motion.p>
-              )}
-            </motion.div>
-
-            {/* CTA Buttons - Compact 3D Style with full-width on mobile */}
-            <motion.div
-              className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center"
+              className="mt-6 flex flex-col sm:flex-row gap-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
             >
               <motion.a
-                href="https://scheduler.zoom.us/altruistic-xai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative inline-flex w-full sm:w-auto items-center justify-center rounded-lg bg-gradient-to-br from-primary via-primary to-accent px-5 py-3 body-base font-mono text-primary-foreground font-semibold overflow-hidden group shadow-[0_4px_0_0_hsl(var(--primary)/0.5)] active:shadow-[0_2px_0_0_hsl(var(--primary)/0.5)] active:translate-y-[2px] transition-all"
-                whileHover={{
-                  scale: 1.03,
-                  rotateX: -5,
-                  rotateY: 5,
-                  boxShadow: "0 6px 0 0 hsl(var(--primary) / 0.5), 0 8px 20px -5px hsl(var(--primary) / 0.4)"
-                }}
-                whileTap={{ scale: 0.97, translateY: 2 }}
-                style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
+                href="mailto:hello@altruisticxai.com"
+                className="w-full sm:w-auto group relative overflow-hidden rounded-lg bg-gradient-to-r from-primary via-accent to-primary px-6 py-3 text-sm font-semibold text-slate-950 shadow-lg transition-all hover:shadow-xl hover:shadow-primary/30 touch-manipulation min-h-[44px] flex items-center justify-center"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  animate={{ x: ['-200%', '200%'] }}
+                  className="absolute inset-0 bg-gradient-to-r from-accent via-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity"
+                  animate={{ x: ['-100%', '100%'] }}
                   transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg" />
-                <span className="relative z-10">Book 30-min call</span>
+                <span className="relative z-10">Book a 20-min Pilot Fit Call</span>
               </motion.a>
-              
+
               <motion.a
-                href="mailto:altruisticxai@gmail.com"
-                className="relative inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm px-5 py-3 body-base font-mono text-foreground overflow-hidden group shadow-[0_3px_0_0_hsl(var(--primary)/0.3)] active:shadow-[0_1px_0_0_hsl(var(--primary)/0.3)] active:translate-y-[2px] transition-all"
-                whileHover={{
-                  scale: 1.03,
-                  rotateX: -5,
-                  rotateY: -5,
-                  borderColor: "hsl(var(--primary) / 0.6)",
-                  boxShadow: "0 5px 0 0 hsl(var(--primary) / 0.3), 0 6px 15px -3px hsl(var(--primary) / 0.3)"
-                }}
-                whileTap={{ scale: 0.97, translateY: 2 }}
-                style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
+                href="/portfolio"
+                className="w-full sm:w-auto group relative overflow-hidden rounded-lg border border-primary/40 bg-card/60 backdrop-blur-sm px-6 py-3 text-sm font-medium text-foreground transition-all hover:border-primary/60 hover:bg-card/80 touch-manipulation min-h-[44px] flex items-center justify-center"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0"
-                  animate={{ x: ['-200%', '200%'] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent rounded-lg" />
-                <Mail className="h-3 w-3 relative z-10" />
-                <span className="relative z-10">altruisticxai@gmail.com</span>
+                <span className="relative z-10">See Live Experiments</span>
+              </motion.a>
+            </motion.div>
+
+            {/* Proof Line */}
+            <motion.p
+              className="mt-4 text-xs text-muted-foreground/80"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.0 }}
+            >
+              Pilots shipped with UNE, school teams, city ops, and founders.
+            </motion.p>
+
+            {/* Social Links */}
+            <motion.div 
+              className="flex items-center gap-3 mt-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 1.1 }}
+            >
+              <motion.a
+                href="https://www.linkedin.com/in/christopherblairpa/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-primary/30 bg-card/60 backdrop-blur-sm p-2 text-foreground transition-all hover:border-primary/60 hover:bg-card/80 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                whileHover={{ scale: 1.05, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Linkedin className="h-4 w-4" />
+              </motion.a>
+              <motion.a
+                href="mailto:hello@altruisticxai.com"
+                className="rounded-full border border-primary/30 bg-card/60 backdrop-blur-sm p-2 text-foreground transition-all hover:border-primary/60 hover:bg-card/80 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                whileHover={{ scale: 1.05, rotate: -5 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Mail className="h-4 w-4" />
               </motion.a>
               
               <motion.a
