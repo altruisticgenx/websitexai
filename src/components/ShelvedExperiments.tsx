@@ -25,7 +25,7 @@ const experiments = [
   }
 ];
 
-export function ShelvedExperiments() {
+export default function ShelvedExperiments() {
   return (
     <Section id="shelved" spacing="compact" border="top">
       <Stack gap="md">

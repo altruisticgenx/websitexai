@@ -25,26 +25,10 @@ import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 
 // Lazy load heavier, below-the-fold sections
-const ShelvedExperiments = lazy(() =>
-  import("@/components/ShelvedExperiments").then((m) => ({
-    default: m.ShelvedExperiments,
-  })),
-);
-const WhereIWork = lazy(() =>
-  import("@/components/WhereIWork").then((m) => ({
-    default: m.WhereIWork,
-  })),
-);
-const OrganizationTypes = lazy(() =>
-  import("@/components/OrganizationTypes").then((m) => ({
-    default: m.OrganizationTypes,
-  })),
-);
-const EngagementModels = lazy(() =>
-  import("@/components/EngagementModels").then((m) => ({
-    default: m.EngagementModels,
-  })),
-);
+const ShelvedExperiments = lazy(() => import("@/components/ShelvedExperiments"));
+const WhereIWork = lazy(() => import("@/components/WhereIWork"));
+const OrganizationTypes = lazy(() => import("@/components/OrganizationTypes"));
+const EngagementModels = lazy(() => import("@/components/EngagementModels"));
 
 // -----------------------------
 // Main Page Component

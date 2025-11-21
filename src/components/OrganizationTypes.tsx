@@ -44,7 +44,7 @@ const orgTypes: OrgType[] = [
   }
 ] as const;
 
-export const OrganizationTypes = memo(() => {
+const OrganizationTypes = memo(() => {
   const [expandedOrg, setExpandedOrg] = useState<string | null>(null);
 
   const toggleOrg = (orgName: string) => {
@@ -135,3 +135,5 @@ export const OrganizationTypes = memo(() => {
 });
 
 OrganizationTypes.displayName = 'OrganizationTypes';
+
+export default OrganizationTypes;
