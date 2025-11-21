@@ -1,10 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Section } from "@/components/utilities/Section";
-import { Stack } from "@/components/layout/Stack";
-import { ParallaxBackground } from "@/components/effects/ParallaxBackground";
-import { PilotCarousel3D } from "@/components/utilities/PilotCarousel3D";
-import { PilotCard } from "@/components/cards/PilotCard";
+import { Section } from "@/components/utilities";
+import { Stack } from "@/components/layout";
+import { ParallaxBackground } from "@/components/effects";
+import { PilotCarousel3D } from "@/components/utilities";
+import { PilotCard } from "@/components/cards";
 import { CardsSkeleton } from "@/components/skeletons/SectionSkeleton";
 import { useProjects } from "@/hooks/use-projects";
 import {

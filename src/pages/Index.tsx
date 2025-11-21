@@ -2,22 +2,15 @@ import React, { useCallback, useEffect, useMemo, useRef, useState, Suspense, laz
 import { motion, useReducedMotion } from "framer-motion";
 
 // Component Imports
-import { PilotCard } from "@/components/cards/PilotCard";
-import { SocialProof } from "@/components/sections/SocialProof";
+import { PilotCard } from "@/components/cards";
+import { SocialProof } from "@/components/sections";
 import { Hero } from "@/components/Hero";
-import { LazySection } from "@/components/utilities/LazySection";
-import { ScrollToTop } from "@/components/effects/ScrollToTop";
-import { ScrollProgress } from "@/components/effects/ScrollProgress";
-import { ParallaxBackground } from "@/components/effects/ParallaxBackground";
-import { KeyboardShortcutsHelp } from "@/components/utilities/KeyboardShortcutsHelp";
-import { SwipeIndicator } from "@/components/utilities/SwipeIndicator";
-import { SiteNav } from "@/components/navigation/SiteNav";
+import { LazySection, KeyboardShortcutsHelp, SwipeIndicator, PilotCarousel3D, Section } from "@/components/utilities";
+import { ScrollToTop, ScrollProgress, ParallaxBackground } from "@/components/effects";
+import { SiteNav } from "@/components/navigation";
 import { HeroSkeleton, CardsSkeleton, StepsSkeleton, TwoColumnSkeleton } from "@/components/skeletons/SectionSkeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { PilotCarousel3D } from "@/components/utilities/PilotCarousel3D";
-import { Section } from "@/components/utilities/Section";
-import { Stack } from "@/components/layout/Stack";
-import { Grid } from "@/components/layout/Grid";
+import { Stack, Grid } from "@/components/layout";
 
 // Hooks & Utils
 import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
@@ -36,7 +29,7 @@ const OrganizationTypes = lazy(() =>
 const EngagementModels = lazy(() =>
   import("@/components/EngagementModels").then((m) => ({ default: m.EngagementModels })),
 );
-const AboutMe = lazy(() => import("@/components/sections/AboutMe").then((m) => ({ default: m.AboutMe })));
+const AboutMe = lazy(() => import("@/components/sections").then((m) => ({ default: m.AboutMe })));
 
 // -----------------------------
 // Types & Interfaces

@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Section } from "@/components/utilities/Section";
-import { Stack } from "@/components/layout/Stack";
-import { ParallaxBackground } from "@/components/effects/ParallaxBackground";
+import { Section } from "@/components/utilities";
+import { Stack } from "@/components/layout";
+import { ParallaxBackground } from "@/components/effects";
 
 export const AboutMe: React.FC = React.memo(() => {
   return (
