@@ -11,10 +11,10 @@ import { PageTransition } from "@/components/PageTransition";
 import Index from "./pages/Index";
 import CaseStudyDetail from "./pages/CaseStudyDetail";
 import NotFound from "./pages/NotFound";
+import FutureProofing from "./pages/FutureProofing";
 
 // Lazy-loaded routes for code splitting
 const Portfolio = lazy(() => import("./pages/Portfolio"));
-const FutureProofing = lazy(() => import("./pages/FutureProofing"));
 
 // Loading fallback component
 const RouteLoadingFallback = () => (
@@ -62,11 +62,9 @@ function AnimatedRoutes() {
         <Route 
           path="/solutions/future-proofing" 
           element={
-            <Suspense fallback={<RouteLoadingFallback />}>
-              <PageTransition>
-                <FutureProofing />
-              </PageTransition>
-            </Suspense>
+            <PageTransition>
+              <FutureProofing />
+            </PageTransition>
           } 
         />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
