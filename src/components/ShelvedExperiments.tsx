@@ -30,20 +30,20 @@ export function ShelvedExperiments() {
     }} transition={{
       duration: 0.5
     }} className="max-w-4xl">
-        <h2 className="text-base font-semibold sm:text-lg">​Examples</h2>
-        <p className="mt-1.5 text-[10px] text-slate-300 sm:text-xs">
+        <h2 className="heading-4">​Examples</h2>
+        <p className="mt-1.5 body-sm text-muted-foreground">
           Not everything ships. We keep the lessons.
         </p>
       </motion.div>
 
-      <div className="mt-4 overflow-x-auto">
-        <table className="w-full text-left text-[10px] sm:text-xs">
-          <thead className="border-b border-slate-800/70">
+      <div className="mt-4 overflow-x-auto rounded-xl border border-border">
+        <table className="w-full text-left body-sm min-w-[600px]">
+          <thead className="border-b border-border bg-muted/30">
             <tr>
-              <th className="pb-2 pr-3 text-[9px] font-medium uppercase tracking-wider text-slate-400 sm:text-[10px]">Icon</th>
-              <th className="pb-2 pr-3 text-[9px] font-medium uppercase tracking-wider text-slate-400 sm:text-[10px]">Project</th>
-              <th className="pb-2 pr-3 text-[9px] font-medium uppercase tracking-wider text-slate-400 sm:text-[10px]">Status</th>
-              <th className="pb-2 text-[9px] font-medium uppercase tracking-wider text-slate-400 sm:text-[10px]">Lesson Learned</th>
+              <th className="pb-2 pr-3 pl-3 pt-2 label text-muted-foreground">Icon</th>
+              <th className="pb-2 pr-3 pt-2 label text-muted-foreground">Project</th>
+              <th className="pb-2 pr-3 pt-2 label text-muted-foreground">Status</th>
+              <th className="pb-2 pr-3 pt-2 label text-muted-foreground max-w-[300px]">Lesson</th>
             </tr>
           </thead>
           <tbody>
@@ -60,19 +60,19 @@ export function ShelvedExperiments() {
             }} transition={{
               duration: 0.5,
               delay: index * 0.1
-            }} className="border-b border-slate-800/50 hover:bg-slate-900/30 transition-colors">
-                  <td className="py-2.5 pr-3">
+            }} className="border-b border-border hover:bg-muted/20 transition-colors">
+                  <td className="py-3 pr-3 pl-3">
                     <Icon className="h-3.5 w-3.5 text-primary" />
                   </td>
-                  <td className="py-2.5 pr-3 font-medium text-slate-200">
+                  <td className="py-3 pr-3 font-medium text-foreground">
                     {exp.name}
                   </td>
-                  <td className="py-2.5 pr-3">
-                    <span className={`inline-flex rounded-full px-1.5 py-0.5 text-[8px] font-medium sm:text-[9px] ${exp.status === "Killed" ? "bg-destructive/10 text-destructive" : "bg-muted text-muted-foreground"}`}>
+                  <td className="py-3 pr-3">
+                    <span className={`inline-flex rounded-full px-2 py-0.5 caption font-medium ${exp.status === "Killed" ? "bg-destructive/10 text-destructive" : "bg-muted text-muted-foreground"}`}>
                       {exp.status}
                     </span>
                   </td>
-                  <td className="py-2.5 text-slate-300">{exp.lesson}</td>
+                  <td className="py-3 pr-3 text-muted-foreground max-w-[300px] break-words">{exp.lesson}</td>
                 </motion.tr>;
           })}
           </tbody>

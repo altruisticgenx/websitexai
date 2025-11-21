@@ -220,8 +220,8 @@ export function Hero() {
             ease: [0.34, 1.56, 0.64, 1]
           }} whileHover={{
             scale: 1.05,
-            boxShadow: "0 0 35px hsl(var(--primary) / 0.6)",
-            borderColor: "hsl(var(--primary) / 0.8)"
+            boxShadow: "0 0 35px rgba(16, 185, 129, 0.6)",
+            borderColor: "rgba(16, 185, 129, 0.8)"
           }}>
               <motion.span className="inline-flex h-2 w-2 rounded-full bg-primary shadow-[0_0_15px_hsl(var(--primary))]" animate={{
               opacity: [1, 0.3, 1],
@@ -332,9 +332,9 @@ export function Hero() {
             duration: 0.6,
             delay: 0.6
           }}>
-              <motion.a href="mailto:altruisticxai@gmail.com" className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-primary bg-gradient-to-br from-primary via-primary/90 to-primary/80 px-5 py-3 text-sm font-bold text-primary-foreground shadow-[0_0_30px_hsl(var(--primary)/0.4)] backdrop-blur-xl transition-all" whileHover={{
+              <motion.a href="mailto:altruisticxai@gmail.com" className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-primary bg-gradient-to-br from-primary via-primary/90 to-primary/80 px-5 py-3 text-sm font-bold text-primary-foreground backdrop-blur-xl transition-all" whileHover={{
               scale: 1.05,
-              boxShadow: "0 0 45px hsl(var(--primary) / 0.6)",
+              boxShadow: "0 0 45px rgba(16, 185, 129, 0.6)",
               y: -3
             }} whileTap={{
               scale: 0.97
