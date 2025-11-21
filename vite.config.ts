@@ -13,28 +13,57 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      // Force a single React instance across the app and all deps
+      react: path.resolve(__dirname, "node_modules/react"),
+      "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
+      "react/jsx-runtime": path.resolve(
+        __dirname,
+        "node_modules/react/jsx-runtime.js",
+      ),
     },
     dedupe: [
       // Core React
-      "react", 
+      "react",
       "react-dom",
+      "react/jsx-runtime",
       // Animation libraries that depend on React
       "framer-motion",
       // Three.js React wrappers
       "@react-three/fiber",
       "@react-three/drei",
       "three",
-      // All Radix UI packages (UI component library)
-      "@radix-ui/react-navigation-menu",
-      "@radix-ui/react-tooltip",
-      "@radix-ui/react-slot",
-      "@radix-ui/react-dialog",
-      "@radix-ui/react-popover",
+      // React Query + form libs
+      "@tanstack/react-query",
+      "react-hook-form",
+      // Theme + Radix UI packages (UI component library)
+      "next-themes",
       "@radix-ui/react-accordion",
+      "@radix-ui/react-alert-dialog",
+      "@radix-ui/react-aspect-ratio",
+      "@radix-ui/react-avatar",
+      "@radix-ui/react-checkbox",
+      "@radix-ui/react-collapsible",
+      "@radix-ui/react-context-menu",
+      "@radix-ui/react-dialog",
       "@radix-ui/react-dropdown-menu",
-      "@radix-ui/react-tabs",
-      "@radix-ui/react-select",
+      "@radix-ui/react-hover-card",
+      "@radix-ui/react-label",
+      "@radix-ui/react-menubar",
+      "@radix-ui/react-navigation-menu",
+      "@radix-ui/react-popover",
+      "@radix-ui/react-progress",
+      "@radix-ui/react-radio-group",
       "@radix-ui/react-scroll-area",
+      "@radix-ui/react-select",
+      "@radix-ui/react-separator",
+      "@radix-ui/react-slider",
+      "@radix-ui/react-slot",
+      "@radix-ui/react-switch",
+      "@radix-ui/react-tabs",
+      "@radix-ui/react-toast",
+      "@radix-ui/react-toggle",
+      "@radix-ui/react-toggle-group",
+      "@radix-ui/react-tooltip",
     ],
   },
 }));
