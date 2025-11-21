@@ -468,14 +468,18 @@ const RecentBuilds: React.FC = React.memo(() => {
             }} transition={{
               duration: 0.5,
               delay: 0.1
-            }} className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mt-6">
+            }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 mt-4 sm:mt-6">
               {projects.map((project, index) => (
                 <motion.div
                   key={project.id}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  initial={{ opacity: 0, scale: 0.92, y: 10 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ 
+                    duration: 0.4, 
+                    delay: index * 0.08,
+                    ease: [0.34, 1.56, 0.64, 1]
+                  }}
                 >
                   <PilotCard
                     id={project.id}
