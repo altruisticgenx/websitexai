@@ -387,65 +387,74 @@ const RecentBuilds: React.FC = React.memo(() => {
       supabase.removeChannel(channel);
     };
   }, [fetchProjects]);
-  return <section id="builds" className="py-10 lg:py-16">
-      <div className="mx-auto w-full max-w-5xl px-4">
-        <motion.div initial={{
-        opacity: 0,
-        y: 20
-      }} whileInView={{
-        opacity: 1,
-        y: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.4
-      }} className="space-y-2">
-          <h2 className="heading-3 text-foreground">Recent Builds</h2>
-          <p className="body-base text-muted-foreground">
+  return <section 
+      id="builds" 
+      className="py-12 sm:py-16 lg:py-20" 
+      aria-labelledby="recent-builds-heading"
+      itemScope 
+      itemType="https://schema.org/ItemList"
+    >
+      <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
+        <motion.header 
+          initial={{ opacity: 0, y: 20 }} 
+          whileInView={{ opacity: 1, y: 0 }} 
+          viewport={{ once: true }} 
+          transition={{ duration: 0.4 }}
+          className="mb-8 sm:mb-10 space-y-3"
+        >
+          <h2 
+            id="recent-builds-heading" 
+            className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-foreground"
+          >
+            Recent Builds
+          </h2>
+          <p className="text-sm sm:text-base leading-relaxed text-muted-foreground max-w-2xl">
             Small scope, real results—across energy, education, and founder projects.
           </p>
-        </motion.div>
+        </motion.header>
 
-        {isLoadingProjects ? <div className="mt-6">
+        {isLoadingProjects ? (
+          <div className="mt-6" aria-busy="true" aria-live="polite">
             <CardsSkeleton />
-          </div> : error ? <motion.div initial={{
-        opacity: 0,
-        y: 20
-      }} animate={{
-        opacity: 1,
-        y: 0
-      }} className="mt-6 rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center" role="alert" aria-live="polite">
+          </div>
+        ) : error ? (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            className="mt-6 rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center" 
+            role="alert" 
+            aria-live="assertive"
+          >
             <p className="text-sm text-red-300">{error}</p>
-            <button onClick={fetchProjects} className="mt-3 text-xs underline text-red-400 hover:text-red-300">
+            <button 
+              onClick={fetchProjects} 
+              className="mt-3 text-xs underline text-red-400 hover:text-red-300 focus:outline-none focus:ring-2 focus:ring-red-400/50 rounded"
+              aria-label="Retry loading projects"
+            >
               Try again
             </button>
-          </motion.div> : projects.length === 0 ? <motion.div initial={{
-        opacity: 0,
-        y: 20
-      }} animate={{
-        opacity: 1,
-        y: 0
-      }} className="mt-6 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center">
+          </motion.div>
+        ) : projects.length === 0 ? (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            className="mt-6 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center"
+          >
             <p className="text-sm text-slate-400">No projects available yet. Check back soon!</p>
-          </motion.div> : <motion.div initial={{
-        opacity: 0,
-        y: 20
-      }} whileInView={{
-        opacity: 1,
-        y: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.5,
-        delay: 0.1
-      }} className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+          </motion.div>
+        ) : (
+          <div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 lg:gap-6"
+            role="list"
+            aria-label="Project portfolio"
+          >
             {projects.map((project, index) => (
-              <motion.div
+              <div
                 key={project.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
+                role="listitem"
+                itemProp="itemListElement"
+                itemScope
+                itemType="https://schema.org/CreativeWork"
               >
                 <PilotCard
                   id={project.id}
@@ -459,9 +468,10 @@ const RecentBuilds: React.FC = React.memo(() => {
                   technologies={getProjectTechnologies(project.id)}
                   keyFeatures={getProjectKeyFeatures(project.id)}
                 />
-              </motion.div>
+              </div>
             ))}
-          </motion.div>}
+          </div>
+        )}
       </div>
     </section>;
 });
