@@ -15,6 +15,11 @@ All colors MUST be HSL.
     @apply font-sans;
     scroll-behavior: smooth;
     scroll-padding-top: 80px; /* Account for sticky nav */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+  }
+  
+  * {
+    min-width: 0; /* Prevent flex/grid overflow */
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -25,6 +30,17 @@ All colors MUST be HSL.
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+    }
+  }
+  
+  /* Enhanced scroll snap for smooth navigation */
+  @media (min-width: 1024px) {
+    .snap-container {
+      scroll-snap-type: y proximity;
+    }
+    .snap-section {
+      scroll-snap-align: start;
+      scroll-snap-stop: normal;
     }
   }
   :root {
@@ -181,6 +197,56 @@ All colors MUST be HSL.
   .caption {
     @apply text-[9px] text-muted-foreground;
     @apply sm:text-[10px];
+  }
+  
+  /* Enhanced Card Components */
+  .card-glass {
+    @apply relative overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-white/5 via-white/2 to-transparent backdrop-blur-md;
+    @apply shadow-[0_8px_32px_rgba(0,0,0,0.2)];
+  }
+  
+  .card-glass-hover {
+    @apply card-glass transition-all duration-300;
+    @apply hover:shadow-[0_12px_48px_rgba(0,0,0,0.3)] hover:border-white/20;
+    @apply hover:translate-y-[-4px];
+  }
+  
+  .section-glow {
+    @apply pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent opacity-50;
+  }
+  
+  /* Enhanced Gradient Text */
+  .gradient-text {
+    @apply bg-gradient-to-br from-white via-slate-200 to-slate-400 bg-clip-text text-transparent;
+  }
+  
+  .gradient-text-primary {
+    @apply bg-gradient-to-br from-primary via-primary-foreground to-accent bg-clip-text text-transparent;
+  }
+  
+  /* Smooth Animations */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  
+  .animate-glow {
+    animation: glow 3s ease-in-out infinite;
+  }
+  
+  @keyframes glow {
+    0%, 100% { 
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.3),
+                  0 0 40px hsl(var(--primary) / 0.2);
+    }
+    50% { 
+      box-shadow: 0 0 30px hsl(var(--primary) / 0.5),
+                  0 0 60px hsl(var(--primary) / 0.3);
+    }
   }
 
   .label {
