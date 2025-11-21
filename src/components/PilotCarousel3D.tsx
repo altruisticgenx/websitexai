@@ -8,10 +8,7 @@ interface PilotCarousel3DProps {
   autoPlayInterval?: number;
 }
 
-export function PilotCarousel3D({ 
-  children, 
-  autoPlayInterval = 5000 
-}: PilotCarousel3DProps) {
+export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCarousel3DProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -55,7 +52,7 @@ export function PilotCarousel3D({
 
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
-    
+
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
@@ -106,7 +103,7 @@ export function PilotCarousel3D({
   return (
     <div className="relative w-full" style={{ perspective: "1500px" }}>
       {/* Carousel Container */}
-      <div 
+      <div
         className="relative h-[240px] sm:h-[260px] md:h-[280px] overflow-visible touch-pan-y select-none"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
@@ -131,9 +128,7 @@ export function PilotCarousel3D({
               transformStyle: "preserve-3d",
             }}
           >
-            <div className="pointer-events-none blur-[1.5px]">
-              {childrenArray[prev]}
-            </div>
+            <div className="pointer-events-none blur-[1.5px]">{childrenArray[prev]}</div>
           </motion.div>
 
           {/* Current Card (Center) */}
@@ -174,9 +169,7 @@ export function PilotCarousel3D({
               transformStyle: "preserve-3d",
             }}
           >
-            <div className="pointer-events-none blur-[1.5px]">
-              {childrenArray[next]}
-            </div>
+            <div className="pointer-events-none blur-[1.5px]">{childrenArray[next]}</div>
           </motion.div>
         </AnimatePresence>
       </div>
@@ -210,7 +203,7 @@ export function PilotCarousel3D({
                 "h-1 rounded-full transition-all duration-300",
                 index === currentIndex
                   ? "w-5 bg-primary shadow-md shadow-primary/60"
-                  : "w-1 bg-primary/40 hover:bg-primary/60"
+                  : "w-1 bg-primary/40 hover:bg-primary/60",
               )}
               aria-label={`Go to project ${index + 1}`}
             />
@@ -244,9 +237,7 @@ export function PilotCarousel3D({
         >
           ←
         </motion.div>
-        <p className="text-center text-[8px] text-muted-foreground/70 font-medium">
-          Swipe or tap arrows
-        </p>
+        <p className="text-center text-[8px] text-muted-foreground/70 font-medium">Swipe or tap arrows</p>
         <motion.div
           animate={{ x: [3, -3, 3] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
