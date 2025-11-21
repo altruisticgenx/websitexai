@@ -78,7 +78,7 @@ export function GradientMesh({
   return (
     <div
       ref={ref}
-      className={`absolute inset-0 -z-10 overflow-hidden ${className}`}
+      className={`relative absolute inset-0 -z-10 overflow-hidden ${className}`}
       aria-hidden="true"
     >
       <motion.div
