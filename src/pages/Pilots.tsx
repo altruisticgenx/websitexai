@@ -1,15 +1,23 @@
 import React, { useState, useMemo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Zap, Book, Users, Cpu, Filter, ArrowRight, Clock, Target, TrendingUp, Search, X } from "lucide-react";
+import { Zap, Book, Users, Cpu, Filter, ArrowRight, Clock, Target, TrendingUp, Search, X, ArrowUpDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { SiteNav } from "@/components/SiteNav";
 import { cn } from "@/lib/utils";
 
 type Domain = "All" | "Energy" | "Education" | "Gov" | "Startup";
+type SortOption = "featured" | "price-low" | "price-high" | "time-fast" | "time-slow";
 
 interface Pilot {
   id: string;
@@ -153,6 +161,7 @@ const Pilots: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
   const [selectedDomain, setSelectedDomain] = useState<Domain>("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState<SortOption>("featured");
 
   const filteredPilots = useMemo(() => {
     let results = PILOTS_DATA;
@@ -176,8 +185,49 @@ const Pilots: React.FC = () => {
       });
     }
 
-    return results;
-  }, [selectedDomain, searchQuery]);
+    // Sort results
+    const sortedResults = [...results];
+    switch (sortBy) {
+      case "price-low":
+        sortedResults.sort((a, b) => {
+          const aPrice = parseInt(a.price.split("–")[0].replace(/\$|k/g, ""));
+          const bPrice = parseInt(b.price.split("–")[0].replace(/\$|k/g, ""));
+          return aPrice - bPrice;
+        });
+        break;
+      case "price-high":
+        sortedResults.sort((a, b) => {
+          const aPrice = parseInt(a.price.split("–")[1].replace(/\$|k/g, ""));
+          const bPrice = parseInt(b.price.split("–")[1].replace(/\$|k/g, ""));
+          return bPrice - aPrice;
+        });
+        break;
+      case "time-fast":
+        sortedResults.sort((a, b) => {
+          const aWeek = parseInt(a.timeToDemo.replace(/\D/g, ""));
+          const bWeek = parseInt(b.timeToDemo.replace(/\D/g, ""));
+          return aWeek - bWeek;
+        });
+        break;
+      case "time-slow":
+        sortedResults.sort((a, b) => {
+          const aWeek = parseInt(a.timeToDemo.replace(/\D/g, ""));
+          const bWeek = parseInt(b.timeToDemo.replace(/\D/g, ""));
+          return bWeek - aWeek;
+        });
+        break;
+      case "featured":
+      default:
+        sortedResults.sort((a, b) => {
+          if (a.featured && !b.featured) return -1;
+          if (!a.featured && b.featured) return 1;
+          return 0;
+        });
+        break;
+    }
+
+    return sortedResults;
+  }, [selectedDomain, searchQuery, sortBy]);
 
   const domainStats = useMemo(() => {
     return {
@@ -208,9 +258,15 @@ const Pilots: React.FC = () => {
                 All Pilots
               </Badge>
               <h1 className="heading-1 mb-4">4-Week Pilot Catalog</h1>
-              <p className="body-lg mx-auto max-w-2xl text-muted-foreground">
+              <p className="body-lg mx-auto max-w-2xl text-muted-foreground mb-6">
                 Production-ready solutions shipped in 4 weeks. Filter by domain to find your perfect pilot.
               </p>
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/pilot-quiz">
+                  Take Quiz to Find Your Pilot
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
             </motion.div>
           </div>
         </section>
@@ -326,19 +382,37 @@ const Pilots: React.FC = () => {
         {/* Pilots Grid */}
         <section className="py-12 sm:py-16">
           <div className="mx-auto max-w-5xl px-4 sm:px-6">
-            <motion.div
-              key={`${selectedDomain}-${searchQuery}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
-              className="mb-6"
-            >
-              <p className="body-base text-muted-foreground">
-                Showing {filteredPilots.length} pilot{filteredPilots.length !== 1 ? "s" : ""}
-                {selectedDomain !== "All" && ` in ${selectedDomain}`}
-                {searchQuery && ` matching "${searchQuery}"`}
-              </p>
-            </motion.div>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+              <motion.div
+                key={`${selectedDomain}-${searchQuery}-${sortBy}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
+              >
+                <p className="body-base text-muted-foreground">
+                  Showing {filteredPilots.length} pilot{filteredPilots.length !== 1 ? "s" : ""}
+                  {selectedDomain !== "All" && ` in ${selectedDomain}`}
+                  {searchQuery && ` matching "${searchQuery}"`}
+                </p>
+              </motion.div>
+
+              {/* Sort Dropdown */}
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <ArrowUpDown className="h-4 w-4 text-muted-foreground" />
+                <Select value={sortBy} onValueChange={(value) => setSortBy(value as SortOption)}>
+                  <SelectTrigger className="w-full sm:w-[200px]">
+                    <SelectValue placeholder="Sort by" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="featured">Featured First</SelectItem>
+                    <SelectItem value="price-low">Price: Low to High</SelectItem>
+                    <SelectItem value="price-high">Price: High to Low</SelectItem>
+                    <SelectItem value="time-fast">Fastest Demo</SelectItem>
+                    <SelectItem value="time-slow">Slowest Demo</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {filteredPilots.map((pilot, index) => (
