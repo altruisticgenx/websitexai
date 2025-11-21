@@ -109,7 +109,7 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
     <div className="relative w-full flex items-center justify-center" style={{ perspective: "2000px" }}>
       {/* Carousel Container */}
       <div
-        className="relative h-[360px] xs:h-[380px] sm:h-[340px] md:h-[380px] w-full max-w-7xl overflow-visible touch-pan-y select-none"
+        className="relative h-[280px] xs:h-[300px] sm:h-[320px] md:h-[360px] w-full max-w-7xl overflow-visible touch-pan-y select-none"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
@@ -140,7 +140,7 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
           {/* Current Card (Center) */}
           <motion.div
             key={`current-${current}`}
-            className="absolute left-1/2 top-1/2 w-[92%] xs:w-[85%] sm:w-[65%] md:w-[55%] lg:w-[45%] origin-center"
+            className="absolute left-1/2 top-1/2 w-[90%] xs:w-[80%] sm:w-[65%] md:w-[55%] lg:w-[45%] origin-center"
             custom={direction}
             variants={slideVariants}
             initial="enter"
@@ -155,7 +155,7 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
               filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.4))",
             }}
           >
-            <div className="transform-gpu h-full">{childrenArray[current]}</div>
+            <div className="transform-gpu">{childrenArray[current]}</div>
           </motion.div>
 
           {/* Next Card (Right) */}
@@ -183,7 +183,7 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
       </div>
 
       {/* Navigation Buttons */}
-      <div className="mt-4 flex items-center justify-center gap-2.5 sm:gap-2">
+      <div className="mt-3 flex items-center justify-center gap-2">
         {/* Pause/Play Button */}
         <motion.button
           onClick={() => {
@@ -192,14 +192,14 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
           }}
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.92 }}
-          className="group relative rounded-full bg-primary/20 p-2 sm:p-1.5 backdrop-blur-sm border border-primary/50 shadow-md shadow-primary/25 hover:shadow-primary/50 transition-all duration-300 touch-manipulation"
+          className="group relative rounded-full bg-primary/20 p-1.5 backdrop-blur-sm border border-primary/50 shadow-md shadow-primary/25 hover:shadow-primary/50 transition-all duration-300"
           style={{ transformStyle: "preserve-3d" }}
           aria-label={isPaused ? "Resume auto-play" : "Pause auto-play"}
         >
           {isPaused ? (
-            <Play className="h-4 w-4 sm:h-3.5 sm:w-3.5 text-primary group-hover:text-primary-foreground transition-colors" />
+            <Play className="h-3.5 w-3.5 text-primary group-hover:text-primary-foreground transition-colors" />
           ) : (
-            <Pause className="h-4 w-4 sm:h-3.5 sm:w-3.5 text-primary group-hover:text-primary-foreground transition-colors" />
+            <Pause className="h-3.5 w-3.5 text-primary group-hover:text-primary-foreground transition-colors" />
           )}
           <div className="absolute inset-0 rounded-full bg-primary/0 group-hover:bg-primary transition-all duration-300 -z-10" />
         </motion.button>
@@ -208,16 +208,16 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
           onClick={handlePrev}
           whileHover={{ scale: 1.08, rotate: -3 }}
           whileTap={{ scale: 0.92 }}
-          className="group relative rounded-full bg-primary/20 p-2 sm:p-1.5 backdrop-blur-sm border border-primary/50 shadow-md shadow-primary/25 hover:shadow-primary/50 transition-all duration-300 touch-manipulation"
+          className="group relative rounded-full bg-primary/20 p-1.5 backdrop-blur-sm border border-primary/50 shadow-md shadow-primary/25 hover:shadow-primary/50 transition-all duration-300"
           style={{ transformStyle: "preserve-3d" }}
           aria-label="Previous project"
         >
-          <ChevronLeft className="h-4 w-4 sm:h-3.5 sm:w-3.5 text-primary group-hover:text-primary-foreground transition-colors" />
+          <ChevronLeft className="h-3.5 w-3.5 text-primary group-hover:text-primary-foreground transition-colors" />
           <div className="absolute inset-0 rounded-full bg-primary/0 group-hover:bg-primary transition-all duration-300 -z-10" />
         </motion.button>
 
         {/* Dots Indicator */}
-        <div className="flex gap-1.5 sm:gap-1">
+        <div className="flex gap-1">
           {childrenArray.map((_, index) => (
             <motion.button
               key={index}
@@ -228,10 +228,10 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
               className={cn(
-                "h-1.5 sm:h-1 rounded-full transition-all duration-300 touch-manipulation",
+                "h-1 rounded-full transition-all duration-300",
                 index === currentIndex
-                  ? "w-6 sm:w-5 bg-primary shadow-md shadow-primary/60"
-                  : "w-1.5 sm:w-1 bg-primary/40 hover:bg-primary/60",
+                  ? "w-5 bg-primary shadow-md shadow-primary/60"
+                  : "w-1 bg-primary/40 hover:bg-primary/60",
               )}
               aria-label={`Go to project ${index + 1}`}
             />
@@ -242,11 +242,11 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
           onClick={handleNext}
           whileHover={{ scale: 1.08, rotate: 3 }}
           whileTap={{ scale: 0.92 }}
-          className="group relative rounded-full bg-primary/20 p-2 sm:p-1.5 backdrop-blur-sm border border-primary/50 shadow-md shadow-primary/25 hover:shadow-primary/50 transition-all duration-300 touch-manipulation"
+          className="group relative rounded-full bg-primary/20 p-1.5 backdrop-blur-sm border border-primary/50 shadow-md shadow-primary/25 hover:shadow-primary/50 transition-all duration-300"
           style={{ transformStyle: "preserve-3d" }}
           aria-label="Next project"
         >
-          <ChevronRight className="h-4 w-4 sm:h-3.5 sm:w-3.5 text-primary group-hover:text-primary-foreground transition-colors" />
+          <ChevronRight className="h-3.5 w-3.5 text-primary group-hover:text-primary-foreground transition-colors" />
           <div className="absolute inset-0 rounded-full bg-primary/0 group-hover:bg-primary transition-all duration-300 -z-10" />
         </motion.button>
       </div>
@@ -256,20 +256,20 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1, duration: 0.5 }}
-        className="mt-3 flex items-center justify-center gap-2"
+        className="mt-2 flex items-center justify-center gap-1.5"
       >
         <motion.div
-          animate={{ x: [-4, 4, -4] }}
+          animate={{ x: [-3, 3, -3] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          className="text-primary/60 text-sm"
+          className="text-primary/60"
         >
           ←
         </motion.div>
-        <p className="text-center text-[9px] sm:text-[8px] text-muted-foreground/70 font-medium">Swipe or tap arrows</p>
+        <p className="text-center text-[8px] text-muted-foreground/70 font-medium">Swipe or tap arrows</p>
         <motion.div
-          animate={{ x: [4, -4, 4] }}
+          animate={{ x: [3, -3, 3] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          className="text-primary/60 text-sm"
+          className="text-primary/60"
         >
           →
         </motion.div>
