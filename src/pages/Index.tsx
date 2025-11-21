@@ -112,7 +112,7 @@ const Index: React.FC = () => {
     sectionId: "about",
     name: "About"
   }]);
-  return <div ref={swipeRef} className="min-h-screen bg-slate-950 text-slate-50 antialiased">
+  return <div ref={swipeRef} className="min-h-screen text-slate-50 antialiased">
       <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-slate-800 focus:px-3 focus:py-2">
         Skip to content
       </a>
@@ -120,8 +120,11 @@ const Index: React.FC = () => {
       <ScrollProgress />
       <SiteNav />
 
-      <div className="relative mx-auto flex min-h-screen max-w-5xl flex-col px-3 sm:px-4">
-        <main id="main-content" className="flex-1 pt-2 sm:pt-4" role="main">
+      {/* Enhanced Content Frame with Modern Layout */}
+      <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col px-3 sm:px-4 lg:px-6">
+        {/* Content Shadow/Glow Effect */}
+        <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-b from-primary/5 via-transparent to-accent/5 opacity-30 blur-xl" />
+        <main id="main-content" className="relative flex-1 pt-2 sm:pt-4 snap-container" role="main">
           {isBootLoading ? <div className="animate-pulse">
               <HeroSkeleton />
               <CardsSkeleton />
@@ -413,8 +416,11 @@ const RecentBuilds: React.FC = React.memo(() => {
       supabase.removeChannel(channel);
     };
   }, [fetchProjects]);
-  return <section id="builds" className="py-10 lg:py-16">
-      <div className="mx-auto w-full max-w-5xl px-4">
+  return <section id="builds" className="relative py-8 sm:py-10 lg:py-14 snap-section">
+      {/* Section Background Glow */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent opacity-50" />
+      
+      <div className="relative mx-auto w-full max-w-6xl px-3 sm:px-4">
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -425,9 +431,9 @@ const RecentBuilds: React.FC = React.memo(() => {
         once: true
       }} transition={{
         duration: 0.4
-      }} className="space-y-2">
+      }} className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
           <h2 className="heading-3 text-foreground">Recent Builds</h2>
-          <p className="body-base text-muted-foreground">
+          <p className="body-base text-muted-foreground max-w-2xl">
             Small scope, real results—across energy, education, and founder projects.
           </p>
         </motion.div>
@@ -501,8 +507,11 @@ const RecentBuilds: React.FC = React.memo(() => {
 });
 RecentBuilds.displayName = "RecentBuilds";
 const PilotOffer: React.FC = React.memo(() => {
-  return <section id="pilot" className="border-t border-slate-900/80 py-10 lg:py-16" aria-labelledby="pilot-heading">
-      <div className="mx-auto w-full max-w-5xl space-y-8 px-4">
+  return <section id="pilot" className="relative border-t border-white/5 py-8 sm:py-10 lg:py-14 snap-section" aria-labelledby="pilot-heading">
+      {/* Section Background with Subtle Card Effect */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent opacity-40" />
+      
+      <div className="relative mx-auto w-full max-w-6xl space-y-6 sm:space-y-8 px-3 sm:px-4">
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -624,8 +633,11 @@ const PilotOffer: React.FC = React.memo(() => {
 });
 PilotOffer.displayName = "PilotOffer";
 const TypicalProgression: React.FC = React.memo(() => {
-  return <section className="border-t border-slate-900/80 py-10 lg:py-16">
-      <div className="mx-auto w-full max-w-5xl px-4">
+  return <section className="relative border-t border-white/5 py-8 sm:py-10 lg:py-14 snap-section">
+      {/* Vibrant Section Glow */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-violet-500/5 via-transparent to-blue-500/5 opacity-50" />
+      
+      <div className="relative mx-auto w-full max-w-6xl px-3 sm:px-4">
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -687,8 +699,11 @@ const TypicalProgression: React.FC = React.memo(() => {
 TypicalProgression.displayName = "TypicalProgression";
 const WhoBenefits: React.FC = React.memo(() => {
   const audiences = useMemo(() => ["Students bringing new ideas to life", "Teachers or nonprofits piloting campus or impact projects", "Boards and governance teams needing clearer dashboards", "Solo founders wanting operational peace of mind", "B2B units innovating on tight timelines"], []);
-  return <section id="benefits" className="border-t border-slate-900/80 py-10 lg:py-16">
-      <div className="mx-auto w-full max-w-5xl px-4">
+  return <section id="benefits" className="relative border-t border-white/5 py-8 sm:py-10 lg:py-14 snap-section">
+      {/* Section Accent Glow */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-40" />
+      
+      <div className="relative mx-auto w-full max-w-6xl px-3 sm:px-4">
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -756,8 +771,11 @@ const WhoBenefits: React.FC = React.memo(() => {
 });
 WhoBenefits.displayName = "WhoBenefits";
 const AboutMe: React.FC = React.memo(() => {
-  return <section id="about" className="border-t border-slate-900/80 py-10 lg:py-16">
-      <div className="mx-auto w-full max-w-5xl space-y-10 px-4">
+  return <section id="about" className="relative border-t border-white/5 py-8 sm:py-10 lg:py-14 snap-section">
+      {/* Final Section Glow */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-transparent opacity-50" />
+      
+      <div className="relative mx-auto w-full max-w-6xl space-y-8 sm:space-y-10 px-3 sm:px-4">
         <motion.div initial={{
         opacity: 0,
         y: 20
@@ -837,8 +855,8 @@ const AboutMe: React.FC = React.memo(() => {
 });
 AboutMe.displayName = "AboutMe";
 const SiteFooter: React.FC = React.memo(() => {
-  return <footer className="border-t border-slate-900/80 py-4">
-      <div className="body-sm flex flex-col items-start justify-between gap-2 text-slate-500 sm:flex-row sm:items-center">
+  return <footer className="relative border-t border-white/10 bg-slate-950/80 backdrop-blur-sm py-4 sm:py-5">
+      <div className="body-sm flex flex-col items-start justify-between gap-2 text-slate-400 sm:flex-row sm:items-center px-3 sm:px-4">
         <div>© {new Date().getFullYear()} AltruisticX AI</div>
         <div className="flex flex-wrap gap-2">
           <span>Async · privacy-aware · built for pilots</span>
