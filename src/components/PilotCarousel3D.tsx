@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useHapticFeedback } from "@/hooks/use-haptic-feedback";
 
 interface PilotCarousel3DProps {
   children: React.ReactNode[];
@@ -13,6 +14,7 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
   const [direction, setDirection] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const { trigger } = useHapticFeedback();
 
   const childrenArray = Array.isArray(children) ? children : [children];
   const totalSlides = childrenArray.length;
@@ -58,8 +60,10 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
     const isRightSwipe = distance < -minSwipeDistance;
 
     if (isLeftSwipe) {
+      trigger('light');
       handleNext();
     } else if (isRightSwipe) {
+      trigger('light');
       handlePrev();
     }
 
