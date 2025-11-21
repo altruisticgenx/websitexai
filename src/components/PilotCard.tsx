@@ -29,21 +29,21 @@ export function PilotCard({
   tag,
   imageUrl,
   className,
-  shouldLoadImage = true, // Default to true for non-carousel usage
+  shouldLoadImage = true,
 }: PilotCardProps) {
   const reduce = useReducedMotion();
 
   return (
-    <Link to={`/case-study/${id}`} className="block w-full">
-      <SpotlightCard className={cn("min-h-[360px] sm:min-h-[380px] lg:min-h-[420px]", className)}>
+    <Link to={`/case-study/${id}`} className="block w-full h-full">
+      <SpotlightCard className={cn("h-full flex flex-col", className)}>
         <motion.article
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduce ? 0 : 0.35 }}
-          className="relative w-full h-full overflow-hidden"
+          className="relative w-full h-full flex flex-col overflow-hidden"
         >
-          {/* Image header */}
-          <div className="relative h-36 sm:h-40 lg:h-44 w-full overflow-hidden">
+          {/* Image header - Mobile-first sizing */}
+          <div className="relative h-32 xs:h-36 sm:h-40 w-full overflow-hidden flex-shrink-0">
             {imageUrl && shouldLoadImage ? (
               <img
                 src={imageUrl}
@@ -51,61 +51,60 @@ export function PilotCard({
                 className="h-full w-full object-cover"
                 loading="lazy"
                 onError={(e) => {
-                  // Hide broken image, show gradient fallback
                   e.currentTarget.style.display = 'none';
                 }}
               />
             ) : null}
-            {/* Always show gradient overlay/fallback */}
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-900 to-slate-800" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
+            {/* Gradient overlay/fallback */}
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/50 to-transparent" />
 
-            {/* sector pill */}
-            <div className="absolute left-2 top-2 rounded-full bg-black/60 px-2.5 py-1 text-[10px] sm:text-xs text-slate-200 ring-1 ring-white/10">
+            {/* Sector pill */}
+            <div className="absolute left-2 top-2 rounded-full bg-black/70 backdrop-blur-sm px-2 py-0.5 text-[9px] sm:text-[10px] text-slate-200 ring-1 ring-white/10 font-medium">
               {sector}
             </div>
 
             {tag && (
-              <div className="absolute right-2 top-2 rounded-full bg-primary/15 px-2.5 py-1 text-[10px] sm:text-xs text-primary ring-1 ring-primary/30">
+              <div className="absolute right-2 top-2 rounded-full bg-primary/20 backdrop-blur-sm px-2 py-0.5 text-[9px] sm:text-[10px] text-primary ring-1 ring-primary/30 font-medium">
                 {tag}
               </div>
             )}
           </div>
 
-          {/* Body */}
-          <div className="flex flex-col gap-2 p-3 sm:p-4">
-            <header className="space-y-1">
-              <h3 className="text-sm sm:text-base lg:text-lg font-bold leading-tight text-white line-clamp-2">
+          {/* Body - Mobile-first padding and spacing */}
+          <div className="flex flex-col gap-2 p-3 sm:p-4 flex-1">
+            <header className="space-y-0.5">
+              <h3 className="text-xs xs:text-sm sm:text-base font-bold leading-tight text-white line-clamp-2">
                 {title}
               </h3>
-              <p className="text-[11px] sm:text-xs text-slate-400">
+              <p className="text-[10px] xs:text-[11px] sm:text-xs text-slate-400">
                 For <span className="text-slate-200 font-medium">{whoFor}</span> · {timeToDemo}
               </p>
             </header>
 
-            <div className="space-y-2">
-              <div className="rounded-xl bg-slate-900/60 p-2.5 sm:p-3">
-                <p className="text-[11px] sm:text-xs text-slate-300 leading-relaxed">
+            <div className="space-y-1.5 flex-1">
+              <div className="rounded-lg bg-slate-900/60 backdrop-blur-sm p-2 sm:p-2.5">
+                <p className="text-[10px] xs:text-[11px] sm:text-xs text-slate-300 leading-relaxed">
                   <span className="font-semibold text-slate-100">Problem:</span>{" "}
                   {problem}
                 </p>
               </div>
 
-              <div className="rounded-xl bg-slate-900/60 p-2.5 sm:p-3">
-                <p className="text-[11px] sm:text-xs text-slate-300 leading-relaxed">
+              <div className="rounded-lg bg-slate-900/60 backdrop-blur-sm p-2 sm:p-2.5">
+                <p className="text-[10px] xs:text-[11px] sm:text-xs text-slate-300 leading-relaxed">
                   <span className="font-semibold text-slate-100">Outcome:</span>{" "}
                   {outcome}
                 </p>
               </div>
             </div>
 
-            {/* Footer CTA row */}
+            {/* Footer CTA */}
             <div className="mt-auto pt-1">
               <div
                 className={cn(
-                  "w-full rounded-xl border border-slate-700/80 bg-slate-900/70 px-3 py-2.5 text-center",
-                  "text-xs sm:text-sm font-semibold text-white",
-                  "hover:bg-slate-800/80 active:scale-[0.99] transition",
+                  "w-full rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-center",
+                  "text-[10px] xs:text-[11px] sm:text-xs font-semibold text-primary",
+                  "hover:bg-primary/20 hover:border-primary/50 active:scale-[0.98] transition-all duration-200",
                   "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                 )}
                 role="button"
