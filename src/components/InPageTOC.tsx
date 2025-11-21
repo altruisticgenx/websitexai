@@ -51,15 +51,15 @@ export function InPageTOC({ items, className }: InPageTOCProps) {
   return (
     <>
       {/* Mobile: Collapsible Dropdown */}
-      <div className="lg:hidden sticky top-16 z-40 w-full bg-background/80 backdrop-blur-md border-b border-border/40 mb-6">
+      <div className="lg:hidden sticky top-16 z-40 w-full bg-background/80 backdrop-blur-md border-b border-border/40 mb-3">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full flex items-center justify-between px-4 py-3 text-left body-sm font-medium text-foreground hover:bg-accent/50 transition-colors"
+          className="w-full flex items-center justify-between px-2 py-1.5 text-left text-[10px] font-medium text-foreground hover:bg-accent/50 transition-colors"
           aria-expanded={isOpen}
           aria-label="Toggle table of contents"
         >
           <span>On this page</span>
-          {isOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+          {isOpen ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
         </button>
 
         <AnimatePresence>
@@ -72,13 +72,13 @@ export function InPageTOC({ items, className }: InPageTOCProps) {
               className="overflow-hidden"
               aria-label="Table of contents"
             >
-              <ul className="px-4 pb-3 space-y-1">
+              <ul className="px-2 pb-2 space-y-0.5">
                 {items.map((item) => (
                   <li key={item.id}>
                     <button
                       onClick={() => handleClick(item.id)}
                       className={cn(
-                        "block w-full text-left px-3 py-2 rounded-md body-xs transition-colors",
+                        "block w-full text-left px-2 py-1 rounded-md text-[9px] transition-colors",
                         activeId === item.id
                           ? "text-primary bg-primary/10 font-medium"
                           : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
@@ -102,15 +102,15 @@ export function InPageTOC({ items, className }: InPageTOCProps) {
         )}
         aria-label="Table of contents"
       >
-        <div className="rounded-lg border border-border/40 bg-card/50 backdrop-blur-sm p-4">
-          <h3 className="body-sm font-semibold text-foreground mb-3">On this page</h3>
-          <ul className="space-y-1">
+        <div className="rounded-lg border border-border/40 bg-card/50 backdrop-blur-sm p-2">
+          <h3 className="text-[10px] font-semibold text-foreground mb-2">On this page</h3>
+          <ul className="space-y-0.5">
             {items.map((item) => (
               <li key={item.id}>
                 <button
                   onClick={() => handleClick(item.id)}
                   className={cn(
-                    "block w-full text-left px-3 py-1.5 rounded-md body-xs transition-all duration-200",
+                    "block w-full text-left px-2 py-1 rounded-md text-[9px] transition-all duration-200",
                     activeId === item.id
                       ? "text-primary bg-primary/10 font-medium border-l-2 border-primary"
                       : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
