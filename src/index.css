@@ -69,7 +69,7 @@ All colors MUST be HSL.
     --sidebar-primary: 333 71% 50%;
     --sidebar-primary-foreground: 327 73% 97%;
     --sidebar-ring: 333 71% 50%;
-    --font-sans: Inter, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
     --font-serif: "Crimson Text", ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
     --chart-1: 328 85% 70%;
     --chart-2: 351 94% 71%;
@@ -117,7 +117,7 @@ All colors MUST be HSL.
     --sidebar-primary: 328 85% 70%;
     --sidebar-primary-foreground: 336 83% 17%;
     --sidebar-ring: 328 85% 70%;
-    --font-sans: Raleway, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
     --font-serif: "EB Garamond", ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
     --chart-1: 327 87% 81%;
     --chart-2: 352 95% 81%;
@@ -136,84 +136,73 @@ All colors MUST be HSL.
   }
 }
 
-/* Semantic Typography System */
+/* Semantic Typography System - Simplified and Smaller */
 @layer components {
-  /* Headings - Mobile-first, responsive with max text-3xl on mobile */
+  /* Headings - Compact and consistent */
   .heading-1 {
-    @apply text-2xl font-semibold tracking-tight;
-    @apply sm:text-3xl lg:text-4xl;
-  }
-
-  .heading-2 {
-    @apply text-xl font-semibold tracking-tight;
-    @apply sm:text-2xl lg:text-3xl;
-  }
-
-  .heading-3 {
-    @apply text-lg font-semibold;
+    @apply text-lg font-semibold tracking-tight;
     @apply sm:text-xl lg:text-2xl;
   }
 
+  .heading-2 {
+    @apply text-base font-semibold tracking-tight;
+    @apply sm:text-lg lg:text-xl;
+  }
+
+  .heading-3 {
+    @apply text-sm font-semibold tracking-tight;
+    @apply sm:text-base lg:text-lg;
+  }
+
   .heading-4 {
-    @apply text-base font-semibold;
-    @apply sm:text-lg;
-  }
-
-  .heading-5 {
-    @apply text-sm font-semibold;
-    @apply sm:text-base;
-  }
-
-  .heading-6 {
     @apply text-xs font-semibold;
     @apply sm:text-sm;
   }
 
-  /* Body text - Mobile-first */
+  .heading-5 {
+    @apply text-xs font-semibold;
+  }
+
+  .heading-6 {
+    @apply text-xs font-medium;
+  }
+
+  /* Body text - Smaller and uniform */
   .body-xl {
-    @apply text-base leading-relaxed;
-    @apply sm:text-lg;
+    @apply text-sm leading-relaxed;
   }
 
   .body-lg {
-    @apply text-sm leading-relaxed;
-    @apply sm:text-base;
+    @apply text-xs leading-relaxed;
   }
 
   .body-base {
     @apply text-xs leading-relaxed;
-    @apply sm:text-sm;
   }
 
   .body-sm {
     @apply text-xs leading-relaxed;
-    @apply sm:text-sm;
   }
 
   .body-xs {
-    @apply text-[11px] leading-relaxed;
-    @apply sm:text-xs;
+    @apply text-xs leading-relaxed;
   }
 
   /* Utility text */
   .caption {
-    @apply text-[11px] text-muted-foreground;
-    @apply sm:text-xs;
+    @apply text-xs text-muted-foreground;
   }
 
   .label {
-    @apply text-[11px] font-medium uppercase tracking-[0.16em];
-    @apply sm:text-xs;
+    @apply text-xs font-medium uppercase tracking-wide;
   }
 
   .overline {
-    @apply text-[11px] font-semibold uppercase tracking-wider text-muted-foreground;
-    @apply sm:text-xs;
+    @apply text-xs font-semibold uppercase tracking-wide text-muted-foreground;
   }
 
   .micro {
-    @apply text-[11px] leading-tight;
-    @apply sm:text-xs;
+    @apply text-xs leading-tight;
   }
 
   /* Touch-friendly utilities */
@@ -281,18 +270,15 @@ All colors MUST be HSL.
   /* Button text */
   .btn-text {
     @apply text-xs font-medium;
-    @apply sm:text-sm;
   }
 
   .btn-text-sm {
-    @apply text-[10px] font-medium;
-    @apply sm:text-xs;
+    @apply text-xs font-medium;
   }
 
   /* Code/Mono text */
   .code-text {
-    @apply font-mono text-[10px];
-    @apply sm:text-xs;
+    @apply font-mono text-xs;
   }
 
   :root {
