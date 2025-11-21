@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState, Suspense, lazy } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { CaseStudiesStack } from "@/components/ui/animated-cards-stack";
+import { PilotCard } from "@/components/PilotCard";
 import { Hero } from "@/components/Hero";
 import { LazySection } from "@/components/LazySection";
 import { useSwipeGesture } from "@/hooks/use-swipe-gesture";

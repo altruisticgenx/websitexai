@@ -71,9 +71,9 @@ export function SiteNav() {
         Skip to main content
       </a>
       
-      <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80" aria-label="Main navigation">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+      <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/80" aria-label="Main navigation">
+        <div className="mx-auto max-w-6xl px-3 sm:px-4">
+        <div className="flex h-14 sm:h-16 items-center justify-between">
           {/* Logo/Brand */}
           <a href="#" onClick={handleNavClick} className="flex flex-col transition-colors hover:text-primary">
             <span className="body-xs font-semibold uppercase tracking-wider text-primary">
@@ -149,7 +149,9 @@ export function SiteNav() {
             </div>
 
             {/* CTA Button */}
-            
+            <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" aria-label="Book a 30-minute introduction call (opens in new tab)" className="ml-2 rounded-full bg-primary px-4 py-2 min-h-[44px] flex items-center body-xs font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-md shadow-primary/20">
+              Book Intro
+            </a>
           </div>
 
           {/* Mobile Menu Button - Touch-friendly size (min 44x44px) */}
