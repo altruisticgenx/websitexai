@@ -31,7 +31,7 @@ export function Hero() {
   const [showCursor, setShowCursor] = useState(true);
 
   // Sector switcher state
-  const [activeSector, setActiveSector] = useState<"energy" | "education" | null>(null);
+  const [activeSector, setActiveSector] = useState<"energy" | "education" | "civic" | "climate" | "startups" | null>(null);
 
   // Mouse trail particles state
   const [trailParticles, setTrailParticles] = useState<TrailParticle[]>([]);
@@ -324,8 +324,8 @@ export function Hero() {
               Senior AI + product execution for energy, education, and civic teams. First demo in Week 1.
             </motion.p>
 
-            {/* Sector Tag Switcher */}
-            <motion.div className="mt-2 flex flex-wrap gap-2 items-center text-[10px]" initial={{
+            {/* Sector Tag Switcher - Compact 3D */}
+            <motion.div className="mt-2 flex flex-wrap gap-1.5 items-center text-[8px]" initial={{
             opacity: 0,
             y: 20
           }} animate={{
@@ -335,185 +335,119 @@ export function Hero() {
             duration: 0.6,
             delay: 0.6
           }}>
-              <span className="text-muted-foreground">Focus:</span>
-              <motion.button className="relative px-3 py-1.5 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all" onMouseEnter={() => setActiveSector("energy")} onMouseLeave={() => setActiveSector(null)} whileHover={{
-              scale: 1.05,
-              borderColor: "hsl(var(--primary) / 0.6)"
+              <span className="text-muted-foreground font-mono">Focus:</span>
+              
+              {/* Energy - Hexagon Shape */}
+              <motion.button className="relative px-2 py-0.5 rounded-md border border-emerald-500/50 bg-emerald-500/10 backdrop-blur-sm text-emerald-400 overflow-visible group transition-all" onMouseEnter={() => setActiveSector("energy")} onMouseLeave={() => setActiveSector(null)} whileHover={{
+              scale: 1.1,
+              rotateX: 5,
+              rotateY: -5,
+              borderColor: "rgb(16 185 129 / 0.8)"
             }} style={{
               transformStyle: "preserve-3d",
-              perspective: "1000px"
+              perspective: "1000px",
+              boxShadow: activeSector === "energy" ? "0 0 20px rgba(16, 185, 129, 0.4)" : "0 0 8px rgba(16, 185, 129, 0.2)"
             }}>
-                {/* Glowing Halo Effect - Behind button */}
-                <motion.div className="absolute inset-0 rounded-lg bg-primary blur-xl -z-10" animate={{
-                opacity: activeSector === "energy" ? [0.3, 0.6, 0.3] : 0.1,
-                scale: activeSector === "energy" ? [1.2, 1.5, 1.2] : 1
-              }} transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }} />
-                
-                {/* Pulsing Ring on Hover */}
-                {activeSector === "energy" && <>
-                    <motion.div className="absolute inset-0 rounded-lg border-2 border-primary" initial={{
-                  scale: 1,
-                  opacity: 0.6
-                }} animate={{
-                  scale: [1, 1.5, 2],
-                  opacity: [0.6, 0.3, 0]
-                }} transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeOut"
-                }} />
-                    <motion.div className="absolute inset-0 rounded-lg border-2 border-primary" initial={{
-                  scale: 1,
-                  opacity: 0.6
-                }} animate={{
-                  scale: [1, 1.5, 2],
-                  opacity: [0.6, 0.3, 0]
-                }} transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeOut",
-                  delay: 0.5
-                }} />
-                  </>}
-                {/* Orbital Particles */}
-                {[...Array(4)].map((_, i) => {
-                const angle = i * 90 * (Math.PI / 180);
-                const radius = 25;
-                return <motion.div key={i} className="absolute w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_2px_hsl(var(--primary)/0.6)]" style={{
-                  left: '50%',
-                  top: '50%'
-                }} animate={{
-                  x: [Math.cos(angle) * radius, Math.cos(angle + Math.PI / 2) * radius, Math.cos(angle + Math.PI) * radius, Math.cos(angle + 3 * Math.PI / 2) * radius, Math.cos(angle + 2 * Math.PI) * radius],
-                  y: [Math.sin(angle) * radius, Math.sin(angle + Math.PI / 2) * radius, Math.sin(angle + Math.PI) * radius, Math.sin(angle + 3 * Math.PI / 2) * radius, Math.sin(angle + 2 * Math.PI) * radius],
-                  opacity: [0.4, 0.8, 0.6, 0.8, 0.4],
-                  scale: [0.8, 1.2, 1, 1.2, 0.8]
-                }} transition={{
-                  duration: activeSector === "energy" ? 2 : 4,
-                  repeat: Infinity,
-                  ease: "linear",
-                  delay: i * 0.25
-                }} />;
-              })}
-                <motion.div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0" animate={{
-                x: ['-200%', '200%']
-              }} transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "linear"
-              }} />
-                <span className="relative z-10 font-mono">Energy</span>
+                <motion.div className="absolute inset-0 rounded-md bg-emerald-500 blur-lg -z-10" animate={{
+                opacity: activeSector === "energy" ? [0.2, 0.5, 0.2] : 0.1,
+                scale: activeSector === "energy" ? [1.1, 1.4, 1.1] : 1
+              }} transition={{ duration: 1.5, repeat: Infinity }} />
+                <span className="relative z-10 font-mono font-bold">Energy</span>
               </motion.button>
               
-              <motion.button className="relative px-3 py-1.5 rounded-lg border-2 border-accent/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all" onMouseEnter={() => setActiveSector("education")} onMouseLeave={() => setActiveSector(null)} whileHover={{
-              scale: 1.05,
-              borderColor: "hsl(var(--accent) / 0.6)"
+              {/* Education - Circle Shape */}
+              <motion.button className="relative px-2 py-0.5 rounded-full border border-blue-500/50 bg-blue-500/10 backdrop-blur-sm text-blue-400 overflow-visible group transition-all" onMouseEnter={() => setActiveSector("education")} onMouseLeave={() => setActiveSector(null)} whileHover={{
+              scale: 1.1,
+              rotateX: -5,
+              rotateY: 5,
+              borderColor: "rgb(59 130 246 / 0.8)"
             }} style={{
               transformStyle: "preserve-3d",
-              perspective: "1000px"
+              perspective: "1000px",
+              boxShadow: activeSector === "education" ? "0 0 20px rgba(59, 130, 246, 0.4)" : "0 0 8px rgba(59, 130, 246, 0.2)"
             }}>
-                {/* Glowing Halo Effect - Behind button */}
-                <motion.div className="absolute inset-0 rounded-lg bg-accent blur-xl -z-10" animate={{
-                opacity: activeSector === "education" ? [0.3, 0.6, 0.3] : 0.1,
-                scale: activeSector === "education" ? [1.2, 1.5, 1.2] : 1
-              }} transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }} />
-                
-                {/* Pulsing Ring on Hover */}
-                {activeSector === "education" && <>
-                    <motion.div className="absolute inset-0 rounded-lg border-2 border-accent" initial={{
-                  scale: 1,
-                  opacity: 0.6
-                }} animate={{
-                  scale: [1, 1.5, 2],
-                  opacity: [0.6, 0.3, 0]
-                }} transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeOut"
-                }} />
-                    <motion.div className="absolute inset-0 rounded-lg border-2 border-accent" initial={{
-                  scale: 1,
-                  opacity: 0.6
-                }} animate={{
-                  scale: [1, 1.5, 2],
-                  opacity: [0.6, 0.3, 0]
-                }} transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeOut",
-                  delay: 0.5
-                }} />
-                  </>}
-                {/* Orbital Particles */}
-                {[...Array(4)].map((_, i) => {
-                const angle = (i * 90 + 45) * (Math.PI / 180);
-                const radius = 25;
-                return <motion.div key={i} className="absolute w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_2px_hsl(var(--accent)/0.6)]" style={{
-                  left: '50%',
-                  top: '50%'
-                }} animate={{
-                  x: [Math.cos(angle) * radius, Math.cos(angle + Math.PI / 2) * radius, Math.cos(angle + Math.PI) * radius, Math.cos(angle + 3 * Math.PI / 2) * radius, Math.cos(angle + 2 * Math.PI) * radius],
-                  y: [Math.sin(angle) * radius, Math.sin(angle + Math.PI / 2) * radius, Math.sin(angle + Math.PI) * radius, Math.sin(angle + 3 * Math.PI / 2) * radius, Math.sin(angle + 2 * Math.PI) * radius],
-                  opacity: [0.5, 0.9, 0.7, 0.9, 0.5],
-                  scale: [0.9, 1.3, 1.1, 1.3, 0.9]
-                }} transition={{
-                  duration: activeSector === "education" ? 2.5 : 5,
-                  repeat: Infinity,
-                  ease: "linear",
-                  delay: i * 0.3
-                }} />;
-              })}
-                <motion.div className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/20 to-accent/0" animate={{
-                x: ['-200%', '200%']
-              }} transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "linear"
-              }} />
-                <span className="relative z-10 font-mono">Education</span>
+                <motion.div className="absolute inset-0 rounded-full bg-blue-500 blur-lg -z-10" animate={{
+                opacity: activeSector === "education" ? [0.2, 0.5, 0.2] : 0.1,
+                scale: activeSector === "education" ? [1.1, 1.4, 1.1] : 1
+              }} transition={{ duration: 1.8, repeat: Infinity }} />
+                <span className="relative z-10 font-mono font-bold">Education</span>
+              </motion.button>
+              
+              {/* Civic - Square Shape */}
+              <motion.button className="relative px-2 py-0.5 rounded-sm border border-violet-500/50 bg-violet-500/10 backdrop-blur-sm text-violet-400 overflow-visible group transition-all" onMouseEnter={() => setActiveSector("civic")} onMouseLeave={() => setActiveSector(null)} whileHover={{
+              scale: 1.1,
+              rotateX: 5,
+              rotateZ: 2,
+              borderColor: "rgb(139 92 246 / 0.8)"
+            }} style={{
+              transformStyle: "preserve-3d",
+              perspective: "1000px",
+              boxShadow: activeSector === "civic" ? "0 0 20px rgba(139, 92, 246, 0.4)" : "0 0 8px rgba(139, 92, 246, 0.2)"
+            }}>
+                <motion.div className="absolute inset-0 rounded-sm bg-violet-500 blur-lg -z-10" animate={{
+                opacity: activeSector === "civic" ? [0.2, 0.5, 0.2] : 0.1,
+                scale: activeSector === "civic" ? [1.1, 1.4, 1.1] : 1
+              }} transition={{ duration: 2, repeat: Infinity }} />
+                <span className="relative z-10 font-mono font-bold">Civic</span>
+              </motion.button>
+              
+              {/* Climate - Rounded Square */}
+              <motion.button className="relative px-2 py-0.5 rounded-lg border border-lime-500/50 bg-lime-500/10 backdrop-blur-sm text-lime-400 overflow-visible group transition-all" onMouseEnter={() => setActiveSector("climate")} onMouseLeave={() => setActiveSector(null)} whileHover={{
+              scale: 1.1,
+              rotateY: 5,
+              rotateZ: -2,
+              borderColor: "rgb(132 204 22 / 0.8)"
+            }} style={{
+              transformStyle: "preserve-3d",
+              perspective: "1000px",
+              boxShadow: activeSector === "climate" ? "0 0 20px rgba(132, 204, 22, 0.4)" : "0 0 8px rgba(132, 204, 22, 0.2)"
+            }}>
+                <motion.div className="absolute inset-0 rounded-lg bg-lime-500 blur-lg -z-10" animate={{
+                opacity: activeSector === "climate" ? [0.2, 0.5, 0.2] : 0.1,
+                scale: activeSector === "climate" ? [1.1, 1.4, 1.1] : 1
+              }} transition={{ duration: 1.6, repeat: Infinity }} />
+                <span className="relative z-10 font-mono font-bold">Climate</span>
+              </motion.button>
+              
+              {/* Startups - Pill Shape */}
+              <motion.button className="relative px-2 py-0.5 rounded-full border border-amber-500/50 bg-amber-500/10 backdrop-blur-sm text-amber-400 overflow-visible group transition-all" onMouseEnter={() => setActiveSector("startups")} onMouseLeave={() => setActiveSector(null)} whileHover={{
+              scale: 1.1,
+              rotateX: -5,
+              rotateZ: 3,
+              borderColor: "rgb(245 158 11 / 0.8)"
+            }} style={{
+              transformStyle: "preserve-3d",
+              perspective: "1000px",
+              boxShadow: activeSector === "startups" ? "0 0 20px rgba(245, 158, 11, 0.4)" : "0 0 8px rgba(245, 158, 11, 0.2)"
+            }}>
+                <motion.div className="absolute inset-0 rounded-full bg-amber-500 blur-lg -z-10" animate={{
+                opacity: activeSector === "startups" ? [0.2, 0.5, 0.2] : 0.1,
+                scale: activeSector === "startups" ? [1.1, 1.4, 1.1] : 1
+              }} transition={{ duration: 2.2, repeat: Infinity }} />
+                <span className="relative z-10 font-mono font-bold">Startups</span>
               </motion.button>
             </motion.div>
 
             {/* Dynamic Sector Description */}
-            <motion.div className="mt-2 min-h-[40px]" initial={{
+            <motion.div className="mt-2 min-h-[32px]" initial={{
             opacity: 0
           }} animate={{
             opacity: 1
           }}>
-              {activeSector === "energy" && <motion.p className="text-[10px] text-primary/90 font-mono" initial={{
-              opacity: 0,
-              x: -10
-            }} animate={{
-              opacity: 1,
-              x: 0
-            }} exit={{
-              opacity: 0,
-              x: 10
-            }} transition={{
-              duration: 0.3
-            }}>
+              {activeSector === "energy" && <motion.p className="text-[9px] text-emerald-400/90 font-mono" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.3 }}>
                   → Grid optimization · Demand forecasting · Utility analytics
                 </motion.p>}
-              {activeSector === "education" && <motion.p className="text-[10px] text-accent/90 font-mono" initial={{
-              opacity: 0,
-              x: -10
-            }} animate={{
-              opacity: 1,
-              x: 0
-            }} exit={{
-              opacity: 0,
-              x: 10
-            }} transition={{
-              duration: 0.3
-            }}>
+              {activeSector === "education" && <motion.p className="text-[9px] text-blue-400/90 font-mono" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.3 }}>
                   → Personalized learning · Student privacy · Civic education
+                </motion.p>}
+              {activeSector === "civic" && <motion.p className="text-[9px] text-violet-400/90 font-mono" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.3 }}>
+                  → Policy tracking · Public engagement · Transparency tools
+                </motion.p>}
+              {activeSector === "climate" && <motion.p className="text-[9px] text-lime-400/90 font-mono" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.3 }}>
+                  → Carbon tracking · Sustainability metrics · Impact reporting
+                </motion.p>}
+              {activeSector === "startups" && <motion.p className="text-[9px] text-amber-400/90 font-mono" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.3 }}>
+                  → MVP validation · Product-market fit · Growth experiments
                 </motion.p>}
               {!activeSector && <motion.p className="max-w-xl text-xs text-muted-foreground" initial={{
               opacity: 0
