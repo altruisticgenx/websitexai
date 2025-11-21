@@ -299,47 +299,6 @@ const RecentBuilds: React.FC = React.memo(() => {
     };
     return timeMap[id] || "Week 1";
   };
-
-  const getProjectTechnologies = (id: string): string[] => {
-    const techMap: Record<string, string[]> = {
-      "sales-copilot": ["React", "TypeScript", "OpenAI GPT-4", "Python", "Supabase"],
-      "founder-os": ["React", "Supabase", "Stripe API", "Cal.com", "Tailwind"],
-      "energy-analytics": ["React", "Python", "PostgreSQL", "D3.js", "Docker"],
-      "edtech-portal": ["React", "Supabase", "Tailwind", "Recharts", "PDF Export"]
-    };
-    return techMap[id] || [];
-  };
-
-  const getProjectKeyFeatures = (id: string): string[] => {
-    const featuresMap: Record<string, string[]> = {
-      "sales-copilot": [
-        "AI-powered lead scoring with GPT-4",
-        "Automated follow-up sequences",
-        "Real-time sentiment analysis",
-        "Gmail & CRM integration"
-      ],
-      "founder-os": [
-        "Unified scheduling & CRM",
-        "Session note-taking",
-        "Stripe invoice sync",
-        "Mobile-first PWA design"
-      ],
-      "energy-analytics": [
-        "Real-time meter data ingestion",
-        "ML anomaly detection",
-        "Peer building comparison",
-        "Automated savings reports"
-      ],
-      "edtech-portal": [
-        "Student outcome tracking",
-        "Demographic analytics",
-        "Funder report generator",
-        "Google Classroom SSO"
-      ]
-    };
-    return featuresMap[id] || [];
-  };
-
   const mapProjects = useCallback((rows: any[] | null) => {
     return (rows ?? []).map(p => ({
       id: p.slug,
@@ -387,74 +346,65 @@ const RecentBuilds: React.FC = React.memo(() => {
       supabase.removeChannel(channel);
     };
   }, [fetchProjects]);
-  return <section 
-      id="builds" 
-      className="py-12 sm:py-16 lg:py-20" 
-      aria-labelledby="recent-builds-heading"
-      itemScope 
-      itemType="https://schema.org/ItemList"
-    >
-      <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
-        <motion.header 
-          initial={{ opacity: 0, y: 20 }} 
-          whileInView={{ opacity: 1, y: 0 }} 
-          viewport={{ once: true }} 
-          transition={{ duration: 0.4 }}
-          className="mb-8 sm:mb-10 space-y-3"
-        >
-          <h2 
-            id="recent-builds-heading" 
-            className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-foreground"
-          >
-            Recent Builds
-          </h2>
-          <p className="text-sm sm:text-base leading-relaxed text-muted-foreground max-w-2xl">
+  return <section id="builds" className="py-10 lg:py-16">
+      <div className="mx-auto w-full max-w-5xl px-4">
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.4
+      }} className="space-y-2">
+          <h2 className="heading-3 text-foreground">Recent Builds</h2>
+          <p className="body-base text-muted-foreground">
             Small scope, real results—across energy, education, and founder projects.
           </p>
-        </motion.header>
+        </motion.div>
 
-        {isLoadingProjects ? (
-          <div className="mt-6" aria-busy="true" aria-live="polite">
+        {isLoadingProjects ? <div className="mt-6">
             <CardsSkeleton />
-          </div>
-        ) : error ? (
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            className="mt-6 rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center" 
-            role="alert" 
-            aria-live="assertive"
-          >
+          </div> : error ? <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} animate={{
+        opacity: 1,
+        y: 0
+      }} className="mt-6 rounded-2xl border border-red-400/20 bg-red-400/10 p-6 text-center" role="alert" aria-live="polite">
             <p className="text-sm text-red-300">{error}</p>
-            <button 
-              onClick={fetchProjects} 
-              className="mt-3 text-xs underline text-red-400 hover:text-red-300 focus:outline-none focus:ring-2 focus:ring-red-400/50 rounded"
-              aria-label="Retry loading projects"
-            >
+            <button onClick={fetchProjects} className="mt-3 text-xs underline text-red-400 hover:text-red-300">
               Try again
             </button>
-          </motion.div>
-        ) : projects.length === 0 ? (
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            className="mt-6 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center"
-          >
+          </motion.div> : projects.length === 0 ? <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} animate={{
+        opacity: 1,
+        y: 0
+      }} className="mt-6 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-8 text-center">
             <p className="text-sm text-slate-400">No projects available yet. Check back soon!</p>
-          </motion.div>
-        ) : (
-          <div 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 lg:gap-6"
-            role="list"
-            aria-label="Project portfolio"
-          >
+          </motion.div> : <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5,
+        delay: 0.1
+      }} className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
             {projects.map((project, index) => (
-              <div
+              <motion.div
                 key={project.id}
-                role="listitem"
-                itemProp="itemListElement"
-                itemScope
-                itemType="https://schema.org/CreativeWork"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
               >
                 <PilotCard
                   id={project.id}
@@ -465,13 +415,10 @@ const RecentBuilds: React.FC = React.memo(() => {
                   outcome={getProjectOutcome(project.id)}
                   timeToDemo={getTimeToDemo(project.id)}
                   tag={project.tag}
-                  technologies={getProjectTechnologies(project.id)}
-                  keyFeatures={getProjectKeyFeatures(project.id)}
                 />
-              </div>
+              </motion.div>
             ))}
-          </div>
-        )}
+          </motion.div>}
       </div>
     </section>;
 });
