@@ -14,9 +14,14 @@ export function PilotCarousel3D({
 }: PilotCarousel3DProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   const childrenArray = Array.isArray(children) ? children : [children];
   const totalSlides = childrenArray.length;
+
+  // Minimum swipe distance (in px) to trigger navigation
+  const minSwipeDistance = 50;
 
   // Auto-play
   useEffect(() => {
@@ -36,6 +41,34 @@ export function PilotCarousel3D({
   const handlePrev = () => {
     setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  // Touch event handlers
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      handleNext();
+    } else if (isRightSwipe) {
+      handlePrev();
+    }
+
+    // Reset touch states
+    setTouchStart(null);
+    setTouchEnd(null);
   };
 
   const getVisibleIndices = () => {
@@ -73,7 +106,12 @@ export function PilotCarousel3D({
   return (
     <div className="relative w-full" style={{ perspective: "1500px" }}>
       {/* Carousel Container */}
-      <div className="relative h-[240px] sm:h-[260px] md:h-[280px] overflow-visible">
+      <div 
+        className="relative h-[240px] sm:h-[260px] md:h-[280px] overflow-visible touch-pan-y select-none"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
         <AnimatePresence initial={false} custom={direction} mode="popLayout">
           {/* Previous Card (Left) */}
           <motion.div
@@ -193,14 +231,30 @@ export function PilotCarousel3D({
       </div>
 
       {/* Swipe Indicator for Mobile */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="mt-2 text-center text-[8px] text-muted-foreground/70 font-medium"
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 0.5 }}
+        className="mt-2 flex items-center justify-center gap-1.5"
       >
-        Swipe or tap arrows
-      </motion.p>
+        <motion.div
+          animate={{ x: [-3, 3, -3] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          className="text-primary/60"
+        >
+          ←
+        </motion.div>
+        <p className="text-center text-[8px] text-muted-foreground/70 font-medium">
+          Swipe or tap arrows
+        </p>
+        <motion.div
+          animate={{ x: [3, -3, 3] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          className="text-primary/60"
+        >
+          →
+        </motion.div>
+      </motion.div>
     </div>
   );
 }
