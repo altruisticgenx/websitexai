@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useHapticFeedback } from "@/hooks/use-haptic-feedback";
@@ -15,10 +15,20 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const { trigger } = useHapticFeedback();
+  const reduceMotion = useReducedMotion();
 
   const childrenArray = Array.isArray(children) ? children : [children];
   const totalSlides = childrenArray.length;
+
+  // Detect mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Minimum swipe distance (in px) to trigger navigation
   const minSwipeDistance = 50;
@@ -106,80 +116,93 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
   };
 
   return (
-    <div className="relative w-full flex items-center justify-center" style={{ perspective: "2000px" }}>
-      {/* Carousel Container */}
-      <div
-        className="relative h-[280px] xs:h-[300px] sm:h-[320px] md:h-[360px] w-full max-w-7xl overflow-visible touch-pan-y select-none"
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-      >
-        <AnimatePresence initial={false} custom={direction} mode="popLayout">
-          {/* Previous Card (Left) */}
-          <motion.div
-            key={`prev-${prev}`}
-            className="absolute left-0 top-1/2 w-[30%] sm:w-[28%] md:w-[25%] origin-center hidden sm:block"
-            initial={false}
-            animate={{
-              x: "10%",
-              y: "-50%",
-              scale: 0.7,
-              opacity: 0.4,
-              rotateY: 35,
-              z: -300,
-            }}
-            transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-            style={{
-              transformStyle: "preserve-3d",
-              filter: "blur(1px) brightness(0.7)",
-            }}
-          >
-            <div className="pointer-events-none shadow-2xl">{childrenArray[prev]}</div>
-          </motion.div>
+    <div className="relative w-full mx-auto max-w-5xl">
+      <div className="min-h-[380px] sm:min-h-[420px] lg:min-h-[460px] flex items-center justify-center" style={{ perspective: "2000px" }}>
+        {/* Carousel Container */}
+        <div
+          className={cn(
+            "relative h-[380px] sm:h-[420px] lg:h-[460px] w-full touch-pan-y select-none",
+            isMobile ? "overflow-visible" : "overflow-hidden"
+          )}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
+          <AnimatePresence initial={false} custom={direction} mode="popLayout">
+            {/* Previous Card (Left) */}
+            <motion.div
+              key={`prev-${prev}`}
+              className="absolute left-0 top-1/2 w-[30%] sm:w-[28%] md:w-[25%] origin-center hidden sm:block"
+              initial={false}
+              animate={
+                !reduceMotion
+                  ? {
+                      x: "10%",
+                      y: "-50%",
+                      scale: 0.7,
+                      opacity: 0.4,
+                      rotateY: 35,
+                      z: -300,
+                    }
+                  : { x: "10%", y: "-50%", opacity: 0.4 }
+              }
+              transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
+              style={{
+                transformStyle: "preserve-3d",
+                filter: "blur(1px) brightness(0.7)",
+              }}
+            >
+              <div className="pointer-events-none shadow-2xl">{childrenArray[prev]}</div>
+            </motion.div>
 
-          {/* Current Card (Center) */}
-          <motion.div
-            key={`current-${current}`}
-            className="absolute left-1/2 top-1/2 w-[90%] xs:w-[80%] sm:w-[65%] md:w-[55%] lg:w-[45%] origin-center"
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
-            style={{
-              x: "-50%",
-              y: "-50%",
-              transformStyle: "preserve-3d",
-              zIndex: 10,
-              filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.4))",
-            }}
-          >
-            <div className="transform-gpu">{childrenArray[current]}</div>
-          </motion.div>
+            {/* Current Card (Center) */}
+            <motion.div
+              key={`current-${current}`}
+              className="absolute left-1/2 top-1/2 w-[90%] xs:w-[80%] sm:w-[65%] md:w-[55%] lg:w-[45%] origin-center"
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
+              style={{
+                x: "-50%",
+                y: "-50%",
+                transformStyle: "preserve-3d",
+                zIndex: 10,
+                filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.4))",
+              }}
+            >
+              <div className="transform-gpu">{childrenArray[current]}</div>
+            </motion.div>
 
-          {/* Next Card (Right) */}
-          <motion.div
-            key={`next-${next}`}
-            className="absolute right-0 top-1/2 w-[30%] sm:w-[28%] md:w-[25%] origin-center hidden sm:block"
-            initial={false}
-            animate={{
-              x: "-10%",
-              y: "-50%",
-              scale: 0.7,
-              opacity: 0.4,
-              rotateY: -35,
-              z: -300,
-            }}
-            transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-            style={{
-              transformStyle: "preserve-3d",
-              filter: "blur(1px) brightness(0.7)",
-            }}
-          >
-            <div className="pointer-events-none shadow-2xl">{childrenArray[next]}</div>
-          </motion.div>
-        </AnimatePresence>
+            {/* Next Card (Right) */}
+            <motion.div
+              key={`next-${next}`}
+              className="absolute right-0 top-1/2 w-[30%] sm:w-[28%] md:w-[25%] origin-center hidden sm:block"
+              initial={false}
+              animate={
+                !reduceMotion
+                  ? {
+                      x: "-10%",
+                      y: "-50%",
+                      scale: 0.7,
+                      opacity: 0.4,
+                      rotateY: -35,
+                      z: -300,
+                    }
+                  : { x: "-10%", y: "-50%", opacity: 0.4 }
+              }
+              transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
+              style={{
+                transformStyle: "preserve-3d",
+                filter: "blur(1px) brightness(0.7)",
+              }}
+            >
+              <div className="pointer-events-none shadow-2xl">{childrenArray[next]}</div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
 
       {/* Navigation Buttons */}
@@ -190,7 +213,7 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
             trigger('light');
             setIsPaused(!isPaused);
           }}
-          whileHover={{ scale: 1.08 }}
+          whileHover={!isMobile && !reduceMotion ? { scale: 1.08 } : undefined}
           whileTap={{ scale: 0.92 }}
           className="group relative rounded-full bg-primary/20 p-1.5 backdrop-blur-sm border border-primary/50 shadow-md shadow-primary/25 hover:shadow-primary/50 transition-all duration-300"
           style={{ transformStyle: "preserve-3d" }}
@@ -206,7 +229,7 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
 
         <motion.button
           onClick={handlePrev}
-          whileHover={{ scale: 1.08, rotate: -3 }}
+          whileHover={!isMobile && !reduceMotion ? { scale: 1.08, rotate: -3 } : undefined}
           whileTap={{ scale: 0.92 }}
           className="group relative rounded-full bg-primary/20 p-1.5 backdrop-blur-sm border border-primary/50 shadow-md shadow-primary/25 hover:shadow-primary/50 transition-all duration-300"
           style={{ transformStyle: "preserve-3d" }}
@@ -240,7 +263,7 @@ export function PilotCarousel3D({ children, autoPlayInterval = 5000 }: PilotCaro
 
         <motion.button
           onClick={handleNext}
-          whileHover={{ scale: 1.08, rotate: 3 }}
+          whileHover={!isMobile && !reduceMotion ? { scale: 1.08, rotate: 3 } : undefined}
           whileTap={{ scale: 0.92 }}
           className="group relative rounded-full bg-primary/20 p-1.5 backdrop-blur-sm border border-primary/50 shadow-md shadow-primary/25 hover:shadow-primary/50 transition-all duration-300"
           style={{ transformStyle: "preserve-3d" }}
