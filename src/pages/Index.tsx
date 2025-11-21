@@ -19,6 +19,7 @@ import { Section } from "@/components/Section";
 import { Stack } from "@/components/layout/Stack";
 import { Grid } from "@/components/layout/Grid";
 import { HorizontalScroll } from "@/components/HorizontalScroll";
+import { ContactForm } from "@/components/ContactForm";
 
 import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
@@ -170,6 +171,10 @@ const Index: React.FC = () => {
 
               <LazySection minHeight={420}>
                 <AboutMe />
+              </LazySection>
+
+              <LazySection minHeight={380}>
+                <Contact />
               </LazySection>
             </motion.div>
           )}
@@ -981,6 +986,46 @@ const AboutMe: React.FC = React.memo(() => {
   );
 });
 AboutMe.displayName = "AboutMe";
+
+const Contact: React.FC = React.memo(() => {
+  return (
+    <Section id="contact" spacing="normal" border="top">
+      <ParallaxBackground
+        speed={0.45}
+        gradient="from-secondary/8 via-primary/6 to-accent/8"
+        meshVariant="secondary"
+        meshIntensity="vibrant"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_70%,hsl(var(--secondary)/0.18),transparent_55%)]" />
+      </ParallaxBackground>
+
+      <Stack gap="lg">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="heading-3 text-foreground">Get in Touch</h2>
+          <p className="body-lg max-w-2xl text-muted-foreground mt-2">
+            Ready to start a pilot or have questions? Drop me a message and I'll get back within 24 hours.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="max-w-2xl"
+        >
+          <ContactForm />
+        </motion.div>
+      </Stack>
+    </Section>
+  );
+});
+Contact.displayName = "Contact";
 
 const SiteFooter: React.FC = React.memo(() => {
   return (
