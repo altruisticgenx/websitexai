@@ -35,10 +35,11 @@ export function PilotCarousel3D({
 
   // Helper function to determine which cards should load images
   const shouldLoadImage = (index: number): boolean => {
-    // Only load current card and adjacent cards (prev/next)
+    // Load current card, adjacent cards (prev/next), and 2 positions ahead for preloading
     const prev = (currentIndex - 1 + totalSlides) % totalSlides;
     const next = (currentIndex + 1) % totalSlides;
-    return index === currentIndex || index === prev || index === next;
+    const nextNext = (currentIndex + 2) % totalSlides;
+    return index === currentIndex || index === prev || index === next || index === nextNext;
   };
 
   // Minimum swipe distance (in px) to trigger navigation
