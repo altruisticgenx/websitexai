@@ -498,7 +498,7 @@ export function Hero() {
             </motion.div>
 
             {/* CTA Buttons */}
-            <motion.div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-start" initial={{
+            <motion.div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-start" initial={{
             opacity: 0,
             y: 20
           }} animate={{
@@ -508,8 +508,13 @@ export function Hero() {
             duration: 0.6,
             delay: 0.8
           }}>
-              <a href="https://scheduler.zoom.us/altruistic-xai" target="_blank" rel="noopener noreferrer" className="inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-primary px-6 py-3 body-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
-                Book 20-min Pilot Fit Call
+              <a href="https://us06web.zoom.us/launch/chat?src=direct_chat_link&email=altruisticxai@gmail.com" target="_blank" rel="noopener noreferrer" className="inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-primary px-3 py-1.5 text-[11px] font-medium text-primary-foreground hover:bg-primary/90 transition-colors shadow-md shadow-primary/20">
+                <Mail className="w-3 h-3 mr-1.5" />
+                Zoom Chat
+              </a>
+              <a href="https://www.linkedin.com/in/ik11/" target="_blank" rel="noopener noreferrer" className="inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-accent px-3 py-1.5 text-[11px] font-medium text-accent-foreground hover:bg-accent/90 transition-colors shadow-md shadow-accent/20">
+                <Linkedin className="w-3 h-3 mr-1.5" />
+                LinkedIn
               </a>
             </motion.div>
 
