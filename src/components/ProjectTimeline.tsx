@@ -32,7 +32,7 @@ export function ProjectTimeline({ phases, duration }: ProjectTimelineProps) {
     <div className="mt-6">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="flex w-full items-center justify-between rounded-xl border border-slate-800/70 bg-slate-950/40 p-3 text-left transition-all hover:border-emerald-400/30 hover:bg-slate-900/60 sm:p-4"
+        className="flex w-full items-center justify-between rounded-xl border border-slate-800/70 bg-slate-950/40 p-3 text-left transition-all hover:border-emerald-400/30 hover:bg-slate-900/60 min-h-[44px] sm:p-4"
       >
         <div className="flex items-center gap-3">
           <div className="rounded-lg bg-emerald-400/10 p-2">

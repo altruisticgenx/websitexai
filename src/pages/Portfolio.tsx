@@ -193,7 +193,7 @@ export default function Portfolio() {
         >
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-emerald-300 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-emerald-300 transition-colors min-h-[44px]"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to home

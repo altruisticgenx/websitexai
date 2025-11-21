@@ -337,7 +337,7 @@ export function Hero() {
             >
               <span className="text-muted-foreground">Focus:</span>
               <motion.button
-                className="relative px-3 py-1.5 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all"
+                className="relative px-3 py-1.5 rounded-lg border-2 border-primary/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all min-h-[44px] min-w-[80px]"
                 onMouseEnter={() => setActiveSector("energy")}
                 onMouseLeave={() => setActiveSector(null)}
                 whileHover={{ scale: 1.05, borderColor: "hsl(var(--primary) / 0.6)" }}
@@ -422,7 +422,7 @@ export function Hero() {
               </motion.button>
               
               <motion.button
-                className="relative px-3 py-1.5 rounded-lg border-2 border-accent/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all"
+                className="relative px-3 py-1.5 rounded-lg border-2 border-accent/40 bg-card/60 backdrop-blur-sm text-foreground overflow-visible group transition-all min-h-[44px] min-w-[100px]"
                 onMouseEnter={() => setActiveSector("education")}
                 onMouseLeave={() => setActiveSector(null)}
                 whileHover={{ scale: 1.05, borderColor: "hsl(var(--accent) / 0.6)" }}

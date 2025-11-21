@@ -83,21 +83,21 @@ export function SiteNav() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:gap-1" role="navigation" aria-label="Primary">
-            <a href="#" onClick={handleNavClick} aria-label="Navigate to home section" aria-current={activeSection === "" ? "page" : undefined} className={cn("px-2 py-1 body-xs lowercase tracking-wide transition-all duration-200 rounded-md", activeSection === "" ? "text-primary bg-primary/10" : "text-foreground hover:text-primary hover:bg-accent/50")}>
+            <a href="#" onClick={handleNavClick} aria-label="Navigate to home section" aria-current={activeSection === "" ? "page" : undefined} className={cn("px-2 py-1 body-xs lowercase tracking-wide transition-all duration-200 rounded-md min-h-[44px] flex items-center", activeSection === "" ? "text-primary bg-primary/10" : "text-foreground hover:text-primary hover:bg-accent/50")}>
               home
             </a>
 
-            <a href="/portfolio" aria-label="View portfolio lab" className="px-2 py-1 body-xs lowercase tracking-wide text-foreground transition-all duration-200 hover:text-primary hover:bg-accent/50 rounded-md">
+            <a href="/portfolio" aria-label="View portfolio lab" className="px-2 py-1 body-xs lowercase tracking-wide text-foreground transition-all duration-200 hover:text-primary hover:bg-accent/50 rounded-md min-h-[44px] flex items-center">
               lab
             </a>
 
-            <a href="https://futurexedu.lovable.app" target="_blank" rel="noopener noreferrer" aria-label="View 2026 snapshot (opens in new tab)" className="px-2 py-1 body-xs lowercase tracking-wide text-foreground transition-all duration-200 hover:text-primary hover:bg-accent/50 rounded-md">
+            <a href="https://futurexedu.lovable.app" target="_blank" rel="noopener noreferrer" aria-label="View 2026 snapshot (opens in new tab)" className="px-2 py-1 body-xs lowercase tracking-wide text-foreground transition-all duration-200 hover:text-primary hover:bg-accent/50 rounded-md min-h-[44px] flex items-center">
               2026 snapshot
             </a>
 
             {/* Work Dropdown */}
             <div className="relative">
-              <button onClick={() => setIsWorkOpen(!isWorkOpen)} onMouseEnter={() => setIsWorkOpen(true)} aria-expanded={isWorkOpen} aria-haspopup="true" aria-label="Work menu" className={cn("flex items-center gap-0.5 px-2 py-1 body-xs lowercase tracking-wide transition-all duration-200 rounded-md", isWorkActive ? "text-primary bg-primary/10" : "text-foreground hover:text-primary hover:bg-accent/50")}>
+              <button onClick={() => setIsWorkOpen(!isWorkOpen)} onMouseEnter={() => setIsWorkOpen(true)} aria-expanded={isWorkOpen} aria-haspopup="true" aria-label="Work menu" className={cn("flex items-center gap-0.5 px-2 py-1 body-xs lowercase tracking-wide transition-all duration-200 rounded-md min-h-[44px]", isWorkActive ? "text-primary bg-primary/10" : "text-foreground hover:text-primary hover:bg-accent/50")}>
                 work
                 <ChevronDown className={cn("h-3 w-3 transition-transform duration-200", isWorkOpen && "rotate-180")} aria-hidden="true" />
               </button>
@@ -105,14 +105,14 @@ export function SiteNav() {
               {/* Dropdown Menu */}
               {isWorkOpen && <div onMouseLeave={() => setIsWorkOpen(false)} role="menu" aria-label="Work submenu" className="absolute right-0 top-full mt-2 w-44 rounded-lg border border-border bg-card/95 backdrop-blur-sm shadow-xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                   <div className="p-1.5">
-                    <a href="#pilot" onClick={handleNavClick} role="menuitem" aria-label="Navigate to 4-week pilots section" className={cn("block rounded-md px-2 py-1.5 body-xs transition-colors", activeSection === "pilot" ? "bg-primary/10 text-primary font-medium" : "text-card-foreground hover:bg-accent hover:text-accent-foreground")}>
+                    <a href="#pilot" onClick={handleNavClick} role="menuitem" aria-label="Navigate to 4-week pilots section" className={cn("block rounded-md px-2 py-1.5 body-xs transition-colors min-h-[40px]", activeSection === "pilot" ? "bg-primary/10 text-primary font-medium" : "text-card-foreground hover:bg-accent hover:text-accent-foreground")}>
                       <div className="font-medium body-sm">4-week pilots</div>
                       <div className="micro text-muted-foreground">
                         Pilot partner model
                       </div>
                     </a>
 
-                    <a href="#builds" onClick={handleNavClick} role="menuitem" aria-label="Navigate to recent builds section" className={cn("block rounded-md px-2 py-1.5 body-xs transition-colors", activeSection === "builds" ? "bg-primary/10 text-primary font-medium" : "text-card-foreground hover:bg-accent hover:text-accent-foreground")}>
+                    <a href="#builds" onClick={handleNavClick} role="menuitem" aria-label="Navigate to recent builds section" className={cn("block rounded-md px-2 py-1.5 body-xs transition-colors min-h-[40px]", activeSection === "builds" ? "bg-primary/10 text-primary font-medium" : "text-card-foreground hover:bg-accent hover:text-accent-foreground")}>
                       <div className="font-medium body-sm">Recent builds</div>
                       <div className="micro text-muted-foreground">
                         See what's been shipped
@@ -124,7 +124,7 @@ export function SiteNav() {
 
             {/* Solutions Dropdown */}
             <div className="relative">
-              <button onClick={() => setIsSolutionsOpen(!isSolutionsOpen)} onMouseEnter={() => setIsSolutionsOpen(true)} aria-expanded={isSolutionsOpen} aria-haspopup="true" aria-label="Solutions menu" className={cn("flex items-center gap-0.5 px-2 py-1 body-xs lowercase tracking-wide transition-all duration-200 rounded-md", "text-foreground hover:text-primary hover:bg-accent/50")}>
+              <button onClick={() => setIsSolutionsOpen(!isSolutionsOpen)} onMouseEnter={() => setIsSolutionsOpen(true)} aria-expanded={isSolutionsOpen} aria-haspopup="true" aria-label="Solutions menu" className={cn("flex items-center gap-0.5 px-2 py-1 body-xs lowercase tracking-wide transition-all duration-200 rounded-md min-h-[44px]", "text-foreground hover:text-primary hover:bg-accent/50")}>
                 solutions
                 <ChevronDown className={cn("h-3 w-3 transition-transform duration-200", isSolutionsOpen && "rotate-180")} aria-hidden="true" />
               </button>
@@ -132,13 +132,13 @@ export function SiteNav() {
               {/* Dropdown Menu */}
               {isSolutionsOpen && <div onMouseLeave={() => setIsSolutionsOpen(false)} role="menu" aria-label="Solutions submenu" className="absolute right-0 top-full mt-2 w-44 rounded-lg border border-border bg-card/95 backdrop-blur-sm shadow-xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                   <div className="p-1.5">
-                    <a href="/solutions/future-proofing" onClick={() => setIsSolutionsOpen(false)} role="menuitem" aria-label="Future proofing solutions" className="block rounded-md px-2 py-1.5 body-xs transition-colors text-card-foreground hover:bg-accent hover:text-accent-foreground">
+                    <a href="/solutions/future-proofing" onClick={() => setIsSolutionsOpen(false)} role="menuitem" aria-label="Future proofing solutions" className="block rounded-md px-2 py-1.5 body-xs transition-colors text-card-foreground hover:bg-accent hover:text-accent-foreground min-h-[40px]">
                       <div className="font-medium body-sm">Future proofing</div>
                       <div className="micro text-muted-foreground">
                         4-week pilot for schools
                       </div>
                     </a>
-                    <a href="https://docs.google.com/document/d/150vF2RNZe395m3TTrq3zQTDGjFxsvfuM4CxNvqiRoss/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer" onClick={() => setIsSolutionsOpen(false)} role="menuitem" aria-label="Our mission (opens in new tab)" className="block rounded-md px-2 py-1.5 body-xs transition-colors text-card-foreground hover:bg-accent hover:text-accent-foreground">
+                    <a href="https://docs.google.com/document/d/150vF2RNZe395m3TTrq3zQTDGjFxsvfuM4CxNvqiRoss/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer" onClick={() => setIsSolutionsOpen(false)} role="menuitem" aria-label="Our mission (opens in new tab)" className="block rounded-md px-2 py-1.5 body-xs transition-colors text-card-foreground hover:bg-accent hover:text-accent-foreground min-h-[40px]">
                       <div className="font-medium body-sm">Our mission</div>
                       <div className="micro text-muted-foreground">
                         Learn about our purpose

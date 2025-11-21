@@ -72,12 +72,12 @@ export const OrganizationTypes = memo(() => {
           duration: 0.5,
           delay: index * 0.1
         }} className="relative">
-              <motion.button onClick={() => toggleOrg(org.name)} whileHover={{
+               <motion.button onClick={() => toggleOrg(org.name)} whileHover={{
             y: -4,
             scale: 1.02
           }} whileTap={{
             scale: 0.98
-          }} className={`group w-full rounded-xl border transition-all duration-300 cursor-pointer ${isExpanded ? 'border-primary/50 bg-gradient-to-br ' + org.gradient : 'border-border bg-gradient-to-br from-card/60 to-card/30'} p-3 text-center`}>
+          }} className={`group w-full rounded-xl border transition-all duration-300 cursor-pointer min-h-[44px] ${isExpanded ? 'border-primary/50 bg-gradient-to-br ' + org.gradient : 'border-border bg-gradient-to-br from-card/60 to-card/30'} p-3 text-center`}>
                 <motion.div animate={{
               scale: isExpanded ? 1.1 : 1,
               rotate: isExpanded ? -5 : 0
