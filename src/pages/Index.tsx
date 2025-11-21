@@ -23,6 +23,7 @@ const EngagementModels = lazy(() => import("@/components/EngagementModels").then
 })));
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { ScrollProgress } from "@/components/ScrollProgress";
+import { ParallaxBackground } from "@/components/ParallaxBackground";
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp";
 import { SwipeIndicator } from "@/components/SwipeIndicator";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
@@ -410,7 +411,10 @@ const RecentBuilds: React.FC = React.memo(() => {
       supabase.removeChannel(channel);
     };
   }, [fetchProjects]);
-  return <section id="builds" className="py-10 lg:py-16">
+  return <section id="builds" className="relative py-10 lg:py-16">
+      <ParallaxBackground speed={0.6} gradient="from-primary/8 via-accent/8 to-transparent">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,hsl(var(--primary)/0.15),transparent_50%)]" />
+      </ParallaxBackground>
       <div className="mx-auto w-full max-w-5xl px-4">
         <motion.div initial={{
         opacity: 0,
@@ -488,7 +492,10 @@ const RecentBuilds: React.FC = React.memo(() => {
 });
 RecentBuilds.displayName = "RecentBuilds";
 const PilotOffer: React.FC = React.memo(() => {
-  return <section id="pilot" className="border-t border-slate-900/80 py-10 lg:py-16" aria-labelledby="pilot-heading">
+  return <section id="pilot" className="relative border-t border-slate-900/80 py-10 lg:py-16" aria-labelledby="pilot-heading">
+      <ParallaxBackground speed={0.5} gradient="from-secondary/8 via-accent/6 to-transparent">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,hsl(var(--accent)/0.15),transparent_50%)]" />
+      </ParallaxBackground>
       <div className="mx-auto w-full max-w-5xl space-y-8 px-4">
         <motion.div initial={{
         opacity: 0,
@@ -611,7 +618,10 @@ const PilotOffer: React.FC = React.memo(() => {
 });
 PilotOffer.displayName = "PilotOffer";
 const TypicalProgression: React.FC = React.memo(() => {
-  return <section className="border-t border-slate-900/80 py-10 lg:py-16">
+  return <section className="relative border-t border-slate-900/80 py-10 lg:py-16">
+      <ParallaxBackground speed={0.4} gradient="from-accent/10 via-primary/8 to-transparent">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,hsl(var(--secondary)/0.15),transparent_50%)]" />
+      </ParallaxBackground>
       <div className="mx-auto w-full max-w-5xl px-4">
         <motion.div initial={{
         opacity: 0,
@@ -674,7 +684,10 @@ const TypicalProgression: React.FC = React.memo(() => {
 TypicalProgression.displayName = "TypicalProgression";
 const WhoBenefits: React.FC = React.memo(() => {
   const audiences = useMemo(() => ["Students bringing new ideas to life", "Teachers or nonprofits piloting campus or impact projects", "Boards and governance teams needing clearer dashboards", "Solo founders wanting operational peace of mind", "B2B units innovating on tight timelines"], []);
-  return <section id="benefits" className="border-t border-slate-900/80 py-10 lg:py-16">
+  return <section id="benefits" className="relative border-t border-slate-900/80 py-10 lg:py-16">
+      <ParallaxBackground speed={0.55} gradient="from-primary/10 via-secondary/8 to-accent/10">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_20%,hsl(var(--accent)/0.15),transparent_60%)]" />
+      </ParallaxBackground>
       <div className="mx-auto w-full max-w-5xl px-4">
         <motion.div initial={{
         opacity: 0,
@@ -743,7 +756,10 @@ const WhoBenefits: React.FC = React.memo(() => {
 });
 WhoBenefits.displayName = "WhoBenefits";
 const AboutMe: React.FC = React.memo(() => {
-  return <section id="about" className="border-t border-slate-900/80 py-10 lg:py-16">
+  return <section id="about" className="relative border-t border-slate-900/80 py-10 lg:py-16">
+      <ParallaxBackground speed={0.6} gradient="from-primary/6 via-secondary/8 to-accent/6">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,hsl(var(--primary)/0.12),transparent_60%)]" />
+      </ParallaxBackground>
       <div className="mx-auto w-full max-w-5xl space-y-10 px-4">
         <motion.div initial={{
         opacity: 0,
