@@ -15,14 +15,26 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
     dedupe: [
+      // Core React
       "react", 
       "react-dom",
+      // Animation libraries that depend on React
       "framer-motion",
+      // Three.js React wrappers
+      "@react-three/fiber",
+      "@react-three/drei",
+      "three",
+      // All Radix UI packages (UI component library)
       "@radix-ui/react-navigation-menu",
       "@radix-ui/react-tooltip",
       "@radix-ui/react-slot",
       "@radix-ui/react-dialog",
       "@radix-ui/react-popover",
+      "@radix-ui/react-accordion",
+      "@radix-ui/react-dropdown-menu",
+      "@radix-ui/react-tabs",
+      "@radix-ui/react-select",
+      "@radix-ui/react-scroll-area",
     ],
   },
 }));
