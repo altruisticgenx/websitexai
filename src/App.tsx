@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,10 +7,24 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ScrollRestoration } from "@/components/ScrollRestoration";
 import { ImageLoadingMonitor } from "@/components/ImageLoadingMonitor";
 import Index from "./pages/Index";
-import Portfolio from "./pages/Portfolio";
 import CaseStudyDetail from "./pages/CaseStudyDetail";
-import FutureProofing from "./pages/FutureProofing";
 import NotFound from "./pages/NotFound";
+
+// Lazy-loaded routes for code splitting
+const Portfolio = lazy(() => import("./pages/Portfolio"));
+const FutureProofing = lazy(() => import("./pages/FutureProofing"));
+
+// Loading fallback component
+const RouteLoadingFallback = () => (
+  <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+    <div className="text-center space-y-4">
+      <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+      <p className="text-sm text-muted-foreground">Loading page...</p>
+    </div>
+  </div>
+);
 
 const queryClient = new QueryClient();
 
@@ -27,9 +42,23 @@ const App = () => (
         <ScrollRestoration />
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/portfolio" element={<Portfolio />} />
+          <Route 
+            path="/portfolio" 
+            element={
+              <Suspense fallback={<RouteLoadingFallback />}>
+                <Portfolio />
+              </Suspense>
+            } 
+          />
           <Route path="/case-study/:id" element={<CaseStudyDetail />} />
-          <Route path="/solutions/future-proofing" element={<FutureProofing />} />
+          <Route 
+            path="/solutions/future-proofing" 
+            element={
+              <Suspense fallback={<RouteLoadingFallback />}>
+                <FutureProofing />
+              </Suspense>
+            } 
+          />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
