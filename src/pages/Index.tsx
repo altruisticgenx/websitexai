@@ -704,7 +704,7 @@ const PilotOffer: React.FC = React.memo(() => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.25 }}
-          className="rounded-lg glass-card-hover p-5"
+          className="rounded-lg border border-primary/30 bg-gradient-to-br from-primary/5 to-slate-950/80 p-5 backdrop-blur-sm"
         >
           <p className="heading-5 mb-3 text-foreground">Pilot-first, learning-first approach</p>
           <p className="body-base leading-relaxed text-muted-foreground">
@@ -781,26 +781,17 @@ const TypicalProgression: React.FC = React.memo(() => {
               transition={{ duration: 0.4, delay: 0.06 * i }}
               whileHover={{ y: -4, scale: 1.02, transition: { duration: 0.2 } }}
               className={cn(
-                "group relative overflow-hidden rounded-xl glass-card-hover border-2 p-2.5 sm:p-3 transition-all",
+                "group relative overflow-hidden rounded-xl border-2 p-2.5 sm:p-3 backdrop-blur-sm transition-all",
                 "hover:shadow-lg hover:shadow-current/20",
                 step.ring === "emerald" &&
-                  "border-emerald-500/40 hover:border-emerald-400/60",
+                  "border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 via-teal-500/10 to-emerald-500/15 hover:border-emerald-400/60",
                 step.ring === "blue" &&
-                  "border-blue-500/40 hover:border-blue-400/60",
+                  "border-blue-500/40 bg-gradient-to-br from-blue-500/15 via-indigo-500/10 to-blue-500/15 hover:border-blue-400/60",
                 step.ring === "violet" &&
-                  "border-violet-500/40 hover:border-violet-400/60",
+                  "border-violet-500/40 bg-gradient-to-br from-violet-500/15 via-purple-500/10 to-violet-500/15 hover:border-violet-400/60",
                 step.ring === "orange" &&
-                  "border-orange-500/40 hover:border-orange-400/60",
+                  "border-orange-500/40 bg-gradient-to-br from-orange-500/15 via-amber-500/10 to-orange-500/15 hover:border-orange-400/60",
               )}
-              style={{
-                backgroundImage: step.ring === "emerald" 
-                  ? "linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(20, 184, 166, 0.1), rgba(16, 185, 129, 0.15))"
-                  : step.ring === "blue"
-                  ? "linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(99, 102, 241, 0.1), rgba(59, 130, 246, 0.15))"
-                  : step.ring === "violet"
-                  ? "linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(168, 85, 247, 0.1), rgba(139, 92, 246, 0.15))"
-                  : "linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(251, 191, 36, 0.1), rgba(249, 115, 22, 0.15))"
-              }}
             >
               <div
                 className={cn(
@@ -950,7 +941,7 @@ const AboutMe: React.FC = React.memo(() => {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          <article className="relative overflow-hidden rounded-xl glass-card-hover p-5 shadow-2xl">
+          <article className="relative overflow-hidden rounded-xl border border-slate-800/70 bg-gradient-to-br from-slate-950/95 via-slate-900/95 to-slate-950/95 p-5 shadow-2xl backdrop-blur-xl">
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-cyan-500/5" />
             <div className="relative z-10">
               <h3 id="why-matters-heading" className="heading-4 text-foreground">
