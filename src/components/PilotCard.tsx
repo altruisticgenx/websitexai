@@ -3,8 +3,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { SpotlightCard } from "./SpotlightCard";
-import { OptimizedImage } from "../media/OptimizedImage";
-import { AccessibleCard } from "../ui/accessible-card";
+
 interface PilotCardProps {
   id: string;
   title: string;
@@ -18,6 +17,7 @@ interface PilotCardProps {
   className?: string;
   shouldLoadImage?: boolean; // New prop for lazy loading control
 }
+
 export function PilotCard({
   id,
   title,
@@ -29,50 +29,45 @@ export function PilotCard({
   tag,
   imageUrl,
   className,
-  shouldLoadImage = true
+  shouldLoadImage = true,
 }: PilotCardProps) {
   const reduce = useReducedMotion();
-  return <Link to={`/case-study/${id}`} className="block w-full h-full">
+
+  return (
+    <Link to={`/case-study/${id}`} className="block w-full h-full">
       <SpotlightCard className={cn("h-full flex flex-col", className)}>
-        <AccessibleCard 
-          interactive 
-          headingLevel="h3"
-          aria-label={`Case study: ${title} - ${sector} pilot project`}
-          className="border-0 shadow-none bg-transparent"
+        <motion.article
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduce ? 0 : 0.35 }}
+          className="relative w-full h-full flex flex-col overflow-hidden"
         >
-          <motion.article initial={{
-          opacity: 0,
-          y: 12
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: reduce ? 0 : 0.35
-        }} className="relative w-full h-full flex flex-col overflow-hidden">
           {/* Image header - Mobile-first sizing */}
           <div className="relative h-32 xs:h-36 sm:h-40 w-full overflow-hidden flex-shrink-0">
-            {imageUrl && shouldLoadImage ? (
-              <OptimizedImage
+            {(shouldLoadImage ?? true) && imageUrl ? (
+              <img
                 src={imageUrl}
                 alt={`${title} preview`}
                 className="h-full w-full object-cover"
-                aspectRatio="video"
-                sizes="(max-width: 475px) 320px, (max-width: 640px) 400px, 500px"
-                enableModernFormats={true}
+                loading="lazy"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
               />
             ) : (
-              /* Gradient fallback when no image or not loaded yet */
-              <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+              <div className="h-full w-full bg-slate-800" />
             )}
-            <div className="pointer-events-none\n    absolute\n    inset-x-0\n    bottom-0\n    h-1/2\n    rounded-2xl\n    bg-gradient-to-t\n    from-slate-950/95\n    via-slate-950/60\n    to-transparent\n    sm:inset-0\n    sm:h-full" />
+            {/* Gradient overlay/fallback */}
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/50 to-transparent" />
 
             {/* Sector pill */}
-            <div className="absolute left-2 top-2 rounded-full bg-black/70 backdrop-blur-sm px-2 py-0.5 body-xs text-slate-200 ring-1 ring-white/10 font-medium">
+            <div className="absolute left-2 top-2 rounded-full bg-black/70 backdrop-blur-sm px-2 py-0.5 text-[9px] sm:text-[10px] text-slate-200 ring-1 ring-white/10 font-medium">
               {sector}
             </div>
 
             {tag && (
-              <div className="absolute right-2 top-2 rounded-full bg-primary/20 backdrop-blur-sm px-2 py-0.5 body-xs text-primary ring-1 ring-primary/30 font-medium">
+              <div className="absolute right-2 top-2 rounded-full bg-primary/20 backdrop-blur-sm px-2 py-0.5 text-[9px] sm:text-[10px] text-primary ring-1 ring-primary/30 font-medium">
                 {tag}
               </div>
             )}
@@ -81,24 +76,24 @@ export function PilotCard({
           {/* Body - Mobile-first padding and spacing */}
           <div className="flex flex-col gap-2 p-3 sm:p-4 flex-1">
             <header className="space-y-0.5">
-              <h3 className="body-base font-bold leading-tight text-white line-clamp-2">
+              <h3 className="text-xs xs:text-sm sm:text-base font-bold leading-tight text-white line-clamp-2">
                 {title}
               </h3>
-              <p className="body-xs text-slate-400">
+              <p className="text-[10px] xs:text-[11px] sm:text-xs text-slate-400">
                 For <span className="text-slate-200 font-medium">{whoFor}</span> · {timeToDemo}
               </p>
             </header>
 
             <div className="space-y-1.5 flex-1">
               <div className="rounded-lg bg-slate-900/60 backdrop-blur-sm p-2 sm:p-2.5">
-                <p className="body-sm text-slate-300 leading-relaxed">
+                <p className="text-[10px] xs:text-[11px] sm:text-xs text-slate-300 leading-relaxed">
                   <span className="font-semibold text-slate-100">Problem:</span>{" "}
                   {problem}
                 </p>
               </div>
 
               <div className="rounded-lg bg-slate-900/60 backdrop-blur-sm p-2 sm:p-2.5">
-                <p className="body-sm text-slate-300 leading-relaxed">
+                <p className="text-[10px] xs:text-[11px] sm:text-xs text-slate-300 leading-relaxed">
                   <span className="font-semibold text-slate-100">Outcome:</span>{" "}
                   {outcome}
                 </p>
@@ -110,17 +105,19 @@ export function PilotCard({
               <div
                 className={cn(
                   "w-full rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-center",
-                  "body-sm font-semibold text-primary",
-                  "transition-all duration-200"
+                  "text-[10px] xs:text-[11px] sm:text-xs font-semibold text-primary",
+                  "hover:bg-primary/20 hover:border-primary/50 active:scale-[0.98] transition-all duration-200",
+                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                 )}
-                aria-hidden="true"
+                role="button"
+                aria-label={`Open case study for ${title}`}
               >
                 View case study →
               </div>
             </div>
           </div>
         </motion.article>
-        </AccessibleCard>
       </SpotlightCard>
-    </Link>;
+    </Link>
+  );
 }

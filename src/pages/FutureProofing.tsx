@@ -1,4 +1,4 @@
-import { PilotApplicationForm } from "@/components/forms";
+import { PilotApplicationForm } from "@/components/PilotApplicationForm";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 

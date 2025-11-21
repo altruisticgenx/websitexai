@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { AccessibleButton } from "@/components/ui/accessible-button";
-import { AccessibleInput } from "@/components/ui/accessible-input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
 export function PilotApplicationForm() {
@@ -46,38 +46,22 @@ export function PilotApplicationForm() {
   };
 
   return (
-    <form 
-      onSubmit={handleSubmit} 
-      className="flex flex-col sm:flex-row gap-3 max-w-md"
-      aria-busy={isSubmitting}
-    >
-      {/* Screen reader announcements for form status */}
-      <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
-        {isSubmitting && "Submitting your application, please wait"}
-      </div>
-      <div className="flex-1">
-        <AccessibleInput
-          type="email"
-          label="Email address"
-          hideLabel
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          disabled={isSubmitting}
-          className="bg-slate-900/60 border-slate-700 text-slate-100 placeholder:text-slate-400"
-          required
-          aria-label="Email address for pilot application"
-        />
-      </div>
-      <AccessibleButton
+    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md">
+      <Input
+        type="email"
+        placeholder="Enter your email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        disabled={isSubmitting}
+        className="flex-1 bg-slate-900/60 border-slate-700 text-slate-100 placeholder:text-slate-400"
+      />
+      <Button
         type="submit"
         disabled={isSubmitting}
         className="rounded-full bg-sky-400 px-5 py-2.5 text-sm font-medium text-slate-950 hover:bg-sky-300 transition"
-        size="default"
-        aria-label={isSubmitting ? "Submitting application" : "Apply for 2025-2026 pilot program"}
       >
         {isSubmitting ? "Submitting..." : "Apply for 2025-2026"}
-      </AccessibleButton>
+      </Button>
     </form>
   );
 }

@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useActiveSection } from "@/hooks/use-active-section";
-import { useKeyboardTrap } from "@/hooks/use-keyboard-trap";
 import { cn } from "@/lib/utils";
 
 interface MobileMenuProps {
@@ -12,19 +11,10 @@ interface MobileMenuProps {
 
 export function MobileMenu({ className = "" }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
   const activeSection = useActiveSection([
     "builds", "how", "pilot", "benefits", "org-types", 
     "where", "shelved", "testimonials", "faq", "contact"
   ]);
-
-  const closeMenu = () => {
-    setIsOpen(false);
-    document.body.style.overflow = 'unset';
-  };
-
-  // Keyboard trap for accessibility
-  useKeyboardTrap(menuRef, isOpen, closeMenu);
 
   // Cleanup on unmount
   useEffect(() => {
@@ -40,6 +30,11 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
     } else {
       document.body.style.overflow = 'unset';
     }
+  };
+  
+  const closeMenu = () => {
+    setIsOpen(false);
+    document.body.style.overflow = 'unset';
   };
 
   const menuItems = [
@@ -84,7 +79,6 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              ref={menuRef}
               className="fixed right-0 top-0 h-full w-[85vw] max-w-[320px] bg-slate-900/98 backdrop-blur-md border-l border-slate-800 shadow-2xl z-[101] overflow-y-auto overscroll-contain"
               role="dialog"
               aria-modal="true"
@@ -96,10 +90,10 @@ export function MobileMenu({ className = "" }: MobileMenuProps) {
                 </span>
                 <button
                   onClick={closeMenu}
-                  className="rounded-full p-2 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-slate-800 transition-colors focus-ring interactive"
+                  className="rounded-full p-1.5 hover:bg-slate-800 transition-colors active:scale-95"
                   aria-label="Close menu"
                 >
-                  <X size={20} className="text-slate-400" />
+                  <X size={18} className="text-slate-400" />
                 </button>
               </div>
 

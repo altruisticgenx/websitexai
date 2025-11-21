@@ -56,7 +56,7 @@ export function OptimizedImage({
         }
       },
       {
-        rootMargin: "200px", // Increased for carousel prefetching
+        rootMargin: "100px",
         threshold: 0.01,
       }
     );

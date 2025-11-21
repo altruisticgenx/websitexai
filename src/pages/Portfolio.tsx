@@ -4,7 +4,7 @@ import { ArrowLeft, Calendar, Code, Target, CheckCircle2, ExternalLink } from "l
 import { Link } from "react-router-dom";
 import { MetricsVariant } from "@/components/ui/animated-cards-stack";
 import { UniqueIntegrations } from "@/components/UniqueIntegrations";
-import { ProjectTimeline } from "@/components/utilities";
+import { ProjectTimeline } from "@/components/ProjectTimeline";
 import {
   Accordion,
   AccordionContent,
