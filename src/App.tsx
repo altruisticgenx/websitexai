@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ScrollRestoration } from "@/components/ScrollRestoration";
+import { ImageLoadingMonitor } from "@/components/ImageLoadingMonitor";
 import Index from "./pages/Index";
 import Portfolio from "./pages/Portfolio";
 import CaseStudyDetail from "./pages/CaseStudyDetail";
@@ -27,6 +28,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <ImageLoadingMonitor />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
