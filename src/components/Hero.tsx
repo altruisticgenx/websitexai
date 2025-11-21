@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Linkedin, Mail } from "lucide-react";
-import { Hero3DBackground } from "./Hero3D";
+import { Hero3DBackground } from "./effects/Hero3D";
 import { MouseTrailEffect } from "./hero/MouseTrailEffect";
 import { SectorSwitcher } from "./hero/SectorSwitcher";
 import { WavyBackground } from "./hero/WavyBackground";

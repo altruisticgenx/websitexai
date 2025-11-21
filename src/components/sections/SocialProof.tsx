@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Building2, GraduationCap, Lightbulb, Users } from "lucide-react";
-import { Section } from "./Section";
-import { Grid } from "./layout/Grid";
+import { Section } from "../utilities/Section";
+import { Grid } from "../layout/Grid";
 
 export function SocialProof() {
   const proofItems = [

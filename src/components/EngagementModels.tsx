@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { motion } from "framer-motion";
 import { Zap, FileText, Layers, RefreshCw, LucideIcon } from "lucide-react";
-import { FloatingCard3D } from "./FloatingCard3D";
+import { FloatingCard3D } from "./cards/FloatingCard3D";
 interface EngagementModel {
   name: string;
   icon: LucideIcon;

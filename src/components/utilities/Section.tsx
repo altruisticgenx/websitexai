@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { Container } from "./layout/Container";
+import { Container } from "../layout/Container";
 
 type SectionSpacing = "compact" | "normal" | "spacious";
 type SectionBorder = "top" | "bottom" | "both" | "none";

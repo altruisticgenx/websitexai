@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { FileText, Rocket, RefreshCw } from "lucide-react";
-import { Section } from "./Section";
+import { Section } from "./utilities/Section";
 import { Stack } from "./layout/Stack";
 import { Grid } from "./layout/Grid";
 
