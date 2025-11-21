@@ -475,3 +475,12 @@ All colors MUST be HSL.
     @apply focus-ring interactive;
   }
 }
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
